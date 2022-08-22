@@ -1,0 +1,28 @@
+ID,Code,Korean
+int,StringUI,String
+1,GameTitle,플럼타워디펜스
+2,GameStart,게임시작
+3,Upgrade,강화
+4,Option,환경 설정
+5,GameEnd,게임 종료
+6,Stage_Level,Level : 
+7,Xp_Point,(게임에서 모은)Xp : 
+8,Hp,Hp :
+9,Money,Money : 
+10,Expand,확장하기
+11,Stage_Start,Play
+12,Tower_Name,타워의 이름
+13,Tower_Cost,타워의 비용
+14,In_Game_Upgrade_Title,인게임 증강체 제목
+15,In_Game_Upgrade_Contents,인게임 증강체 설명
+16,Select,선택
+17,Game_Over,GameOver
+18,Main_Menu,메인 메뉴로 돌아가기
+19,Xp,(총합)Xp : 
+20,Xp_Reset,Xp 리셋하기
+21,Tower_Category,타워 종류
+22,Tower_Resource_Passive,"타워, 자원, 패시브"
+23,Upgrade_Title,강화 제목
+24,Upgrade_Explanation,강화 설명
+25,Required_Xp,요구되는 Xp
+,,
