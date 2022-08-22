@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Tables
+[CreateAssetMenu(menuName = "Scriptables/Tables")]
+public class Tables : ScriptableObject
 {
     public class StringUI
     {
@@ -11,7 +12,7 @@ namespace Tables
         public string _Korean;
 
         //static List<StringUI> _data;
-        static Dictionary<int, StringUI> _map;
+        static Dictionary<int, StringUI> _map = new();
 
         static void Add(StringUI Sender)
         {
@@ -28,12 +29,20 @@ namespace Tables
 
         public static void StringUILoad()
         {
-            TextAsset dataset = Resources.Load<TextAsset>("CSVs/StringUI");
-            string[] dataLines = dataset.text.Split('\n');
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/StringUI");
+            string[] dataLines = dataset.text.Split("\n");
 
-            for (int i = 0; i < dataLines.Length; i++)
+            Debug.Log(dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
             {
+                dataLines[i].Trim();
                 var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
 
                 StringUI Tmp = new();
 
@@ -49,18 +58,12 @@ namespace Tables
     }
 
 
-
-
-
-
-    public class TablesLoader
+    public static void Load()
     {
-        public static void Load()
-        {
-            // 새로운 Class가 생기면 추가해줘야 함
-            StringUI.StringUILoad();
-        }
+        // 새로운 Class가 생기면 추가해줘야 함
+        StringUI.StringUILoad();
+
+        Debug.Log("Load End");
     }
+    
 }
-
-
