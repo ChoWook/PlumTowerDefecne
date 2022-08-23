@@ -62,5 +62,6 @@ Library/
 Logs/
 UserSettings/
 Temp/
+obj/
 ShaderGraphSettings.asset
 .vsconfig
