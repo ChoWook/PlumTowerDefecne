@@ -1,30 +1,30 @@
 ID,Code,Korean
 int,StringUI,String
 1,Game_Title,PLUM TOWER DEFESNSE
-2,Game_Start,°ÔÀÓ½ÃÀÛ
-3,Upgrade,°­È­
-4,Option,È¯°æ ¼³Á¤
-5,Game_End,°ÔÀÓ Á¾·á
+2,Game_Start,ê²Œì„ì‹œì‘
+3,Upgrade,ê°•í™”
+4,Option,í™˜ê²½ ì„¤ì •
+5,Game_End,ê²Œì„ ì¢…ë£Œ
 6,Stage_Level,Level : 
 7,In_Game_Xp_Point,Xp : 
 8,In_Game_Hp,Hp :
 9,In_Game_Money,Money : 
-10,Expand,È®ÀåÇÏ±â
-11,Stage_Start,½ÃÀÛÇÏ±â
-12,Tower_Name,Å¸¿öÀÇ ÀÌ¸§
-13,Tower_Cost,Å¸¿öÀÇ ºñ¿ë
-14,In_Game_Upgrade_Title,ÀÎ°ÔÀÓ Áõ°­Ã¼ Á¦¸ñ
-15,In_Game_Upgrade_Contents,ÀÎ°ÔÀÓ Áõ°­Ã¼ ¼³¸í
-16,Upgrade_Select,¼±ÅÃÇÏ±â
+10,Expand,í™•ì¥í•˜ê¸°
+11,Stage_Start,ì‹œì‘í•˜ê¸°
+12,Tower_Name,íƒ€ì›Œì˜ ì´ë¦„
+13,Tower_Cost,íƒ€ì›Œì˜ ë¹„ìš©
+14,In_Game_Upgrade_Title,ì¸ê²Œì„ ì¦ê°•ì²´ ì œëª©
+15,In_Game_Upgrade_Contents,ì¸ê²Œì„ ì¦ê°•ì²´ ì„¤ëª…
+16,Upgrade_Select,ì„ íƒí•˜ê¸°
 17,Pause,PAUSE
-18,Resume,µ¹¾Æ°¡±â
+18,Resume,ëŒì•„ê°€ê¸°
 19,Game_Over,GameOver
-20,Main_Menu,¸ŞÀÎ ¸Ş´º·Î µ¹¾Æ°¡±â
+20,Main_Menu,ë©”ì¸ ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°
 21,Xp,Xp : 
-22,Xp_Reset,Xp ¸®¼ÂÇÏ±â
-23,Tower_Resource_Passive_Category,"Å¸¿ö, ÀÚ¿ø, ÆĞ½Ãºê Ä«Å×°í¸®"
-24,Tower_Resource_Passive_Select,"Å¸¿ö, ÀÚ¿ø, ÆĞ½Ãºê ¼±ÅÃ"
-25,Upgrade_Title,°­È­ Á¦¸ñ
-26,Upgrade_Contents,°­È­ ¼³¸í
-27,Required_Xp,¿ä±¸µÇ´Â Xp 
+22,Xp_Reset,Xp ë¦¬ì…‹í•˜ê¸°
+23,Tower_Resource_Passive_Category,"íƒ€ì›Œ, ìì›, íŒ¨ì‹œë¸Œ ì¹´í…Œê³ ë¦¬"
+24,Tower_Resource_Passive_Select,"íƒ€ì›Œ, ìì›, íŒ¨ì‹œë¸Œ ì„ íƒ"
+25,Upgrade_Title,ê°•í™” ì œëª©
+26,Upgrade_Contents,ê°•í™” ì„¤ëª…
+27,Required_Xp,ìš”êµ¬ë˜ëŠ” Xp 
 ,,
