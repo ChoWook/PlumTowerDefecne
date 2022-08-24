@@ -17,18 +17,14 @@ public class Ground : MonoBehaviour
 
     private void Update()
     {
-        if (!Application.isPlaying)
-        {
-            Debug.Log("Tables.Load");
-            Tables.Load();
-            SetGroundPattern(Pattern);
-            SetTilesPos();
-        }
+        Tables.Load();
+        SetGroundPattern(Pattern);
+        SetTilesPos();
     }
 
     void SetTilesPos()
     {
-        for (int i = 0; i < GroundSize * GroundSize; i++)
+        for (int i = 0; i < Tiles.Length; i++)
         {
             Tiles[i].PosX = i / GroundSize;
             Tiles[i].PosY = i % GroundSize;
@@ -36,11 +32,56 @@ public class Ground : MonoBehaviour
     }
 #endif
 
-    public void SetGroundPattern(int id)
+    public void SetGroundPattern(EGroundType type)
     {
+        SetGroundPattern(SelectRandomPattern(type));
+    }
+
+    void SetGroundPattern(int id = 0)
+    {
+        Pattern = id;
+        // id == 0 이면 Tile 꺼주기
+        if(id == 0)
+        {
+            for (int i = 0; i < GroundSize * GroundSize; i++)
+            {
+                Tiles[i].gameObject.SetActive(id != 0);
+            }
+        }
+        
+
+        if (Tables.GroundPattern.Get(id) == null)
+        {
+            return;
+        }
+
+
         for (int i = 0; i < GroundSize * GroundSize; i++)
         {
             Tiles[i].TileType = Tables.GroundPattern.Get(id)._Tiles[i];
         }  
+    }
+
+    // type에 맞는 패턴 중에 랜덤하게 선택
+    int SelectRandomPattern(EGroundType type)
+    {
+        var list = Tables.GroundPattern.Get(type);
+
+        if(list.Count == 0)
+        {
+            return 0;
+        }
+
+        return list[Random.Range(0, list.Count)]._ID;
+    }
+
+    public void HideGridLine()
+    {
+        GridLine.SetActive(false);
+    }
+
+    public void ShowGridLine()
+    {
+        GridLine.SetActive(true);
     }
 }
