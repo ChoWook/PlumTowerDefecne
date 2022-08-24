@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour
     float OriginalHP; // 데이터테이블에서 가져오기
     float MaxHP;
     float CurrentHP;
+
+    ModifiableValue HP;
+
     float OriginalShield;// 데이터테이블에서 가져오기
     float MaxShield; 
     float CurrentShield;
@@ -209,6 +212,9 @@ public class Enemy : MonoBehaviour
         MaxHP = OriginalHP;
         MaxShield = OriginalShield;
         CurrentHP = MaxHP;
+
+        HP.BaseValue = 3;
+
         CurrentShield = MaxShield;
         Armor = OriginalArmor;
         Speed = OriginalSpeed;

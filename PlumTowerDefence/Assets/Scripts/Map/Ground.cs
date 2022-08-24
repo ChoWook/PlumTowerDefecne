@@ -2,48 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Ground : MonoBehaviour
 {
-    [SerializeField]
-    int GroundSize = 7;
+    [SerializeField] GameObject GridLine;
 
-    Tile[,] Tiles;
+    [SerializeField] int GroundSize = 7;
 
+    public int Pattern = 1;
 
-    private void Start()
+    public Tile[] Tiles;
+
+#if UNITY_EDITOR
+
+    private void Update()
     {
-        InitTiles();
-    }
-
-    void InitTiles()
-    {
-        Tiles = new Tile[GroundSize, GroundSize];
-
-        for(int i = 0; i < Tiles.GetLength(0); i++)
+        if (!Application.isPlaying)
         {
-            for(int j = 0; j < Tiles.GetLength(1); j++)
-            {
-                Tiles[i, j] = new Tile();
-            }
+            Debug.Log("Tables.Load");
+            Tables.Load();
+            SetGroundPattern(Pattern);
+            SetTilesPos();
         }
     }
+
+    void SetTilesPos()
+    {
+        for (int i = 0; i < GroundSize * GroundSize; i++)
+        {
+            Tiles[i].PosX = i / GroundSize;
+            Tiles[i].PosY = i % GroundSize;
+        }
+    }
+#endif
 
     public void SetGroundPattern(int id)
     {
-        if(Tiles == null)
+        for (int i = 0; i < GroundSize * GroundSize; i++)
         {
-            Debug.Log("Tiles == null");
-            InitTiles();
-        }
-
-        for(int i = 0; i < GroundSize; i++)
-        {
-            for(int j = 0; j < GroundSize; j++)
-            {
-                var tmp = Tables.GroundPattern.Get(id)._Tiles[(i * GroundSize) + j];
-                Tiles[i, j].TileType = tmp;
-                Debug.Log(Tiles[i, j].TileType);
-            }
-        }
+            Tiles[i].TileType = Tables.GroundPattern.Get(id)._Tiles[i];
+        }  
     }
 }
