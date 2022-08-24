@@ -65,4 +65,5 @@ Temp/
 obj/
 ShaderGraphSettings.asset
 .vsconfig
+*.cache
 PlumTowerDefence/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
