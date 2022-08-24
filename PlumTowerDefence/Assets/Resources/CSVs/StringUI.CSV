@@ -27,12 +27,4 @@ int,StringUI,String
 25,Upgrade_Title,강화 제목
 26,Upgrade_Contents,강화 설명
 27,Required_Xp,요구되는 Xp 
-28,Tower_Move,타워 이동
-29,Tower_Level,타워 레벨 : 
-30,Tower_Demolish,타워 부수기
-31,Target_Priority,우선적 선택
-32,Target_Priority_Type,우선적 선택 타입
-33,Tower_Damage,타워 데미지 : 
-34,Tower_Upgrade,타워 업그레이드
-35,Tower_Range,범위 : 
-36,Tower_Fire_Rate,공격 속도 : 
+,,
