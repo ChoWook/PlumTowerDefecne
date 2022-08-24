@@ -6,13 +6,19 @@ using System;
 [CreateAssetMenu(menuName = "Scriptables/Tables")]
 public class Tables : ScriptableObject
 {
+    static bool IsLoaded = false;
+
     public static void Load()
     {
-        // 새로운 Class가 생기면 추가해줘야 함
-        StringUI.Load();
-        GroundPattern.Load();
+        if (!IsLoaded)
+        {
+            // 새로운 Class가 생기면 추가해줘야 함
+            StringUI.Load();
+            GroundPattern.Load();
 
-        Debug.Log("Load End");
+            IsLoaded = true;
+            Debug.Log("Load End");
+        }
     }
 
     public class CSVFile<_T>
@@ -39,7 +45,9 @@ public class Tables : ScriptableObject
     {
         public string _Code;
         public string _Korean;
-        
+
+        static Dictionary<string, StringUI> _StringMap = new();
+
         public static void Load()
         {
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/StringUI");
@@ -66,7 +74,13 @@ public class Tables : ScriptableObject
                 Tmp._Korean = data[idx++];
 
                 Tmp.Add(Tmp);
+                _StringMap.Add(Tmp._Code, Tmp);
             }
+        }
+
+        public StringUI Get(string code)
+        {
+            return _StringMap[code];
         }
     }
 
