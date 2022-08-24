@@ -22,48 +22,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private static int level = 0;
-    private static int xp = 0;
-    private static int maxHp = 10;
-    private static int currentHp = 10;
-    private static int money = 100;
+    private int _level = 0;
+    public int level
+    {
+        get { return _level; }
+        set { _level = value; }
+    }
+    private int _xp = 0;
+    public int xp
+    {
+        get { return _xp; }
+        private set { _xp = value; }
+    }
+    private int _maxHp = 10;
+    public int maxHp
+    {
+        get { return _maxHp; }
+        private set { _maxHp = value; }
+    }
+    private int _currentHp = 10;
+    public int currentHp
+    {
+        get { return _currentHp; }
+        private set { _currentHp = value; }
+    }
+    private int _money = 100;
+    public int money
+    {
+        get { return _money; }
+        private set { _money = value; }
+    }
 
-    [SerializeField] private GameObject expandButton;
-    [SerializeField] private GameObject startButton;
+    private bool _isPlayingGame = false;
 
-    public void ExpandArea()    //확장하기 버튼을 누르면 호출
+    public bool isPlayingGame
     {
-        //영토 확장
-        expandButton.SetActive(false);
-        startButton.SetActive(true);
-    }
-    
-    public void PlayGame()      //게임 시작시 호출
-    {
-        level++;
-        //게임시작
-        //if(적을 다 죽이면 || currentHp<=0)
-        //게임종료
-    }
-    
-    public static int GetLevel()
-    {
-        return level;
-    }
-    public static int GetXp()
-    {
-        return xp;
-    }
-    public static int GetMaxHp()
-    {
-        return maxHp;
-    }
-    public static int GetCurrentHp()
-    {
-        return currentHp;
-    }
-    public static int GetMoney()
-    {
-        return money;
+        get { return _isPlayingGame; }
+        set { _isPlayingGame = value; }
     }
 }

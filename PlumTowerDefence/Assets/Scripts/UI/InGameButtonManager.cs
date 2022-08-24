@@ -12,6 +12,9 @@ public class InGameButtonManager : MonoBehaviour
     private TextMeshProUGUI hpText;
     private TextMeshProUGUI moneyText;
     
+    [SerializeField] private GameObject expandButton;
+    [SerializeField] private GameObject startButton;
+    
     private void Awake()
     {
         ChangeText();
@@ -36,13 +39,49 @@ public class InGameButtonManager : MonoBehaviour
 
     private void UpdateGameInfo()
     {
-        levelText.text = Tables.StringUI.Get(6)._Korean + GameManager.GetLevel();    //Level Update
-        levelText.text = levelText.text.Replace("\r", "");
-        xpText.text = Tables.StringUI.Get(7)._Korean + GameManager.GetXp();       //XP Update
-        xpText.text = xpText.text.Replace("\r", "");
-        hpText.text = Tables.StringUI.Get(8)._Korean + GameManager.GetCurrentHp()+"/"+GameManager.GetMaxHp(); //HP Update
-        hpText.text = hpText.text.Replace("\r", "");
-        moneyText.text = Tables.StringUI.Get(9)._Korean + GameManager.GetMoney();    //Money Update
-        moneyText.text = moneyText.text.Replace("\r", "");
+        levelText.text = Tables.StringUI.Get(6)._Korean + GameManager.instance.level;    //Level Update
+        ReplaceR(levelText);
+        xpText.text = Tables.StringUI.Get(7)._Korean + GameManager.instance.xp;       //XP Update
+        ReplaceR(xpText);
+        hpText.text = Tables.StringUI.Get(8)._Korean + GameManager.instance.currentHp+"/"+GameManager.instance.maxHp; //HP Update
+        ReplaceR(hpText);
+        moneyText.text = Tables.StringUI.Get(9)._Korean + GameManager.instance.money;    //Money Update
+        ReplaceR(moneyText);
+    }
+
+    private void ReplaceR(TMP_Text tmpText)     //문자 겹침문제 해결용
+    {
+        tmpText.text = tmpText.text.Replace("\r", "");
+    }
+    
+    public void ExpandArea()    //확장하기 버튼을 누르면 호출
+    {
+        //영토 확장
+        if (!GameManager.instance.isPlayingGame)
+        {
+            expandButton.SetActive(false);
+            startButton.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("전투중입니다!");
+        }
+    }
+    
+    public void PlayGame()      //게임 시작시 호출
+    {
+        GameManager.instance.level++;
+        GameManager.instance.isPlayingGame = true;
+        startButton.SetActive(false);
+        expandButton.SetActive(true);
+        //게임시작
+
+        StartCoroutine(IE_DebugPlayingGame());
+    }
+
+    IEnumerator IE_DebugPlayingGame()
+    {
+        yield return new WaitForSeconds(5.0f);
+        GameManager.instance.isPlayingGame = false;
     }
 }
