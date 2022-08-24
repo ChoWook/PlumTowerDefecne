@@ -713,7 +713,6 @@ GameObject:
   - component: {fileID: 660722733}
   - component: {fileID: 660722732}
   - component: {fileID: 660722731}
-  - component: {fileID: 660722734}
   m_Layer: 5
   m_Name: GameEndButton
   m_TagString: Untagged
@@ -761,7 +760,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -771,9 +770,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 79741a98c4f719f46a051de041bf5be4, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -786,8 +786,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1377054466}
-        m_TargetAssemblyTypeName: Mainmenu, Assembly-CSharp
+      - m_Target: {fileID: 1716549494}
+        m_TargetAssemblyTypeName: MainMenuButtonManager, Assembly-CSharp
         m_MethodName: OnClickGameEnd
         m_Mode: 1
         m_Arguments:
@@ -836,21 +836,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 660722729}
   m_CullTransparentMesh: 1
---- !u!114 &660722734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 660722729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed09071713abd744988df56334416bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: 79741a98c4f719f46a051de041bf5be4, type: 3}
-  - {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e, type: 3}
 --- !u!1 &743424639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,7 +1074,6 @@ GameObject:
   - component: {fileID: 1095495091}
   - component: {fileID: 1095495090}
   - component: {fileID: 1095495089}
-  - component: {fileID: 1095495092}
   m_Layer: 5
   m_Name: UpgradeButton
   m_TagString: Untagged
@@ -1137,7 +1121,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1147,9 +1131,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 79741a98c4f719f46a051de041bf5be4, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1162,8 +1147,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1377054466}
-        m_TargetAssemblyTypeName: Mainmenu, Assembly-CSharp
+      - m_Target: {fileID: 1716549494}
+        m_TargetAssemblyTypeName: MainMenuButtonManager, Assembly-CSharp
         m_MethodName: OnClickUpgrade
         m_Mode: 1
         m_Arguments:
@@ -1212,21 +1197,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095495087}
   m_CullTransparentMesh: 1
---- !u!114 &1095495092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095495087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed09071713abd744988df56334416bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: 79741a98c4f719f46a051de041bf5be4, type: 3}
-  - {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e, type: 3}
 --- !u!1 &1292474380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,7 +1283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1377054467}
   - component: {fileID: 1377054468}
-  - component: {fileID: 1377054466}
+  - component: {fileID: 1377054469}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1321,23 +1291,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1377054466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1377054465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78aed580d9accd9469e0245cfd5b1999, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonText:
-  - {fileID: 1941283961}
-  - {fileID: 1755495438}
-  - {fileID: 170335602}
-  - {fileID: 162739667}
 --- !u!4 &1377054467
 Transform:
   m_ObjectHideFlags: 0
@@ -1363,6 +1316,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49a1d02a5623e8846bf65995eab06fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1377054469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377054465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6feb2dc77031e504381ca44b7010fb2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1624007026
@@ -1416,7 +1381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.38823533, g: 0.72156864, b: 0.9294118, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1441,6 +1406,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624007026}
   m_CullTransparentMesh: 1
+--- !u!1 &1716549493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1716549495}
+  - component: {fileID: 1716549494}
+  m_Layer: 0
+  m_Name: ButtonManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1716549494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716549493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78aed580d9accd9469e0245cfd5b1999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonText:
+  - {fileID: 1941283961}
+  - {fileID: 1755495438}
+  - {fileID: 170335602}
+  - {fileID: 162739667}
+--- !u!4 &1716549495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716549493}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9840801, y: -0.05145526, z: -0.04645669}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1755495438
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,7 +1603,6 @@ GameObject:
   - component: {fileID: 1937876421}
   - component: {fileID: 1937876420}
   - component: {fileID: 1937876419}
-  - component: {fileID: 1937876422}
   m_Layer: 5
   m_Name: GameStartButton
   m_TagString: Untagged
@@ -1637,7 +1650,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1647,9 +1660,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 79741a98c4f719f46a051de041bf5be4, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1662,8 +1676,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1377054466}
-        m_TargetAssemblyTypeName: Mainmenu, Assembly-CSharp
+      - m_Target: {fileID: 1716549494}
+        m_TargetAssemblyTypeName: MainMenuButtonManager, Assembly-CSharp
         m_MethodName: OnClickGameStart
         m_Mode: 1
         m_Arguments:
@@ -1712,21 +1726,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937876417}
   m_CullTransparentMesh: 1
---- !u!114 &1937876422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1937876417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed09071713abd744988df56334416bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: 79741a98c4f719f46a051de041bf5be4, type: 3}
-  - {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e, type: 3}
 --- !u!1 &1941283961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,7 +1874,6 @@ GameObject:
   - component: {fileID: 2016351097}
   - component: {fileID: 2016351096}
   - component: {fileID: 2016351095}
-  - component: {fileID: 2016351098}
   m_Layer: 5
   m_Name: OptionButton
   m_TagString: Untagged
@@ -1923,7 +1921,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1933,9 +1931,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 79741a98c4f719f46a051de041bf5be4, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1948,8 +1947,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1377054466}
-        m_TargetAssemblyTypeName: Mainmenu, Assembly-CSharp
+      - m_Target: {fileID: 1716549494}
+        m_TargetAssemblyTypeName: MainMenuButtonManager, Assembly-CSharp
         m_MethodName: OnClickOption
         m_Mode: 1
         m_Arguments:
@@ -1998,18 +1997,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016351093}
   m_CullTransparentMesh: 1
---- !u!114 &2016351098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016351093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed09071713abd744988df56334416bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: 79741a98c4f719f46a051de041bf5be4, type: 3}
-  - {fileID: 21300000, guid: 48ea06afda8ca944095485adadf5775e, type: 3}

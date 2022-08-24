@@ -22,6 +22,48 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private int level, xp, hp, money;
+    private static int level = 0;
+    private static int xp = 0;
+    private static int maxHp = 10;
+    private static int currentHp = 10;
+    private static int money = 100;
 
+    [SerializeField] private GameObject expandButton;
+    [SerializeField] private GameObject startButton;
+
+    public void ExpandArea()    //확장하기 버튼을 누르면 호출
+    {
+        //영토 확장
+        expandButton.SetActive(false);
+        startButton.SetActive(true);
+    }
+    
+    public void PlayGame()      //게임 시작시 호출
+    {
+        level++;
+        //게임시작
+        //if(적을 다 죽이면 || currentHp<=0)
+        //게임종료
+    }
+    
+    public static int GetLevel()
+    {
+        return level;
+    }
+    public static int GetXp()
+    {
+        return xp;
+    }
+    public static int GetMaxHp()
+    {
+        return maxHp;
+    }
+    public static int GetCurrentHp()
+    {
+        return currentHp;
+    }
+    public static int GetMoney()
+    {
+        return money;
+    }
 }
