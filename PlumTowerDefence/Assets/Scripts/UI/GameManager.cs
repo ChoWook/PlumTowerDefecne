@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     public int xp
     {
         get { return _xp; }
-        private set { _xp = value; }
+        set { _xp = value; }
     }
     private int _maxHp = 10;
     public int maxHp
@@ -59,5 +59,13 @@ public class GameManager : MonoBehaviour
     {
         get { return _isPlayingGame; }
         set { _isPlayingGame = value; }
+    }
+
+    private bool _isPausing = false;
+
+    public bool isPausing
+    {
+        get { return _isPausing; }
+        set { _isPausing = value; }
     }
 }
