@@ -2,6 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum EPoolType
+{
+    Obtacle = 1,
+    Resource = 2,
+
+}
+
+
 public enum ETileType
 {
     Land = 1,

@@ -2,48 +2,86 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Ground : MonoBehaviour
 {
-    [SerializeField]
-    int GroundSize = 7;
+    [SerializeField] GameObject GridLine;
 
-    Tile[,] Tiles;
+    [SerializeField] int GroundSize = 7;
 
+    public int Pattern = 1;
 
-    private void Start()
+    public Tile[] Tiles;
+
+#if UNITY_EDITOR
+
+    private void Update()
     {
-        InitTiles();
+        Tables.Load();
+        SetGroundPattern(Pattern);
+        SetTilesPos();
     }
 
-    void InitTiles()
+    void SetTilesPos()
     {
-        Tiles = new Tile[GroundSize, GroundSize];
-
-        for(int i = 0; i < Tiles.GetLength(0); i++)
+        for (int i = 0; i < Tiles.Length; i++)
         {
-            for(int j = 0; j < Tiles.GetLength(1); j++)
-            {
-                Tiles[i, j] = new Tile();
-            }
+            Tiles[i].PosX = i / GroundSize;
+            Tiles[i].PosY = i % GroundSize;
         }
     }
+#endif
 
-    public void SetGroundPattern(int id)
+    public void SetGroundPattern(EGroundType type)
     {
-        if(Tiles == null)
-        {
-            Debug.Log("Tiles == null");
-            InitTiles();
-        }
+        SetGroundPattern(SelectRandomPattern(type));
+    }
 
-        for(int i = 0; i < GroundSize; i++)
+    void SetGroundPattern(int id = 0)
+    {
+        Pattern = id;
+        // id == 0 이면 Tile 꺼주기
+        if(id == 0)
         {
-            for(int j = 0; j < GroundSize; j++)
+            for (int i = 0; i < GroundSize * GroundSize; i++)
             {
-                var tmp = Tables.GroundPattern.Get(id)._Tiles[(i * GroundSize) + j];
-                Tiles[i, j].TileType = tmp;
-                Debug.Log(Tiles[i, j].TileType);
+                Tiles[i].gameObject.SetActive(id != 0);
             }
         }
+        
+
+        if (Tables.GroundPattern.Get(id) == null)
+        {
+            return;
+        }
+
+
+        for (int i = 0; i < GroundSize * GroundSize; i++)
+        {
+            Tiles[i].TileType = Tables.GroundPattern.Get(id)._Tiles[i];
+        }  
+    }
+
+    // type에 맞는 패턴 중에 랜덤하게 선택
+    int SelectRandomPattern(EGroundType type)
+    {
+        var list = Tables.GroundPattern.Get(type);
+
+        if(list.Count == 0)
+        {
+            return 0;
+        }
+
+        return list[Random.Range(0, list.Count)]._ID;
+    }
+
+    public void HideGridLine()
+    {
+        GridLine.SetActive(false);
+    }
+
+    public void ShowGridLine()
+    {
+        GridLine.SetActive(true);
     }
 }
