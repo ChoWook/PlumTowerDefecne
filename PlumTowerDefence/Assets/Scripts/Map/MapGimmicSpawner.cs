@@ -8,8 +8,6 @@ public class MapGimmicSpawner : MonoBehaviour
 {
     [SerializeField] GameObject Obstacle;
 
-
-
     public void SpawnGimmickPool()
     {
 

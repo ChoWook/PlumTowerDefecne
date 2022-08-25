@@ -31,12 +31,12 @@ public class ObjectPools : MonoBehaviour
         }
     }
 
-    public static GameObject[] poolPrefabs;
-    public static int poolingCount;
+    public GameObject[] poolPrefabs;
+    public int poolingCount;
 
-    private static Dictionary<object, List<GameObject>> pooledObjects = new Dictionary<object, List<GameObject>>();
+    private Dictionary<object, List<GameObject>> pooledObjects = new Dictionary<object, List<GameObject>>();
 
-    public static void CreateMultiplePoolObjects()
+    public void CreateMultiplePoolObjects()
     {
         for (int i = 0; i < poolPrefabs.Length; i++)
         {
@@ -55,7 +55,8 @@ public class ObjectPools : MonoBehaviour
         }
     }
 
-    public static GameObject GetPooledObject(string _name)
+    // 오브젝트를 풀에서 가져옴ㄴ
+    public GameObject GetPooledObject(string _name)
     {
         if (pooledObjects.ContainsKey(_name))
         {
@@ -79,13 +80,12 @@ public class ObjectPools : MonoBehaviour
             return null;
         }
     }
-
+    
+    // 오브젝트를 해제해 풀로 되돌려 놓음
     public void ReleaseObject(GameObject go)
     {
         go.SetActive(false);
         go.transform.parent = Instance.transform;
         go.transform.localPosition = Vector3.zero;
-
-        pooledObjects[_name]
     }
 }
