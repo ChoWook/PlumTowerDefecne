@@ -920,7 +920,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3adaad70b4a7614e8e10c9fb0129b34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolPrefabs: []
+  poolPrefabs:
+  - {fileID: 1479595732193802973, guid: 3b7034ad4389e324898e253692411052, type: 3}
   poolingCount: 50
 --- !u!1 &958381491
 GameObject:

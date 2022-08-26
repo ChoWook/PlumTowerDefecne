@@ -31,7 +31,7 @@ public class ObjectPools : MonoBehaviour
         }
     }
 
-    public GameObject[] poolPrefabs;
+    [SerializeField] GameObject[] poolPrefabs;
     public int poolingCount;
 
     private Dictionary<object, List<GameObject>> pooledObjects = new Dictionary<object, List<GameObject>>();
@@ -64,6 +64,7 @@ public class ObjectPools : MonoBehaviour
             {
                 if (!pooledObjects[_name][i].activeSelf)
                 {
+                    pooledObjects[_name][i].SetActive(true);
                     return pooledObjects[_name][i];
                 }
             }
@@ -73,6 +74,7 @@ public class ObjectPools : MonoBehaviour
 
             CreateMultiplePoolObjects();
 
+            pooledObjects[_name][beforeCreateCount].SetActive(true);
             return pooledObjects[_name][beforeCreateCount];
         }
         else
@@ -82,7 +84,7 @@ public class ObjectPools : MonoBehaviour
     }
     
     // 오브젝트를 해제해 풀로 되돌려 놓음
-    public void ReleaseObject(GameObject go)
+    public void ReleaseObjectToPool(GameObject go)
     {
         go.SetActive(false);
         go.transform.parent = Instance.transform;
