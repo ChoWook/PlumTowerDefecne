@@ -27,8 +27,11 @@ public class ObjectPools : MonoBehaviour
             if (_Instance != this)
             {
                 Destroy(this);
+                return;
             }
         }
+
+        CreateMultiplePoolObjects();
     }
 
     [SerializeField] GameObject[] poolPrefabs;
@@ -58,6 +61,8 @@ public class ObjectPools : MonoBehaviour
     // 오브젝트를 풀에서 가져옴ㄴ
     public GameObject GetPooledObject(string _name)
     {
+        Debug.Log(pooledObjects.Keys.Count);
+
         if (pooledObjects.ContainsKey(_name))
         {
             for (int i = 0; i < pooledObjects[_name].Count; i++)
