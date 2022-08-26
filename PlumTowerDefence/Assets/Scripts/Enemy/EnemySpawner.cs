@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-
+    //public GameObject enemyPrefab;
     public Transform enemyPrefab;
-
+    //private MemoryPool memoryPool;
     public Transform SpawnPoint;
 
     public int WaveNumber = 1;
 
+    /*private void Awake()
+    {
+        memoryPool = new MemoryPool(enemyPrefab);
+    }
+*/
     // 맵 확장을 누른 뒤
 
     private void Update()
@@ -21,6 +26,11 @@ public class EnemySpawner : MonoBehaviour
             StartCoroutine(SpawnWave());
         }
     }
+
+    /*private void OnApplicationQuit()
+    {
+        memoryPool.DestroyObjects();
+    }*/
 
     IEnumerator SpawnWave()
     {
@@ -38,6 +48,10 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy()
     {
         Instantiate(enemyPrefab, SpawnPoint.position, SpawnPoint.rotation);
+        /*GameObject clone = memoryPool.ActivatePoolItem();
+        clone.transform.position = SpawnPoint.position;
+        clone.GetComponent<Enemy>().Setup(memoryPool);*/
+
     }
 
 }

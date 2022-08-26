@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Waypoints : MonoBehaviour
 {
-    public static Transform[] points;
+    public static Transform[] points;               // ¹è¿­
 
     
 

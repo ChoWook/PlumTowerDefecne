@@ -5,12 +5,17 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    private MemoryPool memoryPool;
+    /*private MemoryPool memoryPool;
 
+    public void Setup(MemoryPool memoryPool)
+    {
+        this.memoryPool = memoryPool;
+    }*/
 
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Enemy destroyed");
+        //memoryPool.DeactivatePoolItem(gameObject);
         Destroy(gameObject);
     }
 
@@ -212,6 +217,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
+
         //if(WaveStart){
         // 
         //}
