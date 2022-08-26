@@ -35,3 +35,10 @@ public enum EGroundType
     URL = 13,
     URD = 14,
 }
+
+public enum EGimmickType
+{
+    Obstacle = 1,
+    Resource = 2,
+    Chest = 3,
+}

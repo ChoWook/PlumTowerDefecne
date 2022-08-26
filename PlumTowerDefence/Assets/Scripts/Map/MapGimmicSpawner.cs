@@ -8,10 +8,31 @@ public class MapGimmicSpawner : MonoBehaviour
 {
     [SerializeField] GameObject Obstacle;
 
+    [SerializeField] GameObject Resource;
 
+    [SerializeField] GameObject Chest;
 
-    public void SpawnGimmickPool()
+    public void SpawnGimmick(EGimmickType GimmickType, int idx = -1)
+    {
+        // dix == -1 이면 맵 전체 소환
+        if (idx == -1)
+        {
+            SpawnGimmickHoleMap(GimmickType);
+        }
+        else
+        {
+            SpawnGimmickOnlyNextGround(GimmickType, idx);
+        }
+    }
+
+    void SpawnGimmickOnlyNextGround(EGimmickType GimmickType, int idx)
     {
 
     }
+
+    void SpawnGimmickHoleMap(EGimmickType GimmickType)
+    {
+
+    }
+
 }

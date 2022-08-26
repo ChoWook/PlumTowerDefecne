@@ -13,6 +13,20 @@ public class Ground : MonoBehaviour
 
     public Tile[] Tiles;
 
+    public int EmptyLandTileCount = 0;
+
+    public bool IsActive
+    {
+        get { return IsActive; }
+        set
+        {
+            IsActive = value;
+
+            gameObject.SetActive(IsActive);
+
+        }
+    }
+
 #if UNITY_EDITOR
 
     private void Update()
@@ -40,13 +54,10 @@ public class Ground : MonoBehaviour
     void SetGroundPattern(int id = 0)
     {
         Pattern = id;
-        // id == 0 ¿Ã∏È Tile ≤®¡÷±‚
+        // id == 0 ¿Ã∏È ground ≤®¡÷±‚
         if(id == 0)
         {
-            for (int i = 0; i < GroundSize * GroundSize; i++)
-            {
-                Tiles[i].gameObject.SetActive(id != 0);
-            }
+            gameObject.SetActive(false);
         }
         
 
@@ -59,6 +70,11 @@ public class Ground : MonoBehaviour
         for (int i = 0; i < GroundSize * GroundSize; i++)
         {
             Tiles[i].TileType = Tables.GroundPattern.Get(id)._Tiles[i];
+
+            if(Tiles[i].TileType == ETileType.Land)
+            {
+                EmptyLandTileCount++;
+            } 
         }  
     }
 
