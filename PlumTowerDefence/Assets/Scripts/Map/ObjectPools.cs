@@ -86,6 +86,5 @@ public class ObjectPools : MonoBehaviour
         go.transform.parent = Instance.transform;
         go.transform.localPosition = Vector3.zero;
 
-        pooledObjects[_name]
     }
 }

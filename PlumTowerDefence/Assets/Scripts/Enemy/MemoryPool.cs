@@ -13,7 +13,7 @@ public class MemoryPool
     private int increaseCount = 6;          // 오브젝트가 부족할 때 Instantiate()로 추가 생성되는 오브젝트 개수
     private int maxCount;                   // 현재 리스트에 등록되어 있는 오브젝트 개수
     private int activeCount;                // 현재 게임에 사용되고 있는(활성화) 오브젝트 개수
-
+    
     private GameObject poolObject;          // 오브젝트 풀링에서 관리하는 게임 오브젝트 프리팹
     private List<PoolItem> poolItemList;    // 관리되는 모든 오브젝트를 저장하는 리스트
 
