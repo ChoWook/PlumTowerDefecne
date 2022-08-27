@@ -4,49 +4,65 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+
+    /*private MemoryPool memoryPool;
+
+    public void Setup(MemoryPool memoryPool)
+    {
+        this.memoryPool = memoryPool;
+    }*/
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Enemy destroyed");
+        //memoryPool.DeactivatePoolItem(gameObject);
+        Destroy(gameObject);
+    }
+
     // 기본 Enemy 스탯, 속성, 특성 Class만들기
 
     //[SerializeField] --> 사용법 배우기
-    float OriginalHP; // 데이터테이블에서 가져오기
+
+    // Original -> Base
+
+    float BaseHP;               // 데이터테이블에서 가져오기
     float MaxHP;
     float CurrentHP;
+    float BaseShield;           // 데이터테이블에서 가져오기
+    float MaxShield;
 
-    ModifiableValue HP;
-
-    float OriginalShield;// 데이터테이블에서 가져오기
-    float MaxShield; 
     float CurrentShield;
     bool ShieldOn = true;
-    float Armor; 
-    float OriginalArmor;// 데이터테이블에서 가져오기
-    public float OriginalSpeed; // 데이터테이블에서 가져오기
-    public float Speed; // EnemyMovement 에서 조정
+    float Armor;
+    float BaseArmor;            // 데이터테이블에서 가져오기
+    public float BaseSpeed;     // 데이터테이블에서 가져오기
+    public float Speed;             // EnemyMovement 에서 조정
 
-    float Enforced = 1.0f; // 강화특성
+    float Enforced = 1.0f;          // 강화특성
 
 
 
     public void TakeDamage(float damage)
     {
-        
-        if(ShieldOn == true) // 실드가 있는 경우
+
+        if (ShieldOn == true)                                      // 실드가 있는 경우
         {
             float DamageProtect = CurrentShield;
-            CurrentShield -= damage * 0.01f * (100 - Armor)*0.9f; // 현재 실드를 깐다
-            
-            if (CurrentShield <= 0)// 방어구가 다 까지면 
+            CurrentShield -= damage * 0.01f * (100 - Armor) * 0.9f; // 현재 실드를 깐다
+
+            if (CurrentShield <= 0)                               // 방어구가 다 까지면 
             {
-                ShieldOn = false; // 방어구 제거
-                damage -= DamageProtect; // 데미지 경감
+                ShieldOn = false;                                 // 방어구 제거
+                damage -= DamageProtect;                          // 데미지 경감
                 CurrentHP -= damage * 0.01f * (100 - Armor);
             }
         }
-        else // 실드가 없는 경우
+        else                                                      // 실드가 없는 경우
         {
             CurrentHP -= damage * 0.01f * (100 - Armor);
         }
-        
-        if(CurrentHP <= 0)
+
+        if (CurrentHP <= 0)
         {
             KillEnemy();
         }
@@ -54,14 +70,14 @@ public class Enemy : MonoBehaviour
 
     public void KillEnemy()
     {
-        Destroy(gameObject);
+        Destroy(gameObject);                                      // 추후 수정(Pool)활용
     }
 
     PropertyType MyProperty;
     Speciality1Type MySpeciality1;
     Speciality2Type MySpeciality2;
 
-    public enum PropertyType // 속성은 맵이나 타워에도 적용
+    public enum PropertyType                                      // 속성은 맵이나 타워에도 적용
     {
         물, 흙, 불, 전기
     }
@@ -73,7 +89,7 @@ public class Enemy : MonoBehaviour
 
     enum Speciality2Type
     {
-        없음, 강화된, 분열의, 분열된, 은밀한, 부활의, 부활한, 
+        없음, 강화된, 분열의, 분열된, 은밀한, 부활의, 부활한,
         생성의, 이끄는, 저주하는
     }
 
@@ -87,29 +103,29 @@ public class Enemy : MonoBehaviour
 
         switch (MyProperty)
         {
-            case PropertyType.물: 
+            case PropertyType.물:
                 // 기존보다 체력이 50% 많으며, 방어막이 35% 적다
-                MaxHP += OriginalHP * 0.50f;
-                MaxShield -= OriginalShield * 0.35f;
+                MaxHP += BaseHP * 0.50f;
+                MaxShield -= BaseShield * 0.35f;
                 break;
             case PropertyType.흙:
                 // 기존보다 체력과 방어막이 25%씩 증가하며, 속도가 40% 감소한다.
-                MaxHP += OriginalHP * 0.25f;
-                MaxShield += OriginalShield * 0.25f;
-                Speed -= OriginalSpeed * 0.40f;
+                MaxHP += BaseHP * 0.25f;
+                MaxShield += BaseShield * 0.25f;
+                Speed -= BaseSpeed * 0.40f;
                 break;
-            case PropertyType.불 :
+            case PropertyType.불:
                 // 기존보다 체력이 50% 적으며, 방어막이 40% 많으며, 속도가 10% 증가한다.
-                MaxHP -= OriginalHP * 0.50f;
-                MaxShield += OriginalShield * 0.40f;
-                Speed += OriginalSpeed * 0.10f;
+                MaxHP -= BaseHP * 0.50f;
+                MaxShield += BaseShield * 0.40f;
+                Speed += BaseSpeed * 0.10f;
                 break;
             case PropertyType.전기:
                 // 체력과 방어막이 25%씩 감소하며, 속도가 40% 증가한다.
-                MaxHP -= OriginalHP * 0.25f;
-                MaxShield -= OriginalShield * 0.25f;
-                Speed += OriginalSpeed * 0.40f;
-                break; 
+                MaxHP -= BaseHP * 0.25f;
+                MaxShield -= BaseShield * 0.25f;
+                Speed += BaseSpeed * 0.40f;
+                break;
         }
     }
 
@@ -121,28 +137,28 @@ public class Enemy : MonoBehaviour
 
         switch (MySpeciality1)
         {
-            case Speciality1Type.큰: //체력 5% 증가
-                MaxHP += OriginalHP * 0.05f* Enforced;
+            case Speciality1Type.큰:                         //체력 5% 증가
+                MaxHP += BaseHP * 0.05f * Enforced;
                 break;
-            case Speciality1Type.거대한: // 체력 10% 증가
-                MaxHP += OriginalHP * 0.10f * Enforced;
+            case Speciality1Type.거대한:                     // 체력 10% 증가
+                MaxHP += BaseHP * 0.10f * Enforced;
                 break;
-            case Speciality1Type.튼튼한: //방어력 5% 증가
-                Armor += OriginalArmor * 0.05f * Enforced;
+            case Speciality1Type.튼튼한:                     //방어력 5% 증가
+                Armor += BaseArmor * 0.05f * Enforced;
                 break;
-            case Speciality1Type.단단한: //방어력 10% 증가
-                Armor += OriginalArmor * 0.10f * Enforced;
+            case Speciality1Type.단단한:                     //방어력 10% 증가
+                Armor += BaseArmor * 0.10f * Enforced;
                 break;
-            case Speciality1Type.풍부한: // 방어막 5% 증가
-                MaxShield += OriginalShield * 0.05f * Enforced;
+            case Speciality1Type.풍부한:                     // 방어막 5% 증가
+                MaxShield += BaseShield * 0.05f * Enforced;
                 break;
-            case Speciality1Type.신속한: //속도 10% 증가
-                Speed += OriginalSpeed * 0.10f * Enforced;
+            case Speciality1Type.신속한:                     //속도 10% 증가
+                Speed += BaseSpeed * 0.10f * Enforced;
                 break;
-            case Speciality1Type.쾌속의: // 속도 20% 증가
-                Speed += OriginalSpeed * 0.20f * Enforced;
+            case Speciality1Type.쾌속의:                     // 속도 20% 증가
+                Speed += BaseSpeed * 0.20f * Enforced;
                 break;
-                default:
+            default:
                 break;
         }
     }
@@ -163,68 +179,66 @@ public class Enemy : MonoBehaviour
             case Speciality2Type.강화된:
                 Enforced = 1.2f;
                 break;
-            case Speciality2Type.분열의: // 소환 로직 필요
+            case Speciality2Type.분열의:   // 소환 로직 필요
                 break;
             case Speciality2Type.분열된:
                 break;
-            case Speciality2Type.은밀한: // 타워정보필요
+            case Speciality2Type.은밀한:   // 타워정보필요
                 break;
-            case Speciality2Type.부활의: // 소환 로직 필요
+            case Speciality2Type.부활의:   // 소환 로직 필요
                 break;
-            case Speciality2Type.부활한: 
+            case Speciality2Type.부활한:
                 break;
-            case Speciality2Type.생성의: // 소환 로직 필요
+            case Speciality2Type.생성의:   // 소환 로직 필요
                 break;
-            case Speciality2Type.이끄는: // 칸 정보 필요(맵)
-                                         // 버프 로직 필요
+            case Speciality2Type.이끄는:   // 칸 정보 필요(맵)
+                                        // 버프 로직 필요
                 break;
             case Speciality2Type.저주하는: // 맵, UI 정보 필요
                 break;
-            default :
+            default:
                 break;
         }
 
     }
 
-    void EnemyLevelUp(int level) // CurrentLevel 인수로 받기
-    { //체력, 방어구 10% 증가
-        MaxHP += OriginalHP * 0.10f; // 합연산 적용하기 + 위의 특성, 속성도 합연산?
-        MaxShield += OriginalShield * 0.10f;
+    void EnemyLevelUp(int level)        // CurrentLevel 인수로 받기
+    {                                   //체력, 방어구 10% 증가
+        MaxHP += BaseHP * 0.10f;
+        MaxShield += BaseShield * 0.10f;
 
-        if (level > 3) // lv 4 이상부터 방어력도 증가
+        if (level > 3)                  // lv 4 이상부터 방어력도 증가
         {
-            Armor += OriginalArmor * 0.1f;
+            Armor += BaseArmor * 0.1f;
         }
     }
 
 
 
-    private void Start()
+    private void Awake()
     {
-        
-    }
 
-    private void Update()
-    {
         //if(WaveStart){
         // 
         //}
-        MaxHP = OriginalHP;
-        MaxShield = OriginalShield;
+        /*MaxHP = BaseHP;
+        MaxShield = BaseShield;
         CurrentHP = MaxHP;
 
         HP.BaseValue = 3;
 
         CurrentShield = MaxShield;
-        Armor = OriginalArmor;
-        Speed = OriginalSpeed;
+        Armor = BaseArmor;
+        Speed = BaseSpeed;
         ApplyPropertyType();
         ApplySpeciality2Type();
-        ApplySpeciality1Type();
+        ApplySpeciality1Type();*/
 
         //if(특정 웨이브 조건 달성){
         // EnemyLevelUp(현재레벨) //UI 요소 필요
         //}
     }
-
+    private void Update()
+    {
+    }
 }

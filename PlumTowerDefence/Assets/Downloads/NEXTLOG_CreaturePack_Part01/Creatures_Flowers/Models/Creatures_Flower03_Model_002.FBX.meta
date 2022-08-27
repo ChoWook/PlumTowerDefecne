@@ -1,0 +1,113 @@
+fileFormatVersion: 2
+guid: 36c1b422e438fe24e951f6713871c2de
+timeCreated: 1533900188
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bone_COM
+    100002: Bone_Head
+    100004: Bone_Jaw_Lower
+    100006: Bone_LeafBack_01
+    100008: Bone_LeafBack_02
+    100010: Bone_LeafLeft_01
+    100012: Bone_LeafLeft_02
+    100014: Bone_LeafRight_01
+    100016: Bone_LeafRight_02
+    100018: Bone_Neck_01
+    100020: Bone_Neck_02
+    100022: Bone_Neck_03
+    100024: Bone_Neck_04
+    100026: Bone_Neck_05
+    100028: Enemy_Flower03_002
+    100030: //RootNode
+    400000: Bone_COM
+    400002: Bone_Head
+    400004: Bone_Jaw_Lower
+    400006: Bone_LeafBack_01
+    400008: Bone_LeafBack_02
+    400010: Bone_LeafLeft_01
+    400012: Bone_LeafLeft_02
+    400014: Bone_LeafRight_01
+    400016: Bone_LeafRight_02
+    400018: Bone_Neck_01
+    400020: Bone_Neck_02
+    400022: Bone_Neck_03
+    400024: Bone_Neck_04
+    400026: Bone_Neck_05
+    400028: Enemy_Flower03_002
+    400030: //RootNode
+    4300000: Enemy_Flower03_002
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Enemy_Flower03_002
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 0
+    keepQuads: 0
+    weldVertices: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 2
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

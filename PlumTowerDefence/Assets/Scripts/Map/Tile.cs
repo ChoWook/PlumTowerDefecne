@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
     public int PosX;
     public int PosY;
 
-    GameObject ObjectOnTile;
+    public GameObject ObjectOnTile;
 
 #if UNITY_EDITOR
     private void Update()
