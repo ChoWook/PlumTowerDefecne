@@ -1,3 +1,6 @@
-ID,Code,Value,Description
+﻿ID,Code,Value,Description
 int,string,int,string
-1,NumberOfUpgrade,4,증강체 버프  개수
+1,Number_Of_Upgrade,4,증강체 버프  개수
+2,Mining_Num_Min,2,채굴최소횟수
+3,Mining_Num_Max,9,채굴최대횟수
+4,Start_Ground_Num,5,첫 시작 시작 시 열려있는 그라운드 개수

@@ -38,13 +38,13 @@ public enum EGroundType
 
 public enum EMapGimmickType
 {
-    Lanebuff = 1,
+    LaneBuff = 1,
     Obstacle = 2,
     Resource = 3,
     Treasure = 4,
 }
 
-public enum EMapResourceType
+public enum EResourceType
 {
     Magnetite = 1,
     Crystal = 2,

@@ -17,14 +17,16 @@ public class Ground : MonoBehaviour
 
     public int EmptyLandTileCount = 0;
 
+    bool _IsActive;
+
     public bool IsActive
     {
-        get { return IsActive; }
+        get { return _IsActive; }
         set
         {
-            IsActive = value;
+            _IsActive = value;
 
-            gameObject.SetActive(IsActive);
+            gameObject.SetActive(_IsActive);
 
         }
     }
@@ -103,7 +105,7 @@ public class Ground : MonoBehaviour
         GridLine.SetActive(true);
     }
 
-    public List<Tile> GetEmptyLandTiles()
+    public List<Tile> GetEmptyLandTilesInGround()
     {
         EmptyLandTiles.Clear();
 

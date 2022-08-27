@@ -213,12 +213,16 @@ public class Tables : ScriptableObject
         public float _Probability;
         public bool _ExistedMap;
 
+        static Dictionary<EMapGimmickType, MapGimmick> _MapWithType;
+
         public static void Load()
         {
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MapGimmick");
             string[] dataLines = dataset.text.Split("\n");
 
             Debug.Log("MapGimmick : " + dataLines.Length);
+
+            _MapWithType = new Dictionary<EMapGimmickType, MapGimmick>();
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -242,8 +246,14 @@ public class Tables : ScriptableObject
                 Tmp._ExistedMap = bool.Parse(data[idx++]);
 
                 Tmp.Add(Tmp);
+                _MapWithType.Add(Tmp._Type, Tmp);
 
             }
+        }
+
+        public static MapGimmick Get(EMapGimmickType type)
+        {
+            return _MapWithType[type];
         }
     }
 
@@ -283,7 +293,7 @@ public class Tables : ScriptableObject
 
     public class MapGimmickResource : CSVFile<MapGimmickResource>
     {
-        public EMapResourceType _Type;
+        public EResourceType _Type;
         public string _Korean;
         public float _Probability;
         public int _MiningMoney;
@@ -310,7 +320,7 @@ public class Tables : ScriptableObject
                 int idx = 0;
 
                 Tmp._ID = int.Parse(data[idx++]);
-                Tmp._Type = Enum.Parse<EMapResourceType>(data[idx++]);
+                Tmp._Type = Enum.Parse<EResourceType>(data[idx++]);
                 Tmp._Korean = data[idx++];
                 Tmp._Probability = float.Parse(data[idx++]);
                 Tmp._MiningMoney = int.Parse(data[idx++]);
@@ -360,7 +370,7 @@ public class Tables : ScriptableObject
             }
         }
 
-        public GlobalSystem Get(string code)
+        public static GlobalSystem Get(string code)
         {
             return _StringMap[code];
         }
