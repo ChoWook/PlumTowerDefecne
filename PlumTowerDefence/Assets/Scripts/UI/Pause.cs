@@ -1,11 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Pause : MonoBehaviour
 {
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject pauseBackGround;
+    [SerializeField] private GameObject[] texts;
+    
+    private void ChangeText()
+    {
+        for (int i = 0; i < texts.Length; i++)     //버튼 텍스트 변경
+        {
+            texts[i].GetComponent<TextMeshProUGUI>().text = Tables.StringUI.Get(texts[i].gameObject.name)._Korean;
+        }
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

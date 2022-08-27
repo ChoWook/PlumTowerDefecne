@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class InGameUpgrade : MonoBehaviour
 {
@@ -15,6 +16,16 @@ public class InGameUpgrade : MonoBehaviour
     private void Awake()
     {
         ButtonManager=GameObject.Find("ButtonManager");
+        ChangeText();
+    }
+    
+    private void ChangeText()
+    {
+        for (int i = 0; i < InGameUpgradeCount; i++)     //버튼 텍스트 변경
+        {
+            TextMeshProUGUI buttonText = selectButtons[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            buttonText.text = Tables.StringUI.Get(buttonText.gameObject.name)._Korean;
+        }
     }
 
     public void SelectButton1()         //첫번째 증강체 클릭

@@ -79,7 +79,7 @@ public class Tables : ScriptableObject
             }
         }
 
-        public StringUI Get(string code)
+        public static StringUI Get(string code)
         {
             return _StringMap[code];
         }
