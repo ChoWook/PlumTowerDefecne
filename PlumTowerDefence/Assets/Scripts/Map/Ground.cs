@@ -13,6 +13,8 @@ public class Ground : MonoBehaviour
 
     public Tile[] Tiles;
 
+    public List<Tile> EmptyLandTiles;
+
     public int EmptyLandTileCount = 0;
 
     public bool IsActive
@@ -99,5 +101,20 @@ public class Ground : MonoBehaviour
     public void ShowGridLine()
     {
         GridLine.SetActive(true);
+    }
+
+    public List<Tile> GetEmptyLandTiles()
+    {
+        EmptyLandTiles.Clear();
+
+        for (int i = 0; i < Tiles.Length; i++)
+        {
+            if (Tiles[i].TileType == ETileType.Land && Tiles[i].ObjectOnTile == null)
+            {
+                EmptyLandTiles.Add(Tiles[i]);
+            }
+        }
+
+        return EmptyLandTiles;
     }
 }

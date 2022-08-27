@@ -23,10 +23,11 @@ public class Map : MonoBehaviour
 
     float GroundSize = 10;
 
-    private void Start()
+    private void Awake()
     {
         MainCamera = Camera.main;
 
+        Instance = this;
     }
 
     public void SetMapPattern(int id = 0)
@@ -93,12 +94,12 @@ public class Map : MonoBehaviour
 
             HoleEmptyLandCnt += Grounds[OpenGroundCnt].EmptyLandTileCount;
 
-            GimmicSpawner.SpawnGimmick(EGimmickType.Obstacle, OpenGroundCnt);
+            GimmicSpawner.SpawnGimmick(EMapGimmickType.Obstacle, OpenGroundCnt);
         }
 
-        GimmicSpawner.SpawnGimmick(EGimmickType.Resource);
+        GimmicSpawner.SpawnGimmick(EMapGimmickType.Resource);
 
-        GimmicSpawner.SpawnGimmick(EGimmickType.Chest);
+        GimmicSpawner.SpawnGimmick(EMapGimmickType.Treasure);
     }
 
     // 처음 시작 그라운드를 제외한 나머지 그라운드 비활성화

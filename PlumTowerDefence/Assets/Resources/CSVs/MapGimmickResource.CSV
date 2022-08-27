@@ -1,0 +1,6 @@
+﻿ID,Type,Korean,Probability,MiningMoney,MiningNumMin,MiningNumMax
+int,string,string,float,int,int,int
+1,Magnetite,자철석,0.40,10,2 ,9
+2,Crystal,수정,0.30,18,2 ,9
+3,Gold,금,0.20,33,2 ,9
+4,Diamond,다이아,0.10,50,2 ,9

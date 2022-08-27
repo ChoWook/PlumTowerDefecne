@@ -36,9 +36,18 @@ public enum EGroundType
     URD = 14,
 }
 
-public enum EGimmickType
+public enum EMapGimmickType
 {
-    Obstacle = 1,
-    Resource = 2,
-    Chest = 3,
+    Lanebuff = 1,
+    Obstacle = 2,
+    Resource = 3,
+    Treasure = 4,
+}
+
+public enum EMapResourceType
+{
+    Magnetite = 1,
+    Crystal = 2,
+    Gold = 3,
+    Diamond = 4,
 }

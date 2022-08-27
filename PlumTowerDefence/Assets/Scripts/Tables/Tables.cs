@@ -16,6 +16,10 @@ public class Tables : ScriptableObject
             StringUI.Load();
             GroundPattern.Load();
             MapPattern.Load();
+            MapGimmick.Load();
+            MapGimmickObstacle.Load();
+            MapGimmickResource.Load();
+            GlobalSystem.Load();
 
             IsLoaded = true;
             Debug.Log("Load End");
@@ -54,7 +58,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/StringUI");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log(dataLines.Length);
+            Debug.Log("StringUI : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -97,7 +101,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/GroundPattern");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log(dataLines.Length);
+            Debug.Log("GroundPattern : " + dataLines.Length);
 
             // 타입별로 분류하기 위해 딕셔너리에 분배
             for (EGroundType j = EGroundType.TR; j <= EGroundType.URD; j++)
@@ -159,7 +163,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MapPattern");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log(dataLines.Length);
+            Debug.Log("MapPattern : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -198,6 +202,167 @@ public class Tables : ScriptableObject
 
                 Tmp.Add(Tmp);
             }
+        }
+    }
+
+    public class MapGimmick : CSVFile<MapGimmick>
+    {
+        public EMapGimmickType _Type;
+        public string _Korean;
+        public int _Priority;
+        public float _Probability;
+        public bool _ExistedMap;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MapGimmick");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MapGimmick : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MapGimmick Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Type = Enum.Parse<EMapGimmickType>(data[idx++]);
+                Tmp._Korean = data[idx++];
+                Tmp._Priority = int.Parse(data[idx++]);
+                Tmp._Probability = float.Parse(data[idx++]);
+                Tmp._ExistedMap = bool.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+
+            }
+        }
+    }
+
+    public class MapGimmickObstacle : CSVFile<MapGimmickObstacle>
+    {
+        public int _Removal;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MapGimmickObstacle");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MapGimmickObstacle : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MapGimmickObstacle Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Removal = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+
+            }
+        }
+    }
+
+    public class MapGimmickResource : CSVFile<MapGimmickResource>
+    {
+        public EMapResourceType _Type;
+        public string _Korean;
+        public float _Probability;
+        public int _MiningMoney;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MapGimmickResource");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MapGimmickResource : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MapGimmickResource Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Type = Enum.Parse<EMapResourceType>(data[idx++]);
+                Tmp._Korean = data[idx++];
+                Tmp._Probability = float.Parse(data[idx++]);
+                Tmp._MiningMoney = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+
+            }
+        }
+    }
+
+    public class GlobalSystem : CSVFile<GlobalSystem>
+    {
+        public string _Code;
+        public int _Value;
+        public string _Description;
+
+        static Dictionary<string, GlobalSystem> _StringMap = new();
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/GlobalSystem");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("GlobalSystem : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                GlobalSystem Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Code = data[idx++];
+                Tmp._Value = int.Parse(data[idx++]);
+                Tmp._Description = data[idx++];
+
+                Tmp.Add(Tmp);
+                _StringMap.Add(Tmp._Code, Tmp);
+            }
+        }
+
+        public GlobalSystem Get(string code)
+        {
+            return _StringMap[code];
         }
     }
 }

@@ -4,17 +4,7 @@ using UnityEngine;
 
 public class MapGimmick : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float Probability;
 
     public void SpawnGimmick() { }
 }

@@ -1,0 +1,6 @@
+﻿ID,Type,Korean,Priority,Probability,ExistedMap
+int,string,string,int,float,bool
+1,Lanebuff,공격로버프,1,0.25,FALSE
+2,Obstacle,장애물,2,0.17,FALSE
+3,Resource,자원,3,0.14,TRUE
+4,Treasure,보물상자,4,0.10,TRUE
