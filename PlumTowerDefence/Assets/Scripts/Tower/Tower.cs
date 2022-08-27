@@ -19,7 +19,10 @@ public class Tower : MonoBehaviour
 
     // 타워 스텟 (임시로 화살타워 스텟 설정)
 
+    [SerializeField]
     private int TowerID = 0;                            // 타워 ID (데이터 테이블)
+
+
     public string TowerName = "화살타워";                        // 타워 이름
     private int AttackPropertyID = 0;                   // 공격 속성(데이터테이블)
     private int TypeID = 0;                             // 속성 ID (데이터테이블)
@@ -31,6 +34,8 @@ public class Tower : MonoBehaviour
     private int UpgradePrice = 40;                       // 업그레이드 가격(데이터테이블)
     private int Price = 100;                              // 구매 가격(데이터테이블)
     private double Damage;                             // 데미지 
+    private int SellPrice;                             // 판매 가격
+
 
     // 적 스텟 (타겟 지정)
 
@@ -50,7 +55,7 @@ public class Tower : MonoBehaviour
         InvokeRepeating("UpdateTarget", 0, 0.5f); // 0.5초 마다 반복하기
     }
 
-    // 타겟 업데이트
+    // 타겟 업데이트 (체력 우선, 방어구 우선, 방어력 높은 적 우선 추가하기)
     void UpdateTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  태그로 적 찾기
@@ -98,10 +103,12 @@ public class Tower : MonoBehaviour
     // 타워 공격 속성별 데미지 설정 (적 기획과 조율 필요)
     private void SetDamageWithAttackProperty()
     {
+        // DefenceStat 방어력 어떻게 받을지 상의 필요함.
+
         switch(AttackPropertyID)
         {
             case 0:                                // 타워의 공격력 x {0.01x (100 - 적의 방어력)} 만큼 대상에게 데미지를 준다.
-                Damage = AttackStat * (0.01 * (100 - DefenceStat));
+                Damage = AttackStat;
                 break;
             case 1:                               // 체력에 타워의 공격력 x 1.2 x{0.01x(100-방어력)} 만큼 대상에게 데미지를 준다, 방어구에는 기본 알고리즘과 같다
 
@@ -113,7 +120,6 @@ public class Tower : MonoBehaviour
             case 3 :
                 break;
                 
-
         }    
     }
 
