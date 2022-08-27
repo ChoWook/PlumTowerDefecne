@@ -9,4 +9,9 @@ public class MoveScene : MonoBehaviour
     {
         SceneManager.LoadScene("DefenceScene");
     }
+
+    public static void MoveTitleScene()
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
 }

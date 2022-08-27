@@ -2,6 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum EPoolType
+{
+    Obtacle = 1,
+    Resource = 2,
+
+}
+
+
 public enum ETileType
 {
     Land = 1,
@@ -25,4 +34,20 @@ public enum EGroundType
     UDL = 12,
     URL = 13,
     URD = 14,
+}
+
+public enum EMapGimmickType
+{
+    LaneBuff = 1,
+    Obstacle = 2,
+    Resource = 3,
+    Treasure = 4,
+}
+
+public enum EResourceType
+{
+    Magnetite = 1,
+    Crystal = 2,
+    Gold = 3,
+    Diamond = 4,
 }

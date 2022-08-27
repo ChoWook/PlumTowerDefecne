@@ -30,6 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5263991365656906034}
+  - {fileID: 4750460385660003664}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,6 +48,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GroundPrefab: {fileID: 5152656405353086435, guid: bfcba8e02cf47a34f851b0f7756355b6,
     type: 3}
+  GimmicSpawner: {fileID: 6230555263072940648}
+  Grounds: []
+  OpenGroundCnt: 0
+  AttackRouteCnt: 1
+  HoleEmptyLandCnt: 0
 --- !u!1 &5263991365656906033
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,3 +131,51 @@ TerrainCollider:
   m_Enabled: 1
   m_TerrainData: {fileID: 15600000, guid: b9ea3c9daf2402e42a714fde24473e23, type: 2}
   m_EnableTreeColliders: 1
+--- !u!1 &6051654916856160087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4750460385660003664}
+  - component: {fileID: 6230555263072940648}
+  m_Layer: 0
+  m_Name: GimmickSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4750460385660003664
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6051654916856160087}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5263991364535386759}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6230555263072940648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6051654916856160087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249ff86618550d9458714a9a702262ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacle: {fileID: 8385172303407954630, guid: b9cc0be516093e74eb7218dd57ac068e,
+    type: 3}
+  Resource: {fileID: 50656276707978358, guid: d8de8be490dea0d459edd92cb39a6a51, type: 3}
+  Chest: {fileID: 596013541029764843, guid: 15df3efa74f97dd4cb3d040c247f9339, type: 3}

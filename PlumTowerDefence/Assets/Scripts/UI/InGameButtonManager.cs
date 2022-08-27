@@ -14,6 +14,8 @@ public class InGameButtonManager : MonoBehaviour
     
     [SerializeField] private GameObject expandButton;
     [SerializeField] private GameObject startButton;
+
+    private GameObject InGameUpgradeManager;
     
     private void Awake()
     {
@@ -22,6 +24,8 @@ public class InGameButtonManager : MonoBehaviour
         xpText = Texts[1].GetComponent<TextMeshProUGUI>();
         hpText = Texts[2].GetComponent<TextMeshProUGUI>();
         moneyText = Texts[3].GetComponent<TextMeshProUGUI>();
+        
+        InGameUpgradeManager = GameObject.Find("InGameUpgradeManager");
     }
 
     private void Update()
@@ -37,7 +41,7 @@ public class InGameButtonManager : MonoBehaviour
         }
     }
 
-    private void UpdateGameInfo()
+    private void UpdateGameInfo()       //인게임 UI 업데이트
     {
         levelText.text = Tables.StringUI.Get(6)._Korean + GameManager.instance.level;    //Level Update
         ReplaceR(levelText);
@@ -57,7 +61,7 @@ public class InGameButtonManager : MonoBehaviour
     public void ExpandArea()    //확장하기 버튼을 누르면 호출
     {
         //영토 확장
-        if (!GameManager.instance.isPlayingGame)
+        if (!GameManager.instance.isPlayingGame)    //게임중이 아니라면
         {
             expandButton.SetActive(false);
             startButton.SetActive(true);
@@ -79,9 +83,21 @@ public class InGameButtonManager : MonoBehaviour
         StartCoroutine(IE_DebugPlayingGame());
     }
 
-    IEnumerator IE_DebugPlayingGame()
+    IEnumerator IE_DebugPlayingGame()       //테스트용 코루틴
     {
         yield return new WaitForSeconds(5.0f);
-        GameManager.instance.isPlayingGame = false;
+        //게임종료 시점
+        GameManager.instance.isPlayingGame = false;                 //Bool flase 만들어서 게임 끝을 알림
+        GameManager.instance.xp += GameManager.instance.level;      //level만큼 xp를 얻음
+        if (GameManager.instance.level % 3 == 0)                    //3 level 마다 증강체
+        {
+            expandButton.SetActive(false);
+            InGameUpgradeManager.GetComponent<InGameUpgrade>().ShowInGameUpgrade();
+        }
+    }
+
+    public void ShowExpandButton()          //다른 스크립트에서 버튼 접근을 위한 함수
+    {
+        expandButton.SetActive(true);
     }
 }
