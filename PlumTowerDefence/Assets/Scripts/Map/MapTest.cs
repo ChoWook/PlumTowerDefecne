@@ -17,5 +17,8 @@ public class MapTest : MonoBehaviour
     {
         RectTransform rectTransform = new();
         rectTransform.anchoredPosition = new Vector2(rectTransform.sizeDelta.x, 0);
+
+
+        rectTransform.DOMoveX(-rectTransform.sizeDelta.x, 1);
     }
 }

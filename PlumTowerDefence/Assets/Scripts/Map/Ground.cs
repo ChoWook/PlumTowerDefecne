@@ -11,6 +11,8 @@ public class Ground : MonoBehaviour
 
     public int Pattern = 1;
 
+    public EGroundType GroundType = EGroundType.LR;
+
     public Tile[] Tiles;
 
     public List<Tile> EmptyLandTiles;
@@ -35,9 +37,13 @@ public class Ground : MonoBehaviour
 
     private void Update()
     {
-        Tables.Load();
-        SetGroundPattern(Pattern);
-        SetTilesPos();
+        if (!Application.isPlaying)
+        {
+            Tables.Load();
+            SetGroundPattern(Pattern);
+            SetTilesPos();
+        }
+        
     }
 
     void SetTilesPos()
@@ -52,6 +58,8 @@ public class Ground : MonoBehaviour
 
     public void SetGroundPattern(EGroundType type)
     {
+        GroundType = type;
+
         SetGroundPattern(SelectRandomPattern(type));
     }
 

@@ -87,7 +87,7 @@ public class Map : MonoBehaviour
     // 그라운드 확장
     public void ShowNextGrounds()
     {
-        
+        int AddAttackRouteCnt = 0;
 
         for(int i = 0; i < AttackRouteCnt; i++)
         {
@@ -100,6 +100,8 @@ public class Map : MonoBehaviour
 
             Grounds[OpenGroundCnt].IsActive = true;
 
+            AddAttackRouteCnt += CheckBrach(Grounds[OpenGroundCnt].GroundType);
+            
             HoleEmptyLandCnt += Grounds[OpenGroundCnt].EmptyLandTileCount;
 
             SpawnAllGimmick(false);
@@ -107,7 +109,23 @@ public class Map : MonoBehaviour
             OpenGroundCnt++;
         }
 
+        AttackRouteCnt += AddAttackRouteCnt;
+
         SpawnAllGimmick(true);
+    }
+
+    public int CheckBrach(EGroundType type)
+    {
+        switch (type)
+        {
+            case EGroundType.URD:
+            case EGroundType.UDL:
+            case EGroundType.RDL:
+            case EGroundType.URL:
+                return 1;
+            default:
+                return 0;
+        }
     }
 
     // 처음 시작 그라운드를 제외한 나머지 그라운드 비활성화

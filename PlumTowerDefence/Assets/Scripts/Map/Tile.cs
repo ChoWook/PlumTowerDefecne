@@ -8,6 +8,8 @@ public class Tile : MonoBehaviour
 {
     [SerializeField] TextMeshPro PosText;
 
+    [SerializeField] GameObject HiddenBody;
+
     public ETileType TileType;
 
     public int PosX;
@@ -29,6 +31,7 @@ public class Tile : MonoBehaviour
         {
             case ETileType.Land:
                 NewColor = Color.white;
+                HiddenBody.SetActive(false);
                 break;
 
             case ETileType.AttackRoute:
