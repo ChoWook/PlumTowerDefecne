@@ -38,16 +38,29 @@ public enum EGroundType
 
 public enum EMapGimmickType
 {
-    Lanebuff = 1,
+    LaneBuff = 1,
     Obstacle = 2,
     Resource = 3,
     Treasure = 4,
 }
 
-public enum EMapResourceType
+public enum EResourceType
 {
     Magnetite = 1,
     Crystal = 2,
     Gold = 3,
     Diamond = 4,
+}
+
+public enum EMonsterType
+{
+    Bet = 1,
+    Mushroom = 2,
+    Flower = 3,
+    Fish = 4,
+    Slime = 5,
+    Pirate = 6,
+    Spider = 7,
+    Bear = 8,
+
 }

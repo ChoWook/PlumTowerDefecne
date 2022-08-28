@@ -14,24 +14,56 @@ public class Tower : MonoBehaviour
      
      */
 
-    // 변수 : 속성, 공격력, 사거리, 크기, 타워 가격, 업그레이드 단계, 공격 종류(기본, 범위, 디버프 등), 이동 가격
+    // 타워 스텟 (임시로 화살타워 스텟 설정)
+
+    [SerializeField]
+    private int TowerID = 0;                            // 타워 ID (데이터 테이블)
 
 
-    // 타워 스텟
+    [Header("Attributes")]
 
-    private int TowerID;                            // 타워 ID (데이터 테이블)
-    public string TowerName;                        // 타워 이름
-    private int TypeID;                             // 속성 ID (데이터테이블)
-    private int SizeID;                             // 타워 크기 (데이터테이블)
-    private int AttackStat ;                        // 공격력 스텟(데이터테이블)
-    private int SpeedStat ;                         // 공격 속도 스텟(데이터테이블)
-    public float range = 15f;                            // 공격 사거리
+    public int Range = 3;                       // 공격 사거리
+    private float SpeedStat = 0.25f;                         // 공격 속도 스텟(데이터테이블)
+    private float FireCountdown = 0f;                       // 발사 카운트다운
+
+
+
+    public string TowerName = "화살타워";                        // 타워 이름
+    private int AttackPropertyID = 0;                   // 공격 속성(데이터테이블)
+    private int TypeID = 0;                             // 속성 ID (데이터테이블)
+    private int SizeID = 0;                             // 타워 크기 (데이터테이블)
+    private int AttackStat = 25;                       // 공격력 스텟(데이터테이블)
+    
+    private int AbilityStat;                        // 특수 능력 스텟(데이터테이블)
+    
+    private int UpgradePrice = 40;                       // 업그레이드 가격(데이터테이블)
+    private int Price = 100;                              // 구매 가격(데이터테이블)
+    private double Damage;                             // 데미지 
+    private int SellPrice;                             // 판매 가격
+
+    public Transform PartToRotate;                      //회전 오브젝트
+    public float TurnSpeed = 10f;                       //회전 속도
+
+
+    public GameObject BulletPrefab;
+    public Transform FirePoint;
+
+
+
 
     // 적 스텟 (타겟 지정)
 
-    private Transform target;
+    [Header("Enemy")]
+
+    public Transform Target;
 
     public string enemyTag = "Enemy";
+
+    public int DefenceStat = 10;                            // 적 방어력
+
+    
+
+
 
     // todo 적 변수 가져 오기
 
@@ -43,7 +75,7 @@ public class Tower : MonoBehaviour
         InvokeRepeating("UpdateTarget", 0, 0.5f); // 0.5초 마다 반복하기
     }
 
-    // 타겟 업데이트
+    // 타겟 업데이트 (체력 우선, 방어구 우선, 방어력 높은 적 우선 추가하기)
     void UpdateTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  태그로 적 찾기
@@ -61,30 +93,82 @@ public class Tower : MonoBehaviour
         
         }
 
-        if (nearestEnemy != null && shortestDistance <= range)
+        if (nearestEnemy != null && shortestDistance <= Range)
         {
-            target = nearestEnemy.transform;
+            Target = nearestEnemy.transform;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (target == null)
+        if (Target == null)
         {
             return;
         }
-        else
+
+        // 타워 회전
+        
+        Vector3 dir = Target.position - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation,lookRotation,Time.deltaTime * TurnSpeed).eulerAngles;
+        PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+
+        // 발사
+
+        if (FireCountdown <= 0f)
         {
-            target = null;
+            Shoot();
+            FireCountdown = 1f / SpeedStat;
         }
+
+        FireCountdown -= Time.deltaTime;
+
     }
 
+    void Shoot()
+    {
+        GameObject bulletGO = (GameObject)Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation); //나중에 오브젝트 풀링으로 바꿔주기
+        Bullet bullet = bulletGO.GetComponent<Bullet>();
+
+        if (bullet != null)
+            bullet.Seek(Target);
+
+
+    }
+
+
+    // 사거리 표시
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.DrawWireSphere(transform.position, Range);
     }
+
+
+    // 타워 공격 속성별 데미지 설정 (적 기획과 조율 필요)
+    private void SetDamageWithAttackProperty()
+    {
+        // DefenceStat 방어력 어떻게 받을지 상의 필요함.
+
+        switch(AttackPropertyID)
+        {
+            case 0:                                // 타워의 공격력 x {0.01x (100 - 적의 방어력)} 만큼 대상에게 데미지를 준다.
+                Damage = AttackStat;
+                break;
+            case 1:                               // 체력에 타워의 공격력 x 1.2 x{0.01x(100-방어력)} 만큼 대상에게 데미지를 준다, 방어구에는 기본 알고리즘과 같다
+
+                break;
+            case 2 :
+
+                break;
+
+            case 3 :
+                break;
+                
+        }    
+    }
+
 
 
 }

@@ -11,20 +11,26 @@ public class Ground : MonoBehaviour
 
     public int Pattern = 1;
 
+    public EGroundType GroundType = EGroundType.LR;
+
     public Tile[] Tiles;
 
     public List<Tile> EmptyLandTiles;
 
     public int EmptyLandTileCount = 0;
 
+    public int ResourceTileCount = 0;
+
+    bool _IsActive;
+
     public bool IsActive
     {
-        get { return IsActive; }
+        get { return _IsActive; }
         set
         {
-            IsActive = value;
+            _IsActive = value;
 
-            gameObject.SetActive(IsActive);
+            gameObject.SetActive(_IsActive);
 
         }
     }
@@ -33,9 +39,13 @@ public class Ground : MonoBehaviour
 
     private void Update()
     {
-        Tables.Load();
-        SetGroundPattern(Pattern);
-        SetTilesPos();
+        if (!Application.isPlaying)
+        {
+            Tables.Load();
+            SetGroundPattern(Pattern);
+            SetTilesPos();
+        }
+        
     }
 
     void SetTilesPos()
@@ -50,6 +60,8 @@ public class Ground : MonoBehaviour
 
     public void SetGroundPattern(EGroundType type)
     {
+        GroundType = type;
+
         SetGroundPattern(SelectRandomPattern(type));
     }
 
@@ -103,7 +115,7 @@ public class Ground : MonoBehaviour
         GridLine.SetActive(true);
     }
 
-    public List<Tile> GetEmptyLandTiles()
+    public List<Tile> GetEmptyLandTilesInGround()
     {
         EmptyLandTiles.Clear();
 

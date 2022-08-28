@@ -58,10 +58,9 @@ public class ObjectPools : MonoBehaviour
         }
     }
 
-    // 오브젝트를 풀에서 가져옴ㄴ
+    // 오브젝트를 풀에서 가져옴
     public GameObject GetPooledObject(string _name)
     {
-        Debug.Log(pooledObjects.Keys.Count);
 
         if (pooledObjects.ContainsKey(_name))
         {

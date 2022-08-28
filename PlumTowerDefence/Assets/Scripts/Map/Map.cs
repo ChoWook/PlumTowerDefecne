@@ -23,11 +23,14 @@ public class Map : MonoBehaviour
 
     float GroundSize = 10;
 
+    List<Tile> EmptyLandTiles = new();
+
     private void Awake()
     {
         MainCamera = Camera.main;
 
         Instance = this;
+
     }
 
     public void SetMapPattern(int id = 0)
@@ -48,6 +51,9 @@ public class Map : MonoBehaviour
         {
             AddGround(NewMap._Grounds[i]._PosX, NewMap._Grounds[i]._PosY, NewMap._Grounds[i]._Type);
         }
+
+        // 처음에 열려 있는 그라운드를 제외하고 전부 비활성화
+        HideGrounds();
     }
 
     // 특정한 좌표에 Ground 생성
@@ -81,6 +87,8 @@ public class Map : MonoBehaviour
     // 그라운드 확장
     public void ShowNextGrounds()
     {
+        int AddAttackRouteCnt = 0;
+
         for(int i = 0; i < AttackRouteCnt; i++)
         {
             // 스테이지가 끝났는데도 이 함수가 실행되면 안됨
@@ -92,28 +100,75 @@ public class Map : MonoBehaviour
 
             Grounds[OpenGroundCnt].IsActive = true;
 
+            AddAttackRouteCnt += CheckBrach(Grounds[OpenGroundCnt].GroundType);
+            
             HoleEmptyLandCnt += Grounds[OpenGroundCnt].EmptyLandTileCount;
 
-            GimmicSpawner.SpawnGimmick(EMapGimmickType.Obstacle, OpenGroundCnt);
+            SpawnAllGimmick(false);
+
+            OpenGroundCnt++;
         }
 
-        GimmicSpawner.SpawnGimmick(EMapGimmickType.Resource);
+        AttackRouteCnt += AddAttackRouteCnt;
 
-        GimmicSpawner.SpawnGimmick(EMapGimmickType.Treasure);
+        SpawnAllGimmick(true);
+    }
+
+    public int CheckBrach(EGroundType type)
+    {
+        switch (type)
+        {
+            case EGroundType.URD:
+            case EGroundType.UDL:
+            case EGroundType.RDL:
+            case EGroundType.URL:
+                return 1;
+            default:
+                return 0;
+        }
     }
 
     // 처음 시작 그라운드를 제외한 나머지 그라운드 비활성화
     public void HideGrounds()
     {
-        //TODO 몇개의  그라운드를 처음 시작 그라운드로 할지 정해야 함
-
-        int StartGround = 3;
+        int StartGround = Tables.GlobalSystem.Get("Start_Ground_Num")._Value;
 
         OpenGroundCnt = StartGround;
 
         for (int i = StartGround; i < Grounds.Count; i++)
         {
             Grounds[i].IsActive = false;
+        }
+    }
+
+    public List<Tile> GetEmptyLandTilesInMap()
+    {
+        EmptyLandTiles.Clear();
+
+        for (int i = 0; i < OpenGroundCnt; i++)
+        {
+            EmptyLandTiles.AddRange(Grounds[i].GetEmptyLandTilesInGround());
+        }
+
+        return EmptyLandTiles;
+    }
+
+    void SpawnAllGimmick(bool IsExistedMap)
+    {
+        for(EMapGimmickType type = EMapGimmickType.Obstacle; type <= EMapGimmickType.Treasure; type++)
+        {
+            if (Tables.MapGimmick.Get(type)._ExistedMap == IsExistedMap)
+            {
+                if (IsExistedMap)
+                {
+                    GimmicSpawner.SpawnGimmick(type);
+                }
+                else
+                {
+                    GimmicSpawner.SpawnGimmick(type, OpenGroundCnt);
+                }
+
+            }
         }
     }
 }

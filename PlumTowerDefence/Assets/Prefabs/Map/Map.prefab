@@ -52,6 +52,7 @@ MonoBehaviour:
   Grounds: []
   OpenGroundCnt: 0
   AttackRouteCnt: 1
+  HoleEmptyLandCnt: 0
 --- !u!1 &5263991365656906033
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249ff86618550d9458714a9a702262ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Obstacle: {fileID: 0}
-  Resource: {fileID: 0}
-  Chest: {fileID: 0}
+  Obstacle: {fileID: 8385172303407954630, guid: b9cc0be516093e74eb7218dd57ac068e,
+    type: 3}
+  Resource: {fileID: 50656276707978358, guid: d8de8be490dea0d459edd92cb39a6a51, type: 3}
+  Chest: {fileID: 596013541029764843, guid: 15df3efa74f97dd4cb3d040c247f9339, type: 3}
