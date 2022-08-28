@@ -19,6 +19,8 @@ public class Ground : MonoBehaviour
 
     public int EmptyLandTileCount = 0;
 
+    public int ResourceTileCount = 0;
+
     bool _IsActive;
 
     public bool IsActive
