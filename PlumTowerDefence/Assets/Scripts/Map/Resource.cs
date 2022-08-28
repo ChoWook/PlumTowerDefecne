@@ -10,6 +10,8 @@ public class Resource : MonoBehaviour
 
     float[] Probs;
 
+    int MiningCnt;              // 자원을 몇 번 캘 수 있는지
+
 #if UNITY_EDITOR
     private void Update()
     {
@@ -19,6 +21,11 @@ public class Resource : MonoBehaviour
 
     private void OnEnable()
     {
+        InitResource();
+    }
+
+    void InitResource()
+    {
         Probs = new float[Resources.Length];
 
         Tables.Load();
@@ -27,6 +34,12 @@ public class Resource : MonoBehaviour
         {
             Probs[i] = Tables.MapGimmickResource.Get(i + 1)._Probability;
         }
+
+        int min = Tables.GlobalSystem.Get("Mining_Num_Min")._Value;
+
+        int max = Tables.GlobalSystem.Get("Mining_Num_Max")._Value + 1;
+
+        MiningCnt = Random.Range(min, max);
 
         SetResourceType(ChooseType());
     }

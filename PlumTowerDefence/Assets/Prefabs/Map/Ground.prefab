@@ -150,7 +150,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5152656405353086435}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -214,6 +214,7 @@ MonoBehaviour:
   GridLine: {fileID: 5152656404561381925}
   GroundSize: 7
   Pattern: 1
+  GroundType: 10
   Tiles:
   - {fileID: 1948693516552169924}
   - {fileID: 9124386607244897710}
@@ -264,6 +265,9 @@ MonoBehaviour:
   - {fileID: 4156794200923445744}
   - {fileID: 7438136780470103109}
   - {fileID: 6168920320324118005}
+  EmptyLandTiles: []
+  EmptyLandTileCount: 1440
+  ResourceTileCount: 0
 --- !u!1 &6377642496519016670
 GameObject:
   m_ObjectHideFlags: 0
