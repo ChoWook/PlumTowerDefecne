@@ -51,3 +51,16 @@ public enum EResourceType
     Gold = 3,
     Diamond = 4,
 }
+
+public enum EMonsterType
+{
+    Bet = 1,
+    Mushroom = 2,
+    Flower = 3,
+    Fish = 4,
+    Slime = 5,
+    Pirate = 6,
+    Spider = 7,
+    Bear = 8,
+
+}
