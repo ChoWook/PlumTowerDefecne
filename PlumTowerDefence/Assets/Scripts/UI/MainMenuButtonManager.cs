@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
+using UnityEngine.Rendering;
 
 public class MainMenuButtonManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] ButtonText;   //버튼의 텍스트를 담을 배열, 이름 지정용
-
+    [SerializeField] private GameObject _panel;
+    public Ease Ease;
     private void Start()
     {
         ChangeText();
@@ -21,6 +24,7 @@ public class MainMenuButtonManager : MonoBehaviour
 
     public void OnClickUpgrade()   //강화 버튼을 눌렀을 때 호출 할 함수
     {
+        _panel.transform.DOLocalMoveX(-1920, 1).SetEase(Ease);
         Debug.Log("강화");
     }
 

@@ -37,7 +37,7 @@ public class InGameButtonManager : MonoBehaviour
     {
         for (int i = 4; i < Texts.Length; i++)  //텍스트 변경, HP,Money,Level등 변경될 값들은 추후 변경예정
         {
-            Texts[i].GetComponent<TextMeshProUGUI>().text = Tables.StringUI.Get(i+6)._Korean;
+            Texts[i].GetComponent<TextMeshProUGUI>().text = Tables.StringUI.Get(Texts[i].transform.name)._Korean;
         }
     }
 
