@@ -8,8 +8,10 @@ public class Tile : MonoBehaviour
 {
     [SerializeField] TextMeshPro PosText;
 
-    public ETileType TileType;
+    [SerializeField] GameObject HiddenBody;
 
+    public ETileType TileType;
+    
     public int PosX;
     public int PosY;
 
@@ -29,6 +31,7 @@ public class Tile : MonoBehaviour
         {
             case ETileType.Land:
                 NewColor = Color.white;
+                HiddenBody.SetActive(false);
                 break;
 
             case ETileType.AttackRoute:
@@ -47,5 +50,22 @@ public class Tile : MonoBehaviour
     public Vector2 CalculateDistance(Tile another)
     {
         return new Vector2(another.PosX - PosX, another.PosY - PosY);
+    }
+
+    public bool IsResourceOnTile()
+    {
+        if(ObjectOnTile == null)
+        {
+            return false;
+        }
+
+        var res = ObjectOnTile.GetComponent<Resource>();
+
+        if (res == null)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

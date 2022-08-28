@@ -375,4 +375,60 @@ public class Tables : ScriptableObject
             return _StringMap[code];
         }
     }
+
+    public class Monster : CSVFile<Monster>
+    {
+        public EMonsterType _Type;
+        public string _Korean;
+        public int _Hp;
+        public int _Sheild;
+        public int _Armor;
+        public int _Speed;
+        public int _None;
+        public int _Water;
+        public int _Ground;
+        public int _Fire;
+        public int _Electric;
+        public int _Proper1_1;
+        public int _Proper2_1;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/Monster");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("Monster : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                Monster Tmp = new();
+
+                int idx = 0;
+
+                Tmp._Type = Enum.Parse<EMonsterType>(data[idx++]);
+                Tmp._Korean = data[idx++];
+                Tmp._Hp = int.Parse(data[idx++]);
+                Tmp._Sheild = int.Parse(data[idx++]);
+                Tmp._Armor = int.Parse(data[idx++]);
+                Tmp._Speed = int.Parse(data[idx++]);
+                Tmp._None = int.Parse(data[idx++]);
+                Tmp._Water = int.Parse(data[idx++]);
+                Tmp._Ground = int.Parse(data[idx++]);
+                Tmp._Fire = int.Parse(data[idx++]);
+                Tmp._Electric = int.Parse(data[idx++]);
+                Tmp._Proper1_1 = int.Parse(data[idx++]);
+                Tmp._Proper2_1 = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
 }

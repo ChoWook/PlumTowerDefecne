@@ -41,7 +41,7 @@ public class MapGimmicSpawner : MonoBehaviour
         }
         else
         {
-            SpawnGimmickInEmptyLandTile(GimmickType);
+            SpawnGimmickInChoosenSet(GimmickType);
         }
     }
 
@@ -50,6 +50,11 @@ public class MapGimmicSpawner : MonoBehaviour
     {
         int numRequired = (int)(Probability * LandsCnt);
 
+        return ChooseEmptySet(numRequired, LandsCnt);
+    }
+
+    int[] ChooseEmptySet(int numRequired, int LandsCnt)
+    {
         int[] result = new int[numRequired];
 
         int numToChoose = numRequired;
@@ -73,7 +78,8 @@ public class MapGimmicSpawner : MonoBehaviour
         return result;
     }
 
-    void CreateObstacleInGround()
+
+        void CreateObstacleInGround()
     {
         int r = -1;
         int d = -1;
@@ -223,23 +229,32 @@ public class MapGimmicSpawner : MonoBehaviour
             Debug.LogWarning("Worng Spawn Obstacle");
             return;
         }
-        else
+        else if(GimmickType == EMapGimmickType.Resource)
+        {
+            for (int i = 0; i < Map.Instance.OpenGroundCnt; i++)
+            {
+                if (Map.Instance.Grounds[i].ResourceTileCount == 0)
+                {
+                    EmptyLands = Map.Instance.Grounds[i].GetEmptyLandTilesInGround();
+
+                    ChoosenSet = ChooseEmptySet(Random.Range(2, 6), EmptyLands.Count);
+
+                    SpawnGimmickInChoosenSet(GimmickType);
+                }
+            }
+        }
+        else if(GimmickType == EMapGimmickType.Treasure)
         {
             EmptyLands = Map.Instance.GetEmptyLandTilesInMap();
 
-            Debug.Log("EmptyLands" + EmptyLands.Count);
+            //ChoosenSet = ChooseEmptySet(Tables.MapGimmick.Get(GimmickType)._Probability, EmptyLands.Count);
+            ChoosenSet = ChooseEmptySet(Random.Range(0, 5), EmptyLands.Count);
 
-            ChoosenSet = ChooseEmptySet(Tables.MapGimmick.Get(GimmickType)._Probability, EmptyLands.Count);
-
-            Debug.Log("_Probability" + Tables.MapGimmick.Get(GimmickType)._Probability);
-
-            Debug.Log("ChoosenSet.Count" + ChoosenSet.Length);
-
-            SpawnGimmickInEmptyLandTile(GimmickType);
+            SpawnGimmickInChoosenSet(GimmickType);
         }
     }
 
-    void SpawnGimmickInEmptyLandTile(EMapGimmickType GimmickType)
+    void SpawnGimmickInChoosenSet(EMapGimmickType GimmickType)
     {
         for (int i = 0; i < ChoosenSet.Length; i++)
         {
@@ -248,6 +263,12 @@ public class MapGimmicSpawner : MonoBehaviour
             EmptyLands[ChoosenSet[i]].ObjectOnTile = obj;
 
             obj.transform.parent = EmptyLands[ChoosenSet[i]].transform;
+
+            if(GimmickType == EMapGimmickType.Resource)
+            {
+                // Tile > Tilemap > Grid > Ground
+                obj.transform.parent.parent.parent.parent.GetComponent<Ground>().ResourceTileCount++;
+            }
 
             obj.transform.localPosition = Vector3.zero;
         }
