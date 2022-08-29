@@ -5,8 +5,7 @@ using UnityEngine;
 public class Waypoints : MonoBehaviour
 {
     public static List<List<Transform>> points;               // 배열
-    int Route = 0;
-    int RouteCount = 1; // 루트 개수를 받아와야됨 (길이 나뉘어지면 루트가 추가됨)   
+    public int Route = 0;
 
     private void Awake()
     {

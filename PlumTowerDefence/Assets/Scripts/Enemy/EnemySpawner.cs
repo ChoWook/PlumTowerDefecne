@@ -9,6 +9,7 @@ public class EnemySpawner : MonoBehaviour
     public Transform SpawnPoint;
 
     public int WaveNumber = 1;
+    public int Route = 0;
 
     // 맵 확장을 누른 뒤
 
@@ -38,13 +39,9 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy()
     {
         var enemy = ObjectPools.Instance.GetPooledObject("BasicEnemy");
-        if(enemy == null)
-        {
-            Debug.Log("Null");
-        }
+        enemy.GetComponent<EnemyMovement>().Route = Route;
         enemy.transform.position = SpawnPoint.position;
         //Instantiate(enemyPrefab, SpawnPoint.position, SpawnPoint.rotation);
-
     }
 
 }

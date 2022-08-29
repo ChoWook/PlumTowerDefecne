@@ -9,7 +9,7 @@ public class EnemyMovement : MonoBehaviour
     private Transform Target;
     private int WaypointIndex;
 
-    int Route = 0;
+    public int Route = 0;
 
 
     private void OnEnable()
@@ -19,6 +19,11 @@ public class EnemyMovement : MonoBehaviour
 
     void init()
     {
+        if(Waypoints.points == null)
+        {
+            return;
+        }
+
         MoveSpeed = GetComponent<Enemy>().Speed;
         WaypointIndex = Waypoints.points[Route].Count;
         Target = Waypoints.points[Route][Waypoints.points[Route].Count - 1];
