@@ -21,6 +21,10 @@ public class Ground : MonoBehaviour
 
     public int ResourceTileCount = 0;
 
+    public int PosX = 0;
+
+    public int PosY = 0;
+
     bool _IsActive;
 
     public bool IsActive
@@ -128,5 +132,13 @@ public class Ground : MonoBehaviour
         }
 
         return EmptyLandTiles;
+    }
+
+    public void SetPosition(int x, int y)
+    {
+        PosX = x;
+        PosY = y;
+
+        transform.localPosition = new Vector3(x * Map.Instance.GroundSize, 0, y * Map.Instance.GroundSize);
     }
 }
