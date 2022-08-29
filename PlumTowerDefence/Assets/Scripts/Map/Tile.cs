@@ -10,6 +10,10 @@ public class Tile : MonoBehaviour
 
     [SerializeField] GameObject HiddenBody;
 
+    [SerializeField] Material[] TileMateral;
+
+    [SerializeField] MeshRenderer PlaneMeshRenderer;
+
     public ETileType TileType;
     
     public int PosX;
@@ -43,6 +47,8 @@ public class Tile : MonoBehaviour
                 break;
         }
 
+        UpdateTileMateral();
+
         PosText.color = NewColor;
     }
 #endif
@@ -67,5 +73,17 @@ public class Tile : MonoBehaviour
         }
 
         return true;
+    }
+
+    void UpdateTileMateral()
+    {
+        if(TileType == ETileType.Land)
+        {
+            PlaneMeshRenderer.material = TileMateral[0];
+        }
+        else
+        {
+            PlaneMeshRenderer.material = TileMateral[1];
+        }
     }
 }

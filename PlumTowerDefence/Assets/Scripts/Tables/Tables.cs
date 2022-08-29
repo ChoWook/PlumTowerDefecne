@@ -44,6 +44,11 @@ public class Tables : ScriptableObject
             _map.TryGetValue(key, out ret);
             return ret;
         }
+
+        public static int GetSzie()
+        {
+            return _map.Count;
+        }
     }
 
     public class StringUI : CSVFile<StringUI>

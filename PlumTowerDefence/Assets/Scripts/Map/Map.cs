@@ -33,6 +33,13 @@ public class Map : MonoBehaviour
 
     }
 
+    public void ChooseRandomMapPattern()
+    {
+        int RandomID = Random.Range(1, Tables.MapPattern.GetSzie() + 1);
+
+        SetMapPattern(RandomID);
+    }
+
     public void SetMapPattern(int id = 0)
     {
         if(id == 0)
