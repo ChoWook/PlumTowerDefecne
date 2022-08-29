@@ -5,25 +5,13 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    /*private MemoryPool memoryPool;
-
-    public void Setup(MemoryPool memoryPool)
-    {
-        this.memoryPool = memoryPool;
-    }*/
-
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Enemy destroyed");
         //memoryPool.DeactivatePoolItem(gameObject);
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     // 기본 Enemy 스탯, 속성, 특성 Class만들기
-
-    //[SerializeField] --> 사용법 배우기
-
-    // Original -> Base
 
     float BaseHP;               // 데이터테이블에서 가져오기
     float MaxHP;
