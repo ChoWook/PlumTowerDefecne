@@ -6,6 +6,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class EditModeText : MonoBehaviour
 {
+    #if UNITY_EDITOR
     void Awake()
     {
         Tables.Load();
@@ -17,4 +18,5 @@ public class EditModeText : MonoBehaviour
             text.text = Tables.StringUI.Get(text.gameObject.name)._Korean;
         }
     }
+    #endif
 }
