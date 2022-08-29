@@ -4,32 +4,11 @@ using UnityEngine;
 
 public class ObjectPools : MonoBehaviour
 {
-    static ObjectPools _Instance;
-
-    public static ObjectPools Instance
-    {
-        get
-        {
-            return _Instance;
-        }
-
-    }
-
+    public static ObjectPools Instance;
+    
     private void Start()
     {
-        if (_Instance == null)
-        {
-            _Instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            if (_Instance != this)
-            {
-                Destroy(this);
-                return;
-            }
-        }
+        Instance = this;
 
         CreateMultiplePoolObjects();
     }
