@@ -1,5 +1,5 @@
-MonsterId,Type,Korean,Hpstat,Shieldstat,Armorstat,Speedstat,None,Water,Ground,Fire,Electric,Proper1_1,Prper1_2
-int,MonsterName,string,int,int,int,int,int,int,int,int,int,int,int
+ID,Type,Korean,Hp,Shield,Armor,Speed,None,Water,Ground,Fire,Electric,Speciality_1,Speciality_2
+int,MonsterName,string,int,int,int,int,float,float,float,float,float,int,int
 1,Bet,ÈíÇ÷¹ÚÁã,100,100,100,10,60,0,10,30,0,2,7
 2,Mushroom,±«¹°¹ö¼¸,100,100,100,10,50,30,10,10,0,2,4
 3,Flower,½ÄÀÎ²É,100,100,100,10,50,15,30,5,0,4,6
