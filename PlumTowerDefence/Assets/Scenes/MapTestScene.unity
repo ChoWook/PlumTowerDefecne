@@ -1994,10 +1994,43 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 958381493, guid: 3128bf1e77786d84196e831f936fcbd3, type: 3}
+      propertyPath: m_FOVAxisMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 958381493, guid: 3128bf1e77786d84196e831f936fcbd3, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 63
+      objectReference: {fileID: 0}
     - target: {fileID: 958381495, guid: 3128bf1e77786d84196e831f936fcbd3, type: 3}
       propertyPath: m_Cameras.Array.data[0]
       value: 
       objectReference: {fileID: 2068589364}
+    - target: {fileID: 958381497, guid: 3128bf1e77786d84196e831f936fcbd3, type: 3}
+      propertyPath: lastTab
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 958381497, guid: 3128bf1e77786d84196e831f936fcbd3, type: 3}
+      propertyPath: maxHeight
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 958381497, guid: 3128bf1e77786d84196e831f936fcbd3, type: 3}
+      propertyPath: minHeight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 958381497, guid: 3128bf1e77786d84196e831f936fcbd3, type: 3}
+      propertyPath: screenEdgeMovementSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 958381497, guid: 3128bf1e77786d84196e831f936fcbd3, type: 3}
+      propertyPath: scrollWheelZoomingSensitivity
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749618870159861756, guid: 3128bf1e77786d84196e831f936fcbd3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5263991364535386758, guid: 3128bf1e77786d84196e831f936fcbd3,
         type: 3}
       propertyPath: m_Name

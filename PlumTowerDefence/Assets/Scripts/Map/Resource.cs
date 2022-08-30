@@ -28,8 +28,6 @@ public class Resource : MonoBehaviour
     {
         Probs = new float[Resources.Length];
 
-        Tables.Load();
-
         for (int i = 0; i < Probs.Length; i++)
         {
             Probs[i] = Tables.MapGimmickResource.Get(i + 1)._Probability;

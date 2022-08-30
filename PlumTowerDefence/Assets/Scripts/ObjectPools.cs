@@ -10,6 +10,8 @@ public class ObjectPools : MonoBehaviour
     {
         Instance = this;
 
+        Tables.Load();
+
         CreateMultiplePoolObjects();
     }
 

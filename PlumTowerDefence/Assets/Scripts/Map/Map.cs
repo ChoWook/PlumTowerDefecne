@@ -153,7 +153,7 @@ public class Map : MonoBehaviour
 
         var hy = y * (1 / Mathf.Tan(YFOV * Mathf.Deg2Rad));
 
-        MainCamera.maxHeight = (hx > hy) ? hx : hy;
+        MainCamera.maxHeight = ((hx > hy) ? hx : hy) / 2;
 
         
     }

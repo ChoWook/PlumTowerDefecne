@@ -35,7 +35,14 @@ public class Tables : ScriptableObject
         protected void Add(_T Sender)
         {
             //_data.Add(Sender);
-            _map.Add(_ID, Sender);
+            if(_map.ContainsKey(_ID))
+            {
+                Debug.LogWarning($"Key {_ID} is already contained");
+            }
+            else
+            {
+                _map.Add(_ID, Sender);
+            }
         }
 
         public static _T Get(int key)
@@ -173,7 +180,7 @@ public class Tables : ScriptableObject
             for (int i = 2; i < dataLines.Length; i++)
             {
                 dataLines[i].Trim();
-                dataLines[i] = dataLines[i].Replace("\"", string.Empty);
+                dataLines[i] = dataLines[i].Replace("\"", string.Empty).Replace("\r", string.Empty);
                 var data = dataLines[i].Split(',');
 
                 if (string.IsNullOrEmpty(data[0]))
@@ -198,7 +205,9 @@ public class Tables : ScriptableObject
 
                     GroundInfo groundInfo = new GroundInfo();
 
+                    Debug.Log("idx = " + idx + " data[idx] = " + data[idx]);
                     groundInfo._PosX = int.Parse(data[idx++]);
+                    Debug.Log("idx = " + idx + " data[idx] = " + data[idx]);
                     groundInfo._PosY = int.Parse(data[idx++]);
                     groundInfo._Type = Enum.Parse<EGroundType>(data[idx++]);
 
