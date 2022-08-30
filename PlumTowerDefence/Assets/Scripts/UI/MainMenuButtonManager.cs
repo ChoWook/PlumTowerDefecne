@@ -8,6 +8,11 @@ using UnityEngine.Rendering;
 
 public class MainMenuButtonManager : MonoBehaviour
 {
+    /// <summary>
+    /// 메인화면의 4가지 버튼을 담고 있는 스크립트
+    /// 각 버튼을 눌렀을때의 효과와 버튼의 텍스트를 변경하는 함수를 가지고 있음
+    /// </summary>
+    
     [SerializeField] private GameObject[] ButtonText;   //버튼의 텍스트를 담을 배열, 이름 지정용
     [SerializeField] private GameObject _panel;
     public Ease Ease;

@@ -64,3 +64,10 @@ public enum EMonsterType
     Bear = 8,
 
 }
+
+public enum CategoryType
+{
+    Tower = 1,
+    Resource = 2,
+    Passive = 3,
+}

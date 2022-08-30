@@ -70,7 +70,7 @@ public class ObjectPools : MonoBehaviour
     public void ReleaseObjectToPool(GameObject go)
     {
         go.SetActive(false);
-        go.transform.parent = Instance.transform;
+        go.transform.SetParent(Instance.transform);
         go.transform.localPosition = Vector3.zero;
     }
 }

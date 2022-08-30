@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,11 @@ using TMPro;
 
 public class Pause : MonoBehaviour
 {
+    /// <summary>
+    /// 일시정지 화면에 있는 버튼을 관리하는 스크립트
+    /// 버튼에 들어갈 함수와 버튼의 텍스트를 변경하는 함수를 보우함
+    /// </summary>
+    
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject pauseBackGround;
     [SerializeField] private GameObject[] texts;
@@ -16,6 +22,12 @@ public class Pause : MonoBehaviour
             texts[i].GetComponent<TextMeshProUGUI>().text = Tables.StringUI.Get(texts[i].gameObject.name)._Korean;
         }
     }
+
+    private void Awake()
+    {
+        ChangeText();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

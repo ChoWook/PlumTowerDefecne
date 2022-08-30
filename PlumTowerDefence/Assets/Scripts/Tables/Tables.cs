@@ -90,7 +90,9 @@ public class Tables : ScriptableObject
 
         public static StringUI Get(string code)
         {
-            return _StringMap[code];
+            StringUI temp;
+            _StringMap.TryGetValue(code, out temp);
+            return temp;
         }
     }
 
