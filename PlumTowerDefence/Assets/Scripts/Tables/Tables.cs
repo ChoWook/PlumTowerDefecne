@@ -20,6 +20,7 @@ public class Tables : ScriptableObject
             MapGimmickObstacle.Load();
             MapGimmickResource.Load();
             GlobalSystem.Load();
+            Monster.Load();
 
             IsLoaded = true;
             Debug.Log("Load End");
@@ -35,7 +36,14 @@ public class Tables : ScriptableObject
         protected void Add(_T Sender)
         {
             //_data.Add(Sender);
-            _map.Add(_ID, Sender);
+            if (_map.ContainsKey(_ID))
+            {
+                Debug.LogWarning($"Key {_ID} is already contained");
+            }
+            else
+            {
+                _map.Add(_ID, Sender);
+            }
         }
 
         public static _T Get(int key)
@@ -99,7 +107,7 @@ public class Tables : ScriptableObject
         public EGroundType _Type;
         public List<ETileType> _Tiles;
 
-        public static Dictionary<EGroundType, List<GroundPattern>> _PatternWithType = new(); 
+        public static Dictionary<EGroundType, List<GroundPattern>> _PatternWithType = new();
 
         public static void Load()
         {
@@ -132,8 +140,8 @@ public class Tables : ScriptableObject
                 Tmp._Type = Enum.Parse<EGroundType>(data[idx++]);
 
                 Tmp._Tiles = new();
-                
-                for(; idx < data.Length; idx++)
+
+                for (; idx < data.Length; idx++)
                 {
                     Tmp._Tiles.Add((ETileType)int.Parse(data[idx]));
                 }
@@ -173,7 +181,7 @@ public class Tables : ScriptableObject
             for (int i = 2; i < dataLines.Length; i++)
             {
                 dataLines[i].Trim();
-                dataLines[i] = dataLines[i].Replace("\"", string.Empty);
+                dataLines[i] = dataLines[i].Replace("\"", string.Empty).Replace("\r", string.Empty);
                 var data = dataLines[i].Split(',');
 
                 if (string.IsNullOrEmpty(data[0]))
@@ -198,7 +206,9 @@ public class Tables : ScriptableObject
 
                     GroundInfo groundInfo = new GroundInfo();
 
+                    Debug.Log("idx = " + idx + " data[idx] = " + data[idx]);
                     groundInfo._PosX = int.Parse(data[idx++]);
+                    Debug.Log("idx = " + idx + " data[idx] = " + data[idx]);
                     groundInfo._PosY = int.Parse(data[idx++]);
                     groundInfo._Type = Enum.Parse<EGroundType>(data[idx++]);
 
@@ -436,4 +446,118 @@ public class Tables : ScriptableObject
             }
         }
     }
+
+    public class MonsterClass : CSVFile<MonsterClass>
+    {
+        public EMonsterClass _Type;
+        public string _Korean;
+        public float _Hp;
+        public float _Sheild;
+        public float _Size;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterClass");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterClass : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterClass Tmp = new();
+
+                int idx = 0;
+
+                Tmp._Type = Enum.Parse<EMonsterClass>(data[idx++]);
+                Tmp._Korean = data[idx++];
+                Tmp._Hp = float.Parse(data[idx++]);
+                Tmp._Sheild = float.Parse(data[idx++]);
+                Tmp._Size = float.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+
+    public class MonsterLevel : CSVFile<MonsterLevel>
+    {
+        public float _Hp;
+        public float _Sheild;
+        public float _Armor;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterLevel");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterLevel : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterLevel Tmp = new();
+
+                int idx = 0;
+
+                Tmp._Hp = float.Parse(data[idx++]);
+                Tmp._Sheild = float.Parse(data[idx++]);
+                Tmp._Armor = float.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+
+    /*
+    public class MonsterProperty : CSVFile<MonsterProperty>
+    {
+        public float _Hp;
+        public float _Sheild;
+        public float _Armor;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterProperty");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterProperty : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterLevel Tmp = new();
+
+                int idx = 0;
+
+                Tmp._Hp = float.Parse(data[idx++]);
+                Tmp._Sheild = float.Parse(data[idx++]);
+                Tmp._Armor = float.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+    */
 }
