@@ -6,11 +6,13 @@ public class ObjectPools : MonoBehaviour
 {
     public static ObjectPools Instance;
     
-    private void Start()
+    private void Awake()
     {
         Instance = this;
 
         CreateMultiplePoolObjects();
+
+        Tables.Load();
     }
 
     [SerializeField] GameObject[] poolPrefabs;

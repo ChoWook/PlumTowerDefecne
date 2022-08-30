@@ -23,7 +23,7 @@ public class Tables : ScriptableObject
             Monster.Load();
             MonsterClass.Load();
             MonsterLevel.Load();
-            MonsterProperty.Load();
+            //MonsterProperty.Load();
             MonsterSpeciality.Load();
             Tower.Load();
 
@@ -55,6 +55,12 @@ public class Tables : ScriptableObject
         {
             _T ret;
             _map.TryGetValue(key, out ret);
+
+            if(ret == null)
+            {
+                Debug.Log($"Key {key} is not Contained.");
+                Debug.Log($"Map.Count = {_map.Count}");
+            }
             return ret;
         }
 
@@ -433,6 +439,7 @@ public class Tables : ScriptableObject
 
                 int idx = 0;
 
+                Tmp._ID = int.Parse(data[idx++]);
                 Tmp._Type = Enum.Parse<EMonsterType>(data[idx++]);
                 Tmp._Korean = data[idx++];
                 Tmp._Hp = int.Parse(data[idx++]);
@@ -446,6 +453,8 @@ public class Tables : ScriptableObject
                 Tmp._Electric = float.Parse(data[idx++]);
                 Tmp._Speciality_1 = int.Parse(data[idx++]);
                 Tmp._Speciality_2 = int.Parse(data[idx++]);
+
+                //Debug.Log($"End ADD Monster {Tmp._ID}");
 
                 Tmp.Add(Tmp);
             }
@@ -481,6 +490,7 @@ public class Tables : ScriptableObject
 
                 int idx = 0;
 
+                Tmp._ID = int.Parse(data[idx++]);
                 Tmp._Type = Enum.Parse<EMonsterClass>(data[idx++]);
                 Tmp._Korean = data[idx++];
                 Tmp._Hp = float.Parse(data[idx++]);
@@ -519,6 +529,7 @@ public class Tables : ScriptableObject
 
                 int idx = 0;
 
+                Tmp._ID = int.Parse(data[idx++]);
                 Tmp._Hp = float.Parse(data[idx++]);
                 Tmp._Sheild = float.Parse(data[idx++]);
                 Tmp._Armor = float.Parse(data[idx++]);
@@ -555,6 +566,7 @@ public class Tables : ScriptableObject
 
                 int idx = 0;
 
+                Tmp._ID = int.Parse(data[idx++]);
                 Tmp._PropertyType = Enum.Parse<EPropertyType>(data[idx++]);
                 Tmp._Korean = data[idx++];
                 Tmp._Class = int.Parse(data[idx++]);
@@ -592,6 +604,7 @@ public class Tables : ScriptableObject
 
                 int idx = 0;
 
+                Tmp._ID = int.Parse(data[idx++]);
                 Tmp._SpecialityType = Enum.Parse<ESpecialityType>(data[idx++]);
                 Tmp._Korean = data[idx++];
                 Tmp._ChangeStat = Enum.Parse<EStat>(data[idx++]);
@@ -639,6 +652,7 @@ public class Tables : ScriptableObject
 
                 int idx = 0;
 
+                Tmp._ID = int.Parse(data[idx++]);
                 Tmp._Name = data[idx++];
                 Tmp._AttackSepcialization = Enum.Parse<EAttackSepcialization>(data[idx++]);
                 Tmp._Type = Enum.Parse<ETowerType>(data[idx++]);
