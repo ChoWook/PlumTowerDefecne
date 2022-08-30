@@ -143,4 +143,10 @@ public enum EStat
     Shield = 4,
     Speed = 5,
 }
+
+public enum CategoryType
+{
+    Tower = 1,
+    Resource = 2,
+    Passive = 3,
 }
