@@ -107,3 +107,39 @@ public enum EUpgradeStat
     AbilityStat = 2,
     SpeedStat = 3,
 }
+
+public enum EPropertyType
+{
+    None = 1,
+    Reinforced = 2,
+    Divisive = 3,
+    Divided = 4,
+    Private = 5,
+    Resurrect = 6,
+    Resurrected = 7,
+    Generative = 8,
+    Leading = 9,
+    Cursing = 10,
+
+}
+
+public enum ESpecialityType
+{
+    None = 1,
+    Big = 2,
+    Hug = 3,
+    Sturdy = 4,
+    Hard = 5,
+    Abudant = 6,
+    Fast = 7,
+    Rapid = 8,
+}
+
+public enum EStat
+{
+    None = 1,
+    Hp = 2,
+    Armor = 3,
+    Shield = 4,
+    Speed = 5,
+}
