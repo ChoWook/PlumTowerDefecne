@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RTS_Cam;
 
 public struct Pos{
     public int PosX;
@@ -42,7 +43,7 @@ public class Map : MonoBehaviour
 
     public static Map Instance;
 
-    Camera MainCamera;
+    RTS_Camera MainCamera;
 
     [HideInInspector]
     public List<Ground> Grounds = new();                        // 생성되는 순서대로 저장되는 리스트
@@ -61,10 +62,15 @@ public class Map : MonoBehaviour
 
     Dictionary<Direction, Pos> _Direction;
 
+    int GroundSize = 10;
+
+    float YFOV = 20;
+
+    float XFOV = 32.9f;
 
     private void Awake()
     {
-        MainCamera = Camera.main;
+        MainCamera = Camera.main.GetComponent<RTS_Camera>();
 
         Instance = this;
 
@@ -74,6 +80,12 @@ public class Map : MonoBehaviour
         _Direction.Add(Direction.D, new Pos { PosX = 0, PosY = -1 });
         _Direction.Add(Direction.U, new Pos { PosX = 0, PosY = 1 });
 
+        // TODO 게임메니저로 넘겨야 함
+        Cursor.lockState = CursorLockMode.Confined;
+
+        XFOV = 1 / Mathf.Tan(XFOV * Mathf.Deg2Rad);
+
+        YFOV = 1 / Mathf.Tan(YFOV * Mathf.Deg2Rad);
     }
 
     public void ChooseRandomMapPattern()
@@ -97,7 +109,10 @@ public class Map : MonoBehaviour
             return;
         }
 
-        for(int i = 0; i < NewMap._Grounds.Count; i++)
+        // 카메라 위치 초기화
+        InitCameraLimit(0, 0);
+
+        for (int i = 0; i < NewMap._Grounds.Count; i++)
         {
             AddGround(NewMap._Grounds[i]._PosX, NewMap._Grounds[i]._PosY, NewMap._Grounds[i]._Type);
         }
@@ -122,6 +137,78 @@ public class Map : MonoBehaviour
         Grounds.Add(NewGround);
 
         GroundsWithPos.Add(NewPos, NewGround);
+    }
+
+    public void InitCameraLimit(int x, int y)
+    {
+        MainCamera.MinX = -x * GroundSize;
+        MainCamera.MaxX = x * GroundSize;
+
+        MainCamera.MinY = -y * GroundSize;
+        MainCamera.MaxY = y * GroundSize;
+    }
+
+    public void UpdateCameraLimit(int x, int y)
+    {
+        float tmpX = x * GroundSize;
+        float tmpY = y * GroundSize;
+
+        if (tmpX < MainCamera.MinX)
+        {
+            MainCamera.MinX = tmpX;
+        }
+        else if (tmpX > MainCamera.MaxX)
+        {
+            MainCamera.MaxX = tmpX;
+        }
+
+        bool IsChangeY = false;
+
+        if (tmpY < MainCamera.MinY)
+        {
+            MainCamera.MinY = tmpY;
+
+            IsChangeY = true;
+        }
+        else if (tmpY > MainCamera.MaxY)
+        {
+            MainCamera.MaxY = tmpY;
+
+            IsChangeY = true;
+        }
+
+        if (IsChangeY)
+        {
+            CalculateDelY();
+        }
+
+        CalculateMaxHeight();
+    }
+
+    public void CalculateDelY()
+    {
+        var set = 90 - MainCamera.transform.rotation.eulerAngles.x;
+
+
+        var h = MainCamera.transform.localPosition.y;
+
+        var delY = h * Mathf.Tan(Mathf.Deg2Rad * set);
+
+        MainCamera.DelY = delY;
+    }
+
+    public void CalculateMaxHeight()
+    {
+        var x = (MainCamera.MaxX - MainCamera.MinX) / 2;
+
+        var y = (MainCamera.MaxY - MainCamera.MinY) / 2;
+
+        var hx = x * XFOV;  //tan 계산을 미리 한 값
+
+        var hy = y * YFOV;
+
+        MainCamera.maxHeight = ((hx > hy) ? hx : hy) / 2;
+
     }
 
     public void HideAllGridLine()
@@ -154,11 +241,15 @@ public class Map : MonoBehaviour
                 return;
             }
 
-            Grounds[OpenGroundCnt].IsActive = true;
+            Ground _Ground = Grounds[OpenGroundCnt];
 
-            AddAttackRouteCnt += CheckBrach(Grounds[OpenGroundCnt].GroundType);
-            
-            HoleEmptyLandCnt += Grounds[OpenGroundCnt].EmptyLandTileCount;
+            _Ground.IsActive = true;
+
+            UpdateCameraLimit(_Ground._Pos.PosX, _Ground._Pos.PosY);
+
+            AddAttackRouteCnt += CheckBrach(_Ground.GroundType);
+
+            HoleEmptyLandCnt += _Ground.EmptyLandTileCount;
 
             SpawnAllGimmick(false);
 
@@ -284,13 +375,17 @@ public class Map : MonoBehaviour
 
         CurTile.IsSelectedAttackRoute = true;
 
-        bool IsBranch = false;
+        var obj = ObjectPools.Instance.GetPooledObject("Waypoint");
+        obj.transform.parent = CurTile.transform.Find("WayPoints").transform;
+        obj.transform.localPosition = Vector3.zero;
+
+        bool IsBranchGround = false;
 
         bool IsBranchTile = false;
 
         if (CheckBrach(CurTile.ParentGround.GroundType) == 1)
         {
-            IsBranch = true;
+            IsBranchGround = true;
         }
 
         foreach (Direction OutDir in _Direction.Keys)
@@ -317,10 +412,12 @@ public class Map : MonoBehaviour
                 }
 
                 // 다음 타일 위치가 꺽였을 때 웨이포인트 생성
+                NextTile.IsSelectedAttackRoute = true;
+
                 Waypoints.points[Route].Add(CurTile.transform);
-                var obj = ObjectPools.Instance.GetPooledObject("Waypoint");
-                obj.transform.parent = transform.Find("WayPoints").transform;
-                obj.transform.localPosition = Vector3.zero;
+                var obj1 = ObjectPools.Instance.GetPooledObject("Waypoint");
+                obj1.transform.parent = CurTile.transform.Find("WayPoints").transform;
+                obj1.transform.localPosition = Vector3.zero;
 
                 // 타일이 나눠졌을 때
                 if (IsBranchTile)
@@ -331,21 +428,22 @@ public class Map : MonoBehaviour
                     Waypoints.points[++AttackRouteCnt].Add(CurTile.transform);
 
                     var obj2 = ObjectPools.Instance.GetPooledObject("Waypoint");
-                    obj2.transform.parent = transform.Find("WayPoints").transform;
+                    obj2.transform.parent = CurTile.transform.Find("WayPoints").transform;
                     obj2.transform.localPosition = Vector3.zero;
+                    Debug.Log("분기 발생" + AttackRouteCnt);
+
+                    FindNextAttackRouteTile(NewPos, OutDir, AttackRouteCnt);
                 }
                 else
                 {
                     // 이 그라운드가 브랜치가 있는 그라운드이면
-                    if (IsBranch)
+                    if (IsBranchGround)
                     {
                         IsBranchTile = true;
                     }
+
+                    FindNextAttackRouteTile(NewPos, OutDir, Route);
                 }
-
-                NextTile.IsSelectedAttackRoute = true;
-
-                FindNextAttackRouteTile(NewPos, OutDir, Route);
             }
         }
     }

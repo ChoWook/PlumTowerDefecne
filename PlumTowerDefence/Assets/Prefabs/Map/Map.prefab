@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 958381492}
   - component: {fileID: 958381495}
   - component: {fileID: 958381496}
+  - component: {fileID: 8262927545527133608}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -136,6 +137,67 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 23
   m_MaxRayIntersections: 0
+--- !u!114 &8262927545527133608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958381491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ef8c68bade09b41aca258d42a632f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastTab: 0
+  movementSettingsFoldout: 0
+  zoomingSettingsFoldout: 0
+  rotationSettingsFoldout: 0
+  heightSettingsFoldout: 0
+  mapLimitSettingsFoldout: 0
+  targetingSettingsFoldout: 0
+  inputSettingsFoldout: 0
+  useFixedUpdate: 0
+  keyboardMovementSpeed: 5
+  screenEdgeMovementSpeed: 15
+  followingSpeed: 5
+  rotationSped: 3
+  panningSpeed: 10
+  mouseRotationSpeed: 10
+  autoHeight: 1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  maxHeight: 15
+  minHeight: 5
+  heightDampening: 5
+  keyboardZoomingSensitivity: 2
+  scrollWheelZoomingSensitivity: 100
+  limitMap: 1
+  MinX: -50
+  MaxX: 50
+  MinY: -50
+  MaxY: 50
+  DelY: 0
+  targetFollow: {fileID: 0}
+  targetOffset: {x: 0, y: 0, z: 0}
+  useScreenEdgeInput: 1
+  screenEdgeBorder: 25
+  useKeyboardInput: 0
+  horizontalAxis: Horizontal
+  verticalAxis: Vertical
+  usePanning: 1
+  panningKey: 325
+  useKeyboardZooming: 0
+  zoomInKey: 101
+  zoomOutKey: 113
+  useScrollwheelZooming: 1
+  zoomingAxis: Mouse ScrollWheel
+  useKeyboardRotation: 0
+  rotateRightKey: 120
+  rotateLeftKey: 122
+  useMouseRotation: 0
+  mouseRotationKey: 324
 --- !u!1 &2849878812499272173
 GameObject:
   m_ObjectHideFlags: 0

@@ -58,8 +58,11 @@ namespace RTS_Cam
         #region MapLimits
 
         public bool limitMap = true;
-        public float limitX = 50f; //x limit of map
-        public float limitY = 50f; //z limit of map
+        public float MinX = -50f; //x limit of map
+        public float MaxX = 50f;
+        public float MinY = -50f; //z limit of map
+        public float MaxY = 50f; //z limit of map
+        public float DelY = 0;
 
         #endregion
 
@@ -222,9 +225,9 @@ namespace RTS_Cam
             {
                 Vector3 desiredMove = new Vector3();
 
-                Rect leftRect = new Rect(0, 0, screenEdgeBorder, Screen.height);
-                Rect rightRect = new Rect(Screen.width - screenEdgeBorder, 0, screenEdgeBorder, Screen.height);
-                Rect upRect = new Rect(0, Screen.height - screenEdgeBorder, Screen.width, screenEdgeBorder);
+                Rect leftRect = new Rect(0, 0, screenEdgeBorder, Screen.height + screenEdgeBorder);
+                Rect rightRect = new Rect(Screen.width - screenEdgeBorder, 0, screenEdgeBorder, Screen.height + screenEdgeBorder);
+                Rect upRect = new Rect(0, Screen.height - screenEdgeBorder, Screen.width, 2 * screenEdgeBorder);
                 Rect downRect = new Rect(0, 0, Screen.width, screenEdgeBorder);
 
                 desiredMove.x = leftRect.Contains(MouseInput) ? -1 : rightRect.Contains(MouseInput) ? 1 : 0;
@@ -258,9 +261,9 @@ namespace RTS_Cam
         {
             float distanceToGround = DistanceToGround();
             if(useScrollwheelZooming)
-                zoomPos += ScrollWheel * Time.deltaTime * scrollWheelZoomingSensitivity;
+                zoomPos -= ScrollWheel * Time.deltaTime * scrollWheelZoomingSensitivity;
             if (useKeyboardZooming)
-                zoomPos += ZoomDirection * Time.deltaTime * keyboardZoomingSensitivity;
+                zoomPos -= ZoomDirection * Time.deltaTime * keyboardZoomingSensitivity;
 
             zoomPos = Mathf.Clamp01(zoomPos);
 
@@ -272,6 +275,8 @@ namespace RTS_Cam
 
             m_Transform.position = Vector3.Lerp(m_Transform.position, 
                 new Vector3(m_Transform.position.x, targetHeight + difference, m_Transform.position.z), Time.deltaTime * heightDampening);
+
+            Map.Instance.CalculateDelY();
         }
 
         /// <summary>
@@ -302,10 +307,10 @@ namespace RTS_Cam
         {
             if (!limitMap)
                 return;
-                
-            m_Transform.position = new Vector3(Mathf.Clamp(m_Transform.position.x, -limitX, limitX),
-                m_Transform.position.y,
-                Mathf.Clamp(m_Transform.position.z, -limitY, limitY));
+
+            m_Transform.localPosition = new Vector3(Mathf.Clamp(m_Transform.localPosition.x, MinX, MaxX),
+                m_Transform.localPosition.y,
+                Mathf.Clamp(m_Transform.localPosition.z, MinY - DelY, MaxY - DelY));
         }
 
         /// <summary>
