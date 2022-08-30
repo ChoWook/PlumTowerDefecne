@@ -21,6 +21,11 @@ public class Tables : ScriptableObject
             MapGimmickResource.Load();
             GlobalSystem.Load();
             Monster.Load();
+            MonsterClass.Load();
+            MonsterLevel.Load();
+            MonsterProperty.Load();
+            MonsterSpeciality.Load();
+            Tower.Load();
 
             IsLoaded = true;
             Debug.Log("Load End");
@@ -399,13 +404,13 @@ public class Tables : ScriptableObject
         public int _Sheild;
         public int _Armor;
         public int _Speed;
-        public int _None;
-        public int _Water;
-        public int _Ground;
-        public int _Fire;
-        public int _Electric;
-        public int _Proper1_1;
-        public int _Proper2_1;
+        public float _None;
+        public float _Water;
+        public float _Ground;
+        public float _Fire;
+        public float _Electric;
+        public int _Speciality_1;
+        public int _Speciality_2;
 
         public static void Load()
         {
@@ -434,13 +439,13 @@ public class Tables : ScriptableObject
                 Tmp._Sheild = int.Parse(data[idx++]);
                 Tmp._Armor = int.Parse(data[idx++]);
                 Tmp._Speed = int.Parse(data[idx++]);
-                Tmp._None = int.Parse(data[idx++]);
-                Tmp._Water = int.Parse(data[idx++]);
-                Tmp._Ground = int.Parse(data[idx++]);
-                Tmp._Fire = int.Parse(data[idx++]);
-                Tmp._Electric = int.Parse(data[idx++]);
-                Tmp._Proper1_1 = int.Parse(data[idx++]);
-                Tmp._Proper2_1 = int.Parse(data[idx++]);
+                Tmp._None = float.Parse(data[idx++]);
+                Tmp._Water = float.Parse(data[idx++]);
+                Tmp._Ground = float.Parse(data[idx++]);
+                Tmp._Fire = float.Parse(data[idx++]);
+                Tmp._Electric = float.Parse(data[idx++]);
+                Tmp._Speciality_1 = int.Parse(data[idx++]);
+                Tmp._Speciality_2 = int.Parse(data[idx++]);
 
                 Tmp.Add(Tmp);
             }
@@ -523,12 +528,11 @@ public class Tables : ScriptableObject
         }
     }
 
-    /*
     public class MonsterProperty : CSVFile<MonsterProperty>
     {
-        public float _Hp;
-        public float _Sheild;
-        public float _Armor;
+        public EPropertyType _PropertyType;
+        public string _Korean;
+        public int _Class;
 
         public static void Load()
         {
@@ -547,17 +551,110 @@ public class Tables : ScriptableObject
                     break;
                 }
 
-                MonsterLevel Tmp = new();
+                MonsterProperty Tmp = new();
 
                 int idx = 0;
 
-                Tmp._Hp = float.Parse(data[idx++]);
-                Tmp._Sheild = float.Parse(data[idx++]);
-                Tmp._Armor = float.Parse(data[idx++]);
+                Tmp._PropertyType = Enum.Parse<EPropertyType>(data[idx++]);
+                Tmp._Korean = data[idx++];
+                Tmp._Class = int.Parse(data[idx++]);
 
                 Tmp.Add(Tmp);
             }
         }
     }
-    */
+
+    public class MonsterSpeciality : CSVFile<MonsterSpeciality>
+    {
+        public ESpecialityType _SpecialityType;
+        public string _Korean;
+        public EStat _ChangeStat;
+        public float _Amount;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterSpeciality");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterSpeciality : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterSpeciality Tmp = new();
+
+                int idx = 0;
+
+                Tmp._SpecialityType = Enum.Parse<ESpecialityType>(data[idx++]);
+                Tmp._Korean = data[idx++];
+                Tmp._ChangeStat = Enum.Parse<EStat>(data[idx++]);
+                Tmp._Amount = float.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+
+    public class Tower : CSVFile<Tower>
+    {
+        public string _Name;
+        public EAttackSepcialization _AttackSepcialization;
+        public ETowerType _Type;
+        public int _Size;
+        public float _Attack;
+        public float _Speed;
+        public float _ProjectileSpeed;
+        public float _Ability;
+        public EUpgradeStat _UpgradeStat;
+        public float _UpgradeAmount;
+        public int _UpgradePrice;
+        public float _Range;
+        public int _Price;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/Tower");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("Tower : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                Tower Tmp = new();
+
+                int idx = 0;
+
+                Tmp._Name = data[idx++];
+                Tmp._AttackSepcialization = Enum.Parse<EAttackSepcialization>(data[idx++]);
+                Tmp._Type = Enum.Parse<ETowerType>(data[idx++]);
+                Tmp._Size = int.Parse(data[idx++]);
+                Tmp._Attack = float.Parse(data[idx++]);
+                Tmp._Speed = float.Parse(data[idx++]);
+                Tmp._ProjectileSpeed = float.Parse(data[idx++]);
+                Tmp._Ability = float.Parse(data[idx++]);
+                Tmp._UpgradeStat = Enum.Parse<EUpgradeStat>(data[idx++]);
+                Tmp._UpgradeAmount = float.Parse(data[idx++]);
+                Tmp._UpgradePrice = int.Parse(data[idx++]);
+                Tmp._Range = float.Parse(data[idx++]);
+                Tmp._Price = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
 }
