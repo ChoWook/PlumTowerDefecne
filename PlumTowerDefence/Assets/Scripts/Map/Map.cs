@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RTS_Cam;
 
+[System.Serializable]
 public struct Pos{
     public int PosX;
     public int PosY;
@@ -120,7 +121,7 @@ public class Map : MonoBehaviour
         SetWaypoints();
 
         // 처음에 열려 있는 그라운드를 제외하고 전부 비활성화
-        HideGrounds();
+        InitGrounds();
     }
 
     // 특정한 좌표에 Ground 생성
@@ -251,6 +252,8 @@ public class Map : MonoBehaviour
 
             HoleEmptyLandCnt += _Ground.EmptyLandTileCount;
 
+            _Ground.StartEnemySpawners();
+
             SpawnAllGimmick(false);
 
             OpenGroundCnt++;
@@ -275,8 +278,7 @@ public class Map : MonoBehaviour
         }
     }
 
-    // 처음 시작 그라운드를 제외한 나머지 그라운드 비활성화
-    public void HideGrounds()
+    public void InitGrounds()
     {
         int StartGround = Tables.GlobalSystem.Get("Start_Ground_Num")._Value;
 
@@ -285,6 +287,12 @@ public class Map : MonoBehaviour
         for (int i = StartGround; i < Grounds.Count; i++)
         {
             Grounds[i].IsActive = false;
+        }
+
+        // 처음 시작 타일 들의 위치를 바탕으로 카메라 제한 업데이트
+        for (int i = 0; i < StartGround; i++)
+        {
+            UpdateCameraLimit(Grounds[i]._Pos.PosX, Grounds[i]._Pos.PosY);
         }
     }
 
@@ -322,8 +330,20 @@ public class Map : MonoBehaviour
     public Tile GetTileInMap(Pos Sender)
     {
         Pos pos = new Pos();
-        pos.PosX = (Sender.PosX + 3) / 7;
-        pos.PosY = (Sender.PosY + 3) / 7;
+
+        int tmp = Sender.PosX + 3;
+        pos.PosX = tmp / 7;
+        if (tmp < 0 && tmp % 7 != 0)
+        {
+            pos.PosX -= 1;
+        }
+
+        tmp = Sender.PosY + 3;
+        pos.PosY = tmp / 7;
+        if (tmp < 0 && tmp % 7 != 0)
+        {
+            pos.PosY -= 1;
+        }
 
         Ground ground = null;
         GroundsWithPos.TryGetValue(pos, out ground);
@@ -375,10 +395,6 @@ public class Map : MonoBehaviour
 
         CurTile.IsSelectedAttackRoute = true;
 
-        var obj = ObjectPools.Instance.GetPooledObject("Waypoint");
-        obj.transform.parent = CurTile.transform.Find("WayPoints").transform;
-        obj.transform.localPosition = Vector3.zero;
-
         bool IsBranchGround = false;
 
         bool IsBranchTile = false;
@@ -388,12 +404,18 @@ public class Map : MonoBehaviour
             IsBranchGround = true;
         }
 
+        // 모든 공격로에 웨이포인트 소환하기
+        /*
+        var obj = ObjectPools.Instance.GetPooledObject("Waypoint");
+        obj.transform.parent = CurTile.transform;
+        obj.transform.localPosition = Vector3.zero;
+        */
+
         foreach (Direction OutDir in _Direction.Keys)
         {
-            Pos NewPos = SumPos(pos, _Direction[OutDir]);
+            Pos NextPos = SumPos(pos, _Direction[OutDir]);
 
-            Tile NextTile = GetTileInMap(NewPos);
-
+            Tile NextTile = GetTileInMap(NextPos);
 
             if (NextTile == null)
             {
@@ -403,36 +425,45 @@ public class Map : MonoBehaviour
             // 아직 선택된 공격로가 아닐때만 실행
             if (NextTile.TileType == ETileType.AttackRoute && !NextTile.IsSelectedAttackRoute)
             {
-                // 다음 타일이 직선이면 웨이포인트를 생성할 필요가 없음
+                // 그라운드가 바뀌면 에너미 스포너 생성
+                if(CurTile.ParentGround != NextTile.ParentGround)
+                {
+                    CreateEnemySpawner(CurTile.transform, NextTile.transform, Route);
+                }
+
+
+                // 다음 타일이 직선이면
                 if(OutDir == InDir)
                 {
-                    IsBranchTile = true;
+                    if (IsBranchTile)
+                    {
+                        Debug.Log($"분기 발생 {pos.PosX} , {pos.PosY}");
 
+                        FindNextAttackRouteTile(NextPos, OutDir, MakeBranch(Route, CurTile.transform));
+                    }
+                    else
+                    {
+                        IsBranchTile = true;
+
+                        FindNextAttackRouteTile(NextPos, OutDir, Route);
+                    }
+                    
                     continue;
                 }
 
                 // 다음 타일 위치가 꺽였을 때 웨이포인트 생성
-                NextTile.IsSelectedAttackRoute = true;
-
                 Waypoints.points[Route].Add(CurTile.transform);
                 var obj1 = ObjectPools.Instance.GetPooledObject("Waypoint");
-                obj1.transform.parent = CurTile.transform.Find("WayPoints").transform;
+                obj1.transform.SetParent(CurTile.transform);
                 obj1.transform.localPosition = Vector3.zero;
+                Debug.Log($"Spawn Waypoint {pos.PosX} , {pos.PosY}");
 
                 // 타일이 나눠졌을 때
                 if (IsBranchTile)
                 {
-                    // 이전까지 루트 내용 복사
-                    Waypoints.points.Add(Waypoints.points[Route]);
+                    Debug.Log($"분기 발생 {pos.PosX} , {pos.PosY}");
 
-                    Waypoints.points[++AttackRouteCnt].Add(CurTile.transform);
-
-                    var obj2 = ObjectPools.Instance.GetPooledObject("Waypoint");
-                    obj2.transform.parent = CurTile.transform.Find("WayPoints").transform;
-                    obj2.transform.localPosition = Vector3.zero;
-                    Debug.Log("분기 발생" + AttackRouteCnt);
-
-                    FindNextAttackRouteTile(NewPos, OutDir, AttackRouteCnt);
+                    FindNextAttackRouteTile(NextPos, OutDir, MakeBranch(Route, CurTile.transform));
                 }
                 else
                 {
@@ -442,9 +473,42 @@ public class Map : MonoBehaviour
                         IsBranchTile = true;
                     }
 
-                    FindNextAttackRouteTile(NewPos, OutDir, Route);
+                    FindNextAttackRouteTile(NextPos, OutDir, Route);
                 }
             }
         }
+    }
+
+    int MakeBranch(int Route, Transform TileTransform)
+    {
+        // 이전까지 루트 내용 복사
+        Waypoints.points.Add(Waypoints.points[Route]);
+
+        AttackRouteCnt = Waypoints.points.Count - 1;
+
+        Waypoints.points[AttackRouteCnt].Add(TileTransform);
+
+        var obj2 = ObjectPools.Instance.GetPooledObject("Waypoint");
+
+        obj2.transform.SetParent(TileTransform);
+
+        obj2.transform.localPosition = Vector3.zero;
+
+        return AttackRouteCnt;
+    }
+
+    public void CreateEnemySpawner(Transform cur, Transform next, int Route)
+    {
+        var Spawner = ObjectPools.Instance.GetPooledObject("EnemySpawner");
+
+        Spawner.transform.SetParent(cur);
+
+        Spawner.transform.position = next.position;
+
+        var ES = Spawner.GetComponent<EnemySpawner>();
+
+        ES.Route = Route;
+
+        ES.SpawnPoint = ES.transform;
     }
 }

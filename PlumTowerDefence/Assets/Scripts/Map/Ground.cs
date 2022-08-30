@@ -25,6 +25,8 @@ public class Ground : MonoBehaviour
 
     public int ResourceTileCount = 0;
 
+    public List<EnemySpawner> EnemySpawners = new();
+
     bool _IsActive;
 
     public bool IsActive
@@ -62,6 +64,8 @@ public class Ground : MonoBehaviour
     }
 #endif
 
+
+
     public void SetGroundPattern(EGroundType type)
     {
         GroundType = type;
@@ -87,6 +91,10 @@ public class Ground : MonoBehaviour
 
         for (int i = 0; i < GroundSize * GroundSize; i++)
         {
+            Tiles[i]._Pos.PosX = i / GroundSize;
+
+            Tiles[i]._Pos.PosY = i % GroundSize;
+
             Tiles[i].TileType = Tables.GroundPattern.Get(id)._Tiles[i];
 
             Tiles[i].ParentGround = this;
@@ -153,6 +161,19 @@ public class Ground : MonoBehaviour
 
         Sender.PosY = -Sender.PosY;
 
+        if(Sender.PosX + GroundSize * Sender.PosY >= Tiles.Length || Sender.PosX < 0 || Sender.PosY < 0)
+        {
+            Debug.Log("TilePosition" + Sender.PosX + " " + Sender.PosY);
+        }
+
         return Tiles[Sender.PosX + GroundSize * Sender.PosY];
+    }
+
+    public void StartEnemySpawners()
+    {
+        for(int i = 0; i < EnemySpawners.Count; i++)
+        {
+            //EnemySpawners[i]
+        }
     }
 }
