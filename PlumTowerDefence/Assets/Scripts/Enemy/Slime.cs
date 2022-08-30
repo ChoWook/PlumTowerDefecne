@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Slime : Enemy
 {
-    void GetStat()
+    public void GetStat()
     {
         BaseHP = Tables.Monster.Get(5)._Hp;
         BaseShield = Tables.Monster.Get(5)._Sheild;

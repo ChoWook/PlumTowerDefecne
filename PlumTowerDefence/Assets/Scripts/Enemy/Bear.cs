@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bear : Enemy
 {
-    void GetStat()
+    public void GetStat()
     {
         BaseHP = Tables.Monster.Get(8)._Hp;
         BaseShield = Tables.Monster.Get(8)._Sheild;

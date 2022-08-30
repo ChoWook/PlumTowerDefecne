@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spider : Enemy
 {
-    void GetStat()
+    public void GetStat()
     {
         BaseHP = Tables.Monster.Get(7)._Hp;
         BaseShield = Tables.Monster.Get(7)._Sheild;

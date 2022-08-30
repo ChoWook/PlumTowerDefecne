@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Flower : Enemy
 {
-    void GetStat()
+    public void GetStat()
     {
         BaseHP = Tables.Monster.Get(3)._Hp;
         BaseShield = Tables.Monster.Get(3)._Sheild;

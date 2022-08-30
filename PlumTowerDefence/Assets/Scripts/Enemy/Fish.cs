@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fish : Enemy
 {
-    void GetStat()
+    public void GetStat()
     {
         BaseHP = Tables.Monster.Get(4)._Hp;
         BaseShield = Tables.Monster.Get(4)._Sheild;
