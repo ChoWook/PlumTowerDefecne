@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
 
     public int WaveNumber = 1;                  // 게임 매니저한테 받을수도
     public int Route = 0;
+    public int WaypointIndex = 5;
 
     int EnemyNumber = 1;
     int SpawnEnemyNumber;
@@ -19,31 +20,29 @@ public class EnemySpawner : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space))     // if(맵 확장 버튼이 눌리면)으로 대체
         {
-     
-          StartCoroutine(SpawnWave());
-  
+            SpawnWave();
         }
     }
-    /*for (int i = 0; i<SpawnEnemyNumber; i++)     // WaveManager 을 만들자 (추후 수정 예정) 
-        {                                       // WaveNumber 에 따라 EnemyNumber와 특성부여가 달라진다
-            SpawnEnemy(EMonsterType.Bet);
-    yield return new WaitForSeconds(0.5f);
-}*/
+    
+    public void SpawnWave()
+    {
+        StartCoroutine(IE_SpawnWave());
+    }
 
-IEnumerator SpawnWave()
+    IEnumerator IE_SpawnWave()
     {
         SpawnEnemyNumber = GetSpawnNumber(WaveNumber);
         Debug.Log("Wave Start");
         Debug.Log("Wave number: " + WaveNumber);
         Debug.Log(SpawnEnemyNumber);
-
+        WaitForSeconds ws = new WaitForSeconds(0.5f);
 
         if(WaveNumber == 1)
         {
             for (int i = 0; i < SpawnEnemyNumber; i++)
             {
                 SpawnEnemy(EMonsterType.Bet);
-                yield return new WaitForSeconds(0.5f);
+                yield return ws;
             }
         }
         else if(WaveNumber == 2)
@@ -51,7 +50,7 @@ IEnumerator SpawnWave()
             for (int i = 0; i < SpawnEnemyNumber; i++)
             {
                 SpawnEnemy(EMonsterType.Mushroom);
-                yield return new WaitForSeconds(0.5f);
+                yield return ws;
             }
         }
         else if(WaveNumber == 3)
@@ -59,7 +58,7 @@ IEnumerator SpawnWave()
             for (int i = 0; i < SpawnEnemyNumber; i++)
             {
                 SpawnEnemy(EMonsterType.Flower);
-                yield return new WaitForSeconds(0.5f);
+                yield return ws;
             }
         }
         else if(WaveNumber == 4)
@@ -67,7 +66,7 @@ IEnumerator SpawnWave()
             for (int i = 0; i < SpawnEnemyNumber; i++)
             {
                 SpawnEnemy(EMonsterType.Fish);
-                yield return new WaitForSeconds(0.5f);
+                yield return ws;
             }
         }
         else if (WaveNumber == 5)
@@ -75,7 +74,7 @@ IEnumerator SpawnWave()
             for (int i = 0; i < SpawnEnemyNumber; i++)
             {
                 SpawnEnemy(EMonsterType.Slime);
-                yield return new WaitForSeconds(0.5f);
+                yield return ws;
             }
         }
         else if (WaveNumber == 6)
@@ -83,7 +82,7 @@ IEnumerator SpawnWave()
             for (int i = 0; i < SpawnEnemyNumber; i++)
             {
                 SpawnEnemy(EMonsterType.Pirate);
-                yield return new WaitForSeconds(0.5f);
+                yield return ws;
             }
         }
         else if (WaveNumber == 7)
@@ -91,7 +90,7 @@ IEnumerator SpawnWave()
             for (int i = 0; i < SpawnEnemyNumber; i++)
             {
                 SpawnEnemy(EMonsterType.Spider);
-                yield return new WaitForSeconds(0.5f);
+                yield return ws;
             }
         }
         else if (WaveNumber == 8)
@@ -99,7 +98,7 @@ IEnumerator SpawnWave()
             for (int i = 0; i < SpawnEnemyNumber; i++)
             {
                 SpawnEnemy(EMonsterType.Bear);
-                yield return new WaitForSeconds(0.5f);
+                yield return ws;
             }
         }
         else
@@ -107,7 +106,7 @@ IEnumerator SpawnWave()
             for (int i = 0; i < SpawnEnemyNumber; i++)
             {
                 SpawnEnemy(EMonsterType.Bet);
-                yield return new WaitForSeconds(0.5f);
+                yield return ws;
             }
         }
 
@@ -119,12 +118,47 @@ IEnumerator SpawnWave()
 
     void SpawnEnemy(EMonsterType monsterType)
     {
-        if (monsterType == EMonsterType.Bet)
+        var enemy = ObjectPools.Instance.GetPooledObject(monsterType.ToString());        // GameObject
+        var emove = enemy.GetComponent<EnemyMovement>();
+        emove.Route = Route;
+        emove.WaypointIndex = WaypointIndex;
+        enemy.transform.position = SpawnPoint.position;
+        
+        switch (monsterType)
         {
-            var enemy = ObjectPools.Instance.GetPooledObject("Bat");        // GameObject
-            enemy.GetComponent<EnemyMovement>().Route = Route;              // GetCompnent 이유: 다른 스크립트에 있는 원하는 변수가
+            case EMonsterType.Bet:
+                enemy.GetComponent<Bat>().GetStat();                
+                break;
+            case EMonsterType.Mushroom:
+                enemy.GetComponent<Mushroom>().GetStat();
+                break;
+            case EMonsterType.Flower:
+                enemy.GetComponent<Flower>().GetStat();
+                break;
+            case EMonsterType.Fish:
+                enemy.GetComponent<Fish>().GetStat();
+                break;
+            case EMonsterType.Slime:
+                enemy.GetComponent<Slime>().GetStat();
+                break;
+            case EMonsterType.Pirate:
+                enemy.GetComponent<Pirate>().GetStat();
+                break;
+            case EMonsterType.Spider:
+                enemy.GetComponent<Spider>().GetStat();
+                break;
+            case EMonsterType.Bear:
+                enemy.GetComponent<Bear>().GetStat();
+                break;
+        }
+        enemy.GetComponent<Enemy>().SetStat();
+        emove.InitSpeed(monsterType);
+
+        /*if (monsterType == EMonsterType.Bet)
+        {
+                          // GetCompnent 이유: 다른 스크립트에 있는 원하는 변수가
                                                                             // 현재 게임오브젝트에 없기 때문에
-            enemy.transform.position = SpawnPoint.position;
+            
             enemy.GetComponent<Bat>().GetStat();
             enemy.GetComponent<Enemy>().SetStat();
             enemy.GetComponent<EnemyMovement>().InitSpeed(monsterType);
@@ -200,7 +234,7 @@ IEnumerator SpawnWave()
             enemy.GetComponent<EnemyMovement>().Route = Route;
             enemy.transform.position = SpawnPoint.position;
             enemy.GetComponent<EnemyMovement>().InitSpeed(monsterType);
-        }
+        }*/
         
         
         //Instantiate(enemyPrefab, SpawnPoint.position, SpawnPoint.rotation);

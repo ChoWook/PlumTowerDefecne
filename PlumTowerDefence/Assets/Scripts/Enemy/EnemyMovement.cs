@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour
     private float MoveSpeed;
 
     private Transform Target;
-    private int WaypointIndex;
+    public int WaypointIndex;
 
     public int Route = 0;
 
@@ -23,7 +23,10 @@ public class EnemyMovement : MonoBehaviour
         {
             return;
         }
-        switch (monsterType)
+
+        MoveSpeed = GetComponent<Enemy>().Speed;
+
+        /*switch (monsterType)
         {
             case EMonsterType.Bet:
                 MoveSpeed = GetComponent<Bat>().Speed;
@@ -49,11 +52,9 @@ public class EnemyMovement : MonoBehaviour
             case EMonsterType.Bear:
                 MoveSpeed = GetComponent<Bear>().Speed;
                 break;
-        }
+        }*/
 
-        
-        WaypointIndex = Waypoints.points[Route].Count;
-        Target = Waypoints.points[Route][Waypoints.points[Route].Count - 1];
+        Target = Waypoints.points[Route][WaypointIndex];
     }
 
     private void Start()

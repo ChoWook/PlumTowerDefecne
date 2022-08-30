@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
 
     float Enforced = 1.0f;          // 강화특성
 
+    
     public void SetStat()
     {
         MaxHP = BaseHP;

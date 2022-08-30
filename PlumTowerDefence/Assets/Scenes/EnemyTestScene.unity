@@ -631,6 +631,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Route: 0
+  testTransform:
+  - {fileID: 1591495508}
+  - {fileID: 1785937833}
+  - {fileID: 1314796579}
+  - {fileID: 569194626}
+  - {fileID: 428926209}
+  - {fileID: 1785530342}
 --- !u!4 &941628578
 Transform:
   m_ObjectHideFlags: 0
@@ -1221,6 +1228,11 @@ PrefabInstance:
       propertyPath: SpawnPoint
       value: 
       objectReference: {fileID: 1105905510}
+    - target: {fileID: 3196118956388769580, guid: b7bee8b258731f849b0f880275111a7a,
+        type: 3}
+      propertyPath: WaypointIndex
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3196118956388769581, guid: b7bee8b258731f849b0f880275111a7a,
         type: 3}
       propertyPath: m_RootOrder
