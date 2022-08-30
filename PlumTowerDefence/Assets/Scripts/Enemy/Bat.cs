@@ -17,6 +17,7 @@ public class Bat : Enemy
 
     private void OnEnable()
     {
+        Speed = 15;
        //GetStat();
        // SetStat();
 

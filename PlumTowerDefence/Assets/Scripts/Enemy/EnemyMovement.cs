@@ -14,17 +14,23 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        init();
+        //init();
     }
 
-    void init()
+    public void InitSpeed(EMonsterType monsterType)
     {
         if(Waypoints.points == null)
         {
             return;
         }
+        switch (monsterType)
+        {
+            case EMonsterType.Bet:
+                MoveSpeed = GetComponent<Bat>().Speed;
+                break;
+        }
 
-        MoveSpeed = GetComponent<Enemy>().Speed;
+        
         WaypointIndex = Waypoints.points[Route].Count;
         Target = Waypoints.points[Route][Waypoints.points[Route].Count - 1];
     }

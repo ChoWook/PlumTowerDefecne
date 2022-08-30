@@ -32,17 +32,17 @@ public class Enemy : MonoBehaviour
     }
     void GetStat()
     {
-        /*BaseHP = Tables.Monster.Get(1)._Hp;
+        BaseHP = Tables.Monster.Get(1)._Hp;
         BaseShield = Tables.Monster.Get(1)._Sheild;
         BaseArmor = Tables.Monster.Get(1)._Armor;
-        BaseSpeed = Tables.Monster.Get(1)._Speed;*/
+        BaseSpeed = Tables.Monster.Get(1)._Speed;
         Debug.Log(Tables.Monster.Get(1)._Hp);
 
     }
     private void OnEnable()
     {
-        GetStat();
-        SetStat();
+        //GetStat();
+        //SetStat();
     }
 
     public void TakeDamage(float damage)
