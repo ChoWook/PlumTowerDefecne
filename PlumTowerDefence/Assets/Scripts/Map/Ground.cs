@@ -9,6 +9,10 @@ public class Ground : MonoBehaviour
 
     [SerializeField] int GroundSize = 7;
 
+    [SerializeField] int GroundScale = 10;
+
+    public Pos _Pos = new Pos();
+
     public int Pattern = 1;
 
     public EGroundType GroundType = EGroundType.LR;
@@ -52,8 +56,8 @@ public class Ground : MonoBehaviour
     {
         for (int i = 0; i < Tiles.Length; i++)
         {
-            Tiles[i].PosX = i / GroundSize;
-            Tiles[i].PosY = i % GroundSize;
+            Tiles[i]._Pos.PosX = i / GroundSize;
+            Tiles[i]._Pos.PosY = i % GroundSize;
         }
     }
 #endif
@@ -84,6 +88,8 @@ public class Ground : MonoBehaviour
         for (int i = 0; i < GroundSize * GroundSize; i++)
         {
             Tiles[i].TileType = Tables.GroundPattern.Get(id)._Tiles[i];
+
+            Tiles[i].ParentGround = this;
 
             if(Tiles[i].TileType == ETileType.Land)
             {
@@ -128,5 +134,25 @@ public class Ground : MonoBehaviour
         }
 
         return EmptyLandTiles;
+    }
+
+    public void SetPosition(Pos Sender)
+    {
+        _Pos = Sender;
+
+        transform.localPosition = new Vector3(_Pos.PosX * GroundScale, 0, _Pos.PosY * GroundScale);
+    }
+
+    public Tile GetTileInMapPosition(Pos Sender)
+    {
+        Sender.PosX -= GroundSize * _Pos.PosX;
+        Sender.PosY -= GroundSize * _Pos.PosY;
+
+        Sender.PosX += 3;
+        Sender.PosY -= 3;
+
+        Sender.PosY = -Sender.PosY;
+
+        return Tiles[Sender.PosX + GroundSize * Sender.PosY];
     }
 }

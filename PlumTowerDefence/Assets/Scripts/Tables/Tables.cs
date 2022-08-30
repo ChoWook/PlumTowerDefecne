@@ -217,9 +217,7 @@ public class Tables : ScriptableObject
 
                     GroundInfo groundInfo = new GroundInfo();
 
-                    Debug.Log("idx = " + idx + " data[idx] = " + data[idx]);
                     groundInfo._PosX = int.Parse(data[idx++]);
-                    Debug.Log("idx = " + idx + " data[idx] = " + data[idx]);
                     groundInfo._PosY = int.Parse(data[idx++]);
                     groundInfo._Type = Enum.Parse<EGroundType>(data[idx++]);
 

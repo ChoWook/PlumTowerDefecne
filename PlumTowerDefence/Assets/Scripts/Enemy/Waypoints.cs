@@ -11,12 +11,7 @@ public class Waypoints : MonoBehaviour
     {
         points = new List<List<Transform>>();
 
-        points.Add(new List<Transform>());                  // ÃÊ±âÈ­
-                      
-        for(int i = transform.childCount - 1 ; i >=0 ; i--) 
-        {
-            points[Route].Add(transform.GetChild(i));
-        }
+        points.Add(new List<Transform>());
 
     }
 }
