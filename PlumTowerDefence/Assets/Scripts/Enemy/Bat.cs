@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Bat : Enemy
 {
-
-    void GetStat()
+    public void GetStat()
     {
         BaseHP = Tables.Monster.Get(1)._Hp;
         BaseShield = Tables.Monster.Get(1)._Sheild;
@@ -17,9 +16,8 @@ public class Bat : Enemy
 
     private void OnEnable()
     {
-        Speed = 15;
        //GetStat();
-       // SetStat();
+       //SetStat();
 
     }
     private void Awake()

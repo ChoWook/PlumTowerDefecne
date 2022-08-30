@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mushroom : Enemy
 {
-    void GetStat()
+    public void GetStat()
     {
         BaseHP = Tables.Monster.Get(2)._Hp;
         BaseShield = Tables.Monster.Get(2)._Sheild;
