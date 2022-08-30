@@ -20,6 +20,10 @@ public class Tile : MonoBehaviour
     
     public Pos _Pos = new();
 
+    public int WaypointIndex = -1;
+
+    public int WaypointRoute = -1;
+
     public GameObject ObjectOnTile;
 
     public bool IsFixedObstacle = false;            // 장애물 설치를 위한 변수, 장애물 모양이 결정되면 true

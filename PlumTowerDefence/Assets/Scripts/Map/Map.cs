@@ -55,6 +55,8 @@ public class Map : MonoBehaviour
 
     public int AttackRouteCnt = 1;                              // 몇개의 갈래로 공격로가 형성되었는지
 
+    public int CurAttackRouteCnt = 1;
+
     public int HoleEmptyLandCnt = 0;                            // 전체 맵 중 비어있는 평지의 수
 
     List<Tile> EmptyLandTiles = new();
@@ -233,7 +235,7 @@ public class Map : MonoBehaviour
     {
         int AddAttackRouteCnt = 0;
 
-        for(int i = 0; i < AttackRouteCnt; i++)
+        for(int i = 0; i < CurAttackRouteCnt; i++)
         {
             // 스테이지가 끝났는데도 이 함수가 실행되면 안됨
             if(Grounds.Count == OpenGroundCnt)
@@ -259,7 +261,7 @@ public class Map : MonoBehaviour
             OpenGroundCnt++;
         }
 
-        AttackRouteCnt += AddAttackRouteCnt;
+        CurAttackRouteCnt += AddAttackRouteCnt;
 
         SpawnAllGimmick(true);
     }
@@ -360,27 +362,27 @@ public class Map : MonoBehaviour
 
         Waypoints.points[0].Add(HouseTile.transform);
 
-        Direction dir;
+        Direction HouseDir;
 
         switch (HouseTile.ParentGround.GroundType)
         {
             case EGroundType.TD:
-                dir = Direction.D;
+                HouseDir = Direction.D;
                 break;
             case EGroundType.TL:
-                dir = Direction.L;
+                HouseDir = Direction.L;
                 break;
             case EGroundType.TR:
-                dir = Direction.R;
+                HouseDir = Direction.R;
                 break;
             case EGroundType.TU:
-                dir = Direction.U;
+                HouseDir = Direction.U;
                 break;
-            default : dir = Direction.R;
+            default : HouseDir = Direction.R;
                 break;
         }
 
-        FindNextAttackRouteTile(HousePos, dir, 0);
+        FindNextAttackRouteTile(HousePos, HouseDir, 0);
     }
 
     public Pos SumPos(Pos p1, Pos p2)
@@ -428,7 +430,7 @@ public class Map : MonoBehaviour
                 // 그라운드가 바뀌면 에너미 스포너 생성
                 if(CurTile.ParentGround != NextTile.ParentGround)
                 {
-                    CreateEnemySpawner(CurTile.transform, NextTile.transform, Route);
+                    CreateEnemySpawner(CurTile, NextTile.transform, Route);
                 }
 
 
@@ -439,7 +441,7 @@ public class Map : MonoBehaviour
                     {
                         Debug.Log($"분기 발생 {pos.PosX} , {pos.PosY}");
 
-                        FindNextAttackRouteTile(NextPos, OutDir, MakeBranch(Route, CurTile.transform));
+                        FindNextAttackRouteTile(NextPos, OutDir, MakeBranch(Route, CurTile));
                     }
                     else
                     {
@@ -456,14 +458,17 @@ public class Map : MonoBehaviour
                 var obj1 = ObjectPools.Instance.GetPooledObject("Waypoint");
                 obj1.transform.SetParent(CurTile.transform);
                 obj1.transform.localPosition = Vector3.zero;
-                Debug.Log($"Spawn Waypoint {pos.PosX} , {pos.PosY}");
+
+                // 브랜치 타일에서 사용할 변수
+                CurTile.WaypointRoute = Route;
+                CurTile.WaypointIndex = Waypoints.points[Route].Count - 1;
 
                 // 타일이 나눠졌을 때
                 if (IsBranchTile)
                 {
                     Debug.Log($"분기 발생 {pos.PosX} , {pos.PosY}");
 
-                    FindNextAttackRouteTile(NextPos, OutDir, MakeBranch(Route, CurTile.transform));
+                    FindNextAttackRouteTile(NextPos, OutDir, MakeBranch(Route, CurTile));
                 }
                 else
                 {
@@ -479,29 +484,54 @@ public class Map : MonoBehaviour
         }
     }
 
-    int MakeBranch(int Route, Transform TileTransform)
+    int MakeBranch(int Route, Tile CurTile)
     {
+        if(CurTile.WaypointRoute == -1 || CurTile.WaypointIndex == -1)
+        {
+            Debug.LogWarning("Make Branch Warning");
+        }
+
         // 이전까지 루트 내용 복사
-        Waypoints.points.Add(Waypoints.points[Route]);
+        Waypoints.points.Add(CopyList(CurTile));
 
         AttackRouteCnt = Waypoints.points.Count - 1;
 
-        Waypoints.points[AttackRouteCnt].Add(TileTransform);
+        Waypoints.points[AttackRouteCnt].Add(CurTile.transform);
 
+        // 디버그용 웨이포인트 소환
+        /*
         var obj2 = ObjectPools.Instance.GetPooledObject("Waypoint");
 
         obj2.transform.SetParent(TileTransform);
 
         obj2.transform.localPosition = Vector3.zero;
+        */
 
         return AttackRouteCnt;
     }
 
-    public void CreateEnemySpawner(Transform cur, Transform next, int Route)
+    List<Transform> CopyList(Tile EndTile)
+    {
+        List<Transform> NewList = new();
+
+        for(int i = 0; i < Waypoints.points[EndTile.WaypointRoute].Count; i++)
+        {
+            NewList.Add(Waypoints.points[EndTile.WaypointRoute][i]);
+
+            if(i == EndTile.WaypointIndex)
+            {
+                break;
+            }
+        }
+
+        return NewList;
+    }
+
+    public void CreateEnemySpawner(Tile cur, Transform next, int Route)
     {
         var Spawner = ObjectPools.Instance.GetPooledObject("EnemySpawner");
 
-        Spawner.transform.SetParent(cur);
+        Spawner.transform.SetParent(cur.transform);
 
         Spawner.transform.position = next.position;
 
@@ -510,5 +540,9 @@ public class Map : MonoBehaviour
         ES.Route = Route;
 
         ES.SpawnPoint = ES.transform;
+
+        ES.WaypointIndex = Waypoints.points[Route].Count - 1;
+
+        cur.ParentGround.EnemySpawners.Add(ES);
     }
 }

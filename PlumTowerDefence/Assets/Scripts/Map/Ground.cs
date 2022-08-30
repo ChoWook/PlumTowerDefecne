@@ -27,6 +27,8 @@ public class Ground : MonoBehaviour
 
     public List<EnemySpawner> EnemySpawners = new();
 
+    public Tile BranchTile;                       // 브랜치가 일어나는 타일
+
     bool _IsActive;
 
     public bool IsActive
@@ -161,11 +163,6 @@ public class Ground : MonoBehaviour
 
         Sender.PosY = -Sender.PosY;
 
-        if(Sender.PosX + GroundSize * Sender.PosY >= Tiles.Length || Sender.PosX < 0 || Sender.PosY < 0)
-        {
-            Debug.Log("TilePosition" + Sender.PosX + " " + Sender.PosY);
-        }
-
         return Tiles[Sender.PosX + GroundSize * Sender.PosY];
     }
 
@@ -173,7 +170,7 @@ public class Ground : MonoBehaviour
     {
         for(int i = 0; i < EnemySpawners.Count; i++)
         {
-            //EnemySpawners[i]
+            EnemySpawners[i].SpawnWave();
         }
     }
 }

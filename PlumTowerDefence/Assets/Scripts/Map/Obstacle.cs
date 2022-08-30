@@ -13,7 +13,7 @@ public class Obstacle : MonoBehaviour
 
     private void Update()
     {
-        UpdateObstacleType();
+        //UpdateObstacleType();
     }
 
 #endif
@@ -34,6 +34,20 @@ public class Obstacle : MonoBehaviour
             if(ObstacleType == i)
             {
                 Bodys[i].gameObject.SetActive(true);
+
+                int RandomBody = Random.Range(0, Bodys[i].transform.childCount);
+
+                for(int j = 0; j < Bodys[i].transform.childCount; j++)
+                {
+                    if(j == RandomBody)
+                    {
+                        Bodys[i].transform.GetChild(j).gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        Bodys[i].transform.GetChild(j).gameObject.SetActive(false);
+                    }
+                }
             }
             else
             {
