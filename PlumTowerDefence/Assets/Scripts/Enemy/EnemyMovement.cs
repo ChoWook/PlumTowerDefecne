@@ -6,24 +6,33 @@ public class EnemyMovement : MonoBehaviour
 {
     private float MoveSpeed;
 
-    [SerializeField]
-    private GameObject enemyPrefab;
-
-
     private Transform Target;
-    private int WaypointIndex = 0;
+    private int WaypointIndex;
+
+    public int Route = 0;
 
 
-
-    private void Awake()
+    private void OnEnable()
     {
-        MoveSpeed = GetComponent<Enemy>().Speed;
+        init();
+    }
 
+    void init()
+    {
+        if(Waypoints.points == null)
+        {
+            return;
+        }
+
+        MoveSpeed = GetComponent<Enemy>().Speed;
+        WaypointIndex = Waypoints.points[Route].Count;
+        Target = Waypoints.points[Route][Waypoints.points[Route].Count - 1];
     }
 
     private void Start()
     {
-        Target = Waypoints.points[0];         // 첫번째 지점으로 이동
+        
+                 // 첫번째 지점으로 이동
 
     }
 
@@ -42,13 +51,16 @@ public class EnemyMovement : MonoBehaviour
 
     void GetNextWayPoint()
     {
-        if(WaypointIndex > Waypoints.points.Length)
+        if(WaypointIndex <= 0)
         {
-            Destroy(enemyPrefab);
+            ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+            Debug.Log("Enemy destroyed");
+            return;
         }
 
-       WaypointIndex++;                            // 지점 인덱스 +1
-       Target = Waypoints.points[WaypointIndex];   // 타깃을 변경
+        WaypointIndex--;                 // 지점 인덱스 -1
+
+        Target = Waypoints.points[Route][WaypointIndex];   // 타깃을 변경
     }
 
 }

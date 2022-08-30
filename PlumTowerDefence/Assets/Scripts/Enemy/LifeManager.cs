@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LifeManager : MonoBehaviour
 {
-    public GameObject enemy;
+    private void Update()
+    {
+        //Tables.Monster.Get(1)._Hp;
+    }
 
 }

@@ -10,7 +10,9 @@ public class Tile : MonoBehaviour
 
     [SerializeField] GameObject HiddenBody;
 
-    [SerializeField] Material[] TileMateral;
+    [SerializeField] Material[] LandTileMaterals;
+
+    [SerializeField] Material[] AttackRouteTileMaterials;
 
     [SerializeField] MeshRenderer PlaneMeshRenderer;
 
@@ -22,6 +24,10 @@ public class Tile : MonoBehaviour
     public GameObject ObjectOnTile;
 
     public bool IsFixedObstacle = false;            // 장애물 설치를 위한 변수, 장애물 모양이 결정되면 true
+
+    int RandomLand = 0;
+
+    int RandomAttackRoute = 0;
 
 
 #if UNITY_EDITOR
@@ -53,6 +59,14 @@ public class Tile : MonoBehaviour
     }
 #endif
 
+    public void OnEnable()
+    {
+        RandomLand = Random.Range(0, LandTileMaterals.Length);
+
+        RandomAttackRoute = Random.Range(0, AttackRouteTileMaterials.Length);
+    }
+
+
     public Vector2 CalculateDistance(Tile another)
     {
         return new Vector2(another.PosX - PosX, another.PosY - PosY);
@@ -79,11 +93,17 @@ public class Tile : MonoBehaviour
     {
         if(TileType == ETileType.Land)
         {
-            PlaneMeshRenderer.material = TileMateral[0];
+            if(LandTileMaterals.Length != 0)
+            {
+                PlaneMeshRenderer.material = LandTileMaterals[RandomLand];
+            }
         }
         else
         {
-            PlaneMeshRenderer.material = TileMateral[1];
+            if (AttackRouteTileMaterials.Length != 0)
+            {
+                PlaneMeshRenderer.material = AttackRouteTileMaterials[RandomAttackRoute];
+            }
         }
     }
 }

@@ -1,22 +1,22 @@
-
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Waypoints : MonoBehaviour
 {
-    public static Transform[] points;               // 배열
-
-    
-
+    public static List<List<Transform>> points;               // 배열
+    public int Route = 0;
 
     private void Awake()
     {
-        points = new Transform[transform.childCount];
+        points = new List<List<Transform>>();
 
-        for(int i = 0; i < points.Length; i++)
+        points.Add(new List<Transform>());                  // 초기화
+                      
+        for(int i = transform.childCount - 1 ; i >=0 ; i--) 
         {
-            points[i] = transform.GetChild(i);
+            points[Route].Add(transform.GetChild(i));
         }
+
     }
-
-
 }

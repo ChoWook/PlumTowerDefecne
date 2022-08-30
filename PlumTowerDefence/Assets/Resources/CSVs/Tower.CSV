@@ -1,0 +1,13 @@
+﻿TowerID,TowerName,AttackSpecialization,TowerType,Size,AttackStat,SpeedStat,ProjectileSpeed,AbilityStat,UpgradeStat,UpgradeAmount,UpgradePrice,Range,Price
+int,string,AttackSpecialization,int,int,float,float,int,float,UpgradeStat,float,int,float,int
+0,화살타워,Default,2,1,25,4,100,0,AttackStat,5,40,3,100
+1,모래시계타워,Default,4,1,0,0,0,0.75,AbilityStat,-0.05,60,2,200
+2,독타워,Default,4,3,0,0,0,25,AbilityStat,5,300,5,1000
+3,화염방사타워,Health,1,2,300,1,0,0,SpeedStat,0.2,200,3,500
+4,공격력버프타워,Default,3,1,0,0,0,25,AbilityStat,5,300,3,500
+5,공격속도버프타워,Default,3,1,0,0,0,0.25,AbilityStat,0.15,300,3,500
+6,레이저타워,Defense,1,2,250,0.5,0,3,AbilityStat,0.6,200,4,600
+7,미사일타워,Shield,2,1,500,0.25,10,1,SpeedStat,0.15,100,4,300
+8,전기충격기타워,Default,1,1,50,2,0,3,AbilityStat,1,150,2,400
+9,개틀링건타워,Default,2,1,15,8,300,0,AttackStat,5,100,4,300
+10,대포타워,Shield,2,2,150,1,150,0,SpeedStat,0.2,150,5,400

@@ -4,43 +4,46 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
-    /*private MemoryPool memoryPool;
-
-    public void Setup(MemoryPool memoryPool)
-    {
-        this.memoryPool = memoryPool;
-    }*/
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Enemy destroyed");
-        //memoryPool.DeactivatePoolItem(gameObject);
-        Destroy(gameObject);
-    }
-
     // 기본 Enemy 스탯, 속성, 특성 Class만들기
 
-    //[SerializeField] --> 사용법 배우기
-
-    // Original -> Base
-
-    float BaseHP;               // 데이터테이블에서 가져오기
+    protected float BaseHP;               // 데이터테이블에서 가져오기
     float MaxHP;
     float CurrentHP;
-    float BaseShield;           // 데이터테이블에서 가져오기
+    protected float BaseShield;           // 데이터테이블에서 가져오기
     float MaxShield;
 
     float CurrentShield;
     bool ShieldOn = true;
     float Armor;
-    float BaseArmor;            // 데이터테이블에서 가져오기
+    protected float BaseArmor;            // 데이터테이블에서 가져오기
     public float BaseSpeed;     // 데이터테이블에서 가져오기
     public float Speed;             // EnemyMovement 에서 조정
 
     float Enforced = 1.0f;          // 강화특성
 
+    protected void SetStat()
+    {
+        MaxHP = BaseHP;
+        MaxShield = BaseShield;
+        CurrentHP = MaxHP;
+        CurrentShield = MaxShield;
+        Armor = BaseArmor;
+        Speed = BaseSpeed;
+    }
+    void GetStat()
+    {
+        /*BaseHP = Tables.Monster.Get(1)._Hp;
+        BaseShield = Tables.Monster.Get(1)._Sheild;
+        BaseArmor = Tables.Monster.Get(1)._Armor;
+        BaseSpeed = Tables.Monster.Get(1)._Speed;*/
+        Debug.Log(Tables.Monster.Get(1)._Hp);
 
+    }
+    private void OnEnable()
+    {
+        GetStat();
+        SetStat();
+    }
 
     public void TakeDamage(float damage)
     {
@@ -217,22 +220,11 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-
-        //if(WaveStart){
-        // 
-        //}
-        /*MaxHP = BaseHP;
-        MaxShield = BaseShield;
-        CurrentHP = MaxHP;
-
-        HP.BaseValue = 3;
-
-        CurrentShield = MaxShield;
-        Armor = BaseArmor;
-        Speed = BaseSpeed;
-        ApplyPropertyType();
-        ApplySpeciality2Type();
-        ApplySpeciality1Type();*/
+        
+        
+        //ApplyPropertyType();
+        //ApplySpeciality2Type();
+        //ApplySpeciality1Type();
 
         //if(특정 웨이브 조건 달성){
         // EnemyLevelUp(현재레벨) //UI 요소 필요
