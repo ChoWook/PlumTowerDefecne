@@ -1,0 +1,5 @@
+Id,Type,Korean,Hp,Shield,Size
+int,MonsterClass,string,float,float,float
+1,Normal,일반,0,0,0
+2,SubBoss,서브보스,20,20,20
+3,Boss,보스,40,40,50
