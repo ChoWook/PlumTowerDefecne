@@ -135,9 +135,9 @@ public enum ESpecialityType
     Rapid = 8,
 }
 
-public enum EStat
+public enum EMosterStat
 {
-    None = 1,
+    NULL = 1,
     Hp = 2,
     Armor = 3,
     Shield = 4,
