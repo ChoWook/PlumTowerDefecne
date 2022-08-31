@@ -4,3 +4,6 @@ int,string,int,string
 2,Mining_Num_Min,2,채굴최소횟수
 3,Mining_Num_Max,9,채굴최대횟수
 4,Start_Ground_Num,5,첫 시작 시작 시 열려있는 그라운드 개수
+5,Tower_Size_Min,1,타워 최소 크기
+6,Tower_Size_Max,3,타워 최대 크기
+7,Branch_Number_Max,2,공격로 분기점 최대 개수
