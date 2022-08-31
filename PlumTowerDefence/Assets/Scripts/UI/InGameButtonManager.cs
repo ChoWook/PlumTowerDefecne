@@ -37,6 +37,7 @@ public class InGameButtonManager : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(GameManager.instance.currentEnemyNumber);
         UpdateGameInfo();
     }
 
