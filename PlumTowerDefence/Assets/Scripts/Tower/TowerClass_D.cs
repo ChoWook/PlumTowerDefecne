@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-    // 애니메이터
+    // 애니메이터 있습니다~
 
 public class TowerClass
 {

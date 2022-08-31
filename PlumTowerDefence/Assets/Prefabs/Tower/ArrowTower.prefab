@@ -952,24 +952,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f0ce2e4c941df6459221fc26bb3d909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 1
-  attackSpeed: 1
-  projectileVelocity: 10
-  attackRange: 1
+  attackDamage: 20
+  attackSpeed: 2
+  projectileVelocity: 50
+  attackRange: 20
   explosionRadius: 1
-  reloadDelay: 1
+  reloadDelay: 0.7
   releaseTimer: 0.1
-  projectile: {fileID: 0}
-  projectileSpawnPoint: {fileID: 0}
-  shootParticle: {fileID: 0}
-  psSpawnPoint: {fileID: 0}
-  projectileSize: {x: 1, y: 1, z: 1}
-  scaleUpSpeed: 1
-  shrinkSpeed: 1
-  rotationSpeed: 10
-  controller: {fileID: 0}
+  projectile: {fileID: 2204602030321775278, guid: 995944979139f1f4f84301f701529161,
+    type: 3}
+  projectileSpawnPoint: {fileID: 4128318673279507345}
+  shootParticle: {fileID: 48619853358237287, guid: 78983eee7ca925f4ab35a12bc1bbfd31,
+    type: 3}
+  psSpawnPoint: {fileID: 1897154479966061791}
+  projectileSize: {x: 5.2, y: 5.2, z: 5.2}
+  scaleUpSpeed: 1.1
+  shrinkSpeed: 30
+  rotationSpeed: 15
+  controller: {fileID: 3945014946413862746}
   lookTowardsObj: {fileID: 0}
-  flipRotation: 0
+  flipRotation: 1
   isStationary: 0
 --- !u!1 &4201381867126625797
 GameObject:
@@ -2101,7 +2103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61bd5f094e3d5ac4bb557ef61c36dc8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerScript: {fileID: 0}
+  towerScript: {fileID: 8191689212692357129}
 --- !u!1 &8403355939769065770
 GameObject:
   m_ObjectHideFlags: 0

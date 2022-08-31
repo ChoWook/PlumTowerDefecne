@@ -6,7 +6,28 @@ using UnityEngine;
 /*
 public class TowerScript : MonoBehaviour
 {
-    [Header("Tower Stats")] 
+    [Header("Tower Stats")]
+    [Tooltip("TowerID : 타워ID")]
+    public int TowerID = 0;       // 타워 ID(데이터 테이블)
+    [Tooltip("attackSpeed : 타워가 새 발사체를 생성하는 빈도를 조정합니다.")]
+    public float attackSpeed = 4; // 데이터 테이블(SpeedStat)
+    [Tooltip("projectileVelocity : 발사체의 이동 속도를 조정합니다.")]
+    public float projectileVelocity = 10; // 데이터 테이블(ProjectileSpeed)
+    [Tooltip("attackRange : 타워가 적을 탐지하는 거리를 조정합니다.")]
+    public float attackRange = 3; // 데이터테이블(Range)
+
+    // 사용 안 함
+    [Tooltip("explosionRadius : 폭발의 크기를 조정합니다.")]
+    public float explosionRadius = 1; // 폭발 범위
+
+    [Tooltip("Projectile Velocity adjusts the travel speed of the projectile")]
+    public float projectileVelocity = 10; // 
+    [Tooltip("Attack Range adjusts how far the tower detects enemies")]
+    public float attackRange = 1; // 사거리
+    [Tooltip("explosionRadius : 폭발의 크기를 조정합니다.")]
+    public float explosionRadius = 1; // 폭발 범위
+
+
     [Tooltip("Attack Damage adjusts the amount of damage the projectile will deal to the enemy")]
     public int attackDamage = 1; // 공격 AttackStat
     [Tooltip("Attack Speed adjusts how often the tower instantiates a new projectile")]
@@ -50,10 +71,10 @@ public class TowerScript : MonoBehaviour
     [Tooltip("Controller will default to the animator on the gameobject, if there is no controller leave this empty")]
     public Animator controller; // 애니메이터 컨트롤러
     [Tooltip("Attach a LookTowards Script on the base of the tower if you want the base to track the closest enemy")]
-    public LookTowardsObject lookTowardsObj;
+    public LookTowardsObject lookTowardsObj; 
     [Tooltip("If the tower is looking away from the target then enable this to flip the tower to look the right direction")]
     public bool flipRotation = false;
     [Tooltip("If the tower isn't suppose to move or look around check this box to make the tower stationary")]
     public bool isStationary = false;
-}
-*/
+}*/
+

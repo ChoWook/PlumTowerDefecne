@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     private int AttackPropertyID;        // 속성 아이디
 
 
-    public float Speed = 70f;
+    public float Speed = 10f;
 
     public void Seek (Transform _target, double _Damage, int _AttackPropertyID)
     {

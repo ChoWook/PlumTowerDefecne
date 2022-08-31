@@ -12,7 +12,7 @@ public class Tower : MonoBehaviour
 
     [Header("Attributes")]
 
-    public int Range = 3;                                  // 공격 사거리
+    public float Range = 15f;                               // 공격 사거리
     private float SpeedStat = 0.25f;                       // 공격 속도 스텟(데이터테이블)
     private float FireCountdown = 0f;                      // 발사 카운트다운
 
@@ -85,7 +85,6 @@ public class Tower : MonoBehaviour
     // 타겟 업데이트 ( 체력 우선, 방어구 우선, 방어력 높은 적 우선 추가하기)
     void UpdateTarget()
     {
-
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  태그로 적 찾기
         float shortestDistance = Mathf.Infinity;
@@ -204,7 +203,7 @@ public class Tower : MonoBehaviour
         ObjectPool = GameObject.Find("ObjectPool");
 
         GameObject bulletGO = ObjectPool.GetComponent<ObjectPools>().GetPooledObject("Arrow");
-                       //Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
+        bulletGO.transform.position = FirePoint.position;
 
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
@@ -266,5 +265,13 @@ public class Tower : MonoBehaviour
         GameManager.instance.money -= MovePrice;
 
     }
+
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, Range);
+    }
+
 
 }
