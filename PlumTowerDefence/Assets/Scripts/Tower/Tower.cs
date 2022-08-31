@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using 
 
 public class Tower : MonoBehaviour
 {
@@ -52,8 +51,6 @@ public class Tower : MonoBehaviour
 
     public int AttackPriorityID =0;                         //우선 공격 속성 ID
 
-    GameManager gameManager;
-
     private int UpgradePrice = 40;                          // 업그레이드 가격(데이터테이블)
     private int UpgradeCount = 0;                           // 업그레이드 횟수
     private int UpgradeAmount = 5;                          // 업그레이드 강화량
@@ -89,9 +86,7 @@ public class Tower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = new GameManager();
-
-
+        
         //사거리 지정 Range 값 넣기
         Transform parent = transform.parent;
         transform.parent = null;
@@ -244,9 +239,7 @@ public class Tower : MonoBehaviour
 
         //돈 40 잃기
 
-        gameManager.money
-
-        gameManager.money -= 40;
+        GameManager.instance.money -= 40;
 
     }
 
@@ -264,6 +257,8 @@ public class Tower : MonoBehaviour
 
 
         // 재화 연결 함수
+
+        GameManager.instance.money += SellPrice;
 
     }
 
@@ -283,8 +278,7 @@ public class Tower : MonoBehaviour
 
         // 재화 연결 함수
 
-
-
+        GameManager.instance.money -= MovePrice;
 
     }
 

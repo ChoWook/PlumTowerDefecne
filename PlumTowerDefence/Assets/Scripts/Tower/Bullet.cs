@@ -55,8 +55,8 @@ public class Bullet : MonoBehaviour
     void HitTarget()
     {
         // 데미지 전달함수 추가
-           
-        
+
+        target.GetComponent<Enemy>().TakeDamage((float)Damage); //Damage 전달 -> 나중에 속성 추가
         
         DestroyBullet();
     }

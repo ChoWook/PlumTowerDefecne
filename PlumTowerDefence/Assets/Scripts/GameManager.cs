@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     public int money
     {
         get { return _money; }
-        private set { _money = value; }
+        set { _money = value; }
     }
 
     private bool _isPlayingGame = false;
