@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+public delegate void ObjectOnTileDisabledCallback();
+
 [ExecuteInEditMode]
 public class Tile : MonoBehaviour
 {
@@ -24,7 +26,7 @@ public class Tile : MonoBehaviour
 
     public int WaypointRoute = -1;
 
-    public GameObject ObjectOnTile;
+    GameObject _ObjectOnTile;
 
     public bool IsFixedObstacle = false;            // 장애물 설치를 위한 변수, 장애물 모양이 결정되면 true
 
@@ -81,12 +83,12 @@ public class Tile : MonoBehaviour
 
     public bool IsResourceOnTile()
     {
-        if(ObjectOnTile == null)
+        if(_ObjectOnTile == null)
         {
             return false;
         }
 
-        var res = ObjectOnTile.GetComponent<Resource>();
+        var res = _ObjectOnTile.GetComponent<Resource>();
 
         if (res == null)
         {
@@ -114,4 +116,18 @@ public class Tile : MonoBehaviour
         }
     }
 
+    public void SetObjectOnTile(GameObject go)
+    {
+        _ObjectOnTile = go;
+    }
+
+    public GameObject GetObjectOnTile()
+    {
+        if (_ObjectOnTile != null && _ObjectOnTile.activeSelf)
+        {
+            return _ObjectOnTile;
+        }
+
+        return null;
+    }
 }
