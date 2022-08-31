@@ -25,7 +25,7 @@ public class Pause : MonoBehaviour
 
     private void Awake()
     {
-        ChangeText();
+        //ChangeText();
     }
 
     void Update()
