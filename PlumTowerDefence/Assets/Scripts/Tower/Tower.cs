@@ -22,7 +22,7 @@ public class Tower : MonoBehaviour
     private int AttackPropertyID = 0;                      // 공격 속성(데이터테이블)
     private int TypeID = 0;                                // 속성 ID (데이터테이블)
     private int SizeID = 0;                                // 타워 크기 (데이터테이블)
-    private int AttackStat = 60;                           // 공격력 스텟(데이터테이블)
+    private int AttackStat = 25;                           // 공격력 스텟(데이터테이블)
     private int AbilityStat;                               // 특수 능력 스텟(데이터테이블)
     
 
@@ -104,13 +104,17 @@ public class Tower : MonoBehaviour
         if (nearestEnemy != null && shortestDistance <= Range)
         {
             Target = nearestEnemy;
+        } else
+        {
+            Target = null;
         }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Target == null || Target.activeSelf == false)
+        if (Target == null || Target.GetComponent<Enemy>().IsAlive == false)
         {
             return;
         }
@@ -266,12 +270,12 @@ public class Tower : MonoBehaviour
 
     }
 
-
+    /*
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, Range);
     }
-
+    */
 
 }

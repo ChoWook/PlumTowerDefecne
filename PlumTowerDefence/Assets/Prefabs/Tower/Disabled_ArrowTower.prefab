@@ -901,6 +901,7 @@ GameObject:
   - component: {fileID: 535747308575106114}
   - component: {fileID: 7853153515597378851}
   - component: {fileID: 1151007902667932461}
+  - component: {fileID: 3228963652730810690}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -951,7 +952,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 1f9361e1ab446114a91363daa3a28978, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -987,6 +988,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &3228963652730810690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3748980276018081046}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6b7d6aaa49da44f821ae3e59a42ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range: 3
 --- !u!1 &3976967515181881789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2461,7 +2475,7 @@ PrefabInstance:
     - target: {fileID: 4248981224369765953, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
         type: 3}
       propertyPath: m_Name
-      value: ArrowTower (1)
+      value: Disabled_ArrowTower
       objectReference: {fileID: 0}
     - target: {fileID: 4248981224369765954, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
         type: 3}
