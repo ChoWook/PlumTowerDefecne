@@ -13,7 +13,7 @@ public class Tower : MonoBehaviour
     [Header("Attributes")]
 
     public float Range = 15f;                               // 공격 사거리
-    private float SpeedStat = 0.25f;                       // 공격 속도 스텟(데이터테이블)
+    private float SpeedStat = 4f;                       // 공격 속도 스텟(데이터테이블)
     private float FireCountdown = 0f;                      // 발사 카운트다운
 
     
@@ -22,7 +22,7 @@ public class Tower : MonoBehaviour
     private int AttackPropertyID = 0;                      // 공격 속성(데이터테이블)
     private int TypeID = 0;                                // 속성 ID (데이터테이블)
     private int SizeID = 0;                                // 타워 크기 (데이터테이블)
-    private int AttackStat = 25;                           // 공격력 스텟(데이터테이블)
+    private int AttackStat = 60;                           // 공격력 스텟(데이터테이블)
     private int AbilityStat;                               // 특수 능력 스텟(데이터테이블)
     
 
@@ -62,7 +62,7 @@ public class Tower : MonoBehaviour
 
     public List<GameObject> EnemyLIst = new List<GameObject>();
 
-    public Transform Target;
+    public GameObject Target;
 
     public string enemyTag = "Enemy";
 
@@ -103,21 +103,21 @@ public class Tower : MonoBehaviour
 
         if (nearestEnemy != null && shortestDistance <= Range)
         {
-            Target = nearestEnemy.transform;
+            Target = nearestEnemy;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Target == null)
+        if (Target == null || Target.activeSelf == false)
         {
             return;
         }
 
         // 타워 회전
         
-        Vector3 dir = Target.position - transform.position;
+        Vector3 dir = Target.transform.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation,lookRotation,Time.deltaTime * TurnSpeed).eulerAngles;
         PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
