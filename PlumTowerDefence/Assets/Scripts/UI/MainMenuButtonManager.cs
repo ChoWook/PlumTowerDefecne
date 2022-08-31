@@ -35,6 +35,10 @@ public class MainMenuButtonManager : MonoBehaviour
 
     public void OnClickOption()    //환경설정 버튼을 눌렀을 때 호출 할 함수
     {
+        GameObject obj = ObjectPools.Instance.GetPooledObject("Option");
+        obj.transform.SetParent(transform.parent);
+        obj.transform.localScale = new Vector3(1f, 1f, 1f);
+        obj.transform.position = new Vector3(0, 0, 0);
         Debug.Log("설정");
     }
 

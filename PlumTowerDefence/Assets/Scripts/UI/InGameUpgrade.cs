@@ -11,6 +11,8 @@ public class InGameUpgrade : MonoBehaviour
     /// 증강체를 오브젝트풀에서 생성하는 함수와 부모 지정의 시간차로 인한 여러 세팅에 대한 코드를 보유중
     /// 증강체를 선택한 이후 오브젝트풀로 release하는 함수 또한 관리 하고 있음
     /// </summary>
+
+    [SerializeField] private GameObject InGameButtonManager;
     
     private int number_Of_Upgrade = Tables.GlobalSystem.Get("Number_Of_Upgrade")._Value;
     public void ShowInGameUpgrade()
@@ -28,10 +30,12 @@ public class InGameUpgrade : MonoBehaviour
 
     public void SelectInGameUpgrade()
     {
+        InGameButtonManager.GetComponent<InGameButtonManager>().ShowExpandButton();
         int count = transform.childCount;
         for (int i = 0; i < count; i++)
         {
             ObjectPools.Instance.ReleaseObjectToPool(transform.GetChild(0).gameObject);
         }
+        
     }
 }

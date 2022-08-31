@@ -64,4 +64,15 @@ public class Pause : MonoBehaviour
         resume();
         MoveScene.MoveTitleScene();
     }
+
+    public void MoveOption()
+    {
+        pauseUI.SetActive(false);
+        
+        GameObject obj = ObjectPools.Instance.GetPooledObject("Option");
+        
+        obj.transform.SetParent(transform.parent);
+        obj.transform.localScale = new Vector3(1f, 1f, 1f);
+        obj.transform.position = new Vector3(0, 0, 0);
+    }
 }
