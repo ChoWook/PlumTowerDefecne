@@ -1,15 +1,26 @@
 using UnityEngine;
 
+
 public class Bullet : MonoBehaviour
 {
-    private Transform target;
+    private Transform target;            // 타겟
+
+    public GameObject ObjectPool;
+
+    private double Damage;               // 타겟에게 가할 데미지
+
+    private int AttackPropertyID;        // 속성 아이디
+
 
     public float Speed = 70f;
 
-    public void Seek (Transform _target)
+    public void Seek (Transform _target, double _Damage, int _AttackPropertyID)
     {
         target = _target;
+        Damage = _Damage;
+        AttackPropertyID = _AttackPropertyID;
     }
+
 
 
     // Update is called once per frame
@@ -17,7 +28,7 @@ public class Bullet : MonoBehaviour
     {
         if (target == null)
         {
-            Destroy(gameObject);
+            DestroyBullet();
             return;
         }
 
@@ -33,10 +44,21 @@ public class Bullet : MonoBehaviour
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
     }
 
+    private void DestroyBullet()
+    {
+        ObjectPool = GameObject.Find("ObjectPool");
+
+        ObjectPool.GetComponent<ObjectPools>().ReleaseObjectToPool(gameObject);
+    }
+
+
     void HitTarget()
     {
         // 데미지 전달함수 추가
-        Destroy (gameObject);
+           
+        
+        
+        DestroyBullet();
     }
 
 
