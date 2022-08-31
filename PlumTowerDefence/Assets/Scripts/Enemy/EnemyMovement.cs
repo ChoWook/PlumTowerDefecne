@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private float MoveSpeed;
+    public float MoveSpeed;
 
     private Transform Target;
     public int WaypointIndex;
@@ -83,6 +83,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if(WaypointIndex <= 0)
         {
+            GameManager.instance.currentEnemyNumber--;
             ObjectPools.Instance.ReleaseObjectToPool(gameObject);
             Debug.Log("Enemy destroyed");
             return;

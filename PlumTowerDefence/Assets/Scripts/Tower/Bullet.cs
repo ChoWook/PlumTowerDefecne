@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Transform target;            // 鸥百
+    private GameObject target;            // 鸥百
 
     public GameObject ObjectPool;
 
@@ -12,9 +12,9 @@ public class Bullet : MonoBehaviour
     private int AttackPropertyID;        // 加己 酒捞叼
 
 
-    public float Speed = 70f;
+    public float Speed = 1f;
 
-    public void Seek (Transform _target, double _Damage, int _AttackPropertyID)
+    public void Seek (GameObject _target, double _Damage, int _AttackPropertyID)
     {
         target = _target;
         Damage = _Damage;
@@ -32,8 +32,16 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        Vector3 dir = target.position - transform.position;
+        if (target.activeSelf == false)
+        {
+            target = null;
+            DestroyBullet();
+            return;
+        }
+
+        Vector3 dir = target.transform.position - transform.position;
         float distanceThisFrame = Speed * Time.deltaTime;
+        transform.LookAt(target.transform);
 
         if (dir.magnitude <= distanceThisFrame)
         {

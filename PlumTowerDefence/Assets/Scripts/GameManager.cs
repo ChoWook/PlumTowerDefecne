@@ -68,4 +68,19 @@ public class GameManager : MonoBehaviour
         get { return _isPausing; }
         set { _isPausing = value; }
     }
+
+    private int _currentEnemyNumber;
+    public int currentEnemyNumber
+    { 
+        get { return _currentEnemyNumber; } 
+        set 
+        { 
+            _currentEnemyNumber = value; 
+            if(_currentEnemyNumber == 0)
+            {
+                isPlayingGame = false;
+            }
+        } 
+    }
+
 }

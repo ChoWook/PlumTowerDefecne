@@ -62,7 +62,7 @@ public class Tower : MonoBehaviour
 
     public List<GameObject> EnemyLIst = new List<GameObject>();
 
-    public Transform Target;
+    public GameObject Target;
 
     public string enemyTag = "Enemy";
 
@@ -86,7 +86,6 @@ public class Tower : MonoBehaviour
     void UpdateTarget()
     {
 
-
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  �±׷� �� ã��
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
@@ -104,21 +103,21 @@ public class Tower : MonoBehaviour
 
         if (nearestEnemy != null && shortestDistance <= Range)
         {
-            Target = nearestEnemy.transform;
+            Target = nearestEnemy;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Target == null)
+        if (Target == null || Target.activeSelf == false)
         {
             return;
         }
 
         // Ÿ�� ȸ��
         
-        Vector3 dir = Target.position - transform.position;
+        Vector3 dir = Target.transform.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation,lookRotation,Time.deltaTime * TurnSpeed).eulerAngles;
         PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
@@ -204,7 +203,7 @@ public class Tower : MonoBehaviour
         ObjectPool = GameObject.Find("ObjectPool");
 
         GameObject bulletGO = ObjectPool.GetComponent<ObjectPools>().GetPooledObject("Arrow");
-                       //Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
+        bulletGO.transform.position = FirePoint.position;
 
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
@@ -266,5 +265,13 @@ public class Tower : MonoBehaviour
         GameManager.instance.money -= MovePrice;
 
     }
+
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, Range);
+    }
+
 
 }
