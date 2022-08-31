@@ -1,6 +1,6 @@
 ID,Type,Korean,ChangedStat,Amount
-int,SpecialityType,string,Stat,float
-1,None,없음,None,0
+int,SpecialityType,string,MonsterStat,float
+1,None,없음,NULL,0
 2,Big,큰,Hp,5
 3,Hug,거대한,Hp,10
 4,Sturdy,튼튼한,Armor,5
