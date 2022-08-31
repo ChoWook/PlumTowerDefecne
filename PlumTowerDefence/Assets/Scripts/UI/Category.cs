@@ -66,6 +66,9 @@ public class Category : MonoBehaviour
 
             obj.transform.localScale = new Vector3(1f, 1f, 1f);
             obj.transform.SetParent(transform);
+
+            obj.GetComponent<CategoryButton>().categoryType = type;
+            obj.GetComponent<CategoryButton>().id = i;
         }
     }
 }
