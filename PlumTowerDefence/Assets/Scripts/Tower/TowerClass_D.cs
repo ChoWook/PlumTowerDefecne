@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
+    // 애니메이터
+
 public class TowerClass
 {
     
-    public GameObject SetClosestEnemy(List<GameObject> enemies, Vector3 origin)
+    public GameObject SetClosestEnemy(List<GameObject> enemies, Vector3 origin) // 가장 가까운 적 찾기
     {
         GameObject closestEnemy = null;
         float closestDistanceSqr = Mathf.Infinity;
@@ -31,7 +33,7 @@ public class TowerClass
         List<GameObject> nearbyEnemies = new List<GameObject>();
         foreach (var target in nearbyTargets)
         {
-            if (target.tag == "enemy")
+            if (target.tag == "Enemy")
             {
                 nearbyEnemies.Add(target.gameObject);
             }
@@ -44,7 +46,7 @@ public class TowerClass
         return closestEnemy;
     }
 
-    public void AnimatorExists(Animator controller, bool isShooting)
+    public void AnimatorExists(Animator controller, bool isShooting) // 애니메이터
     {
         if (controller != null)
             controller.SetBool("isShooting", isShooting);

@@ -61,6 +61,8 @@ public class Map : MonoBehaviour
 
     List<Tile> EmptyLandTiles = new();
 
+    List<Ground> CurEnemySpawnerGrounds = new();                // 이번 스테이지에서 몹이 나와야할 그라운드
+
     Pos HousePos = new Pos { PosX = 0, PosY = 0 };
 
     Dictionary<Direction, Pos> _Direction;
@@ -73,6 +75,8 @@ public class Map : MonoBehaviour
 
     private void Awake()
     {
+        Tables.Load();
+
         MainCamera = Camera.main.GetComponent<RTS_Camera>();
 
         Instance = this;
@@ -89,6 +93,10 @@ public class Map : MonoBehaviour
         XFOV = 1 / Mathf.Tan(XFOV * Mathf.Deg2Rad);
 
         YFOV = 1 / Mathf.Tan(YFOV * Mathf.Deg2Rad);
+
+        ChooseRandomMapPattern();
+
+        HideAllGridLine();
     }
 
     public void ChooseRandomMapPattern()
@@ -235,6 +243,8 @@ public class Map : MonoBehaviour
     {
         int AddAttackRouteCnt = 0;
 
+        CurEnemySpawnerGrounds.Clear();
+
         for(int i = 0; i < CurAttackRouteCnt; i++)
         {
             // 스테이지가 끝났는데도 이 함수가 실행되면 안됨
@@ -254,7 +264,7 @@ public class Map : MonoBehaviour
 
             HoleEmptyLandCnt += _Ground.EmptyLandTileCount;
 
-            _Ground.StartEnemySpawners();
+            CurEnemySpawnerGrounds.Add(_Ground);
 
             SpawnAllGimmick(false);
 
@@ -264,6 +274,14 @@ public class Map : MonoBehaviour
         CurAttackRouteCnt += AddAttackRouteCnt;
 
         SpawnAllGimmick(true);
+    }
+
+    public void StartEnemySpawn()
+    {
+        for(int i = 0; i < CurEnemySpawnerGrounds.Count; i++)
+        {
+            CurEnemySpawnerGrounds[i].StartEnemySpawners();
+        }
     }
 
     public int CheckBrach(EGroundType type)

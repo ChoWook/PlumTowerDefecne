@@ -25,7 +25,7 @@ public class TargetHit : MonoBehaviour
                 Destroy(parts, totalDuration);
             }
 
-            //Stop the projectile from moving forward when it has hit a target
+            // Stop the projectile from moving forward when it has hit a target
             Destroy(GetComponent<MoveForward>());
         }
     }

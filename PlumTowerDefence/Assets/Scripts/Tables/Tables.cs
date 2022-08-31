@@ -398,7 +398,9 @@ public class Tables : ScriptableObject
 
         public static GlobalSystem Get(string code)
         {
-            return _StringMap[code];
+            GlobalSystem ret;
+            _StringMap.TryGetValue(code, out ret);
+            return ret;
         }
     }
 

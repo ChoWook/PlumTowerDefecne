@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
+    // 애니메이터 연관 
+
+
+
+
 public class HoldAttack : MonoBehaviour
 {
     public TowerScript towerScript;
@@ -28,12 +33,12 @@ public class HoldAttack : MonoBehaviour
             towerScript.lookTowardsObj.rotationSpeed = towerScript.rotationSpeed;
         }
 
-        towerScript.controller = GetComponent<Animator>();
+        towerScript.controller = GetComponent<Animator>();  // 애니메이터
     }
 
     void Update()
     {
-        towerClass.AnimatorExists(towerScript.controller, false);
+        towerClass.AnimatorExists(towerScript.controller, false); //애니메이터
 
         if (closestEnemy == null)
         {
@@ -127,7 +132,7 @@ public class HoldAttack : MonoBehaviour
             Destroy(ps, totalDuration);
         }
 
-        towerClass.AnimatorExists(towerScript.controller, true);
+        towerClass.AnimatorExists(towerScript.controller, true); // 애니메이터
     }
 
     void OnDrawGizmosSelected()

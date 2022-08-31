@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ef8c68bade09b41aca258d42a632f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastTab: 0
+  lastTab: 2
   movementSettingsFoldout: 0
   zoomingSettingsFoldout: 0
   rotationSettingsFoldout: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   inputSettingsFoldout: 0
   useFixedUpdate: 0
   keyboardMovementSpeed: 5
-  screenEdgeMovementSpeed: 15
+  screenEdgeMovementSpeed: 50
   followingSpeed: 5
   rotationSped: 3
   panningSpeed: 10
@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Route: 0
+  testTransform: []
 --- !u!1 &3749618870159861756
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +257,7 @@ GameObject:
   - component: {fileID: 4997643969015017430}
   m_Layer: 0
   m_Name: MapTerrain
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -379,6 +380,7 @@ MonoBehaviour:
   Grounds: []
   OpenGroundCnt: 0
   AttackRouteCnt: 1
+  CurAttackRouteCnt: 1
   HoleEmptyLandCnt: 0
 --- !u!1 &6051654916856160087
 GameObject:

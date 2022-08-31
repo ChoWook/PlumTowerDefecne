@@ -17,6 +17,8 @@ public class InGameUpgradeSetting : MonoBehaviour
     Toggle _toggle;
     void OnEnable()
     {
+        Tables.Load();
+
         TMP_Text titleText = gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         titleText.text = Tables.StringUI.Get(titleText.transform.name)._Korean;         //증강체 제목 설정
 

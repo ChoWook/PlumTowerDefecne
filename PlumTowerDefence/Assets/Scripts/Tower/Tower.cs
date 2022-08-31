@@ -1,20 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using 
 
 public class Tower : MonoBehaviour
 {
-    /*
-     할 일
-    1. 타워 자체 특성
-     - 속성
-     - 
-     
-    2. 타깃 조정
-     
-     */
-
     // 타워 스텟 (임시로 화살타워 스텟 설정)
 
     [SerializeField]
@@ -34,10 +23,7 @@ public class Tower : MonoBehaviour
     private int TypeID = 0;                                // 속성 ID (데이터테이블)
     private int SizeID = 0;                                // 타워 크기 (데이터테이블)
     private int AttackStat = 25;                           // 공격력 스텟(데이터테이블)
-    
     private int AbilityStat;                               // 특수 능력 스텟(데이터테이블)
-    
-    private double Damage;                                 // 데미지 
     
 
     public Transform PartToRotate;                         //회전 오브젝트
@@ -51,8 +37,6 @@ public class Tower : MonoBehaviour
     public bool Fixed = false;                              //타워 설치 여부
 
     public int AttackPriorityID =0;                         //우선 공격 속성 ID
-
-    GameManager gameManager;
 
     private int UpgradePrice = 40;                          // 업그레이드 가격(데이터테이블)
     private int UpgradeCount = 0;                           // 업그레이드 횟수
@@ -82,20 +66,16 @@ public class Tower : MonoBehaviour
 
     public string enemyTag = "Enemy";
 
-    public int DefenceStat = 10;                            // 적 방어력
-
     
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = new GameManager();
-
-
+        
         //사거리 지정 Range 값 넣기
         Transform parent = transform.parent;
         transform.parent = null;
-        transform.localScale = new Vector3(Range, 0.05f, Range);
+        Boundary.transform.localScale = new Vector3(Range, 0.05f, Range);
         transform.parent = parent;
 
         InvokeRepeating("UpdateTarget", 0, 0.5f); // 0.5초 마다 반복하기
@@ -244,9 +224,7 @@ public class Tower : MonoBehaviour
 
         //돈 40 잃기
 
-        gameManager.money
-
-        gameManager.money -= 40;
+        GameManager.instance.money -= 40;
 
     }
 
@@ -264,6 +242,8 @@ public class Tower : MonoBehaviour
 
 
         // 재화 연결 함수
+
+        GameManager.instance.money += SellPrice;
 
     }
 
@@ -283,8 +263,7 @@ public class Tower : MonoBehaviour
 
         // 재화 연결 함수
 
-
-
+        GameManager.instance.money -= MovePrice;
 
     }
 
