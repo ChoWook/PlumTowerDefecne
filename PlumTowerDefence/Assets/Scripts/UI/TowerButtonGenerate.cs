@@ -14,7 +14,7 @@ public class TowerButtonGenerate : MonoBehaviour
     {
         for (int i = 0; i < tower_num; i++)
         {
-            GameObject obj = ObjectPools.Instance.GetPooledObject("Tower");
+            GameObject obj = ObjectPools.Instance.GetPooledObject("TowerButton");
             obj.transform.SetParent(transform);
             obj.transform.localScale = new Vector3(1f, 1f, 1f);
         }

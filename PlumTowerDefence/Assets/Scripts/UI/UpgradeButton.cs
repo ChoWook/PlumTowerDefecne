@@ -8,6 +8,10 @@ using UnityEngine;
 
 public class UpgradeButton : MonoBehaviour
 {
+    /// <summary>
+    /// 강화 씬의 버튼을 관리하는 스크립트
+    /// xp 값을 지속적으로 업데이트 하는 함수도 포함되어 있음
+    /// </summary>
     [SerializeField] private GameObject _panel;
     [SerializeField] private GameObject xp;
     private TextMeshProUGUI xpText;
