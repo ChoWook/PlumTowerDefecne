@@ -8,13 +8,13 @@ public class TowerScript : MonoBehaviour
 {
     [Header("Tower Stats")]
     [Tooltip("Attack Damage adjusts the amount of damage the projectile will deal to the enemy")]
-    public int attackDamage = 1;
+    public int attackDamage = 1; // 공격 AttackStat
     [Tooltip("Attack Speed adjusts how often the tower instantiates a new projectile")]
-    public float attackSpeed = 1;
+    public float attackSpeed = 1; // 재장전 속도?
     [Tooltip("Projectile Velocity adjusts the travel speed of the projectile")]
-    public float projectileVelocity = 10;
+    public float projectileVelocity = 10; // 
     [Tooltip("Attack Range adjusts how far the tower detects enemies")]
-    public float attackRange = 1;
+    public float attackRange = 1; // 사거리
     [Tooltip("Explosion Radius adjusts how big the explosion will be")]
     public float explosionRadius = 1;
 

@@ -29,6 +29,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8596759870153181161}
+  - {fileID: 661962042565045397}
   m_Father: {fileID: 775646588377268172}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -4.992, z: 0}
@@ -930,7 +931,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3955684889859252043}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 9.537474, z: 0}
+  m_LocalPosition: {x: 0, y: 6.25, z: 0}
   m_LocalScale: {x: 1.9256321, y: 1.9256321, z: 1.9256321}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1701,6 +1702,37 @@ Transform:
   m_Father: {fileID: 2858001544051460064}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &7609983283941474410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 661962042565045397}
+  m_Layer: 0
+  m_Name: Firepoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &661962042565045397
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609983283941474410}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.021752236, y: -0, z: -0.24905188}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 105416303}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7705424657166059217
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,7 +1951,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8138642334970068589}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.31, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 0.1, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2480,12 +2512,23 @@ PrefabInstance:
         type: 3}
       propertyPath: Boundary
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8138642334970068589}
+    - target: {fileID: 4248981224369765954, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
+        type: 3}
+      propertyPath: FirePoint
+      value: 
+      objectReference: {fileID: 661962042565045397}
     - target: {fileID: 4248981224369765954, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
         type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4248981224369765954, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
+        type: 3}
+      propertyPath: BulletPrefab
+      value: 
+      objectReference: {fileID: 8512218874839391579, guid: 858dc67e6d982f544a48ce047856ee1b,
+        type: 3}
     - target: {fileID: 4248981224369765954, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
         type: 3}
       propertyPath: PartToRotate
@@ -2539,7 +2582,7 @@ PrefabInstance:
     - target: {fileID: 4248981224369765958, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.94
+      value: 2.89
       objectReference: {fileID: 0}
     - target: {fileID: 4248981224369765958, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
         type: 3}
@@ -2634,7 +2677,7 @@ PrefabInstance:
     - target: {fileID: 7138993395490002178, guid: 60549f764bf060544a16a554a937921e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7138993395490002178, guid: 60549f764bf060544a16a554a937921e,
         type: 3}
