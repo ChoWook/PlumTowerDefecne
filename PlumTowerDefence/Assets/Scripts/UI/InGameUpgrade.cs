@@ -13,10 +13,11 @@ public class InGameUpgrade : MonoBehaviour
     /// </summary>
 
     [SerializeField] private GameObject InGameButtonManager;
-    
-    private int number_Of_Upgrade = Tables.GlobalSystem.Get("Number_Of_Upgrade")._Value;
+
+    private int number_Of_Upgrade;
     public void ShowInGameUpgrade()
     {
+        number_Of_Upgrade = Tables.GlobalSystem.Get("Number_Of_Upgrade")._Value;
         for (int i = 0; i < number_Of_Upgrade; i++)
         {
             GameObject obj = ObjectPools.Instance.GetPooledObject("InGameUpgrade"); //증강체 생성
