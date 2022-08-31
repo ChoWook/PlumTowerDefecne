@@ -32,6 +32,7 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator IE_SpawnWave()
     {
         SpawnEnemyNumber = GetSpawnNumber(WaveNumber);
+        GameManager.instance.currentEnemyNumber = EnemyNumber;
         Debug.Log("Wave Start");
         Debug.Log("Wave number: " + WaveNumber);
         Debug.Log(SpawnEnemyNumber);
@@ -153,7 +154,7 @@ public class EnemySpawner : MonoBehaviour
         }
         enemy.GetComponent<Enemy>().SetStat();
         emove.InitSpeed(monsterType);
-        //enemy.GetComponent<Enemy>().DealDamageForSeconds(60.0f);
+        enemy.GetComponent<Enemy>().DealDamageForSeconds(60.0f);
 
         /*if (monsterType == EMonsterType.Bet)
         {

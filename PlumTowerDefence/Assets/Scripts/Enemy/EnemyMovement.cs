@@ -83,6 +83,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if(WaypointIndex <= 0)
         {
+            GameManager.instance.currentEnemyNumber--;
             ObjectPools.Instance.ReleaseObjectToPool(gameObject);
             Debug.Log("Enemy destroyed");
             return;

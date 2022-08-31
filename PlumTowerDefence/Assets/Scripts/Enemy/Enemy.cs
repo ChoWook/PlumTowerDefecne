@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("DeadTrigger");
+            GameManager.instance.currentEnemyNumber--;
             GetComponent<EnemyMovement>().MoveSpeed = 0;
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
             ObjectPools.Instance.ReleaseObjectToPool(gameObject);
