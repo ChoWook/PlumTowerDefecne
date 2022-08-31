@@ -104,13 +104,17 @@ public class Tower : MonoBehaviour
         if (nearestEnemy != null && shortestDistance <= Range)
         {
             Target = nearestEnemy;
+        } else
+        {
+            Target = null;
         }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Target == null || Target.activeSelf == false)
+        if (Target == null || Target.GetComponent<Enemy>().IsAlive == false)
         {
             return;
         }
@@ -266,12 +270,12 @@ public class Tower : MonoBehaviour
 
     }
 
-
+    /*
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, Range);
     }
-
+    */
 
 }

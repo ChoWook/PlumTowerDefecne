@@ -9,6 +9,8 @@ public class TowerScript : MonoBehaviour
     [Header("Tower Stats")]
     [Tooltip("TowerID : 타워ID")]
     public int TowerID = 0;       // 타워 ID(데이터 테이블)
+    [Tooltip("attackDamage : 적에게 가할 데미지의 양을 조정합니다.")]
+    public int attackDamage = 25; // 데이터테이블(AttackStat)
     [Tooltip("attackSpeed : 타워가 새 발사체를 생성하는 빈도를 조정합니다.")]
     public float attackSpeed = 4; // 데이터 테이블(SpeedStat)
     [Tooltip("projectileVelocity : 발사체의 이동 속도를 조정합니다.")]
@@ -20,12 +22,6 @@ public class TowerScript : MonoBehaviour
     [Tooltip("explosionRadius : 폭발의 크기를 조정합니다.")]
     public float explosionRadius = 1; // 폭발 범위
 
-    [Tooltip("Projectile Velocity adjusts the travel speed of the projectile")]
-    public float projectileVelocity = 10; // 
-    [Tooltip("Attack Range adjusts how far the tower detects enemies")]
-    public float attackRange = 1; // 사거리
-    [Tooltip("explosionRadius : 폭발의 크기를 조정합니다.")]
-    public float explosionRadius = 1; // 폭발 범위
 
 
     [Tooltip("Attack Damage adjusts the amount of damage the projectile will deal to the enemy")]
