@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using 
 
 public class Tower : MonoBehaviour
 {
@@ -240,13 +239,6 @@ public class Tower : MonoBehaviour
     {
         //Attackstat + 5 ∑Œ «ÿ≥ı±‚
         AttackStat += UpgradeAmount;
-
-
-        //µ∑ 40 ¿“±‚
-
-        gameManager.money
-
-        gameManager.money -= 40;
 
     }
 
