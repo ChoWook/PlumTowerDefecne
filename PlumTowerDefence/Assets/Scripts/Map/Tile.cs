@@ -18,12 +18,19 @@ public class Tile : MonoBehaviour
 
     public ETileType TileType;
     
-    public int PosX;
-    public int PosY;
+    public Pos _Pos = new();
+
+    public int WaypointIndex = -1;
+
+    public int WaypointRoute = -1;
 
     public GameObject ObjectOnTile;
 
     public bool IsFixedObstacle = false;            // 장애물 설치를 위한 변수, 장애물 모양이 결정되면 true
+
+    public bool IsSelectedAttackRoute = false;      // 웨이포인트 설정을 위해, 이미 선택된 공격로인지
+
+    public Ground ParentGround;
 
     int RandomLand = 0;
 
@@ -33,7 +40,7 @@ public class Tile : MonoBehaviour
 #if UNITY_EDITOR
     private void Update()
     {
-        PosText.text = string.Format("({0}, {1})\n{2}", PosX, PosY, (int)TileType);
+        PosText.text = string.Format("({0}, {1})\n{2}", _Pos.PosX, _Pos.PosY, (int)TileType);
 
         Color NewColor = Color.yellow;
 
@@ -67,9 +74,9 @@ public class Tile : MonoBehaviour
     }
 
 
-    public Vector2 CalculateDistance(Tile another)
+    public Vector2 CalculateDistance(Pos another)
     {
-        return new Vector2(another.PosX - PosX, another.PosY - PosY);
+        return new Vector2(another.PosX - _Pos.PosX, another.PosY - _Pos.PosY);
     }
 
     public bool IsResourceOnTile()
@@ -106,4 +113,5 @@ public class Tile : MonoBehaviour
             }
         }
     }
+
 }

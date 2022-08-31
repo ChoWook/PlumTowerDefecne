@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour
     private float MoveSpeed;
 
     private Transform Target;
-    private int WaypointIndex;
+    public int WaypointIndex;
 
     public int Route = 0;
 
@@ -23,16 +23,38 @@ public class EnemyMovement : MonoBehaviour
         {
             return;
         }
-        switch (monsterType)
+
+        MoveSpeed = GetComponent<Enemy>().Speed;
+
+        /*switch (monsterType)
         {
             case EMonsterType.Bet:
                 MoveSpeed = GetComponent<Bat>().Speed;
                 break;
-        }
+            case EMonsterType.Mushroom:
+                MoveSpeed = GetComponent<Mushroom>().Speed;
+                break;
+            case EMonsterType.Flower:
+                MoveSpeed = GetComponent<Flower>().Speed;
+                break;
+            case EMonsterType.Fish:
+                MoveSpeed = GetComponent<Fish>().Speed;
+                break;
+            case EMonsterType.Slime:
+                MoveSpeed = GetComponent<Slime>().Speed;
+                break;
+            case EMonsterType.Pirate:
+                MoveSpeed = GetComponent<Pirate>().Speed;
+                break;
+            case EMonsterType.Spider:
+                MoveSpeed = GetComponent<Spider>().Speed;
+                break;
+            case EMonsterType.Bear:
+                MoveSpeed = GetComponent<Bear>().Speed;
+                break;
+        }*/
 
-        
-        WaypointIndex = Waypoints.points[Route].Count;
-        Target = Waypoints.points[Route][Waypoints.points[Route].Count - 1];
+        Target = Waypoints.points[Route][WaypointIndex];
     }
 
     private void Start()
@@ -48,6 +70,8 @@ public class EnemyMovement : MonoBehaviour
 
         Vector3 dir = Target.position - transform.position;
         transform.Translate(dir.normalized * MoveSpeed * Time.deltaTime, Space.World);
+        Quaternion rotation = Quaternion.LookRotation(dir);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, MoveSpeed * Time.deltaTime);
         
         if(Vector3.Distance(transform.position, Target.position) <= 0.4f)
         {

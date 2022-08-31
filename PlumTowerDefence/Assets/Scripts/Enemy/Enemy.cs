@@ -21,7 +21,8 @@ public class Enemy : MonoBehaviour
 
     float Enforced = 1.0f;          // 강화특성
 
-    protected void SetStat()
+    
+    public void SetStat()
     {
         MaxHP = BaseHP;
         MaxShield = BaseShield;
@@ -30,15 +31,7 @@ public class Enemy : MonoBehaviour
         Armor = BaseArmor;
         Speed = BaseSpeed;
     }
-    void GetStat()
-    {
-        BaseHP = Tables.Monster.Get(1)._Hp;
-        BaseShield = Tables.Monster.Get(1)._Sheild;
-        BaseArmor = Tables.Monster.Get(1)._Armor;
-        BaseSpeed = Tables.Monster.Get(1)._Speed;
-        Debug.Log(Tables.Monster.Get(1)._Hp);
 
-    }
     private void OnEnable()
     {
         //GetStat();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pirate : Enemy
 {
-    void GetStat()
+    public void GetStat()
     {
         BaseHP = Tables.Monster.Get(6)._Hp;
         BaseShield = Tables.Monster.Get(6)._Sheild;
