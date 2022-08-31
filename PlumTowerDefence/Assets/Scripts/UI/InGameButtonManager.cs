@@ -37,7 +37,7 @@ public class InGameButtonManager : MonoBehaviour
 
     private void Update()
     {
-        //UpdateGameInfo();
+        UpdateGameInfo();
     }
 
     private void ChangeText()

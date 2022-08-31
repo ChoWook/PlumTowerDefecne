@@ -13,19 +13,19 @@ public class Pause : MonoBehaviour
     
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject pauseBackGround;
-    [SerializeField] private GameObject[] texts;
     
     private void ChangeText()
     {
-        for (int i = 0; i < texts.Length; i++)     //버튼 텍스트 변경
+        TextMeshProUGUI[] texts = transform.GetComponentsInChildren<TextMeshProUGUI>(true);
+        foreach (var txt in texts)
         {
-            texts[i].GetComponent<TextMeshProUGUI>().text = Tables.StringUI.Get(texts[i].gameObject.name)._Korean;
+            txt.text = Tables.StringUI.Get(txt.gameObject.name)?._Korean;
         }
     }
 
     private void Awake()
     {
-        //ChangeText();
+        ChangeText();
     }
 
     void Update()

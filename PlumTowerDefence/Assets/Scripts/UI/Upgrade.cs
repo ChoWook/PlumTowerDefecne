@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Upgrade : MonoBehaviour
@@ -10,9 +11,20 @@ public class Upgrade : MonoBehaviour
     /// </summary>
 
     [HideInInspector] public int id;
+    private TextMeshProUGUI text;
 
     private void OnEnable()
     {
-        
+        text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();   //텍스트 초기화
+    }
+
+    private void Update()
+    {
+        ChangeText();
+    }
+
+    void ChangeText()
+    {
+        text.text = id.ToString();
     }
 }
