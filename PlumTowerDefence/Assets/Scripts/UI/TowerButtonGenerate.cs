@@ -94,7 +94,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
                     // TODO 채굴 타워는 tile.ObjectOnTile이 자원이어야 함
 
-                    if (tile.TileType == ETileType.Land && tile.ObjectOnTile == null)
+                    if (tile.TileType == ETileType.Land && tile.GetObjectOnTile() == null)
                     {
                         IsAvailableTile = true;
                     }
@@ -121,7 +121,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
             SelectedTower.transform.position = tile.transform.position;
 
-            tile.ObjectOnTile = SelectedTower;
+            tile.SetObjectOnTile(SelectedTower);
 
             SelectedTower = null;
         }
