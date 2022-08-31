@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using 
 
 public class Tower : MonoBehaviour
 {
@@ -22,38 +23,60 @@ public class Tower : MonoBehaviour
 
     [Header("Attributes")]
 
-    public int Range = 3;                       // 공격 사거리
-    private float SpeedStat = 0.25f;                         // 공격 속도 스텟(데이터테이블)
-    private float FireCountdown = 0f;                       // 발사 카운트다운
+    public int Range = 3;                                  // 공격 사거리
+    private float SpeedStat = 0.25f;                       // 공격 속도 스텟(데이터테이블)
+    private float FireCountdown = 0f;                      // 발사 카운트다운
 
-
-
-    public string TowerName = "화살타워";                        // 타워 이름
-    private int AttackPropertyID = 0;                   // 공격 속성(데이터테이블)
-    private int TypeID = 0;                             // 속성 ID (데이터테이블)
-    private int SizeID = 0;                             // 타워 크기 (데이터테이블)
-    private int AttackStat = 25;                       // 공격력 스텟(데이터테이블)
     
-    private int AbilityStat;                        // 특수 능력 스텟(데이터테이블)
-    
-    private int UpgradePrice = 40;                       // 업그레이드 가격(데이터테이블)
-    private int Price = 100;                              // 구매 가격(데이터테이블)
-    private double Damage;                             // 데미지 
-    private int SellPrice;                             // 판매 가격
 
-    public Transform PartToRotate;                      //회전 오브젝트
-    public float TurnSpeed = 10f;                       //회전 속도
+    public string TowerName = "화살타워";                  // 타워 이름
+    private int AttackPropertyID = 0;                      // 공격 속성(데이터테이블)
+    private int TypeID = 0;                                // 속성 ID (데이터테이블)
+    private int SizeID = 0;                                // 타워 크기 (데이터테이블)
+    private int AttackStat = 25;                           // 공격력 스텟(데이터테이블)
+    
+    private int AbilityStat;                               // 특수 능력 스텟(데이터테이블)
+    
+    private double Damage;                                 // 데미지 
+    
+
+    public Transform PartToRotate;                         //회전 오브젝트
+    public float TurnSpeed = 10f;                          //회전 속도
+
+
+
+    [Header("Interactions")]
+
+    public bool Selected = false;                           //타워 선택 여부
+    public bool Fixed = false;                              //타워 설치 여부
+
+    public int AttackPriorityID =0;                         //우선 공격 속성 ID
+
+    GameManager gameManager;
+
+    private int UpgradePrice = 40;                          // 업그레이드 가격(데이터테이블)
+    private int UpgradeCount = 0;                           // 업그레이드 횟수
+    private int UpgradeAmount = 5;                          // 업그레이드 강화량
+
+    private int Price = 100;                                // 구매 가격(데이터테이블)
+    private int SellPrice;                                  // 판매 가격
+
 
 
     public GameObject BulletPrefab;
     public Transform FirePoint;
+    public GameObject Boundary;                             //사거리 Cylinder
+    private int ProjectileSpeed = 100;                      //투사체 속도
 
+    public GameObject ObjectPool;
 
 
 
     // 적 스텟 (타겟 지정)
 
     [Header("Enemy")]
+
+    public List<GameObject> EnemyLIst = new List<GameObject>();
 
     public Transform Target;
 
@@ -63,21 +86,27 @@ public class Tower : MonoBehaviour
 
     
 
-
-
-    // todo 적 변수 가져 오기
-
-
-
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = new GameManager();
+
+
+        //사거리 지정 Range 값 넣기
+        Transform parent = transform.parent;
+        transform.parent = null;
+        transform.localScale = new Vector3(Range, 0.05f, Range);
+        transform.parent = parent;
+
         InvokeRepeating("UpdateTarget", 0, 0.5f); // 0.5초 마다 반복하기
+
     }
 
-    // 타겟 업데이트 (체력 우선, 방어구 우선, 방어력 높은 적 우선 추가하기)
+    // 타겟 업데이트 ( 체력 우선, 방어구 우선, 방어력 높은 적 우선 추가하기)
     void UpdateTarget()
     {
+
+
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  태그로 적 찾기
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
@@ -124,51 +153,139 @@ public class Tower : MonoBehaviour
 
         FireCountdown -= Time.deltaTime;
 
+
+        // 타워 선택 표시
+        /*
+        if (Input.GetMouseButtonDown(0))
+
+        {
+
+            RaycastHit hit;
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            Physics.Raycast(ray, out hit);
+
+
+
+            if (hit.collider != null)
+
+            {
+
+                CurrentTouch = hit.transform.gameObject;
+
+                EventActivate();
+
+            }
+
+        }
+
+        */
+    }
+
+    // 추적 알고리즘 코루틴
+    IEnumerator IE_GetTargets()
+    {
+        //사거리 안에 들어온 적들 EnemyList에 정리 + 사거리에서 나가면 지우기.
+    
+
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    // 공격 우선순위 정하는 함수
+    private void SortAttackPriority()
+    {
+        switch(AttackPriorityID)
+        {
+            case 0:
+                // 먼저 들어온 몬스터
+
+                break;
+
+            case 1:
+                // 체력 우선 공격 -> 방어구 없는 적 먼저 다 같으면 처음 들어온 몬스터
+                
+                break;
+
+            case 2:
+                // 방어구 가진 몬스터 우선 공격
+                
+                break;
+
+            case 3:
+                // 방어력 높은 적 우선 공격
+
+                break;
+        }    
     }
 
     void Shoot()
     {
-        GameObject bulletGO = (GameObject)Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation); //나중에 오브젝트 풀링으로 바꿔주기
+        ObjectPool = GameObject.Find("ObjectPool");
+
+        GameObject bulletGO = ObjectPool.GetComponent<ObjectPools>().GetPooledObject("Arrow");
+                       //Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
+
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
         if (bullet != null)
-            bullet.Seek(Target);
-
+            bullet.Seek(Target, AttackStat, AttackPropertyID);
 
     }
 
+    // 상호작용 함수
 
-    // 사거리 표시
-    private void OnDrawGizmosSelected()
+    //Upgrade
+    void UpgradeTower()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, Range);
+        //Attackstat + 5 로 해놓기
+        AttackStat += UpgradeAmount;
+
+
+        //돈 40 잃기
+
+        gameManager.money
+
+        gameManager.money -= 40;
+
     }
 
-
-    // 타워 공격 속성별 데미지 설정 (적 기획과 조율 필요)
-    private void SetDamageWithAttackProperty()
+    //Sell
+    void SellTower()
     {
-        // DefenceStat 방어력 어떻게 받을지 상의 필요함.
+        // 타워 반납하기
+        Destroy(gameObject); // 타워 풀에 추가한 뒤 바꾸기
 
-        switch(AttackPropertyID)
-        {
-            case 0:                                // 타워의 공격력 x {0.01x (100 - 적의 방어력)} 만큼 대상에게 데미지를 준다.
-                Damage = AttackStat;
-                break;
-            case 1:                               // 체력에 타워의 공격력 x 1.2 x{0.01x(100-방어력)} 만큼 대상에게 데미지를 준다, 방어구에는 기본 알고리즘과 같다
 
-                break;
-            case 2 :
+        // 돈 받기 (타워 설치비용 + 업그레이드 비용 ) * 0.6
+        double _SellPrice = (Price + UpgradeCount * UpgradePrice) * 0.6;
 
-                break;
+        SellPrice = (int)_SellPrice;
 
-            case 3 :
-                break;
-                
-        }    
+
+        // 재화 연결 함수
+
     }
 
+    //Move
+    void MoveTower()
+    {
+        // 설치 상태로 돌아감
 
+        // 중간에 취소 가능하게
+
+        // 돈 감소
+        double _MovePrice = (Price + UpgradeCount * UpgradePrice) * 0.5;
+
+
+        int MovePrice = (int)_MovePrice;
+
+
+        // 재화 연결 함수
+
+
+
+
+    }
 
 }
