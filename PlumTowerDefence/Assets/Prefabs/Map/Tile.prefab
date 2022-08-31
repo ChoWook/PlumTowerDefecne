@@ -320,9 +320,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PosText: {fileID: 7014523706283290772}
   HiddenBody: {fileID: 509859977686158262}
-  TileMateral:
-  - {fileID: 2100000, guid: fe40329174e9720479ab77410cc459ab, type: 2}
-  - {fileID: 2100000, guid: e00ca62ae67139f41b7cf3c04f00fb88, type: 2}
+  LandTileMaterals:
+  - {fileID: 2100000, guid: 177c17ceb9afca44bb884a1a8a00169e, type: 2}
+  - {fileID: 2100000, guid: 54a6e50b0e8a8e44bb5de3ca36e3feb9, type: 2}
+  - {fileID: 2100000, guid: e5c75e771ad5773489360ae2b93d803e, type: 2}
+  - {fileID: 2100000, guid: 523650b0269e8e64897a30f697233163, type: 2}
+  - {fileID: 2100000, guid: 7767531b8a941a042a8ee276f93d467f, type: 2}
+  - {fileID: 2100000, guid: 586c98c8e0795f64fa3967c0a9af51b7, type: 2}
+  AttackRouteTileMaterials:
+  - {fileID: 2100000, guid: 1cef938def0b527469f8ef0720c534dc, type: 2}
   PlaneMeshRenderer: {fileID: 735037788804033516}
   TileType: 1
   PosX: 0

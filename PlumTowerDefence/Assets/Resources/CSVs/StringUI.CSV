@@ -1,18 +1,18 @@
-ID,Code,Korean
+﻿ID,Code,Korean
 int,StringUI,String
 1,Game_Title,PLUM TOWER DEFESNSE
 2,Game_Start,게임시작
 3,Upgrade,강화
 4,Option,환경 설정
 5,Game_End,게임 종료
-6,Stage_Level,Level : 
-7,In_Game_Xp_Point,Xp : 
-8,In_Game_Hp,Hp :
-9,In_Game_Money,Money : 
+6,Stage_Level,Level : {0}
+7,In_Game_Xp_Point,Xp : {0}
+8,In_Game_Hp,Hp : {0} / {1}
+9,In_Game_Money,Money : {0}
 10,Expand,확장하기
 11,Stage_Start,시작하기
 12,Tower_Name,타워의 이름
-13,Tower_Cost,타워의 비용
+13,Tower_Cost,타워의 비용 : {0}
 14,In_Game_Upgrade_Title,인게임 증강체 제목
 15,In_Game_Upgrade_Contents,인게임 증강체 설명
 16,Upgrade_Select,선택하기
@@ -20,19 +20,24 @@ int,StringUI,String
 18,Resume,돌아가기
 19,Game_Over,GameOver
 20,Main_Menu,메인 메뉴로 돌아가기
-21,Xp,Xp : 
+21,Xp,Xp : {0}
 22,Xp_Reset,Xp 리셋하기
 23,Tower_Resource_Passive_Category,"타워, 자원, 패시브 카테고리"
 24,Tower_Resource_Passive_Select,"타워, 자원, 패시브 선택"
 25,Upgrade_Title,강화 제목
 26,Upgrade_Contents,강화 설명
 27,Required_Xp,요구되는 Xp 
-28,Tower_Move,타워 이동
-29,Tower_Level,타워 레벨 : 
-30,Tower_Demolish,타워 부수기
-31,Target_Priority,우선적 선택
-32,Target_Priority_Type,우선적 선택 타입
-33,Tower_Damage,타워 데미지 : 
-34,Tower_Upgrade,타워 업그레이드
-35,Tower_Range,범위 : 
-36,Tower_Fire_Rate,공격 속도 : 
+28,Tower_UI_Name,타워의 이름
+29,Tower_Level,타워 레벨 : {0}
+30,Tower_Damage,타워 데미지 : {0}
+31,Tower_Fire_Rate,공격 속도 : {0}
+32,Target_Priority_String,타겟 지정
+33,Select_Target_Priority,타겟들
+34,Tower_Upgrade,타워 업그레이드 : {0}
+35,Tower_Move,타워 이동 : {0}
+36,Tower_Demolish,타워 부수기 : {0}
+37,Monster_Name,몬스터 이름
+38,Option_String,환경설정
+39,Show_Monster_UI,몬스터UI표시
+40,Music,배경음악
+41,Sound,효과음

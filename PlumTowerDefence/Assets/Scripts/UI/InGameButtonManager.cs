@@ -6,6 +6,13 @@ using TMPro;
 
 public class InGameButtonManager : MonoBehaviour
 {
+    /// <summary>
+    /// 인게임 내에서의 UI를 전체적으로 관리함
+    /// UI에서의 체력, 돈, xp등 게임 진행상황중 변하는 수치또한 이 스크립트에서 관리하고 있으며
+    /// 확장하기버튼, 게임시작버튼의 함수를 관리하고 있음
+    /// 현재는 test목적의 게임 진행을 나타내는 코루틴 함수를 포함하고 있음
+    /// </summary>
+    
     [SerializeField] private GameObject[] Texts;    //UI의 텍스트를 담을 배열, 이름 지정용 
     private TextMeshProUGUI levelText;
     private TextMeshProUGUI xpText;
@@ -15,7 +22,7 @@ public class InGameButtonManager : MonoBehaviour
     [SerializeField] private GameObject expandButton;
     [SerializeField] private GameObject startButton;
 
-    private GameObject InGameUpgradeManager;
+    private GameObject InGameUpgradePanel;
     
     private void Awake()
     {
@@ -25,7 +32,7 @@ public class InGameButtonManager : MonoBehaviour
         hpText = Texts[2].GetComponent<TextMeshProUGUI>();
         moneyText = Texts[3].GetComponent<TextMeshProUGUI>();
         
-        InGameUpgradeManager = GameObject.Find("InGameUpgradeManager");
+        InGameUpgradePanel = GameObject.Find("InGameUpgradePanel");
     }
 
     private void Update()
@@ -43,13 +50,13 @@ public class InGameButtonManager : MonoBehaviour
 
     private void UpdateGameInfo()       //인게임 UI 업데이트
     {
-        levelText.text = Tables.StringUI.Get(6)._Korean + GameManager.instance.level;    //Level Update
+        levelText.text = String.Format(Tables.StringUI.Get(levelText.transform.name)._Korean,GameManager.instance.level);    //Level Update
         ReplaceR(levelText);
-        xpText.text = Tables.StringUI.Get(7)._Korean + GameManager.instance.xp;       //XP Update
+        xpText.text = String.Format(Tables.StringUI.Get(xpText.transform.name)._Korean,GameManager.instance.xp);       //XP Update
         ReplaceR(xpText);
-        hpText.text = Tables.StringUI.Get(8)._Korean + GameManager.instance.currentHp+"/"+GameManager.instance.maxHp; //HP Update
+        hpText.text = String.Format(Tables.StringUI.Get(hpText.transform.name)._Korean,GameManager.instance.currentHp,GameManager.instance.maxHp); //HP Update
         ReplaceR(hpText);
-        moneyText.text = Tables.StringUI.Get(9)._Korean + GameManager.instance.money;    //Money Update
+        moneyText.text = String.Format(Tables.StringUI.Get(moneyText.transform.name)._Korean,GameManager.instance.money);    //Money Update
         ReplaceR(moneyText);
     }
 
@@ -92,7 +99,7 @@ public class InGameButtonManager : MonoBehaviour
         if (GameManager.instance.level % 3 == 0)                    //3 level 마다 증강체
         {
             expandButton.SetActive(false);
-            InGameUpgradeManager.GetComponent<InGameUpgrade>().ShowInGameUpgrade();
+            InGameUpgradePanel.GetComponent<InGameUpgrade>().ShowInGameUpgrade();
         }
     }
 

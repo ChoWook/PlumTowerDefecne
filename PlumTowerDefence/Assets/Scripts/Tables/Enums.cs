@@ -62,5 +62,91 @@ public enum EMonsterType
     Pirate = 6,
     Spider = 7,
     Bear = 8,
+}
 
+public enum EMonsterClass
+{
+    Normal = 1,
+    SubBoss = 2,
+    Boss = 3,
+}
+
+public enum EInteraction
+{
+    Targeting = 1,
+    Upgrade = 2,
+    Move = 3,
+    Sell = 4,
+    Health_P = 5,
+    Shield_P = 6,
+    Defense_P = 7,
+
+}
+
+public enum ETowerType
+{
+    Attack = 1,
+    AttackProjectile = 2,
+    Buff = 3,
+    Debuff = 4,
+    Mining = 5,
+    Lane = 6,
+}
+
+public enum EAttackSepcialization
+{
+    Default = 1,
+    Health = 2,
+    Shield = 3,
+    Defense = 4,
+}
+
+public enum EUpgradeStat
+{
+    AttackStat = 1,
+    AbilityStat = 2,
+    SpeedStat = 3,
+}
+
+public enum EPropertyType
+{
+    None = 1,
+    Reinforced = 2,
+    Divisive = 3,
+    Divided = 4,
+    Private = 5,
+    Resurrect = 6,
+    Resurrected = 7,
+    Generative = 8,
+    Leading = 9,
+    Cursing = 10,
+
+}
+
+public enum ESpecialityType
+{
+    None = 1,
+    Big = 2,
+    Hug = 3,
+    Sturdy = 4,
+    Hard = 5,
+    Abudant = 6,
+    Fast = 7,
+    Rapid = 8,
+}
+
+public enum EStat
+{
+    None = 1,
+    Hp = 2,
+    Armor = 3,
+    Shield = 4,
+    Speed = 5,
+}
+
+public enum CategoryType
+{
+    Tower = 1,
+    Resource = 2,
+    Passive = 3,
 }

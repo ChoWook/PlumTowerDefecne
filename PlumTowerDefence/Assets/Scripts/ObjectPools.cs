@@ -4,34 +4,15 @@ using UnityEngine;
 
 public class ObjectPools : MonoBehaviour
 {
-    static ObjectPools _Instance;
-
-    public static ObjectPools Instance
+    public static ObjectPools Instance;
+    
+    private void Awake()
     {
-        get
-        {
-            return _Instance;
-        }
-
-    }
-
-    private void Start()
-    {
-        if (_Instance == null)
-        {
-            _Instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            if (_Instance != this)
-            {
-                Destroy(this);
-                return;
-            }
-        }
+        Instance = this;
 
         CreateMultiplePoolObjects();
+
+        Tables.Load();
     }
 
     [SerializeField] GameObject[] poolPrefabs;
@@ -91,7 +72,7 @@ public class ObjectPools : MonoBehaviour
     public void ReleaseObjectToPool(GameObject go)
     {
         go.SetActive(false);
-        go.transform.parent = Instance.transform;
+        go.transform.SetParent(Instance.transform);
         go.transform.localPosition = Vector3.zero;
     }
 }

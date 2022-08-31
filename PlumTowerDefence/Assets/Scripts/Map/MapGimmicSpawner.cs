@@ -120,7 +120,7 @@ public class MapGimmicSpawner : MonoBehaviour
                         continue;
                     }
 
-                    Vector2 dis = EmptyLands[ChoosenSet[i]].CalculateDistance(EmptyLands[ChoosenSet[j]]);
+                    Vector2 dis = EmptyLands[ChoosenSet[i]].CalculateDistance(EmptyLands[ChoosenSet[j]]._Pos);
                     if ((int)dis.x == 1 && (int)dis.y == 0)
                     {
                         r = j;
@@ -266,8 +266,9 @@ public class MapGimmicSpawner : MonoBehaviour
 
             if(GimmickType == EMapGimmickType.Resource)
             {
+                EmptyLands[ChoosenSet[i]].ParentGround.ResourceTileCount++;
                 // Tile > Tilemap > Grid > Ground
-                obj.transform.parent.parent.parent.parent.GetComponent<Ground>().ResourceTileCount++;
+                //obj.transform.parent.parent.parent.parent.GetComponent<Ground>().ResourceTileCount++;
             }
 
             obj.transform.localPosition = Vector3.zero;

@@ -2,83 +2,40 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class InGameUpgrade : MonoBehaviour
 {
-    [SerializeField] private GameObject[] InGameUpgradeButtons;
-    [SerializeField] private GameObject[] selectButtons;
-    
-    private GameObject ButtonManager;
+    /// <summary>
+    /// 인게임 내의 증강체를 모으는 패널이 보유하는 스크립트
+    /// 증강체를 오브젝트풀에서 생성하는 함수와 부모 지정의 시간차로 인한 여러 세팅에 대한 코드를 보유중
+    /// 증강체를 선택한 이후 오브젝트풀로 release하는 함수 또한 관리 하고 있음
+    /// </summary>
 
-    private const int InGameUpgradeCount = 3;
-
-    private void Awake()
-    {
-        ButtonManager=GameObject.Find("ButtonManager");
-        ChangeText();
-    }
+    [SerializeField] private GameObject InGameButtonManager;
     
-    private void ChangeText()
+    private int number_Of_Upgrade = Tables.GlobalSystem.Get("Number_Of_Upgrade")._Value;
+    public void ShowInGameUpgrade()
     {
-        for (int i = 0; i < InGameUpgradeCount; i++)     //버튼 텍스트 변경
+        for (int i = 0; i < number_Of_Upgrade; i++)
         {
-            TextMeshProUGUI buttonText = selectButtons[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            buttonText.text = Tables.StringUI.Get(buttonText.gameObject.name)._Korean;
+            GameObject obj = ObjectPools.Instance.GetPooledObject("InGameUpgrade"); //증강체 생성
+            
+            obj.transform.SetParent(gameObject.transform);                               //부모 설정
+            obj.transform.localScale = new Vector3(1f, 1f, 1f);                    //스케일 변환
+            obj.GetComponent<Toggle>().group = gameObject.GetComponent<ToggleGroup>();  //라디오 버튼 설정
+            obj.transform.Find("Select")?.GetComponent<Button>().onClick.AddListener(()=>SelectInGameUpgrade());//온 버튼 적용
         }
     }
 
-    public void SelectButton1()         //첫번째 증강체 클릭
+    public void SelectInGameUpgrade()
     {
-        selectButtons[0].SetActive(true);
-        selectButtons[1].SetActive(false);
-        selectButtons[2].SetActive(false);
-    }
-    public void SelectButton2()         //두번째 증강체 클릭
-    {
-        selectButtons[1].SetActive(true);
-        selectButtons[0].SetActive(false);
-        selectButtons[2].SetActive(false);
-    }
-    public void SelectButton3()         //세번째 증강체 클릭
-    {
-        selectButtons[2].SetActive(true);
-        selectButtons[0].SetActive(false);
-        selectButtons[1].SetActive(false);
-    }
-
-    public void ShowInGameUpgrade()     //증강체 3개를 화면에 띄움    (3 level 마다 호출)
-    {
-        //InGameUpgrade의 내용을 수정하는 부분
-        for(int i=0;i<InGameUpgradeCount;i++)
-            InGameUpgradeButtons[i].SetActive(true);
-    }
-
-    private void HideInGameUpgrade()    //증강체 및 선택버튼을 화면에서 숨김   (증강체를 선택한 이후 호출)
-    {
-        for (int i = 0; i < InGameUpgradeCount; i++)
+        InGameButtonManager.GetComponent<InGameButtonManager>().ShowExpandButton();
+        int count = transform.childCount;
+        for (int i = 0; i < count; i++)
         {
-            InGameUpgradeButtons[i].SetActive(false);
-            selectButtons[i].SetActive(false);
+            ObjectPools.Instance.ReleaseObjectToPool(transform.GetChild(0).gameObject);
         }
-    }
-
-    public void SelectFirstUpgrade()    //첫번째 증강체를 획득
-    {
-        HideInGameUpgrade();
-        //첫번째 증강체 적용
-        ButtonManager.GetComponent<InGameButtonManager>().ShowExpandButton();
-    }
-    public void SelectSecondUpgrade()   //두번째 증강체를 획득
-    {
-        HideInGameUpgrade();
-        //두번째 증강체 적용
-        ButtonManager.GetComponent<InGameButtonManager>().ShowExpandButton();
-    }
-    public void SelectThirdUpgrade()    //세번째 증강체를 획득
-    {
-        HideInGameUpgrade();
-        //세번째 증강체 적용
-        ButtonManager.GetComponent<InGameButtonManager>().ShowExpandButton();
+        
     }
 }

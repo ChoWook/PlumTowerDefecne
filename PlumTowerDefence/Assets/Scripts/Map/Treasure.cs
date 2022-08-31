@@ -15,16 +15,16 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         StartCoroutine(IE_CapOpenAnimation());
-
-        // TODO 상자를 열었을 때 행할 행동 만들어야 함
     }
 
     IEnumerator IE_CapOpenAnimation()
     {
         CloseCap.DOLocalRotateQuaternion(Quaternion.Euler(OpenRotation), OpenTime).SetEase(Ease.OutBounce);
 
-        yield return OpenTime * 1.5;
+        yield return new WaitForSeconds(OpenTime * 1.5f);
 
-        //ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+        // TODO 상자를 열었을 때 행할 행동 만들어야 함
+
+        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
     }
 }

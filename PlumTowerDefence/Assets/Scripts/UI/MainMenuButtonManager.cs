@@ -8,6 +8,11 @@ using UnityEngine.Rendering;
 
 public class MainMenuButtonManager : MonoBehaviour
 {
+    /// <summary>
+    /// 메인화면의 4가지 버튼을 담고 있는 스크립트
+    /// 각 버튼을 눌렀을때의 효과와 버튼의 텍스트를 변경하는 함수를 가지고 있음
+    /// </summary>
+    
     [SerializeField] private GameObject[] ButtonText;   //버튼의 텍스트를 담을 배열, 이름 지정용
     [SerializeField] private GameObject _panel;
     public Ease Ease;
@@ -30,6 +35,10 @@ public class MainMenuButtonManager : MonoBehaviour
 
     public void OnClickOption()    //환경설정 버튼을 눌렀을 때 호출 할 함수
     {
+        GameObject obj = ObjectPools.Instance.GetPooledObject("Option");
+        obj.transform.SetParent(transform.parent);
+        obj.transform.localScale = new Vector3(1f, 1f, 1f);
+        obj.transform.position = new Vector3(0, 0, 0);
         Debug.Log("설정");
     }
 

@@ -5,20 +5,15 @@ using UnityEngine;
 
 public class Upgrade : MonoBehaviour
 {
-    private bool isRoot=true;
+    /// <summary>
+    /// 메인메뉴에서 들어가는 강화의 강화 카드 프리팹에 들어갈 스크립트
+    /// </summary>
+    
+    private int depth;
     private int parentNum;
 
     private void OnEnable()
     {
-        if (isRoot)
-        {
-            Debug.Log("IsRoot!");
-            transform.position = new Vector3(-5, 0, 0);
-        }
-        else
-        {
-            
-        }
-            
+        
     }
 }
