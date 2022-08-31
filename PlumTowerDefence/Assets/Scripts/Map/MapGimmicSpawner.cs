@@ -96,7 +96,7 @@ public class MapGimmicSpawner : MonoBehaviour
 
                 Obstacle NewObstacle = obj.GetComponent<Obstacle>();
 
-                EmptyLands[ChoosenSet[i]].ObjectOnTile = obj;
+                EmptyLands[ChoosenSet[i]].SetObjectOnTile(obj);
 
                 EmptyLands[ChoosenSet[i]].IsFixedObstacle = true;
 
@@ -219,7 +219,7 @@ public class MapGimmicSpawner : MonoBehaviour
     public void IncludeObstacle(int TileIdx, GameObject Sender)
     {
         EmptyLands[ChoosenSet[TileIdx]].IsFixedObstacle = true;
-        EmptyLands[ChoosenSet[TileIdx]].ObjectOnTile = Sender;
+        EmptyLands[ChoosenSet[TileIdx]].SetObjectOnTile(Sender);
     }
     void SpawnGimmickHoleMap(EMapGimmickType GimmickType)
     {
@@ -260,7 +260,7 @@ public class MapGimmicSpawner : MonoBehaviour
         {
             GameObject obj = ObjectPools.Instance.GetPooledObject(GimmickType.ToString());
 
-            EmptyLands[ChoosenSet[i]].ObjectOnTile = obj;
+            EmptyLands[ChoosenSet[i]].SetObjectOnTile(obj);
 
             obj.transform.parent = EmptyLands[ChoosenSet[i]].transform;
 
