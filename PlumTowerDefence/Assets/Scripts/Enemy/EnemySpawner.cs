@@ -153,6 +153,7 @@ public class EnemySpawner : MonoBehaviour
         }
         enemy.GetComponent<Enemy>().SetStat();
         emove.InitSpeed(monsterType);
+        //enemy.GetComponent<Enemy>().DealDamageForSeconds(60.0f);
 
         /*if (monsterType == EMonsterType.Bet)
         {

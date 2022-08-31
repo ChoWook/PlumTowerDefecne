@@ -13,6 +13,9 @@ public class Fish : Enemy
         Debug.Log(BaseHP + " " + BaseShield + " " + BaseArmor + " " + BaseSpeed);
 
     }
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
