@@ -89,13 +89,24 @@ public class InGameButtonManager : MonoBehaviour
         Map.Instance.StartEnemySpawn();
         //게임시작
 
-        StartCoroutine(IE_DebugPlayingGame());
+        //StartCoroutine(IE_DebugPlayingGame());
     }
 
     IEnumerator IE_DebugPlayingGame()       //테스트용 코루틴
     {
         yield return new WaitForSeconds(5.0f);
         //게임종료 시점
+        GameManager.instance.isPlayingGame = false;                 //Bool flase 만들어서 게임 끝을 알림
+        GameManager.instance.xp += GameManager.instance.level;      //level만큼 xp를 얻음
+        if (GameManager.instance.level % 3 == 0)                    //3 level 마다 증강체
+        {
+            expandButton.SetActive(false);
+            InGameUpgradePanel.GetComponent<InGameUpgrade>().ShowInGameUpgrade();
+        }
+    }
+
+    public void StageClear()
+    {
         GameManager.instance.isPlayingGame = false;                 //Bool flase 만들어서 게임 끝을 알림
         GameManager.instance.xp += GameManager.instance.level;      //level만큼 xp를 얻음
         if (GameManager.instance.level % 3 == 0)                    //3 level 마다 증강체

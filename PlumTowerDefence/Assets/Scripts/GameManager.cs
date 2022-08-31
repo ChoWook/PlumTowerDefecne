@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
             _currentEnemyNumber = value; 
             if(_currentEnemyNumber == 0)
             {
-                isPlayingGame = false;
+                GameObject.Find("ButtonManager").GetComponent<InGameButtonManager>().StageClear();
             }
         } 
     }
