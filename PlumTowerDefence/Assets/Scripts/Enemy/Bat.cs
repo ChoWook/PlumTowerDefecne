@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bat : Enemy
 {
+
+    //Animator animator;
     public void GetStat()
     {
         BaseHP = Tables.Monster.Get(1)._Hp;
@@ -14,10 +16,12 @@ public class Bat : Enemy
 
     }
 
+    
+
     private void OnEnable()
     {
-       //GetStat();
-       //SetStat();
+        //GetStat();
+        //SetStat();
 
     }
     private void Awake()

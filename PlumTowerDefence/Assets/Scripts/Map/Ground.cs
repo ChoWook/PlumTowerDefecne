@@ -137,7 +137,7 @@ public class Ground : MonoBehaviour
 
         for (int i = 0; i < Tiles.Length; i++)
         {
-            if (Tiles[i].TileType == ETileType.Land && Tiles[i].ObjectOnTile == null)
+            if (Tiles[i].TileType == ETileType.Land && Tiles[i].GetObjectOnTile() == null)
             {
                 EmptyLandTiles.Add(Tiles[i]);
             }

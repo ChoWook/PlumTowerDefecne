@@ -334,7 +334,7 @@ PrefabInstance:
     - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
         type: 3}
       propertyPath: poolPrefabs.Array.size
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
         type: 3}
@@ -437,6 +437,12 @@ PrefabInstance:
       propertyPath: poolPrefabs.Array.data[16]
       value: 
       objectReference: {fileID: 7817341427025157785, guid: 420841f344d022e4fbe669c57287451b,
+        type: 3}
+    - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
+        type: 3}
+      propertyPath: poolPrefabs.Array.data[17]
+      value: 
+      objectReference: {fileID: 937175139662595385, guid: 3de9f2c34d5bfed4b8e19665b2d28697,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d2e3a780231a8f4bb024a1ecebee3e3, type: 3}
@@ -1162,6 +1168,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262927545527133608, guid: 3128bf1e77786d84196e831f936fcbd3,
+        type: 3}
+      propertyPath: minHeight
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3128bf1e77786d84196e831f936fcbd3, type: 3}
