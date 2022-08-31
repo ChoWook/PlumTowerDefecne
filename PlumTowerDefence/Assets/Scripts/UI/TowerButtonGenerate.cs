@@ -11,6 +11,10 @@ public class TowerButtonGenerate : MonoBehaviour
 
     GameObject SelectedTower;
 
+    GameObject SelectedTowerAvailable;
+
+    GameObject SelectedTowerDisabled;
+
     private int tower_num = 12; //데이터베이스에서 받아야 함
 
     Ray ray;
@@ -48,6 +52,12 @@ public class TowerButtonGenerate : MonoBehaviour
 
         SelectedTower.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 
+        SelectedTowerAvailable = SelectedTower.transform.Find("Available").gameObject;
+
+        SelectedTowerDisabled = SelectedTower.transform.Find("Disabled").gameObject;
+
+        ChangeSelectedTowerMaterial(true);
+
         while (true)
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -58,13 +68,28 @@ public class TowerButtonGenerate : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Tile"))
                 {
-                    SelectedTower.transform.position = hit.collider.transform.position;
+                    Tile tile = hit.collider.transform.parent.GetComponent<Tile>();
+
+                    // 마우스 따라다니는 오브젝트 위치 고정
+                    SelectedTower.transform.position = tile.transform.position;
+
+                    // 타워를 짓지 못하는 곳은 오브젝트가 빨간색으로 변해야 함
+                    if (tile.TileType == ETileType.Land && tile.GetObjectOnTile() == null)
+                    {
+                        ChangeSelectedTowerMaterial(true);
+                    }
+                    else
+                    {
+                        ChangeSelectedTowerMaterial(false);
+                    }
 
                     break;
                 }
                 else if (hit.collider.CompareTag("Ground"))
                 {
                     SelectedTower.transform.position = hit.point;
+
+                    ChangeSelectedTowerMaterial(false);
                 }
             }
 
@@ -124,6 +149,16 @@ public class TowerButtonGenerate : MonoBehaviour
             tile.SetObjectOnTile(SelectedTower);
 
             SelectedTower = null;
+        }
+    }
+
+    public void ChangeSelectedTowerMaterial(bool Available)
+    {
+        if (SelectedTower != null && SelectedTower.activeSelf)
+        {
+            SelectedTowerAvailable?.SetActive(Available);
+
+            SelectedTowerDisabled?.SetActive(!Available);
         }
     }
 }
