@@ -4,74 +4,59 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    /*
-     ÇÒ ÀÏ
-    1. Å¸¿ö ÀÚÃ¼ Æ¯¼º
-     - ¼Ó¼º
-     - 
-     
-    2. Å¸±ê Á¶Á¤
-     
-     */
-
-    // Å¸¿ö ½ºÅÝ (ÀÓ½Ã·Î È­»ìÅ¸¿ö ½ºÅÝ ¼³Á¤)
+    // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ó½Ã·ï¿½ È­ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
     [SerializeField]
-    private int TowerID = 0;                            // Å¸¿ö ID (µ¥ÀÌÅÍ Å×ÀÌºí)
+    private int TowerID = 0;                            // Å¸ï¿½ï¿½ ID (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½)
 
 
     [Header("Attributes")]
 
-    public int Range = 3;                                  // °ø°Ý »ç°Å¸®
-    private float SpeedStat = 0.25f;                       // °ø°Ý ¼Óµµ ½ºÅÝ(µ¥ÀÌÅÍÅ×ÀÌºí)
-    private float FireCountdown = 0f;                      // ¹ß»ç Ä«¿îÆ®´Ù¿î
+    public int Range = 3;                                  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½
+    private float SpeedStat = 0.25f;                       // ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½)
+    private float FireCountdown = 0f;                      // ï¿½ß»ï¿½ Ä«ï¿½ï¿½Æ®ï¿½Ù¿ï¿½
 
     
 
-    public string TowerName = "È­»ìÅ¸¿ö";                  // Å¸¿ö ÀÌ¸§
-    private int AttackPropertyID = 0;                      // °ø°Ý ¼Ó¼º(µ¥ÀÌÅÍÅ×ÀÌºí)
-    private int TypeID = 0;                                // ¼Ó¼º ID (µ¥ÀÌÅÍÅ×ÀÌºí)
-    private int SizeID = 0;                                // Å¸¿ö Å©±â (µ¥ÀÌÅÍÅ×ÀÌºí)
-    private int AttackStat = 25;                           // °ø°Ý·Â ½ºÅÝ(µ¥ÀÌÅÍÅ×ÀÌºí)
-    
-    private int AbilityStat;                               // Æ¯¼ö ´É·Â ½ºÅÝ(µ¥ÀÌÅÍÅ×ÀÌºí)
-    
-    private double Damage;                                 // µ¥¹ÌÁö 
+    public string TowerName = "È­ï¿½ï¿½Å¸ï¿½ï¿½";                  // Å¸ï¿½ï¿½ ï¿½Ì¸ï¿½
+    private int AttackPropertyID = 0;                      // ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½)
+    private int TypeID = 0;                                // ï¿½Ó¼ï¿½ ID (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½)
+    private int SizeID = 0;                                // Å¸ï¿½ï¿½ Å©ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½)
+    private int AttackStat = 25;                           // ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½)
+    private int AbilityStat;                               // Æ¯ï¿½ï¿½ ï¿½É·ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½)
     
 
-    public Transform PartToRotate;                         //È¸Àü ¿ÀºêÁ§Æ®
-    public float TurnSpeed = 10f;                          //È¸Àü ¼Óµµ
+    public Transform PartToRotate;                         //È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    public float TurnSpeed = 10f;                          //È¸ï¿½ï¿½ ï¿½Óµï¿½
 
 
 
     [Header("Interactions")]
 
-    public bool Selected = false;                           //Å¸¿ö ¼±ÅÃ ¿©ºÎ
-    public bool Fixed = false;                              //Å¸¿ö ¼³Ä¡ ¿©ºÎ
+    public bool Selected = false;                           //Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public bool Fixed = false;                              //Å¸ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 
-    public int AttackPriorityID =0;                         //¿ì¼± °ø°Ý ¼Ó¼º ID
+    public int AttackPriorityID =0;                         //ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ ID
 
-    GameManager gameManager;
+    private int UpgradePrice = 40;                          // ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½)
+    private int UpgradeCount = 0;                           // ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ È½ï¿½ï¿½
+    private int UpgradeAmount = 5;                          // ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È­ï¿½ï¿½
 
-    private int UpgradePrice = 40;                          // ¾÷±×·¹ÀÌµå °¡°Ý(µ¥ÀÌÅÍÅ×ÀÌºí)
-    private int UpgradeCount = 0;                           // ¾÷±×·¹ÀÌµå È½¼ö
-    private int UpgradeAmount = 5;                          // ¾÷±×·¹ÀÌµå °­È­·®
-
-    private int Price = 100;                                // ±¸¸Å °¡°Ý(µ¥ÀÌÅÍÅ×ÀÌºí)
-    private int SellPrice;                                  // ÆÇ¸Å °¡°Ý
+    private int Price = 100;                                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½)
+    private int SellPrice;                                  // ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
 
     public GameObject BulletPrefab;
     public Transform FirePoint;
-    public GameObject Boundary;                             //»ç°Å¸® Cylinder
-    private int ProjectileSpeed = 100;                      //Åõ»çÃ¼ ¼Óµµ
+    public GameObject Boundary;                             //ï¿½ï¿½Å¸ï¿½ Cylinder
+    private int ProjectileSpeed = 100;                      //ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½Óµï¿½
 
     public GameObject ObjectPool;
 
 
 
-    // Àû ½ºÅÝ (Å¸°Ù ÁöÁ¤)
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
     [Header("Enemy")]
 
@@ -81,38 +66,34 @@ public class Tower : MonoBehaviour
 
     public string enemyTag = "Enemy";
 
-    public int DefenceStat = 10;                            // Àû ¹æ¾î·Â
-
     
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = new GameManager();
-
-
-        //»ç°Å¸® ÁöÁ¤ Range °ª ³Ö±â
+        
+        //ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ Range ï¿½ï¿½ ï¿½Ö±ï¿½
         Transform parent = transform.parent;
         transform.parent = null;
-        transform.localScale = new Vector3(Range, 0.05f, Range);
+        Boundary.transform.localScale = new Vector3(Range, 0.05f, Range);
         transform.parent = parent;
 
-        InvokeRepeating("UpdateTarget", 0, 0.5f); // 0.5ÃÊ ¸¶´Ù ¹Ýº¹ÇÏ±â
+        InvokeRepeating("UpdateTarget", 0, 0.5f); // 0.5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½Ï±ï¿½
 
     }
 
-    // Å¸°Ù ¾÷µ¥ÀÌÆ® ( Ã¼·Â ¿ì¼±, ¹æ¾î±¸ ¿ì¼±, ¹æ¾î·Â ³ôÀº Àû ¿ì¼± Ãß°¡ÇÏ±â)
+    // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ( Ã¼ï¿½ï¿½ ï¿½ì¼±, ï¿½ï¿½î±¸ ï¿½ì¼±, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ì¼± ï¿½ß°ï¿½ï¿½Ï±ï¿½)
     void UpdateTarget()
     {
 
 
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  ÅÂ±×·Î Àû Ã£±â
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  ï¿½Â±×·ï¿½ ï¿½ï¿½ Ã£ï¿½ï¿½
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
 
         foreach (GameObject enemy in enemies)
         {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // Àû°úÀÇ °Å¸® ±¸ÇÏ±â
+            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
             if(distanceToEnemy < shortestDistance)
             {
                 shortestDistance = distanceToEnemy;
@@ -135,14 +116,14 @@ public class Tower : MonoBehaviour
             return;
         }
 
-        // Å¸¿ö È¸Àü
+        // Å¸ï¿½ï¿½ È¸ï¿½ï¿½
         
         Vector3 dir = Target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation,lookRotation,Time.deltaTime * TurnSpeed).eulerAngles;
         PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
-        // ¹ß»ç
+        // ï¿½ß»ï¿½
 
         if (FireCountdown <= 0f)
         {
@@ -153,7 +134,7 @@ public class Tower : MonoBehaviour
         FireCountdown -= Time.deltaTime;
 
 
-        // Å¸¿ö ¼±ÅÃ Ç¥½Ã
+        // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
         /*
         if (Input.GetMouseButtonDown(0))
 
@@ -182,37 +163,37 @@ public class Tower : MonoBehaviour
         */
     }
 
-    // ÃßÀû ¾Ë°í¸®Áò ÄÚ·çÆ¾
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ë°ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾
     IEnumerator IE_GetTargets()
     {
-        //»ç°Å¸® ¾È¿¡ µé¾î¿Â Àûµé EnemyList¿¡ Á¤¸® + »ç°Å¸®¿¡¼­ ³ª°¡¸é Áö¿ì±â.
+        //ï¿½ï¿½Å¸ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ EnemyListï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
     
 
         yield return new WaitForSeconds(0.5f);
     }
 
-    // °ø°Ý ¿ì¼±¼øÀ§ Á¤ÇÏ´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼±ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     private void SortAttackPriority()
     {
         switch(AttackPriorityID)
         {
             case 0:
-                // ¸ÕÀú µé¾î¿Â ¸ó½ºÅÍ
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
                 break;
 
             case 1:
-                // Ã¼·Â ¿ì¼± °ø°Ý -> ¹æ¾î±¸ ¾ø´Â Àû ¸ÕÀú ´Ù °°À¸¸é Ã³À½ µé¾î¿Â ¸ó½ºÅÍ
+                // Ã¼ï¿½ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½î±¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 
                 break;
 
             case 2:
-                // ¹æ¾î±¸ °¡Áø ¸ó½ºÅÍ ¿ì¼± °ø°Ý
+                // ï¿½ï¿½î±¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½
                 
                 break;
 
             case 3:
-                // ¹æ¾î·Â ³ôÀº Àû ¿ì¼± °ø°Ý
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½
 
                 break;
         }    
@@ -232,51 +213,57 @@ public class Tower : MonoBehaviour
 
     }
 
-    // »óÈ£ÀÛ¿ë ÇÔ¼ö
+    // ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½Ô¼ï¿½
 
     //Upgrade
     void UpgradeTower()
     {
-        //Attackstat + 5 ·Î ÇØ³õ±â
+        //Attackstat + 5 ï¿½ï¿½ ï¿½Ø³ï¿½ï¿½ï¿½
         AttackStat += UpgradeAmount;
+
+
+        //ï¿½ï¿½ 40 ï¿½Ò±ï¿½
+
+        GameManager.instance.money -= 40;
 
     }
 
     //Sell
     void SellTower()
     {
-        // Å¸¿ö ¹Ý³³ÇÏ±â
-        Destroy(gameObject); // Å¸¿ö Ç®¿¡ Ãß°¡ÇÑ µÚ ¹Ù²Ù±â
+        // Å¸ï¿½ï¿½ ï¿½Ý³ï¿½ï¿½Ï±ï¿½
+        Destroy(gameObject); // Å¸ï¿½ï¿½ Ç®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ù²Ù±ï¿½
 
 
-        // µ· ¹Þ±â (Å¸¿ö ¼³Ä¡ºñ¿ë + ¾÷±×·¹ÀÌµå ºñ¿ë ) * 0.6
+        // ï¿½ï¿½ ï¿½Þ±ï¿½ (Å¸ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ ) * 0.6
         double _SellPrice = (Price + UpgradeCount * UpgradePrice) * 0.6;
 
         SellPrice = (int)_SellPrice;
 
 
-        // ÀçÈ­ ¿¬°á ÇÔ¼ö
+        // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+
+        GameManager.instance.money += SellPrice;
 
     }
 
     //Move
     void MoveTower()
     {
-        // ¼³Ä¡ »óÅÂ·Î µ¹¾Æ°¨
+        // ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½
 
-        // Áß°£¿¡ Ãë¼Ò °¡´ÉÇÏ°Ô
+        // ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
 
-        // µ· °¨¼Ò
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         double _MovePrice = (Price + UpgradeCount * UpgradePrice) * 0.5;
 
 
         int MovePrice = (int)_MovePrice;
 
 
-        // ÀçÈ­ ¿¬°á ÇÔ¼ö
+        // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 
-
-
+        GameManager.instance.money -= MovePrice;
 
     }
 

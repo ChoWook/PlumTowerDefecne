@@ -331,10 +331,15 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 1cef938def0b527469f8ef0720c534dc, type: 2}
   PlaneMeshRenderer: {fileID: 735037788804033516}
   TileType: 1
-  PosX: 0
-  PosY: 0
+  _Pos:
+    PosX: 0
+    PosY: 0
+  WaypointIndex: -1
+  WaypointRoute: -1
   ObjectOnTile: {fileID: 0}
   IsFixedObstacle: 0
+  IsSelectedAttackRoute: 0
+  ParentGround: {fileID: 0}
 --- !u!1 &7344550294480260540
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +354,7 @@ GameObject:
   - component: {fileID: 6979133225680552289}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -397,7 +402,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fe40329174e9720479ab77410cc459ab, type: 2}
+  - {fileID: 2100000, guid: 586c98c8e0795f64fa3967c0a9af51b7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

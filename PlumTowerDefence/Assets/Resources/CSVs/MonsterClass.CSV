@@ -1,5 +1,5 @@
-ÔªøId,Type,Korean,Hp,Shield,Size
-int,MonsterClassType,string,float,float,float
-1,Normal,ÏùºÎ∞ò,0,0,0
-2,SubBoss,ÏÑúÎ∏åÎ≥¥Ïä§,20,20,20
-3,Boss,Î≥¥Ïä§,40,40,50
+Id,Type,Korean,Hp,Shield,Size
+int,MonsterClass,string,float,float,float
+1,Normal,¿œπ›,0,0,0
+2,SubBoss,º≠∫Í∫∏Ω∫,20,20,20
+3,Boss,∫∏Ω∫,40,40,50

@@ -276,7 +276,7 @@ namespace RTS_Cam
             m_Transform.position = Vector3.Lerp(m_Transform.position, 
                 new Vector3(m_Transform.position.x, targetHeight + difference, m_Transform.position.z), Time.deltaTime * heightDampening);
 
-            Map.Instance.CalculateDelY();
+            Map.Instance?.CalculateDelY();
         }
 
         /// <summary>

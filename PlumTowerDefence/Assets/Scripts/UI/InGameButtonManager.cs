@@ -37,7 +37,7 @@ public class InGameButtonManager : MonoBehaviour
 
     private void Update()
     {
-        UpdateGameInfo();
+        //UpdateGameInfo();
     }
 
     private void ChangeText()
@@ -70,6 +70,7 @@ public class InGameButtonManager : MonoBehaviour
         //영토 확장
         if (!GameManager.instance.isPlayingGame)    //게임중이 아니라면
         {
+            Map.Instance.ShowNextGrounds();
             expandButton.SetActive(false);
             startButton.SetActive(true);
         }
@@ -85,6 +86,7 @@ public class InGameButtonManager : MonoBehaviour
         GameManager.instance.isPlayingGame = true;
         startButton.SetActive(false);
         expandButton.SetActive(true);
+        Map.Instance.StartEnemySpawn();
         //게임시작
 
         StartCoroutine(IE_DebugPlayingGame());

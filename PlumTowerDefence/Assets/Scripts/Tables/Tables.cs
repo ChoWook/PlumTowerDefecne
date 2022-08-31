@@ -23,8 +23,10 @@ public class Tables : ScriptableObject
             Monster.Load();
             MonsterClass.Load();
             MonsterLevel.Load();
-            //MonsterProperty.Load();
+            MonsterProperty.Load();
+            MonsterPropertyAmount.Load();
             MonsterSpeciality.Load();
+            MonsterSpecialityAmount.Load();
             Tower.Load();
 
             IsLoaded = true;
@@ -398,7 +400,9 @@ public class Tables : ScriptableObject
 
         public static GlobalSystem Get(string code)
         {
-            return _StringMap[code];
+            GlobalSystem ret;
+            _StringMap.TryGetValue(code, out ret);
+            return ret;
         }
     }
 
@@ -406,10 +410,10 @@ public class Tables : ScriptableObject
     {
         public EMonsterType _Type;
         public string _Korean;
-        public int _Hp;
-        public int _Sheild;
-        public int _Armor;
-        public int _Speed;
+        public float _Hp;
+        public float _Sheild;
+        public float _Armor;
+        public float _Speed;
         public float _None;
         public float _Water;
         public float _Ground;
@@ -442,10 +446,10 @@ public class Tables : ScriptableObject
                 Tmp._ID = int.Parse(data[idx++]);
                 Tmp._Type = Enum.Parse<EMonsterType>(data[idx++]);
                 Tmp._Korean = data[idx++];
-                Tmp._Hp = int.Parse(data[idx++]);
-                Tmp._Sheild = int.Parse(data[idx++]);
-                Tmp._Armor = int.Parse(data[idx++]);
-                Tmp._Speed = int.Parse(data[idx++]);
+                Tmp._Hp = float.Parse(data[idx++]);
+                Tmp._Sheild = float.Parse(data[idx++]);
+                Tmp._Armor = float.Parse(data[idx++]);
+                Tmp._Speed = float.Parse(data[idx++]);
                 Tmp._None = float.Parse(data[idx++]);
                 Tmp._Water = float.Parse(data[idx++]);
                 Tmp._Ground = float.Parse(data[idx++]);
@@ -576,11 +580,46 @@ public class Tables : ScriptableObject
         }
     }
 
+    public class MonsterPropertyAmount : CSVFile<MonsterPropertyAmount>
+    {
+        public int _Wave;
+        public int _Amount;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterPropertyAmount");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterPropertyAmount : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterPropertyAmount Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Wave = int.Parse(data[idx++]);
+                Tmp._Amount = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+
     public class MonsterSpeciality : CSVFile<MonsterSpeciality>
     {
         public ESpecialityType _SpecialityType;
         public string _Korean;
-        public EStat _ChangeStat;
+        public EMosterStat _ChangeStat;
         public float _Amount;
 
         public static void Load()
@@ -607,8 +646,43 @@ public class Tables : ScriptableObject
                 Tmp._ID = int.Parse(data[idx++]);
                 Tmp._SpecialityType = Enum.Parse<ESpecialityType>(data[idx++]);
                 Tmp._Korean = data[idx++];
-                Tmp._ChangeStat = Enum.Parse<EStat>(data[idx++]);
+                Tmp._ChangeStat = Enum.Parse<EMosterStat>(data[idx++]);
                 Tmp._Amount = float.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+
+    public class MonsterSpecialityAmount : CSVFile<MonsterSpecialityAmount>
+    {
+        public int _Wave;
+        public int _Amount;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterSpecialityAmount");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterSpecialityAmount : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterSpecialityAmount Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Wave = int.Parse(data[idx++]);
+                Tmp._Amount = int.Parse(data[idx++]);
 
                 Tmp.Add(Tmp);
             }
