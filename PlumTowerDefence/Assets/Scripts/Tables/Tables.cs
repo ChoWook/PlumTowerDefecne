@@ -410,10 +410,10 @@ public class Tables : ScriptableObject
     {
         public EMonsterType _Type;
         public string _Korean;
-        public int _Hp;
-        public int _Sheild;
-        public int _Armor;
-        public int _Speed;
+        public float _Hp;
+        public float _Sheild;
+        public float _Armor;
+        public float _Speed;
         public float _None;
         public float _Water;
         public float _Ground;
@@ -446,10 +446,10 @@ public class Tables : ScriptableObject
                 Tmp._ID = int.Parse(data[idx++]);
                 Tmp._Type = Enum.Parse<EMonsterType>(data[idx++]);
                 Tmp._Korean = data[idx++];
-                Tmp._Hp = int.Parse(data[idx++]);
-                Tmp._Sheild = int.Parse(data[idx++]);
-                Tmp._Armor = int.Parse(data[idx++]);
-                Tmp._Speed = int.Parse(data[idx++]);
+                Tmp._Hp = float.Parse(data[idx++]);
+                Tmp._Sheild = float.Parse(data[idx++]);
+                Tmp._Armor = float.Parse(data[idx++]);
+                Tmp._Speed = float.Parse(data[idx++]);
                 Tmp._None = float.Parse(data[idx++]);
                 Tmp._Water = float.Parse(data[idx++]);
                 Tmp._Ground = float.Parse(data[idx++]);

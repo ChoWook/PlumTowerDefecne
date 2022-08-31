@@ -13,6 +13,10 @@ public class TowerButtonGenerate : MonoBehaviour
 
     private int tower_num = 12; //데이터베이스에서 받아야 함
 
+    Ray ray;
+
+    RaycastHit[] hits;
+
     private void Awake()
     {
         for (int i = 0; i < tower_num; i++)
@@ -25,14 +29,10 @@ public class TowerButtonGenerate : MonoBehaviour
 
     public void OnBuildTowerBtnClick()
     {
-        Debug.Log("OnBuildTowerBtnClick");
-
-        SelectedTower = ObjectPools.Instance.GetPooledObject("ArrowTower");
-
-        SelectedTower.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-
-        Map.Instance.ShowAllGridLine();
-
+        if(SelectedTower != null)
+        {
+            return;
+        }
         StartCoroutine(IE_FallowingMouse());
     }
 
@@ -40,12 +40,19 @@ public class TowerButtonGenerate : MonoBehaviour
     {
         WaitForFixedUpdate wf = new WaitForFixedUpdate();
 
+        Map.Instance.ShowAllGridLine();
+
+        yield return wf;
+
+        SelectedTower = ObjectPools.Instance.GetPooledObject("Disabled_ArrowTower");
+
+        SelectedTower.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+
         while (true)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            RaycastHit[] hits = Physics.RaycastAll(ray, 1000);
-            Debug.Log(hits.Length);
+            hits = Physics.RaycastAll(ray, 1000);
 
             foreach (var hit in hits)
             {
@@ -68,6 +75,55 @@ public class TowerButtonGenerate : MonoBehaviour
 
     private void Update()
     {
-        
+        if (hits == null || SelectedTower == null)
+        {
+            return;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            bool IsAvailableTile = false;
+
+            Tile tile = null;
+
+            foreach (var hit in hits)
+            {
+                if (hit.collider.CompareTag("Tile"))
+                {
+                    tile = hit.collider.transform.parent.GetComponent<Tile>();
+
+                    // TODO 채굴 타워는 tile.ObjectOnTile이 자원이어야 함
+
+                    if (tile.TileType == ETileType.Land && tile.ObjectOnTile == null)
+                    {
+                        IsAvailableTile = true;
+                    }
+
+                    break;
+                }
+            }
+            
+            // 타워가 설치 가능한 타일이 아니면 리턴
+            if(IsAvailableTile == false)
+            {
+                return;
+            }
+
+            Map.Instance.HideAllGridLine();
+
+            StopAllCoroutines();
+
+            ObjectPools.Instance.ReleaseObjectToPool(SelectedTower);
+
+            SelectedTower = ObjectPools.Instance.GetPooledObject("ArrowTower");
+
+            SelectedTower.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+
+            SelectedTower.transform.position = tile.transform.position;
+
+            tile.ObjectOnTile = SelectedTower;
+
+            SelectedTower = null;
+        }
     }
 }

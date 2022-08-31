@@ -2096,12 +2096,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8341879570763827910}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61bd5f094e3d5ac4bb557ef61c36dc8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerScript: {fileID: 0}
+  towerScript: {fileID: 8191689212692357129}
 --- !u!1 &8403355939769065770
 GameObject:
   m_ObjectHideFlags: 0
