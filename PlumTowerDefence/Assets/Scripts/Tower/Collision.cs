@@ -10,7 +10,7 @@ public class Collision : MonoBehaviour
         var obj = other.gameObject;
         if(obj != null && obj.tag == "Enemy")
         {
-            GameObject.Find("ArrowTower Variant").GetComponent<Tower>().EnemyLIst.Add(obj);
+            this.GetComponentInParent<Tower>().EnemyLIst.Add(obj);
         }
         
     }
@@ -21,7 +21,7 @@ public class Collision : MonoBehaviour
         var obj = other.gameObject;
         if (obj != null && obj.tag == "Enemy" )
         {
-            GameObject.Find("ArrowTower Variant").GetComponent<Tower>().EnemyLIst.Remove(obj);
+            this.GetComponentInParent<Tower>().EnemyLIst.Remove(obj);
         }
     }
 
