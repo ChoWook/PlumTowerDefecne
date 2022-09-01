@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RTS_Cam;
+using TMPro;
 
 [System.Serializable]
 public struct Pos{
@@ -73,6 +74,22 @@ public class Map : MonoBehaviour
 
     float XFOV = 32.9f;
 
+    [Header("Debug")]
+    [SerializeField] TMP_InputField MapInput;
+
+    public void OnSetMapPatternBtnClick()
+    {
+        if(MapInput.text != null)
+        {
+            int tmp = 0;
+
+            int.TryParse(MapInput.text, out tmp);
+
+            SetMapPattern(tmp);
+        }
+    }
+
+
     private void Awake()
     {
         Tables.Load();
@@ -94,9 +111,6 @@ public class Map : MonoBehaviour
 
         YFOV = 1 / Mathf.Tan(YFOV * Mathf.Deg2Rad);
 
-        ChooseRandomMapPattern();
-
-        HideAllGridLine();
     }
 
     public void ChooseRandomMapPattern()
@@ -104,6 +118,8 @@ public class Map : MonoBehaviour
         int RandomID = Random.Range(1, Tables.MapPattern.GetSzie() + 1);
 
         SetMapPattern(RandomID);
+
+        HideAllGridLine();
     }
 
     public void SetMapPattern(int id = 0)
