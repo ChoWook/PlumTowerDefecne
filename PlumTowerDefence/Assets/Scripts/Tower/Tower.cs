@@ -7,24 +7,23 @@ public class Tower : MonoBehaviour
     // 타워 스텟 (임시로 화살타워 스텟 설정)
 
     [SerializeField]
-    private int TowerID = 0;                            // 타워 ID (데이터 테이블)
+    public int TowerID;                            // 타워 ID (데이터 테이블)
 
 
     [Header("Attributes")]
 
-    public float Range = 15f;                               // 공격 사거리
-    private float SpeedStat = 4f;                       // 공격 속도 스텟(데이터테이블)
+    public float Range;                               // 공격 사거리
+    public float SpeedStat;                       // 공격 속도 스텟(데이터테이블)
     private float FireCountdown = 0f;                      // 발사 카운트다운
 
     
 
     public string TowerName = "화살타워";                  // 타워 이름
-    private int AttackPropertyID = 0;                      // 공격 속성(데이터테이블)
-    private int TypeID = 0;                                // 속성 ID (데이터테이블)
-    private int SizeID = 0;                                // 타워 크기 (데이터테이블)
-    private int AttackStat = 25;                           // 공격력 스텟(데이터테이블)
-    private int AbilityStat;                               // 특수 능력 스텟(데이터테이블)
-    
+    protected EAttackSepcialization AttackSpecialization;                      // 공격 속성(데이터테이블)
+    protected ETowerType TypeID;                             // 속성 ID (데이터테이블)
+    protected int Size;                                // 타워 크기 (데이터테이블)
+    protected float AttackStat;                           // 공격력 스텟(데이터테이블)
+    protected int AbilityStat;  
 
     public Transform PartToRotate;                         //회전 오브젝트
     public float TurnSpeed = 10f;                          //회전 속도
@@ -36,13 +35,14 @@ public class Tower : MonoBehaviour
     public bool Selected = false;                           //타워 선택 여부
     public bool Fixed = false;                              //타워 설치 여부
 
-    public int AttackPriorityID =0;                         //우선 공격 속성 ID
+    // public int AttackPriorityID =0;                         //우선 공격 속성 ID
 
-    private int UpgradePrice = 40;                          // 업그레이드 가격(데이터테이블)
+    protected EUpgradeStat UpgradeStat;                                 // 업그레이드 대상
+    protected int UpgradePrice;                          // 업그레이드 가격(데이터테이블)
     private int UpgradeCount = 0;                           // 업그레이드 횟수
-    private int UpgradeAmount = 5;                          // 업그레이드 강화량
+    protected float UpgradeAmount;                          // 업그레이드 강화량
 
-    private int Price = 100;                                // 구매 가격(데이터테이블)
+    protected int Price = 100;                                // 구매 가격(데이터테이블)
     private int SellPrice;                                  // 판매 가격
 
 
@@ -50,7 +50,7 @@ public class Tower : MonoBehaviour
     public GameObject BulletPrefab;
     public Transform FirePoint;
     public GameObject Boundary;                             //사거리 Cylinder
-    private int ProjectileSpeed = 100;                      //투사체 속도
+    protected float ProjectileSpeed;                      //투사체 속도
 
     public GameObject ObjectPool;
 
@@ -71,7 +71,10 @@ public class Tower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // 타워 별 수치 적용하기
         
+
+
         //사거리 지정 Range 값 넣기
         Transform parent = transform.parent;
         transform.parent = null;
@@ -146,6 +149,7 @@ public class Tower : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
+    /*
     // 공격 우선순위 정하는 함수
     private void SortAttackPriority()
     {
@@ -173,6 +177,8 @@ public class Tower : MonoBehaviour
         }    
     }
 
+    */
+
     void Shoot()
     {
         ObjectPool = GameObject.Find("ObjectPool");
@@ -183,7 +189,7 @@ public class Tower : MonoBehaviour
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
         if (bullet != null)
-            bullet.Seek(Target, AttackStat, AttackPropertyID);
+            bullet.Seek(Target, AttackStat, AttackSpecialization);
 
     }
 
@@ -199,6 +205,8 @@ public class Tower : MonoBehaviour
         //돈 40 잃기
 
         GameManager.instance.money -= 40;
+
+        UpgradeCount++;
 
     }
 
