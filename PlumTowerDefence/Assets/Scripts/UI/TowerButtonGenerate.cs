@@ -16,6 +16,7 @@ public class TowerButtonGenerate : MonoBehaviour
     GameObject SelectedTowerDisabled;
 
     private int tower_num = 12; //데이터베이스에서 받아야 함
+    private int tower_row = 7;
 
     Ray ray;
 
@@ -26,8 +27,15 @@ public class TowerButtonGenerate : MonoBehaviour
         for (int i = 0; i < tower_num; i++)
         {
             GameObject obj = ObjectPools.Instance.GetPooledObject("TowerButton");
-            obj.transform.SetParent(transform);
-            obj.transform.localScale = new Vector3(1f, 1f, 1f);
+            if (i < tower_row)
+            {
+                obj.transform.SetParent(transform.GetChild(0));
+            }
+            else
+            {
+                obj.transform.SetParent(transform.GetChild(1));
+            }
+            obj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
         }
     }
 

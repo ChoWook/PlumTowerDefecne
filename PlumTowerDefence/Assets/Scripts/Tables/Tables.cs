@@ -465,6 +465,41 @@ public class Tables : ScriptableObject
         }
     }
 
+    public class MonsterAmount : CSVFile<MonsterAmount>
+    {
+        public int _Wave;
+        public int _Amount;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterAmount");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterAmount : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterAmount Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Wave = int.Parse(data[idx++]);
+                Tmp._Amount = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+
     public class MonsterClass : CSVFile<MonsterClass>
     {
         public EMonsterClass _Type;

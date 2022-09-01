@@ -144,7 +144,8 @@ public enum EMosterStat
     Speed = 5,
 }
 
-public enum CategoryType
+
+public enum ECategoryType
 {
     Tower = 1,
     Resource = 2,
