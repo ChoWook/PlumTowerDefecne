@@ -26,7 +26,7 @@ public class Category : MonoBehaviour
         if (isOn)
         {
             DeleteAllChild();
-            GenerateCategory(number_Of_TowerCategory, CategoryType.Tower);
+            GenerateCategory(number_Of_TowerCategory, ECategoryType.Tower);
         }
     }
 
@@ -35,7 +35,7 @@ public class Category : MonoBehaviour
         if (isOn)
         {
             DeleteAllChild();
-            GenerateCategory(number_Of_ResourceCategory, CategoryType.Resource);
+            GenerateCategory(number_Of_ResourceCategory, ECategoryType.Resource);
         }
     }
 
@@ -44,7 +44,7 @@ public class Category : MonoBehaviour
         if (isOn)
         {
             DeleteAllChild();
-            GenerateCategory(number_Of_PassiveCategory, CategoryType.Passive);
+            GenerateCategory(number_Of_PassiveCategory, ECategoryType.Passive);
         }
         
     }
@@ -58,7 +58,7 @@ public class Category : MonoBehaviour
         }
     }
     
-    private void GenerateCategory(int num, CategoryType type)
+    private void GenerateCategory(int num, ECategoryType type)
     {
         for (int i = 0; i < num; i++)
         {
@@ -69,13 +69,13 @@ public class Category : MonoBehaviour
 
             switch (type)
             {
-                case CategoryType.Tower:
+                case ECategoryType.Tower:
                     obj.GetComponent<CategoryButton>().id = i * 100 + 10000;
                     break;
-                case CategoryType.Resource:
+                case ECategoryType.Resource:
                     obj.GetComponent<CategoryButton>().id = i * 100 + 20000;
                     break;
-                case CategoryType.Passive:
+                case ECategoryType.Passive:
                     obj.GetComponent<CategoryButton>().id = i * 100 + 30000;
                     break;
             }
