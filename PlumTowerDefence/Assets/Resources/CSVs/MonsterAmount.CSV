@@ -1,10 +1,10 @@
-ID,Wave,Amount,Monster1,Monster1Amount,Monster2,Monster2Amount
+ID,Wave,TotalAmount,Monster1,Monster1Amount,Monster2,Monster2Amount
 int,int,int,int,int,int,int
-1,1,6,1,6,2,0
-2,2,10,1,10,2,0
-3,3,14,1,14,2,0
-4,4,18,1,18,2,0
-5,5,22,1,22,2,0
+1,1,6,1,6,,
+2,2,10,1,10,,
+3,3,14,1,14,,
+4,4,18,1,18,,
+5,5,22,1,22,,
 6,6,26,1,13,2,13
 7,7,30,1,15,2,15
 8,8,34,1,17,2,17
