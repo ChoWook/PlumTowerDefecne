@@ -364,11 +364,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseUI: {fileID: 552475440830645193}
   pauseBackGround: {fileID: 552475440545909881}
-  texts:
-  - {fileID: 552475439106705966}
-  - {fileID: 552475439735075004}
-  - {fileID: 552475440399801712}
-  - {fileID: 552475440854039930}
 --- !u!1 &552475439241568013
 GameObject:
   m_ObjectHideFlags: 0

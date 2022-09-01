@@ -23,6 +23,8 @@ public class InGameButtonManager : MonoBehaviour
     [SerializeField] private GameObject startButton;
 
     private GameObject InGameUpgradePanel;
+
+    private bool isFast = false;                    //임시용, 나중에 GameManager로 옮길 확률 큼
     
     private void Awake()
     {
@@ -81,8 +83,8 @@ public class InGameButtonManager : MonoBehaviour
             Debug.Log("전투중입니다!");
         }
     }
-    
-    public void PlayGame()      //게임 시작시 호출
+
+    public void PlayGame() //게임 시작시 호출
     {
         GameManager.instance.level++;
         GameManager.instance.isPlayingGame = true;
@@ -90,24 +92,8 @@ public class InGameButtonManager : MonoBehaviour
         expandButton.SetActive(true);
         Map.Instance.StartEnemySpawn();
         //게임시작
-
-        //StartCoroutine(IE_DebugPlayingGame());
     }
 
-    IEnumerator IE_DebugPlayingGame()       //테스트용 코루틴
-    {
-        yield return new WaitForSeconds(5.0f);
-        //게임종료 시점
-        GameManager.instance.isPlayingGame = false;                 //Bool flase 만들어서 게임 끝을 알림
-        GameManager.instance.xp += GameManager.instance.level;      //level만큼 xp를 얻음
-        if (GameManager.instance.level % 3 == 0)                    //3 level 마다 증강체
-        {
-            expandButton.SetActive(false);
-            InGameUpgradePanel.GetComponent<InGameUpgrade>().ShowInGameUpgrade();
-        }
-    }
-
-    
     public void StageClear()
     {
         if (GameManager.instance.level % 3 == 0)                    //3 level 마다 증강체
@@ -120,5 +106,19 @@ public class InGameButtonManager : MonoBehaviour
     public void ShowExpandButton()          //다른 스크립트에서 버튼 접근을 위한 함수
     {
         expandButton.SetActive(true);
+    }
+
+    public void OnFastButtonClick()
+    {
+        if (!isFast)
+        {
+            Time.timeScale = 2;
+            isFast = true;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            isFast = false;
+        }
     }
 }
