@@ -415,6 +415,80 @@ public class Map : MonoBehaviour
 
         CurTile.IsSelectedAttackRoute = true;
 
+        // 모든 공격로에 웨이포인트 소환하기
+        /*
+        var obj = ObjectPools.Instance.GetPooledObject("Waypoint");
+        obj.transform.parent = CurTile.transform;
+        obj.transform.localPosition = Vector3.zero;
+        */
+
+        // 해당 타일이 코너도 아니고 분기점도 아닌지 검사
+        List<Direction> NextDirs = new();
+        
+        foreach(Direction OutDir in _Direction.Keys)
+        {
+            Pos NextPos = SumPos(pos, _Direction[OutDir]);
+
+            Tile NextTile = GetTileInMap(NextPos);
+
+            if (NextTile == null)
+            {
+                continue;
+            }
+
+            if(NextTile.TileType == ETileType.AttackRoute && NextTile.IsSelectedAttackRoute == false)
+            {
+                NextDirs.Add(OutDir);
+            }
+        }
+
+        // 길이 없음
+        if (NextDirs.Count == 0)
+        {
+            return;
+        }
+
+        // 길이 1개
+        if (NextDirs.Count == 1)
+        {
+            Pos NextPos = SumPos(pos, _Direction[NextDirs[0]]);
+
+            Tile NextTile = GetTileInMap(NextPos);
+
+            // 직선이면
+            if (InDir == NextDirs[0])
+            {
+                // 다음 타일이 다른 그라운드면 에너미스포너 생성
+                if (CurTile.ParentGround != NextTile.ParentGround)
+                {
+                    CreateEnemySpawner(CurTile, NextTile.transform, Route);
+                }
+            }
+            // 코너이면
+            else
+            {
+                SpawnWaypoint(CurTile.transform, Route);
+            }
+
+            FindNextAttackRouteTile(NextPos, NextDirs[0], Route);
+        }
+
+        // 분기점이면
+        if (NextDirs.Count == 2)
+        {
+            SpawnWaypoint(CurTile.transform, Route);
+
+            // 브랜치 타일에서 사용할 변수
+            CurTile.WaypointRoute = Route;
+            CurTile.WaypointIndex = Waypoints.points[Route].Count - 1;
+
+            FindNextAttackRouteTile(SumPos(pos, _Direction[NextDirs[0]]), NextDirs[0], Route);
+
+            FindNextAttackRouteTile(SumPos(pos, _Direction[NextDirs[1]]), NextDirs[1], MakeBranch(Route, CurTile));
+        }
+
+        /* 버그가 있는 코드
+         * 
         bool IsBranchGround = false;
 
         bool IsBranchTile = false;
@@ -423,14 +497,7 @@ public class Map : MonoBehaviour
         {
             IsBranchGround = true;
         }
-
-        // 모든 공격로에 웨이포인트 소환하기
-        /*
-        var obj = ObjectPools.Instance.GetPooledObject("Waypoint");
-        obj.transform.parent = CurTile.transform;
-        obj.transform.localPosition = Vector3.zero;
-        */
-
+        // 코너 혹은 분기점임
         foreach (Direction OutDir in _Direction.Keys)
         {
             Pos NextPos = SumPos(pos, _Direction[OutDir]);
@@ -477,7 +544,6 @@ public class Map : MonoBehaviour
                 obj1.transform.SetParent(CurTile.transform);
                 obj1.transform.localPosition = Vector3.zero;
 
-                // 브랜치 타일에서 사용할 변수
                 CurTile.WaypointRoute = Route;
                 CurTile.WaypointIndex = Waypoints.points[Route].Count - 1;
 
@@ -500,6 +566,7 @@ public class Map : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     int MakeBranch(int Route, Tile CurTile)
@@ -515,15 +582,6 @@ public class Map : MonoBehaviour
         AttackRouteCnt = Waypoints.points.Count - 1;
 
         Waypoints.points[AttackRouteCnt].Add(CurTile.transform);
-
-        // 디버그용 웨이포인트 소환
-        /*
-        var obj2 = ObjectPools.Instance.GetPooledObject("Waypoint");
-
-        obj2.transform.SetParent(TileTransform);
-
-        obj2.transform.localPosition = Vector3.zero;
-        */
 
         return AttackRouteCnt;
     }
@@ -562,5 +620,16 @@ public class Map : MonoBehaviour
         ES.WaypointIndex = Waypoints.points[Route].Count - 1;
 
         cur.ParentGround.EnemySpawners.Add(ES);
+    }
+
+    public void SpawnWaypoint(Transform CurTransform, int Route)
+    {
+        Waypoints.points[Route].Add(CurTransform);
+
+        var obj1 = ObjectPools.Instance.GetPooledObject("Waypoint");
+
+        obj1.transform.SetParent(CurTransform);
+
+        obj1.transform.localPosition = Vector3.zero;
     }
 }
