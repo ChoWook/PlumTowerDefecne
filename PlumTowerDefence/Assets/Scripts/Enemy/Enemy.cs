@@ -24,6 +24,14 @@ public class Enemy : MonoBehaviour
 
     Animator animator;
 
+    public void GetStat(EMonsterType monsterType)
+    {
+        int id = Tables.Monster.Get((int)monsterType)._ID;
+        BaseHP = Tables.Monster.Get(id)._Hp;
+        BaseShield = Tables.Monster.Get(id)._Sheild;
+        BaseArmor = Tables.Monster.Get(id)._Armor;
+        BaseSpeed = Tables.Monster.Get(id)._Speed;
+    }
     
     public void SetStat()
     {

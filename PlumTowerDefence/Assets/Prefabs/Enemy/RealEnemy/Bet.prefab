@@ -780,7 +780,7 @@ GameObject:
   - component: {fileID: 6563363682972314684}
   - component: {fileID: 6509766234707024654}
   - component: {fileID: 3740374916545226218}
-  - component: {fileID: 2251944811387574855}
+  - component: {fileID: -7417127345985432736}
   m_Layer: 0
   m_Name: Bet
   m_TagString: Enemy
@@ -837,8 +837,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a011ca6efbed6184595df9db03659ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 0
+  WaypointIndex: 0
   Route: 0
---- !u!114 &2251944811387574855
+--- !u!114 &-7417127345985432736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -847,11 +849,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6558303569776668118}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f04a5eb002fb14340be4ea76c0c9bb05, type: 3}
+  m_Script: {fileID: 11500000, guid: d145a9691ab6f77428ec6e2676bd9f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentHP: 0
+  CurrentShield: 0
   BaseSpeed: 0
   Speed: 0
+  IsAlive: 1
   LevelType: 0
 --- !u!1 &6558314649214751186
 GameObject:
