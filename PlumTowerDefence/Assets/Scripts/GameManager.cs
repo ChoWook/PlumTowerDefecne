@@ -22,6 +22,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public delegate void StageClearCallBack();
+
+    private StageClearCallBack _stageClearCallBack;
+
+    public void AddStageClearCallBack(StageClearCallBack stageClearCallBack)
+    {
+        _stageClearCallBack += stageClearCallBack;
+    }
+    
     private int _level = 0;
     public int level
     {
@@ -78,7 +87,9 @@ public class GameManager : MonoBehaviour
             _currentEnemyNumber = value; 
             if(_currentEnemyNumber == 0)
             {
-                GameObject.Find("ButtonManager").GetComponent<InGameButtonManager>().StageClear();
+                isPlayingGame = false;                 //Bool flase 만들어서 게임 끝을 알림
+                xp += level;      //level만큼 xp를 얻음
+                _stageClearCallBack?.Invoke();
             }
         } 
     }
