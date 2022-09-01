@@ -42,7 +42,7 @@ public class Tower : MonoBehaviour
     private int UpgradeCount = 0;                           // 업그레이드 횟수
     protected float UpgradeAmount;                          // 업그레이드 강화량
 
-    protected int Price = 100;                                // 구매 가격(데이터테이블)
+    protected int Price;                                // 구매 가격(데이터테이블)
     private int SellPrice;                                  // 판매 가격
 
 
@@ -71,9 +71,6 @@ public class Tower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // 타워 별 수치 적용하기
-        
-
 
         //사거리 지정 Range 값 넣기
         Transform parent = transform.parent;
@@ -88,6 +85,12 @@ public class Tower : MonoBehaviour
     // 타겟 업데이트 ( 체력 우선, 방어구 우선, 방어력 높은 적 우선 추가하기)
     void UpdateTarget()
     {
+        /*
+        
+        SortAttackPriority();
+
+        */
+
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  태그로 적 찾기
         float shortestDistance = Mathf.Infinity;
@@ -107,6 +110,7 @@ public class Tower : MonoBehaviour
         if (nearestEnemy != null && shortestDistance <= Range)
         {
             Target = nearestEnemy;
+
         } else
         {
             Target = null;
@@ -117,11 +121,14 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Target == null || Target.GetComponent<Enemy>().IsAlive == false)
+        if (Target == null)
         {
             return;
+        } else if (Target.GetComponent<Enemy>().IsAlive == false)
+        {
+            //EnemyLIst.RemoveAt(0);
+            return;
         }
-
         // 타워 회전
         
         Vector3 dir = Target.transform.position - transform.position;
@@ -157,7 +164,13 @@ public class Tower : MonoBehaviour
         {
             case 0:
                 // 먼저 들어온 몬스터
+                // 이렇게 하면 되나??????
+                Target = EnemyLIst[0];
 
+                if (Target == null)
+                {
+                    EnemyLIst.RemoveAt(0);
+                   }
                 break;
 
             case 1:
