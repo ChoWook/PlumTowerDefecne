@@ -568,6 +568,7 @@ public class Tables : ScriptableObject
 
     public class MonsterLevel : CSVFile<MonsterLevel>
     {
+        public int _Level;
         public float _Hp;
         public float _Sheild;
         public float _Armor;
@@ -594,6 +595,7 @@ public class Tables : ScriptableObject
                 int idx = 0;
 
                 Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Level = int.Parse(data[idx++]);
                 Tmp._Hp = float.Parse(data[idx++]);
                 Tmp._Sheild = float.Parse(data[idx++]);
                 Tmp._Armor = float.Parse(data[idx++]);
