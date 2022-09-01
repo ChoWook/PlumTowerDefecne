@@ -33,11 +33,12 @@ public class InGameButtonManager : MonoBehaviour
         moneyText = Texts[3].GetComponent<TextMeshProUGUI>();
         
         InGameUpgradePanel = GameObject.Find("InGameUpgradePanel");
+        
+        GameManager.instance.AddStageClearCallBack(StageClear);
     }
 
     private void Update()
     {
-        Debug.Log(GameManager.instance.currentEnemyNumber);
         UpdateGameInfo();
     }
 
@@ -106,10 +107,9 @@ public class InGameButtonManager : MonoBehaviour
         }
     }
 
+    
     public void StageClear()
     {
-        GameManager.instance.isPlayingGame = false;                 //Bool flase 만들어서 게임 끝을 알림
-        GameManager.instance.xp += GameManager.instance.level;      //level만큼 xp를 얻음
         if (GameManager.instance.level % 3 == 0)                    //3 level 마다 증강체
         {
             expandButton.SetActive(false);
