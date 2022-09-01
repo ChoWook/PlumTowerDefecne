@@ -235,8 +235,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4740625771117098}
   - component: {fileID: 95650394395537848}
-  - component: {fileID: -1032025000793259783}
   - component: {fileID: -9045357018149351169}
+  - component: {fileID: -1221691687451297801}
   m_Layer: 0
   m_Name: Pirate
   m_TagString: Enemy
@@ -281,21 +281,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-1032025000793259783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1339118322216996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db7d5b520fbe18943acf648421628987, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BaseSpeed: 0
-  Speed: 0
-  LevelType: 0
 --- !u!114 &-9045357018149351169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,7 +293,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a011ca6efbed6184595df9db03659ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 0
+  WaypointIndex: 0
   Route: 0
+--- !u!114 &-1221691687451297801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339118322216996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d145a9691ab6f77428ec6e2676bd9f4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHP: 0
+  CurrentShield: 0
+  BaseSpeed: 0
+  Speed: 0
+  IsAlive: 1
+  LevelType: 0
 --- !u!1 &1379610239249642
 GameObject:
   m_ObjectHideFlags: 0

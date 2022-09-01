@@ -1408,7 +1408,7 @@ GameObject:
   - component: {fileID: 4108740236206866}
   - component: {fileID: 95062236155715276}
   - component: {fileID: 2163798632522024334}
-  - component: {fileID: -7006468937844249454}
+  - component: {fileID: -2283100468291465430}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Enemy
@@ -1465,8 +1465,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a011ca6efbed6184595df9db03659ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 0
+  WaypointIndex: 0
   Route: 0
---- !u!114 &-7006468937844249454
+--- !u!114 &-2283100468291465430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1475,9 +1477,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1934990672546902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3342993fca8e11b4fb1e6d606a9ac75b, type: 3}
+  m_Script: {fileID: 11500000, guid: d145a9691ab6f77428ec6e2676bd9f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentHP: 0
+  CurrentShield: 0
   BaseSpeed: 0
   Speed: 0
+  IsAlive: 1
   LevelType: 0
