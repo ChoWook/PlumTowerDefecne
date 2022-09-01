@@ -135,35 +135,6 @@ public class Tower : MonoBehaviour
         }
 
         FireCountdown -= Time.deltaTime;
-
-
-        // 타워 선택 표시
-        /*
-        if (Input.GetMouseButtonDown(0))
-
-        {
-
-            RaycastHit hit;
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            Physics.Raycast(ray, out hit);
-
-
-
-            if (hit.collider != null)
-
-            {
-
-                CurrentTouch = hit.transform.gameObject;
-
-                EventActivate();
-
-            }
-
-        }
-
-        */
     }
 
     // 추적 알고리즘 코루틴
