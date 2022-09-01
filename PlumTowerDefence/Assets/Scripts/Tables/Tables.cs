@@ -21,6 +21,7 @@ public class Tables : ScriptableObject
             MapGimmickResource.Load();
             GlobalSystem.Load();
             Monster.Load();
+            MonsterAmount.Load();
             MonsterClass.Load();
             MonsterLevel.Load();
             MonsterProperty.Load();
@@ -467,8 +468,16 @@ public class Tables : ScriptableObject
 
     public class MonsterAmount : CSVFile<MonsterAmount>
     {
+        public struct SMonsterAmonut
+        {
+            public int _ID;
+            public int _Amount;
+        }
+
         public int _Wave;
-        public int _Amount;
+        public int _TotalAmount;
+        public List<SMonsterAmonut> _Monster = new();
+
 
         public static void Load()
         {
@@ -480,6 +489,7 @@ public class Tables : ScriptableObject
             for (int i = 2; i < dataLines.Length; i++)
             {
                 dataLines[i].Trim();
+                dataLines[i] = dataLines[i].Replace("\"", string.Empty).Replace("\r", string.Empty);
                 var data = dataLines[i].Split(',');
 
                 if (string.IsNullOrEmpty(data[0]))
@@ -493,7 +503,22 @@ public class Tables : ScriptableObject
 
                 Tmp._ID = int.Parse(data[idx++]);
                 Tmp._Wave = int.Parse(data[idx++]);
-                Tmp._Amount = int.Parse(data[idx++]);
+                Tmp._TotalAmount = int.Parse(data[idx++]);
+
+                for (; idx < data.Length;)
+                {
+                    if (string.IsNullOrEmpty(data[idx]))
+                    {
+                        break;
+                    }
+
+                    SMonsterAmonut MA = new SMonsterAmonut();
+
+                    MA._ID = int.Parse(data[idx++]);
+                    MA._Amount = int.Parse(data[idx++]);
+
+                    Tmp._Monster.Add(MA);
+                }
 
                 Tmp.Add(Tmp);
             }
