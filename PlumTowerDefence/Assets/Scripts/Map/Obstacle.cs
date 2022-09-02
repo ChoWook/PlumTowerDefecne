@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] GameObject[] Bodys;
 
     public int ObstacleType = 0;
+
+    public int DeletePrice = 0;
     // Start is called before the first frame update
 
 #if UNITY_EDITOR
@@ -22,6 +25,8 @@ public class Obstacle : MonoBehaviour
     public void SetObstacleType(int Sender)
     {
         ObstacleType = Sender;
+
+        DeletePrice = Tables.MapGimmickObstacle.Get(ObstacleType)._Removal;
 
         UpdateObstacleType();
     }
@@ -55,4 +60,19 @@ public class Obstacle : MonoBehaviour
             }
         }
     }
+
+    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("Obstacle Click");
+    }
+
+    public void DeleteObstacle()
+    {
+        // int gold = GameManager.instance.Gold;
+        // if( gold >= DeletePrice){
+        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+        //}
+
+    }
+
 }
