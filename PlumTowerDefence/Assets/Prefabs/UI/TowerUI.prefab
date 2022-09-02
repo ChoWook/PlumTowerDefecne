@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 4000135244142728162}
   - component: {fileID: 4000135244142728165}
   - component: {fileID: 4000135244142728164}
+  - component: {fileID: 441724766}
   m_Layer: 5
   m_Name: TowerUI
   m_TagString: Untagged
@@ -865,6 +866,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &441724766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4000135244142728161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3272096960f7e441be03c5a89a16156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TowerName: {fileID: 4000135245767289894}
+  TowerLevel: {fileID: 4000135244621587770}
+  TowerDamage: {fileID: 4000135244126530029}
+  TowerFireRate: {fileID: 4000135244053352872}
+  TowerPriority: {fileID: 4000135245287942288}
+  TowerUpgrade: {fileID: 4000135245785212887}
+  TowerMove: {fileID: 4000135244061521087}
+  TowerDemolish: {fileID: 4000135245411827244}
 --- !u!1 &4000135244621587768
 GameObject:
   m_ObjectHideFlags: 0

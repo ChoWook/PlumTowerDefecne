@@ -18,6 +18,8 @@ public class TowerUI : MonoBehaviour, IPointerClickHandler
 
     private void ShowTowerUI()
     {
+        Debug.Log("ShowTowerUI");
+        
         UIManager.instance.ShowTowerUI(GetComponent<Tower>());
 
         clickTime = Time.realtimeSinceStartup;
@@ -25,6 +27,8 @@ public class TowerUI : MonoBehaviour, IPointerClickHandler
 
     private void ShowGroundTowerUI()
     {
+        Debug.Log("ShowGroundTowerUI");
+        
         UIManager.instance.ShowGroundTowerUI();
     }
 }
