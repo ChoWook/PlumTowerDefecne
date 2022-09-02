@@ -100,7 +100,7 @@ public class Tile : MonoBehaviour
 
     void UpdateTileMateral()
     {
-        if(TileType == ETileType.Land)
+        if(TileType == ETileType.Land || TileType == ETileType.House)
         {
             if(LandTileMaterals.Length != 0)
             {

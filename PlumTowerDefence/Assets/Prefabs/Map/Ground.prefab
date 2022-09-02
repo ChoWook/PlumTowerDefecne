@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GridLine: {fileID: 5152656404561381925}
+  CastlePrefab: {fileID: 6095799242169149362, guid: 772ebeb3e2b548f40b94958bfd4cb91f,
+    type: 3}
   GroundSize: 7
   GroundScale: 10
   _Pos:

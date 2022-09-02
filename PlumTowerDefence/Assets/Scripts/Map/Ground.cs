@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [ExecuteInEditMode]
 public class Ground : MonoBehaviour
 {
     [SerializeField] GameObject GridLine;
 
+    [SerializeField] GameObject CastlePrefab;
+
     [SerializeField] int GroundSize = 7;
 
     [SerializeField] int GroundScale = 10;
+
 
     public Pos _Pos = new Pos();
 
@@ -104,7 +108,30 @@ public class Ground : MonoBehaviour
             if(Tiles[i].TileType == ETileType.Land)
             {
                 EmptyLandTileCount++;
-            } 
+            }
+            else if(Tiles[i].TileType == ETileType.House)
+            {
+                GameObject house = Instantiate(CastlePrefab, Tiles[i].transform);
+
+                float YAngle = 0;
+
+                switch (GroundType)
+                {
+                    case EGroundType.TU:
+                        YAngle = 0;
+                        break;
+                    case EGroundType.TD:
+                        YAngle = 180;
+                        break;
+                    case EGroundType.TL:
+                        YAngle = 270;
+                        break;
+                    case EGroundType.TR:
+                        YAngle = 90;
+                        break;
+                }
+                house.transform.RotateAround(Tiles[i].transform.position, Vector3.up, YAngle);
+            }
         }  
     }
 
