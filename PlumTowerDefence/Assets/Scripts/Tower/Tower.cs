@@ -32,6 +32,8 @@ public class Tower : MonoBehaviour
 
     [Header("Interactions")]
 
+    public Tile belowTile;
+
     public bool Selected = false;                           //타워 선택 여부
     public bool Fixed = false;                              //타워 설치 여부
 
