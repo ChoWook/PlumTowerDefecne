@@ -240,34 +240,18 @@ public class Enemy : MonoBehaviour
         int enemySpawnCount = EnemySpawner.EnemySpawnCounts[monsterType];
         Debug.Log("enemySpawnCount: " + enemySpawnCount);
         int id = (int)monsterType;
+        Debug.Log("id" + id);
+        if(enemySpawnCount <10 && enemySpawnCount % 2 == 0)
+        {
+            currentLevel[id - 1]++;
+        }
+        Debug.Log(currentLevel[id - 1]);
+        
+        MaxHP += BaseHP * Tables.MonsterLevel.Get(currentLevel[id - 1])._Hp / 100;
+        MaxShield += BaseShield * Tables.MonsterLevel.Get(currentLevel[id -1])._Sheild / 100;
+        Armor += BaseArmor * Tables.MonsterLevel.Get(currentLevel[id -1])._Armor / 100;
 
-        if(enemySpawnCount == 1)
-        {
-            currentLevel[id - 1] = 1;
-        }
-        else if(enemySpawnCount == 2 || enemySpawnCount == 3)
-        {
-            currentLevel[id - 1] = 2;
-        }
-        else if(enemySpawnCount == 4 || enemySpawnCount == 5)
-        {
-            currentLevel[id - 1] = 3;
-        }
-        else if(enemySpawnCount == 6 || enemySpawnCount == 7)
-        {
-            currentLevel[id - 1] = 4;
-        }
-        else if(enemySpawnCount >= 8)
-        {
-            currentLevel[id - 1] = 5;
-        }
-
-        Debug.Log(monsterType + " CurrentLevel: " + currentLevel[id - 1]);
-
-        MaxHP += BaseHP * Tables.MonsterLevel.Get(currentLevel[id - 1])._Hp * currentLevel[id-1] / 100;
-        MaxShield += BaseShield * Tables.MonsterLevel.Get(currentLevel[id -1])._Sheild * currentLevel[id - 1] / 100;
-        Armor += BaseArmor * Tables.MonsterLevel.Get(currentLevel[id -1])._Armor * currentLevel[id - 1] / 100;
-
+        Debug.Log(monsterType + " CurrentLevel: " + currentLevel[id -1]);
 
     }
 
