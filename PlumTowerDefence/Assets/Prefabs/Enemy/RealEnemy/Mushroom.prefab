@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 4428052402655414}
   - component: {fileID: 95952727081316866}
   - component: {fileID: 1928086183769826470}
-  - component: {fileID: 3774316739005452828}
+  - component: {fileID: -2232658550971594392}
   m_Layer: 0
   m_Name: Mushroom
   m_TagString: Enemy
@@ -485,8 +485,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a011ca6efbed6184595df9db03659ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 0
+  WaypointIndex: 0
   Route: 0
---- !u!114 &3774316739005452828
+--- !u!114 &-2232658550971594392
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -495,11 +497,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1652348065175960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 290f877f4f68dfb47948d017055b0780, type: 3}
+  m_Script: {fileID: 11500000, guid: d145a9691ab6f77428ec6e2676bd9f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentHP: 0
+  CurrentShield: 0
   BaseSpeed: 0
   Speed: 0
+  IsAlive: 1
   LevelType: 0
 --- !u!1 &1809127168686056
 GameObject:

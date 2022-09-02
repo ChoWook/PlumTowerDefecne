@@ -9,16 +9,18 @@ public class Bullet : MonoBehaviour
 
     private double Damage;               // 타겟에게 가할 데미지
 
-    private int AttackPropertyID;        // 속성 아이디
+    //private int AttackPropertyID;        // 속성 아이디
+
+    private EAttackSepcialization AttackSepcialization; // 공격 종류
 
 
     public float Speed = 1f;
 
-    public void Seek (GameObject _target, double _Damage, int _AttackPropertyID)
+    public void Seek (GameObject _target, double _Damage, EAttackSepcialization _AttackSpecialization)
     {
         target = _target;
         Damage = _Damage;
-        AttackPropertyID = _AttackPropertyID;
+        AttackSepcialization = _AttackSpecialization;
     }
 
 

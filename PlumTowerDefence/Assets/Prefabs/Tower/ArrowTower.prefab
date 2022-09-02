@@ -2617,7 +2617,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4248981224369765954, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90, type: 3}
 --- !u!1 &7817341427025157785 stripped
 GameObject:
@@ -2625,7 +2626,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6236271027313877208}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &592613185128185759
+--- !u!114 &5927456175834943569
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2634,9 +2635,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 7817341427025157785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48bb78e7430f8f94c81ae5025ec0f9a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d57c4b69f6cfd740a70c049ef0a537f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TowerID: 0
+  Range: 0
+  SpeedStat: 0
+  TowerName: "\uD654\uC0B4\uD0C0\uC6CC"
+  PartToRotate: {fileID: 105416303}
+  TurnSpeed: 10
+  Selected: 0
+  Fixed: 0
+  BulletPrefab: {fileID: 8512218874839391579, guid: 858dc67e6d982f544a48ce047856ee1b,
+    type: 3}
+  FirePoint: {fileID: 661962042565045397}
+  Boundary: {fileID: 8138642334970068589}
+  ObjectPool: {fileID: 0}
+  EnemyLIst: []
+  Target: {fileID: 0}
+  enemyTag: Enemy
 --- !u!4 &7817341427025157790 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4248981224369765958, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
