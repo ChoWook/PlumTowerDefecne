@@ -13,25 +13,22 @@ public class EnemySpawner : MonoBehaviour
     int EnemyNumber = 1;
     int SpawnEnemyNumber;
     float[] EnemyArr;
-    public int[] currentLevel = new int[8];
 
 
     public static Dictionary<EMonsterType, int> EnemySpawnCounts = new();
 
-
+    static bool isLoad = false;
 
     private void Awake()
     {
-        for(EMonsterType monsterClass = EMonsterType.Bet; monsterClass <= EMonsterType.Bear; monsterClass++)
+        if(isStaticInit() == false)
         {
-            EnemySpawnCounts.Add(monsterClass, 0);
-
+            for (EMonsterType monsterClass = EMonsterType.Bet; monsterClass <= EMonsterType.Bear; monsterClass++)
+            {
+                EnemySpawnCounts.Add(monsterClass, 0);
+            }
         }
-        for (int i = 0; i < 8; i++)
-        {
-            currentLevel[i] = 1;
-        }
-
+        
     }
 
 
@@ -46,6 +43,17 @@ public class EnemySpawner : MonoBehaviour
         }
     }
     
+    private bool isStaticInit()
+    {
+        if(isLoad == false)
+        {
+            isLoad = true;
+            return false;
+        }
+        else
+            return true;
+    }
+
     public void SpawnWave()
     {
         Debug.Log("WaveNumber" + WaveNumber);
@@ -58,7 +66,7 @@ public class EnemySpawner : MonoBehaviour
     {
         WaitForSeconds ws = new WaitForSeconds(0.5f);
 
-        //WaveNumber = GameManager.instance.level + 1;
+        WaveNumber = GameManager.instance.level + 1;
         
         EnemyNumber = Tables.MonsterAmount.Get(WaveNumber)._TotalAmount;
         GameManager.instance.currentEnemyNumber = EnemyNumber;
