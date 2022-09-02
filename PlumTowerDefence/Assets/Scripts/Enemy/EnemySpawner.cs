@@ -6,14 +6,34 @@ public class EnemySpawner : MonoBehaviour
 {
     public Transform SpawnPoint;
 
-    public int WaveNumber;                  // 게임 매니저한테 받을수도
+    public int WaveNumber = 1;                  // 게임 매니저한테 받을수도
     public int Route = 0;
     public int WaypointIndex = 5;
     int EnemyTypeNum;
     int EnemyNumber = 1;
     int SpawnEnemyNumber;
     float[] EnemyArr;
-    
+    public int[] currentLevel = new int[8];
+
+
+    public static Dictionary<EMonsterType, int> EnemySpawnCounts = new();
+
+
+
+    private void Awake()
+    {
+        for(EMonsterType monsterClass = EMonsterType.Bet; monsterClass <= EMonsterType.Bear; monsterClass++)
+        {
+            EnemySpawnCounts.Add(monsterClass, 0);
+
+        }
+        for (int i = 0; i < 8; i++)
+        {
+            currentLevel[i] = 1;
+        }
+
+    }
+
 
     // 맵 확장을 누른 뒤
 
@@ -28,7 +48,9 @@ public class EnemySpawner : MonoBehaviour
     
     public void SpawnWave()
     {
+        Debug.Log("WaveNumber" + WaveNumber);
         StartCoroutine(IE_SpawnWave());
+        WaveNumber++;                             // 시작버튼이눌리면으로 대체
     }
 
 
@@ -36,15 +58,22 @@ public class EnemySpawner : MonoBehaviour
     {
         WaitForSeconds ws = new WaitForSeconds(0.5f);
 
-        WaveNumber = GameManager.instance.level + 1;
+        //WaveNumber = GameManager.instance.level + 1;
+        
         EnemyNumber = Tables.MonsterAmount.Get(WaveNumber)._TotalAmount;
+        GameManager.instance.currentEnemyNumber = EnemyNumber;
         EnemyTypeNum = Tables.MonsterAmount.Get(WaveNumber)._Monster.Count;
         EnemyArr = new float[EnemyTypeNum];
+
+
 
         for(int i = 0; i < EnemyTypeNum; i++)
         {
             EnemyArr[i] = Tables.MonsterAmount.Get(WaveNumber)._Monster[i]._Amount;
+            int id = Tables.MonsterAmount.Get(WaveNumber)._Monster[i]._ID;
+            EnemySpawnCounts[Tables.Monster.Get(id)._Type] += 1;
         }
+        Debug.Log("EnemyNum: " + EnemyNumber);
 
         while (EnemyNumber > 0)
         {
@@ -68,8 +97,15 @@ public class EnemySpawner : MonoBehaviour
         enemy.transform.position = SpawnPoint.position;
 
         enemy.GetComponent<Enemy>().GetStat(monsterType);
+
+
+
+        enemy.GetComponent<Enemy>().EnemyLevelUp(monsterType);
+        
+
         enemy.GetComponent<Enemy>().SetStat();
         emove.InitSpeed(monsterType);
+
         
     }
 
