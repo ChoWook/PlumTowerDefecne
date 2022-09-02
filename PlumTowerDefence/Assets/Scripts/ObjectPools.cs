@@ -19,6 +19,7 @@ public class ObjectPools : MonoBehaviour
     public int poolingCount;
 
     private Dictionary<object, List<GameObject>> pooledObjects = new Dictionary<object, List<GameObject>>();
+    private Dictionary<string, int> NameToIndex = new Dictionary<string, int>();
 
     public void CreateMultiplePoolObjects()
     {
@@ -26,18 +27,25 @@ public class ObjectPools : MonoBehaviour
         {
             for (int j = 0; j < poolingCount; j++)
             {
-                if (!pooledObjects.ContainsKey(poolPrefabs[i].name))
-                {
-                    List<GameObject> newList = new List<GameObject>();
-                    pooledObjects.Add(poolPrefabs[i].name, newList);
-                }
-
-                GameObject newDoll = Instantiate(poolPrefabs[i], Instance.transform);
-                newDoll.SetActive(false);
-                pooledObjects[poolPrefabs[i].name].Add(newDoll);
+                CreatePoolObjects(i);
             }
         }
     }
+
+    public void CreatePoolObjects(int idx)
+    {
+        if (!pooledObjects.ContainsKey(poolPrefabs[idx].name))
+        {
+            List<GameObject> newList = new List<GameObject>();
+            pooledObjects.Add(poolPrefabs[idx].name, newList);
+            NameToIndex.Add(poolPrefabs[idx].name, idx);
+        }
+
+        GameObject newDoll = Instantiate(poolPrefabs[idx], Instance.transform);
+        newDoll.SetActive(false);
+        pooledObjects[poolPrefabs[idx].name].Add(newDoll);
+    }
+
 
     // 오브젝트를 풀에서 가져옴
     public GameObject GetPooledObject(string _name)
@@ -54,10 +62,10 @@ public class ObjectPools : MonoBehaviour
                 }
             }
 		
-	    // 용량이 꽉차 새로운 오브젝트를 생성할 필요가 생김
+	        // 용량이 꽉차 새로운 오브젝트를 생성할 필요가 생김
             int beforeCreateCount = pooledObjects[_name].Count;
 
-            CreateMultiplePoolObjects();
+            CreatePoolObjects(NameToIndex[_name]);
 
             pooledObjects[_name][beforeCreateCount].SetActive(true);
             return pooledObjects[_name][beforeCreateCount];

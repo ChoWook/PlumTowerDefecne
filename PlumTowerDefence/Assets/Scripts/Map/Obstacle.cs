@@ -68,10 +68,12 @@ public class Obstacle : MonoBehaviour, IPointerClickHandler
 
     public void DeleteObstacle()
     {
-        // int gold = GameManager.instance.Gold;
-        // if( gold >= DeletePrice){
-        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
-        //}
+        if(GameManager.instance.money >= DeletePrice){
+
+            GameManager.instance.money -= DeletePrice;
+
+            ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+        }
 
     }
 
