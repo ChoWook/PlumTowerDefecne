@@ -22,26 +22,64 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public delegate void StageClearCallBack();
+    public delegate void CallBack();
 
-    private StageClearCallBack _stageClearCallBack;
+    private CallBack _stageClearCallBack;
 
-    public void AddStageClearCallBack(StageClearCallBack stageClearCallBack)
+    public void AddStageClearCallBack(CallBack stageClearCallBack)
     {
         _stageClearCallBack += stageClearCallBack;
     }
+
+    private CallBack _levelChangeCallBack;
+
+    public void AddLevelChangeCallBack(CallBack levelChangeCallBack)
+    {
+        _levelChangeCallBack += levelChangeCallBack;
+    }
+
+    private CallBack _xpChangeCallBack;
+
+    public void AddXpChangeCallBack(CallBack xpChangeCallBack)
+    {
+        _xpChangeCallBack += xpChangeCallBack;
+    }
+
+    private CallBack _hpChangeCallBack;
+
+    public void AddHpChangeCallBack(CallBack hpChangeCallBack)
+    {
+        _hpChangeCallBack += hpChangeCallBack;
+    }
+
+    private CallBack _moneyChangeCallBack;
+
+    public void AddMoneyChangeCallBack(CallBack moneyChangeCallBack)
+    {
+        _moneyChangeCallBack += moneyChangeCallBack;
+    }
+    
+    
     
     private int _level = 0;
     public int level
     {
         get { return _level; }
-        set { _level = value; }
+        set
+        {
+            _level = value;
+            _levelChangeCallBack?.Invoke();
+        }
     }
     private int _xp = 0;
     public int xp
     {
         get { return _xp; }
-        set { _xp = value; }
+        set
+        {
+            _xp = value;
+            _xpChangeCallBack?.Invoke();
+        }
     }
     private int _maxHp = 10;
     public int maxHp
@@ -53,13 +91,21 @@ public class GameManager : MonoBehaviour
     public int currentHp
     {
         get { return _currentHp; }
-        private set { _currentHp = value; }
+        set
+        {
+            _currentHp = value;
+            _hpChangeCallBack?.Invoke();
+        }
     }
     private int _money = 100;
     public int money
     {
         get { return _money; }
-        set { _money = value; }
+        set
+        {
+            _money = value;
+            _moneyChangeCallBack?.Invoke();
+        }
     }
 
     private bool _isPlayingGame = false;

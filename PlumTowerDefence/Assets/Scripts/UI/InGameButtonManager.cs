@@ -37,11 +37,10 @@ public class InGameButtonManager : MonoBehaviour
         InGameUpgradePanel = GameObject.Find("InGameUpgradePanel");
         
         GameManager.instance.AddStageClearCallBack(StageClear);
-    }
-
-    private void Update()
-    {
-        UpdateGameInfo();
+        GameManager.instance.AddLevelChangeCallBack(ChangeLevelText);
+        GameManager.instance.AddXpChangeCallBack(ChangeXpText);
+        GameManager.instance.AddHpChangeCallBack(ChangeHpText);
+        GameManager.instance.AddMoneyChangeCallBack(ChangeMoneyText);
     }
 
     private void ChangeText()
@@ -52,14 +51,25 @@ public class InGameButtonManager : MonoBehaviour
         }
     }
 
-    private void UpdateGameInfo()       //인게임 UI 업데이트
+    private void ChangeLevelText()
     {
         levelText.text = String.Format(Tables.StringUI.Get(levelText.transform.name)._Korean,GameManager.instance.level);    //Level Update
         ReplaceR(levelText);
+    }
+
+    private void ChangeXpText()
+    {
         xpText.text = String.Format(Tables.StringUI.Get(xpText.transform.name)._Korean,GameManager.instance.xp);       //XP Update
         ReplaceR(xpText);
+    }
+
+    private void ChangeHpText()
+    {
         hpText.text = String.Format(Tables.StringUI.Get(hpText.transform.name)._Korean,GameManager.instance.currentHp,GameManager.instance.maxHp); //HP Update
         ReplaceR(hpText);
+    }
+    private void ChangeMoneyText()
+    {
         moneyText.text = String.Format(Tables.StringUI.Get(moneyText.transform.name)._Korean,GameManager.instance.money);    //Money Update
         ReplaceR(moneyText);
     }
