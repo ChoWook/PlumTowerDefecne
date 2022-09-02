@@ -35,6 +35,8 @@ public class Ground : MonoBehaviour
 
     bool _IsActive;
 
+    int HouseTileIndex = -1;
+
     public bool IsActive
     {
         get { return _IsActive; }
@@ -64,8 +66,9 @@ public class Ground : MonoBehaviour
     {
         for (int i = 0; i < Tiles.Length; i++)
         {
-            Tiles[i]._Pos.PosX = i / GroundSize;
-            Tiles[i]._Pos.PosY = i % GroundSize;
+            Tiles[i]._GroundPos.PosX = i / GroundSize;
+            Tiles[i]._GroundPos.PosY = i % GroundSize;
+
         }
     }
 #endif
@@ -97,9 +100,13 @@ public class Ground : MonoBehaviour
 
         for (int i = 0; i < GroundSize * GroundSize; i++)
         {
-            Tiles[i]._Pos.PosX = i / GroundSize;
+            Tiles[i]._GroundPos.PosX = i / GroundSize;
 
-            Tiles[i]._Pos.PosY = i % GroundSize;
+            Tiles[i]._GroundPos.PosY = i % GroundSize;
+
+            Tiles[i]._MapPos.PosX = _Pos.PosX * 7 + (Tiles[i]._GroundPos.PosY - 3);
+
+            Tiles[i]._MapPos.PosY = _Pos.PosY * 7 - (Tiles[i]._GroundPos.PosX - 3);
 
             Tiles[i].TileType = Tables.GroundPattern.Get(id)._Tiles[i];
 
@@ -111,28 +118,37 @@ public class Ground : MonoBehaviour
             }
             else if(Tiles[i].TileType == ETileType.House)
             {
-                GameObject house = Instantiate(CastlePrefab, Tiles[i].transform);
-
-                float YAngle = 0;
-
-                switch (GroundType)
-                {
-                    case EGroundType.TU:
-                        YAngle = 0;
-                        break;
-                    case EGroundType.TD:
-                        YAngle = 180;
-                        break;
-                    case EGroundType.TL:
-                        YAngle = 270;
-                        break;
-                    case EGroundType.TR:
-                        YAngle = 90;
-                        break;
-                }
-                house.transform.RotateAround(Tiles[i].transform.position, Vector3.up, YAngle);
+                HouseTileIndex = i;
             }
         }  
+    }
+
+    public void CreateCastle()
+    {
+        if(HouseTileIndex == -1) return;
+
+        GameObject house = Instantiate(CastlePrefab, Tiles[HouseTileIndex].transform);
+
+        Tiles[HouseTileIndex].SetObjectOnTile(house, 3);
+
+        float YAngle = 0;
+
+        switch (GroundType)
+        {
+            case EGroundType.TU:
+                YAngle = 0;
+                break;
+            case EGroundType.TD:
+                YAngle = 180;
+                break;
+            case EGroundType.TL:
+                YAngle = 270;
+                break;
+            case EGroundType.TR:
+                YAngle = 90;
+                break;
+        }
+        house.transform.RotateAround(Tiles[HouseTileIndex].transform.position, Vector3.up, YAngle);
     }
 
     // type에 맞는 패턴 중에 랜덤하게 선택

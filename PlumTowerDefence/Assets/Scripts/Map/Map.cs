@@ -8,15 +8,28 @@ using TMPro;
 public struct Pos{
     public int PosX;
     public int PosY;
+
+    public Pos SumPos(Pos p)
+    {
+        Pos NewPos = new Pos();
+        NewPos.PosX = PosX + p.PosX;
+        NewPos.PosY = PosY + p.PosY;
+        return NewPos;
+    }
 }
 
-enum Direction
+public enum Direction
 {
     R,
     L,
     D,
     U,
+    UL,
+    UR,
+    DL,
+    DR,
 }
+
 
 // 딕셔너리 연산을 빠르게 하기 위한 클래스
 public class PosComparer : IEqualityComparer<Pos>
@@ -66,7 +79,7 @@ public class Map : MonoBehaviour
 
     Pos HousePos = new Pos { PosX = 0, PosY = 0 };
 
-    Dictionary<Direction, Pos> _Direction;
+    public Dictionary<Direction, Pos> _Direction;
 
     int GroundSize = 10;
 
@@ -103,6 +116,13 @@ public class Map : MonoBehaviour
         _Direction.Add(Direction.L, new Pos { PosX = -1, PosY = 0 });
         _Direction.Add(Direction.D, new Pos { PosX = 0, PosY = -1 });
         _Direction.Add(Direction.U, new Pos { PosX = 0, PosY = 1 });
+
+        _Direction.Add(Direction.UR, new Pos { PosX = 1, PosY = 1 });
+        _Direction.Add(Direction.UL, new Pos { PosX = -1, PosY = 1 });
+        _Direction.Add(Direction.DR, new Pos { PosX = 1, PosY = -1 });
+        _Direction.Add(Direction.DL, new Pos { PosX = -1, PosY = -1 });
+
+
 
         // TODO 게임메니저로 넘겨야 함
         Cursor.lockState = CursorLockMode.Confined;
@@ -330,6 +350,9 @@ public class Map : MonoBehaviour
         {
             UpdateCameraLimit(Grounds[i]._Pos.PosX, Grounds[i]._Pos.PosY);
         }
+
+        // 맨 첫 그라운드에 하우스 생성
+        Grounds[0].CreateCastle();
     }
 
     public List<Tile> GetEmptyLandTilesInMap()
@@ -419,11 +442,6 @@ public class Map : MonoBehaviour
         FindNextAttackRouteTile(HousePos, HouseDir, 0);
     }
 
-    public Pos SumPos(Pos p1, Pos p2)
-    {
-        return new Pos { PosX = p1.PosX + p2.PosX, PosY = p1.PosY + p2.PosY };
-    }
-
     // dir은 이 타일이 어느 방향으로부터 확장되어 왔는가
     void FindNextAttackRouteTile(Pos pos, Direction InDir, int Route)
     {
@@ -443,7 +461,7 @@ public class Map : MonoBehaviour
         
         foreach(Direction OutDir in _Direction.Keys)
         {
-            Pos NextPos = SumPos(pos, _Direction[OutDir]);
+            Pos NextPos = pos.SumPos(_Direction[OutDir]);
 
             Tile NextTile = GetTileInMap(NextPos);
 
@@ -467,7 +485,7 @@ public class Map : MonoBehaviour
         // 길이 1개
         if (NextDirs.Count == 1)
         {
-            Pos NextPos = SumPos(pos, _Direction[NextDirs[0]]);
+            Pos NextPos = pos.SumPos(_Direction[NextDirs[0]]);
 
             Tile NextTile = GetTileInMap(NextPos);
 
@@ -498,9 +516,9 @@ public class Map : MonoBehaviour
             CurTile.WaypointRoute = Route;
             CurTile.WaypointIndex = Waypoints.points[Route].Count - 1;
 
-            FindNextAttackRouteTile(SumPos(pos, _Direction[NextDirs[0]]), NextDirs[0], Route);
+            FindNextAttackRouteTile(pos.SumPos(_Direction[NextDirs[0]]), NextDirs[0], Route);
 
-            FindNextAttackRouteTile(SumPos(pos, _Direction[NextDirs[1]]), NextDirs[1], MakeBranch(Route, CurTile));
+            FindNextAttackRouteTile(pos.SumPos(_Direction[NextDirs[1]]), NextDirs[1], MakeBranch(Route, CurTile));
         }
 
         /* 버그가 있는 코드

@@ -26,7 +26,7 @@ public class Obstacle : MonoBehaviour, IPointerClickHandler
     {
         ObstacleType = Sender;
 
-        DeletePrice = Tables.MapGimmickObstacle.Get(ObstacleType)._Removal;
+        //DeletePrice = Tables.MapGimmickObstacle.Get(ObstacleType)._Removal;
 
         UpdateObstacleType();
     }
