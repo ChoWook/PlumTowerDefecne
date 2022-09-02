@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 6826042292649473820}
   - component: {fileID: 7335832341453128423}
   - component: {fileID: 4997643969015017430}
+  - component: {fileID: 787331240579380716}
   m_Layer: 0
   m_Name: MapTerrain
   m_TagString: Ground
@@ -322,6 +323,18 @@ TerrainCollider:
   m_Enabled: 1
   m_TerrainData: {fileID: 15600000, guid: 7337617c09aac684188247ef910db689, type: 2}
   m_EnableTreeColliders: 1
+--- !u!114 &787331240579380716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749618870159861756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5de4688e5819944e8421b7491435879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5263991364535386758
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +395,7 @@ MonoBehaviour:
   AttackRouteCnt: 1
   CurAttackRouteCnt: 1
   HoleEmptyLandCnt: 0
+  MapInput: {fileID: 0}
 --- !u!1 &6051654916856160087
 GameObject:
   m_ObjectHideFlags: 0
