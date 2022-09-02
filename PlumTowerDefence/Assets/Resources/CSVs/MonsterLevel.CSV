@@ -1,6 +1,6 @@
 ID,Level,Hp,Shield,Armor
 int,int,float,float,float
-1,1,10,10,0
+1,1,0,0,0
 2,2,10,10,0
 3,3,10,10,0
 4,4,10,10,10
