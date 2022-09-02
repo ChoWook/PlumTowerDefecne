@@ -58,7 +58,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Debug.Log("WaveNumber" + WaveNumber);
         StartCoroutine(IE_SpawnWave());
-        WaveNumber++;                             // 시작버튼이눌리면으로 대체
+        //WaveNumber++;                             // 시작버튼이눌리면으로 대체
     }
 
 
