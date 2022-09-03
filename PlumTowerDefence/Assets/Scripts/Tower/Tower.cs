@@ -20,7 +20,7 @@ public class Tower : MonoBehaviour
 
 
     public ETowerName TowerName;                              // 타워 이름
-    protected EAttackSepcialization AttackSpecialization;    // 공격 속성(데이터테이블)
+    protected EAttackSpecialization AttackSpecialization;    // 공격 속성(데이터테이블)
     protected ETowerType TypeID;                             // 속성 ID (데이터테이블)
     protected int Size;                                      // 타워 크기 (데이터테이블)
     public float AttackStat;                                 // 공격력 스텟(데이터테이블)
