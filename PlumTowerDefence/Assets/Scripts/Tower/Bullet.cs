@@ -14,16 +14,17 @@ public class Bullet : MonoBehaviour
     private EAttackSepcialization AttackSepcialization; // 공격 종류
 
 
-    public float Speed = 1f;
+    public float Speed;
 
     public void Awake()
     {
         
     }
 
-    public void Seek (GameObject _target, double _Damage, EAttackSepcialization _AttackSpecialization)
+    public void Seek (GameObject _target, float _Speed,float _Damage, EAttackSepcialization _AttackSpecialization)
     {
         target = _target;
+        Speed = _Speed;
         Damage = _Damage;
         AttackSepcialization = _AttackSpecialization;
     }

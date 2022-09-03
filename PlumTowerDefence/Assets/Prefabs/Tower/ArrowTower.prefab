@@ -2018,7 +2018,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8138642334970068589}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
@@ -2036,6 +2036,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c093dbe262a60c7459ec811eee78f7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyTag: Enemy
+  tower: {fileID: 5927456175834943569}
 --- !u!1 &8341879570763827910
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,8 +2667,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerID: 0
   Range: 0
+  RealRange: 0
+  TileSize: 3
   SpeedStat: 0
-  TowerName: "\uD654\uC0B4\uD0C0\uC6CC"
+  TowerName: 0
   AttackStat: 0
   PartToRotate: {fileID: 105416303}
   TurnSpeed: 10
@@ -2679,7 +2683,6 @@ MonoBehaviour:
     type: 3}
   FirePoint: {fileID: 661962042565045397}
   Boundary: {fileID: 8138642334970068589}
-  ObjectPool: {fileID: 0}
   EnemyLIst: []
   Target: {fileID: 0}
   enemyTag: Enemy

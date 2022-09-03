@@ -9,7 +9,4 @@ public class ArrowTower : Tower
     {
         Setstat(ETowerName.Arrow);  
     }
-
-
-    
 }
