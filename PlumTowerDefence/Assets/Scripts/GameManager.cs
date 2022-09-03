@@ -171,28 +171,28 @@ public class GameManager : MonoBehaviour
 
 
     // 타워 무료 쿠폰
-    private List<int> _TowerCoupon;
+    private Dictionary<ETowerName ,int> _TowerCoupon;
 
     public void InitCoupon()
     {
-        _TowerCoupon = new List<int>();
+        _TowerCoupon = new Dictionary<ETowerName, int>();
         // TODO 타워 ENUM 생기면 바꿔야 함
-        for (int i = 0; i <= 10; i++)
+        for (ETowerName name = ETowerName.Arrow; name <= ETowerName.Cannon; name++)
         {
-            _TowerCoupon.Add(0);
+            _TowerCoupon.Add(name, 0);
         }
     }
 
-    public void AddCoupon(int idx)
+    public void AddCoupon(ETowerName name)
     {
-        _TowerCoupon[idx]++;
+        _TowerCoupon[name]++;
     }
 
-    public void RemoveCoupon(int idx)
+    public void RemoveCoupon(ETowerName name)
     {
-        if (HasCoupon(idx))
+        if (HasCoupon(name))
         {
-            _TowerCoupon[idx]--;
+            _TowerCoupon[name]--;
         }
         else
         {
@@ -200,9 +200,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public bool HasCoupon(int idx)
+    public bool HasCoupon(ETowerName name)
     {
-        if (_TowerCoupon[idx] == 0)
+        if (_TowerCoupon[name] == 0)
             return false;
         else
             return true;

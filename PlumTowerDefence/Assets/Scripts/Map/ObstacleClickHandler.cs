@@ -11,7 +11,7 @@ public class ObstacleClickHandler : MonoBehaviour, IPointerClickHandler
     {
         if(Parent != null)
         {
-            Parent.OnPointerClick();
+            Parent.OnObstacleClick();
         }
     }
 }

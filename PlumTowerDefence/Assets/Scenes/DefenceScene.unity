@@ -2643,10 +2643,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1598689540}
     m_Modifications:
+    - target: {fileID: 2061775541282726035, guid: fc6a4d8d15181ca4697427e9731a22bf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3129007958483884343, guid: fc6a4d8d15181ca4697427e9731a22bf,
         type: 3}
       propertyPath: m_Name
       value: ObstacleUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3129007958483884343, guid: fc6a4d8d15181ca4697427e9731a22bf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6714289641704783902, guid: fc6a4d8d15181ca4697427e9731a22bf,
         type: 3}

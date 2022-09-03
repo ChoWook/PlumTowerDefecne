@@ -61,8 +61,10 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    public void OnPointerClick()
+    public void OnObstacleClick()
     {
+        UIManager.instance.ShowObstacleUI(this);
+
         Debug.Log("Obstacle Click");
     }
 

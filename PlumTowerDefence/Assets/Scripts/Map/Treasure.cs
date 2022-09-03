@@ -56,13 +56,13 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
         if(Random.Range(0, 100) < RewardSecondProb)
         {
             // °¡Àå ½Ñ È­»ìÅ¸¿ö ÄíÆù
-            GameManager.instance.AddCoupon(0);
+            GameManager.instance.AddCoupon(ETowerName.Arrow);
         }
 
         if (Random.Range(0, 100) < RewardSecondProb)
         {
             // 2¹øÂ°·Î ½Ñ Å¸¿öÀÏ °Í°°Àº ÄíÆù
-            GameManager.instance.AddCoupon(1);
+            GameManager.instance.AddCoupon(ETowerName.Gatling);
         }
     }
 }
