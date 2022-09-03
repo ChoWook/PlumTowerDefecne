@@ -74,27 +74,34 @@ public class Tower : MonoBehaviour
     void Start()
     {
 
+    }
+
+
+    private void OnEnable()
+    {
         //사거리 지정 Range 값 넣기
         Transform parent = transform.parent;
         transform.parent = null;
         Boundary.transform.localScale = new Vector3(Range, 0.05f, Range);
         transform.parent = parent;
 
+        //StartCoroutine(IE_GetTargets());
         InvokeRepeating("UpdateTarget", 0, 0.5f); // 0.5초 마다 반복하기
-
     }
+
 
     // 타겟 업데이트 ( 체력 우선, 방어구 우선, 방어력 높은 적 우선 추가하기)
     void UpdateTarget()
     {
-        /*
         
+        /*
         SortAttackPriority();
-
         */
+        
 
-
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  태그로 적 찾기
+        
+        GameObject[] enemies = GameObject.
+            FindGameObjectsWithTag(enemyTag); // Enemy  태그로 적 찾기
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
 
@@ -117,7 +124,7 @@ public class Tower : MonoBehaviour
         {
             Target = null;
         }
-
+        
     }
 
     // Update is called once per frame
@@ -128,11 +135,11 @@ public class Tower : MonoBehaviour
             return;
         } else if (Target.GetComponent<Enemy>().IsAlive == false)
         {
-            //EnemyLIst.RemoveAt(0);
+            EnemyLIst.RemoveAt(0);
             return;
         }
+
         // 타워 회전
-        
         Vector3 dir = Target.transform.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation,lookRotation,Time.deltaTime * TurnSpeed).eulerAngles;
@@ -152,13 +159,15 @@ public class Tower : MonoBehaviour
     // 추적 알고리즘 코루틴
     IEnumerator IE_GetTargets()
     {
+        WaitForSeconds ws = new WaitForSeconds(0.5f);
         //사거리 안에 들어온 적들 EnemyList에 정리 + 사거리에서 나가면 지우기.
-    
 
-        yield return new WaitForSeconds(0.5f);
+
+
+        yield return ws;
     }
 
-    /*
+    
     // 공격 우선순위 정하는 함수
     private void SortAttackPriority()
     {
@@ -166,7 +175,6 @@ public class Tower : MonoBehaviour
         {
             case 0:
                 // 먼저 들어온 몬스터
-                // 이렇게 하면 되나??????
                 Target = EnemyLIst[0];
 
                 if (Target == null)
@@ -192,19 +200,13 @@ public class Tower : MonoBehaviour
         }    
     }
 
-    */
-
+    
     void Shoot()
     {
-        ObjectPool = GameObject.Find("ObjectPool");
-
-        GameObject bulletGO = ObjectPool.GetComponent<ObjectPools>().GetPooledObject("Arrow");
+        GameObject bulletGO = ObjectPools.Instance.GetPooledObject("Arrow");
         bulletGO.transform.position = FirePoint.position;
 
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
-
-        if (bullet != null)
-            bullet.Seek(Target, AttackStat, AttackSpecialization);
+        bulletGO.GetComponent<Bullet>()?.Seek(Target, AttackStat, AttackSpecialization);
 
     }
 
@@ -233,7 +235,7 @@ public class Tower : MonoBehaviour
 
 
         // 돈 받기 (타워 설치비용 + 업그레이드 비용 ) * 0.6
-        double _SellPrice = (Price + UpgradeCount * UpgradePrice) * 0.6;
+        float _SellPrice = (Price + UpgradeCount * UpgradePrice) * 0.6f;
 
         SellPrice = (int)_SellPrice;
 
@@ -252,7 +254,7 @@ public class Tower : MonoBehaviour
         // 중간에 취소 가능하게
 
         // 돈 감소
-        double _MovePrice = (Price + UpgradeCount * UpgradePrice) * 0.5;
+        float _MovePrice = (Price + UpgradeCount * UpgradePrice) * 0.5f;
 
 
         int MovePrice = (int)_MovePrice;
@@ -263,6 +265,24 @@ public class Tower : MonoBehaviour
         GameManager.instance.money -= MovePrice;
 
     }
+
+    public void Setstat(int _id)
+    {
+        TowerID = Tables.Tower.Get(_id)._ID;
+        TowerName = Tables.Tower.Get(_id)._Name;
+        AttackSpecialization = Tables.Tower.Get(_id)._AttackSepcialization;
+        TypeID = Tables.Tower.Get(_id)._Type;
+        Size = Tables.Tower.Get(_id)._Size;
+        AttackStat = Tables.Tower.Get(_id)._Attack;
+        SpeedStat = Tables.Tower.Get(_id)._Speed;
+        ProjectileSpeed = Tables.Tower.Get(_id)._ProjectileSpeed;
+        UpgradeStat = Tables.Tower.Get(_id)._UpgradeStat;
+        UpgradeAmount = Tables.Tower.Get(_id)._UpgradeAmount;
+        UpgradePrice = Tables.Tower.Get(_id)._UpgradePrice;
+        Range = Tables.Tower.Get(_id)._Range;
+        Price = Tables.Tower.Get(_id)._Price;
+    }
+
 
     /*
     void OnDrawGizmosSelected()

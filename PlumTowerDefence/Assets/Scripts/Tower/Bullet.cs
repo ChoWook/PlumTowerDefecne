@@ -5,7 +5,7 @@ public class Bullet : MonoBehaviour
 {
     private GameObject target;            // 타겟
 
-    public GameObject ObjectPool;
+    //public GameObject ObjectPool;
 
     private double Damage;               // 타겟에게 가할 데미지
 
@@ -15,6 +15,11 @@ public class Bullet : MonoBehaviour
 
 
     public float Speed = 1f;
+
+    public void Awake()
+    {
+        
+    }
 
     public void Seek (GameObject _target, double _Damage, EAttackSepcialization _AttackSpecialization)
     {
@@ -56,9 +61,7 @@ public class Bullet : MonoBehaviour
 
     private void DestroyBullet()
     {
-        ObjectPool = GameObject.Find("ObjectPool");
-
-        ObjectPool.GetComponent<ObjectPools>().ReleaseObjectToPool(gameObject);
+        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
     }
 
 
