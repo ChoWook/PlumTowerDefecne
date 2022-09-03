@@ -36,9 +36,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    
-
-
     public void GetStat(EMonsterType monsterType)
     {
         int id = Tables.Monster.Get((int)monsterType)._ID;
@@ -62,35 +59,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator IE_PlayDeadAnimation()
     {
-        //GetComponent<BaseAniContoller>().DeadAnimation();
-
-        switch (monsterType)
-        {
-            case EMonsterType.Bet:
-                GetComponent<BatAniController>().DeadAnimation();
-                break;
-            case EMonsterType.Mushroom:
-                GetComponent<MushAniController>().DeadAnimation();
-                break;
-            case EMonsterType.Flower:
-                GetComponent<FlowerAniController>().DeadAnimation();
-                break;
-            case EMonsterType.Slime:
-                GetComponent<SlimeAniController>().DeadAnimation();
-                break;
-            case EMonsterType.Fish:
-                GetComponent<FishAniController>().TriggerAnimation();
-                break;
-            case EMonsterType.Pirate:
-                GetComponent<PirateAniController>().TriggerAnimation();
-                break;
-            case EMonsterType.Spider:
-                GetComponent<SpiderAniController>().TriggerAnimation();
-                break;
-            case EMonsterType.Bear:
-                GetComponent<BearAniController>().TriggerAnimation();
-                break;
-        }
+        GetComponent<BaseAniContoller>().DeadAnimation();
         yield return new WaitForSeconds(1);
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
     }

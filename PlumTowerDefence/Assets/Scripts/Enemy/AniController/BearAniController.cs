@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BearAniController : MonoBehaviour
+public class BearAniController : BaseAniContoller
 {
     Animator animator;
 
@@ -15,7 +15,17 @@ public class BearAniController : MonoBehaviour
         deadEffect1 = transform.GetChild(1).gameObject;
         deadEffect1.SetActive(false);
     }
+    public override void DeadAnimation()
+    {
+        TriggerAnimation();
+    }
 
+    public override void InitAnimation()
+    {
+        anim1.SetActive(true);
+        deadEffect1.SetActive(false);
+        
+    }
 
     public void TriggerAnimation()
     {
