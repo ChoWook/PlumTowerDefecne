@@ -762,7 +762,8 @@ public class Tables : ScriptableObject
 
     public class Tower : CSVFile<Tower>
     {
-        public string _Name;
+        public ETowerName _Name;
+        public string _Korean;
         public EAttackSepcialization _AttackSepcialization;
         public ETowerType _Type;
         public int _Size;
@@ -776,6 +777,7 @@ public class Tables : ScriptableObject
         public float _Range;
         public int _Price;
 
+        static Dictionary<ETowerName, Tower> _MapWithTower = new();
         public static void Load()
         {
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/Tower");
@@ -798,7 +800,8 @@ public class Tables : ScriptableObject
                 int idx = 0;
 
                 Tmp._ID = int.Parse(data[idx++]);
-                Tmp._Name = data[idx++];
+                Tmp._Name = Enum.Parse<ETowerName>(data[idx++]);
+                Tmp._Korean = data[idx++];
                 Tmp._AttackSepcialization = Enum.Parse<EAttackSepcialization>(data[idx++]);
                 Tmp._Type = Enum.Parse<ETowerType>(data[idx++]);
                 Tmp._Size = int.Parse(data[idx++]);
@@ -813,7 +816,15 @@ public class Tables : ScriptableObject
                 Tmp._Price = int.Parse(data[idx++]);
 
                 Tmp.Add(Tmp);
+                _MapWithTower.Add(Tmp._Name, Tmp);
             }
+        }
+
+        public static Tower Get(ETowerName name)
+        {
+            Tower tmp;
+            _MapWithTower.TryGetValue(name, out tmp);
+            return tmp;
         }
     }
 }

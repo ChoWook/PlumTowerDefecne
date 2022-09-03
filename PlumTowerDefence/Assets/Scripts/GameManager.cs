@@ -159,21 +159,40 @@ public class GameManager : MonoBehaviour
         set { _isClickedTower = value; }
     }
 
-    private List<int> _coupon = new List<int>();
 
-    public void AddCoupon(int obj)
+    // 타워 무료 쿠폰
+    private List<int> _TowerCoupon;
+
+    public void InitCoupon()
     {
-        _coupon.Add(obj);
+        _TowerCoupon = new List<int>();
+        // TODO 타워 ENUM 생기면 바꿔야 함
+        for (int i = 0; i <= 10; i++)
+        {
+            _TowerCoupon.Add(0);
+        }
     }
 
-    public void RemoveCoupon(int obj)
+    public void AddCoupon(int idx)
     {
-        _coupon.RemoveAt(0);
+        _TowerCoupon[idx]++;
     }
 
-    public bool HasCoupon()
+    public void RemoveCoupon(int idx)
     {
-        if (_coupon.Count == 0)
+        if (HasCoupon(idx))
+        {
+            _TowerCoupon[idx]--;
+        }
+        else
+        {
+            Debug.LogWarning("RemoveCoupon Error");
+        }
+    }
+
+    public bool HasCoupon(int idx)
+    {
+        if (_TowerCoupon[idx] == 0)
             return false;
         else
             return true;
