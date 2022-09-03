@@ -58,6 +58,13 @@ public class GameManager : MonoBehaviour
     {
         _moneyChangeCallBack += moneyChangeCallBack;
     }
+
+    private CallBack _gameOverCallBack;
+
+    public void AddGameOverCallBack(CallBack gameOverCallBack)
+    {
+        _gameOverCallBack += gameOverCallBack;
+    }
     
     
     
@@ -95,6 +102,10 @@ public class GameManager : MonoBehaviour
         {
             _currentHp = value;
             _hpChangeCallBack?.Invoke();
+            if (currentHp <= 0)
+            {
+                _gameOverCallBack?.Invoke();
+            }
         }
     }
     private int _money = 100;
@@ -148,14 +159,14 @@ public class GameManager : MonoBehaviour
         set { _isClickedTower = value; }
     }
 
-    private List<GameObject> _coupon = new List<GameObject>();
+    private List<int> _coupon = new List<int>();
 
-    public void AddCoupon(GameObject obj)
+    public void AddCoupon(int obj)
     {
         _coupon.Add(obj);
     }
 
-    public void RemoveCoupon(GameObject obj)
+    public void RemoveCoupon(int obj)
     {
         _coupon.RemoveAt(0);
     }

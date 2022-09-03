@@ -42,9 +42,10 @@ public class UIManager : MonoBehaviour
         ObstacleUI.SetActive(true);
     }
 
-    public void ShowGroundTowerUI()
+    public void ShowGroundTowerUI(Tower tower)
     {
         UIClear();
+        GroundTowerUI.GetComponent<UpdateGroundTowerUI>().SetTower(tower);
         GroundTowerUI.SetActive(true);
     }
 }
