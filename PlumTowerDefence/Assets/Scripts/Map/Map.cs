@@ -168,6 +168,9 @@ public class Map : MonoBehaviour
 
         // 처음에 열려 있는 그라운드를 제외하고 전부 비활성화
         InitGrounds();
+
+        GameManager.instance.unitTileSize = GetTileInMap(new Pos { PosX = 1, PosY = 0 }).transform.position.x
+            - GetTileInMap(new Pos { PosX = 0, PosY = 0 }).transform.position.x;
     }
 
     // 특정한 좌표에 Ground 생성

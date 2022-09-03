@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Obstacle : MonoBehaviour, IPointerClickHandler
+public class Obstacle : MonoBehaviour
 {
     [SerializeField] GameObject[] Bodys;
 
@@ -61,7 +61,7 @@ public class Obstacle : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick()
     {
         Debug.Log("Obstacle Click");
     }

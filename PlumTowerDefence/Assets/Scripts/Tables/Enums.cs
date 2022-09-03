@@ -103,9 +103,9 @@ public enum EAttackSepcialization
 
 public enum EUpgradeStat
 {
-    AttackStat = 1,
-    AbilityStat = 2,
-    SpeedStat = 3,
+    Attack = 1,
+    Ability = 2,
+    Speed = 3,
 }
 
 public enum EPropertyType

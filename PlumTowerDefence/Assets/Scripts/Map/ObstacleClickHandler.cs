@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ObstacleClickHandler : MonoBehaviour
+public class ObstacleClickHandler : MonoBehaviour, IPointerClickHandler
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Obstacle Parent;
 
-    // Update is called once per frame
-    void Update()
+    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        
+        if(Parent != null)
+        {
+            Parent.OnPointerClick();
+        }
     }
 }
