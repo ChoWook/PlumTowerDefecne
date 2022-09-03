@@ -45,6 +45,13 @@ public class TowerButtonGenerate : MonoBehaviour
         {
             return;
         }
+
+        // 돈이 적으면 리턴
+        //if(GameManager.instance.money < ???.price)
+        //{
+        //    return;
+        //}
+
         StartCoroutine(IE_FallowingMouse());
     }
 
@@ -154,6 +161,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
             SelectedTower.transform.position = tile.transform.position;
 
+            // TODO 타워의 사이즈가 매개변수로 들어가야 함
             tile.SetObjectOnTile(SelectedTower);
 
             SelectedTower = null;

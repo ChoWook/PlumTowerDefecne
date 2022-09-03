@@ -151,3 +151,18 @@ public enum ECategoryType
     Resource = 2,
     Passive = 3,
 }
+
+public enum ETowerName
+{
+    Arrow = 1,
+    Hourglass = 2,
+    Poison = 3,
+    Flame = 4,
+    AttackBuff = 5,
+    SpeedBuff = 6,
+    Laser = 7,
+    Missile = 8,
+    Electric = 9,
+    Gatling = 10,
+    Cannon = 11,
+}
