@@ -6,18 +6,18 @@ public class Enemy : MonoBehaviour
 {
     // 기본 Enemy 스탯, 속성, 특성 Class만들기
 
-    protected float BaseHP;               // 데이터테이블에서 가져오기
+    protected float BaseHP;               
     float MaxHP;
     public float CurrentHP;
-    protected float BaseShield;           // 데이터테이블에서 가져오기
+    protected float BaseShield;           
     float MaxShield;
 
     public float CurrentShield;
     bool ShieldOn = true;
     float Armor;
-    protected float BaseArmor;            // 데이터테이블에서 가져오기
-    public float BaseSpeed;     // 데이터테이블에서 가져오기
-    public float Speed;             // EnemyMovement 에서 조정
+    protected float BaseArmor;            
+    public float BaseSpeed;               
+    public float Speed;                     
     public bool IsAlive = true;
 
     private int[] currentLevel = new int[8];
@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void GetStat(EMonsterType monsterType)
+    public void GetStat()
     {
         int id = Tables.Monster.Get((int)monsterType)._ID;
         BaseHP = Tables.Monster.Get(id)._Hp;
@@ -65,27 +65,41 @@ public class Enemy : MonoBehaviour
     }
 
 
-    
 
-    public void TakeDamage(float damage)
+
+    public void TakeDamage(float damage, EAttackSpecialization type)
     {
-
+        float hpSpecial = 1.0f;
+        float shieldSpecial = 1.0f;
+        float penetrationOn = 1.0f;
+        switch (type)
+        {
+            case EAttackSpecialization.Health:
+                hpSpecial = 1.2f;
+                break;
+            case EAttackSpecialization.Shield:
+                shieldSpecial = 1.2f;
+                break;
+            case EAttackSpecialization.Defense:
+                penetrationOn = 0;
+                break;
+        }
         if (ShieldOn == true)                                      // 실드가 있는 경우
         {
             float DamageProtect = CurrentShield;
-            CurrentShield -= damage * 0.01f * (100 - Armor) * 0.9f; // 현재 실드를 깐다
+            CurrentShield -= damage * 0.01f * (100 - Armor * penetrationOn) * 0.9f * shieldSpecial; // 현재 실드를 깐다
 
             if (CurrentShield <= 0)                               // 방어구가 다 까지면 
             {
                 ShieldOn = false;                                 // 방어구 제거
                 damage -= DamageProtect;                          // 데미지 경감
-                CurrentHP -= damage * 0.01f * (100 - Armor);
+                CurrentHP -= damage * 0.01f * (100 - Armor * penetrationOn) * hpSpecial;
                 CurrentShield = 0;
             }
         }
         else                                                      // 실드가 없는 경우
         {
-            CurrentHP -= damage * 0.01f * (100 - Armor);
+            CurrentHP -= damage * 0.01f * (100 - Armor * penetrationOn) * hpSpecial;
         }
         //Debug.Log("Shield: " + CurrentShield + "HP: " + CurrentHP);
 
@@ -105,7 +119,7 @@ public class Enemy : MonoBehaviour
         }
         GetComponent<EnemyMovement>().MoveSpeed = 0;
         //Debug.Log("Killed Enemy");
-        StartCoroutine(IE_PlayDeadAnimation());                                         // 시체패는거 없애기
+        StartCoroutine(IE_PlayDeadAnimation());                                         
     }
 
     PropertyType MyProperty;
@@ -237,7 +251,12 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void EnemyLevelUp(EMonsterType monsterType)        // waveNumber
+    public void AddSpeciality()
+    {
+
+    }
+
+    public void EnemyLevelUp()        // waveNumber
     {                                   //체력, 방어구 10% 증가
         int enemySpawnCount = EnemySpawner.EnemySpawnCounts[monsterType];
         Debug.Log("enemySpawnCount: " + enemySpawnCount);
@@ -278,15 +297,15 @@ public class Enemy : MonoBehaviour
         Debug.Log("ok");
         while (true)
         {
-            TakeDamage(damage);
+            //TakeDamage(damage);
             yield return new WaitForSeconds(time);
         }
     }
 
     public void InitStat()
     {
-        GetStat(monsterType);
-        EnemyLevelUp(monsterType);
+        GetStat();
+        EnemyLevelUp();
         SetStat();
         transform.tag = "Enemy";
         IsAlive = true;
