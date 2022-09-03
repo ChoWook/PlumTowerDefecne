@@ -28,7 +28,6 @@ public class InGameButtonManager : MonoBehaviour
     
     private void Awake()
     {
-        ChangeText();
         levelText = Texts[0].GetComponent<TextMeshProUGUI>();
         xpText = Texts[1].GetComponent<TextMeshProUGUI>();
         hpText = Texts[2].GetComponent<TextMeshProUGUI>();
@@ -43,12 +42,12 @@ public class InGameButtonManager : MonoBehaviour
         GameManager.instance.AddMoneyChangeCallBack(ChangeMoneyText);
     }
 
-    private void ChangeText()
+    private void Start()
     {
-        for (int i = 4; i < Texts.Length; i++)  //텍스트 변경, HP,Money,Level등 변경될 값들은 추후 변경예정
-        {
-            Texts[i].GetComponent<TextMeshProUGUI>().text = Tables.StringUI.Get(Texts[i].transform.name)._Korean;
-        }
+        ChangeLevelText();
+        ChangeXpText();
+        ChangeHpText();
+        ChangeMoneyText();
     }
 
     private void ChangeLevelText()

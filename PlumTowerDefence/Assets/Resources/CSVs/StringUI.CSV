@@ -1,4 +1,4 @@
-ID,Code,Korean
+﻿ID,Code,Korean
 int,StringUI,String
 1,Game_Title,PLUM TOWER DEFESNSE
 2,Game_Start,게임시작
@@ -42,3 +42,6 @@ int,StringUI,String
 40,Show_Monster_UI,몬스터UI표시
 41,Music,배경음악
 42,Sound,효과음
+43,Obstacle_Remove_Cost,제거비용 : {0}
+44,Obstacle_Cancel,제거취소
+45,Obstacle_Remove,제거하기

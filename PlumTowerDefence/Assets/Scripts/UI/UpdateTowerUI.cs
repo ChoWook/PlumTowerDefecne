@@ -16,6 +16,16 @@ public class UpdateTowerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TowerDemolish;
     private Tower _tower;
 
+    [SerializeField] private Texture2D targetCursor;
+    
+    private void Update()
+    {
+        if (GameManager.instance.isClickedTower && Input.GetKeyDown(KeyCode.A))
+        {
+            ChangeMouseCursor();
+        }
+    }
+
     public void SetTower(Tower tower)
     {
         _tower = tower;
@@ -38,5 +48,10 @@ public class UpdateTowerUI : MonoBehaviour
         TowerDemolish.text =
             string.Format(Tables.StringUI.Get(TowerDemolish.gameObject.name)._Korean, _tower.SellPrice);
             */
+    }
+
+    public void ChangeMouseCursor()
+    {
+        Cursor.SetCursor(targetCursor,Vector2.zero, CursorMode.ForceSoftware);
     }
 }

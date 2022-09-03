@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class InGameUpgradeSetting : MonoBehaviour
 {
     /// <summary>
-    /// 인게임 내에서 증강첵 보유하는 스크립트
+    /// 인게임 내에서 증강체가 보유하는 스크립트
     /// </summary>
     
     GameObject SelectButton;

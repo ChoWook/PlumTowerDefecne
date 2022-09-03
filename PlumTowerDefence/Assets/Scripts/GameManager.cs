@@ -140,4 +140,31 @@ public class GameManager : MonoBehaviour
         } 
     }
 
+    private bool _isClickedTower = false;
+
+    public bool isClickedTower
+    {
+        get { return _isClickedTower; }
+        set { _isClickedTower = value; }
+    }
+
+    private List<GameObject> _coupon = new List<GameObject>();
+
+    public void AddCoupon(GameObject obj)
+    {
+        _coupon.Add(obj);
+    }
+
+    public void RemoveCoupon(GameObject obj)
+    {
+        _coupon.RemoveAt(0);
+    }
+
+    public bool HasCoupon()
+    {
+        if (_coupon.Count == 0)
+            return false;
+        else
+            return true;
+    }
 }

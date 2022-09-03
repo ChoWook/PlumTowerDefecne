@@ -2172,6 +2172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1222077311}
   - component: {fileID: 1222077312}
+  - component: {fileID: 1222077313}
   m_Layer: 5
   m_Name: Upgrade
   m_TagString: Untagged
@@ -2219,6 +2220,18 @@ MonoBehaviour:
   _panel: {fileID: 615035678}
   xp: {fileID: 523610962}
   Ease: 11
+--- !u!114 &1222077313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222077310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a71d68ed52cdf42a4838f0979f6360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1223722118 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7432890430479017693, guid: ad77979ca83c54945b965e2bf4c8c16a,
@@ -2231,7 +2244,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 606416085}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2068158997}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adf2522a30f19f841ac8e441623fc0a2, type: 3}
@@ -3187,6 +3200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1849904126}
+  - component: {fileID: 1849904127}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -3220,6 +3234,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1849904127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849904125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a71d68ed52cdf42a4838f0979f6360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1896332314
 GameObject:
   m_ObjectHideFlags: 0
@@ -3704,6 +3730,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016351093}
   m_CullTransparentMesh: 1
+--- !u!1 &2068158997 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7432890430479017690, guid: ad77979ca83c54945b965e2bf4c8c16a,
+    type: 3}
+  m_PrefabInstance: {fileID: 606416085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2068159000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068158997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a71d68ed52cdf42a4838f0979f6360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2105051023
 GameObject:
   m_ObjectHideFlags: 0

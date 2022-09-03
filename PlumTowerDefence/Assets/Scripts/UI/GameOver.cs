@@ -11,19 +11,10 @@ public class GameOver : MonoBehaviour
     /// </summary>
 
     [SerializeField] private GameObject[] texts;
-    
-    private void ChangeText()
-    {
-        for (int i = 0; i < texts.Length; i++)     //버튼 텍스트 변경
-        {
-            texts[i].GetComponent<TextMeshProUGUI>().text = Tables.StringUI.Get(texts[i].gameObject.name)._Korean;
-        }
-    }
 
     private void Awake()
     {
         gameObject.SetActive(false);
-        ChangeText();
     }
 
     public void ShowGameOverUI()
