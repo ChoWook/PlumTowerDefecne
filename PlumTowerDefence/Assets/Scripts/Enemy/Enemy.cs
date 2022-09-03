@@ -20,10 +20,19 @@ public class Enemy : MonoBehaviour
     public float Speed;             // EnemyMovement 에서 조정
     public bool IsAlive = true;
 
+    private int[] currentLevel = new int[8];
+        
     float Enforced = 1.0f;          // 강화특성
 
-    Animator animator;
+    Animator animator;  
 
+    private void Awake()
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            currentLevel[i] = 1;
+        }
+    }
     public void GetStat(EMonsterType monsterType)
     {
         int id = Tables.Monster.Get((int)monsterType)._ID;
@@ -31,24 +40,18 @@ public class Enemy : MonoBehaviour
         BaseShield = Tables.Monster.Get(id)._Sheild;
         BaseArmor = Tables.Monster.Get(id)._Armor;
         BaseSpeed = Tables.Monster.Get(id)._Speed;
+        MaxHP = BaseHP;
+        MaxShield = BaseShield;
+        Speed = BaseSpeed;
+        Armor = BaseArmor;
+        
     }
     
     public void SetStat()
     {
-        MaxHP = BaseHP;
-        MaxShield = BaseShield;
         CurrentHP = MaxHP;
         CurrentShield = MaxShield;
-        Armor = BaseArmor;
-        Speed = BaseSpeed;
-    }
-
-    private void OnEnable()
-    {
-        
-        
-        //GetStat();
-        //SetStat();
+        Debug.Log("CurrentHP: " + CurrentHP + " CurrentShield: " + CurrentShield + " Armor: " + Armor + " Speed: " + Speed);
     }
 
     IEnumerator IE_TriggerAnimation()
@@ -232,15 +235,40 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void EnemyLevelUp(int level)        // CurrentLevel 인수로 받기
+    public void EnemyLevelUp(EMonsterType monsterType)        // waveNumber
     {                                   //체력, 방어구 10% 증가
-        MaxHP += BaseHP * 0.10f;
-        MaxShield += BaseShield * 0.10f;
+        int enemySpawnCount = EnemySpawner.EnemySpawnCounts[monsterType];
+        Debug.Log("enemySpawnCount: " + enemySpawnCount);
+        int id = (int)monsterType;
 
-        if (level > 3)                  // lv 4 이상부터 방어력도 증가
+        if(enemySpawnCount == 1)
         {
-            Armor += BaseArmor * 0.1f;
+            currentLevel[id - 1] = 1;
         }
+        else if(enemySpawnCount == 2 || enemySpawnCount == 3)
+        {
+            currentLevel[id - 1] = 2;
+        }
+        else if(enemySpawnCount == 4 || enemySpawnCount == 5)
+        {
+            currentLevel[id - 1] = 3;
+        }
+        else if(enemySpawnCount == 6 || enemySpawnCount == 7)
+        {
+            currentLevel[id - 1] = 4;
+        }
+        else if(enemySpawnCount >= 8)
+        {
+            currentLevel[id - 1] = 5;
+        }
+
+        Debug.Log(monsterType + " CurrentLevel: " + currentLevel[id - 1]);
+
+        MaxHP += BaseHP * Tables.MonsterLevel.Get(currentLevel[id - 1])._Hp * currentLevel[id-1] / 100;
+        MaxShield += BaseShield * Tables.MonsterLevel.Get(currentLevel[id -1])._Sheild * currentLevel[id - 1] / 100;
+        Armor += BaseArmor * Tables.MonsterLevel.Get(currentLevel[id -1])._Armor * currentLevel[id - 1] / 100;
+
+
     }
 
     public void DealDamageForSeconds(float damage)
@@ -259,20 +287,4 @@ public class Enemy : MonoBehaviour
         }
     }
    
-
-
-
-    private void Awake()
-    {
-        
-        
-        //ApplyPropertyType();
-        //ApplySpeciality2Type();
-        //ApplySpeciality1Type();
-
-        //if(특정 웨이브 조건 달성){
-        // EnemyLevelUp(현재레벨) //UI 요소 필요
-        //}
-    }
-    
 }

@@ -12,6 +12,8 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] float OpenTime;
 
+    int RewardMoney = 0;
+
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         StartCoroutine(IE_CapOpenAnimation());
@@ -23,8 +25,18 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
 
         yield return new WaitForSeconds(OpenTime * 1.5f);
 
-        // TODO 상자를 열었을 때 행할 행동 만들어야 함
+        GetReward();
 
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+    }
+
+    void GetReward()
+    {
+        RewardMoney = (int)(GameManager.instance.level
+            * Tables.MapGimmickResource.Get(EResourceType.Magnetite)._MiningMoney
+            * 0.8f);
+
+        GameManager.instance.money += RewardMoney;
+
     }
 }

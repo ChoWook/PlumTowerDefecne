@@ -26,7 +26,7 @@ public class Obstacle : MonoBehaviour, IPointerClickHandler
     {
         ObstacleType = Sender;
 
-        DeletePrice = Tables.MapGimmickObstacle.Get(ObstacleType)._Removal;
+        //DeletePrice = Tables.MapGimmickObstacle.Get(ObstacleType)._Removal;
 
         UpdateObstacleType();
     }
@@ -68,10 +68,12 @@ public class Obstacle : MonoBehaviour, IPointerClickHandler
 
     public void DeleteObstacle()
     {
-        // int gold = GameManager.instance.Gold;
-        // if( gold >= DeletePrice){
-        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
-        //}
+        if(GameManager.instance.money >= DeletePrice){
+
+            GameManager.instance.money -= DeletePrice;
+
+            ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+        }
 
     }
 

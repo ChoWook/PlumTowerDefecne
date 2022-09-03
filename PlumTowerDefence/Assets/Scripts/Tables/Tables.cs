@@ -327,6 +327,8 @@ public class Tables : ScriptableObject
         public float _Probability;
         public int _MiningMoney;
 
+        public static Dictionary<EResourceType, MapGimmickResource> _MapWithType = new();
+
         public static void Load()
         {
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MapGimmickResource");
@@ -355,8 +357,15 @@ public class Tables : ScriptableObject
                 Tmp._MiningMoney = int.Parse(data[idx++]);
 
                 Tmp.Add(Tmp);
-
+                _MapWithType.Add(Tmp._Type, Tmp);
             }
+        }
+
+        public static MapGimmickResource Get(EResourceType Sender)
+        {
+            MapGimmickResource tmp;
+            _MapWithType.TryGetValue(Sender, out tmp);
+            return tmp;
         }
     }
 

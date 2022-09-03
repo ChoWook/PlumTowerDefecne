@@ -7,6 +7,6 @@ public class ClearUI : MonoBehaviour, IPointerClickHandler
 {
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        UIManager.instance.UIClear();
+        UIManager.instance?.UIClear();
     }
 }

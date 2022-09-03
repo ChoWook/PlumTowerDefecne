@@ -22,7 +22,7 @@ public class Tower : MonoBehaviour
     protected EAttackSepcialization AttackSpecialization;                      // 공격 속성(데이터테이블)
     protected ETowerType TypeID;                             // 속성 ID (데이터테이블)
     protected int Size;                                // 타워 크기 (데이터테이블)
-    protected float AttackStat;                           // 공격력 스텟(데이터테이블)
+    public float AttackStat;                           // 공격력 스텟(데이터테이블)
     protected int AbilityStat;  
 
     public Transform PartToRotate;                         //회전 오브젝트
@@ -37,11 +37,11 @@ public class Tower : MonoBehaviour
     public bool Selected = false;                           //타워 선택 여부
     public bool Fixed = false;                              //타워 설치 여부
 
-    // public int AttackPriorityID =0;                         //우선 공격 속성 ID
+    public int AttackPriorityID =0;                         //우선 공격 속성 ID
 
     protected EUpgradeStat UpgradeStat;                                 // 업그레이드 대상
     protected int UpgradePrice;                          // 업그레이드 가격(데이터테이블)
-    private int UpgradeCount = 0;                           // 업그레이드 횟수
+    public int UpgradeCount = 0;                           // 업그레이드 횟수
     protected float UpgradeAmount;                          // 업그레이드 강화량
 
     protected int Price;                                // 구매 가격(데이터테이블)

@@ -20,7 +20,9 @@ public class Tile : MonoBehaviour
 
     public ETileType TileType;
     
-    public Pos _Pos = new();
+    public Pos _GroundPos = new();
+
+    public Pos _MapPos = new();
 
     public int WaypointIndex = -1;
 
@@ -42,7 +44,7 @@ public class Tile : MonoBehaviour
 #if UNITY_EDITOR
     private void Update()
     {
-        PosText.text = string.Format("({0}, {1})\n{2}", _Pos.PosX, _Pos.PosY, (int)TileType);
+        PosText.text = string.Format("({0}, {1})\n{2}", _GroundPos.PosX, _GroundPos.PosY, (int)TileType);
 
         Color NewColor = Color.yellow;
 
@@ -78,7 +80,7 @@ public class Tile : MonoBehaviour
 
     public Vector2 CalculateDistance(Pos another)
     {
-        return new Vector2(another.PosX - _Pos.PosX, another.PosY - _Pos.PosY);
+        return new Vector2(another.PosX - _GroundPos.PosX, another.PosY - _GroundPos.PosY);
     }
 
     public bool IsResourceOnTile()
@@ -100,7 +102,7 @@ public class Tile : MonoBehaviour
 
     void UpdateTileMateral()
     {
-        if(TileType == ETileType.Land)
+        if(TileType == ETileType.Land || TileType == ETileType.House)
         {
             if(LandTileMaterals.Length != 0)
             {
@@ -116,9 +118,33 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public void SetObjectOnTile(GameObject go)
+    public void SetObjectOnTile(GameObject go, int size = 1)
     {
+        if(size < Tables.GlobalSystem.Get("Tower_Size_Min")._Value || size > Tables.GlobalSystem.Get("Tower_Size_Max")._Value)
+        {
+            return;
+        }
+
         _ObjectOnTile = go;
+
+        //  TODO 사이즈만큼 주변 타일들도 이 오브젝트를 참조해야 함
+        if(size != 1)
+        {
+            Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.R])).SetObjectOnTile(go);
+            Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.DR])).SetObjectOnTile(go);
+            Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.D])).SetObjectOnTile(go);
+
+
+            // size == 3일 때 왼쪽 위, 위, 오른쪽 위, 왼쪽, 왼쪽 아래
+            if (size == 3)
+            {
+                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.UL])).SetObjectOnTile(go);
+                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.U])).SetObjectOnTile(go);
+                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.UR])).SetObjectOnTile(go);
+                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.L])).SetObjectOnTile(go);
+                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.DL])).SetObjectOnTile(go);
+            }
+        }
     }
 
     public GameObject GetObjectOnTile()

@@ -120,7 +120,7 @@ public class MapGimmicSpawner : MonoBehaviour
                         continue;
                     }
 
-                    Vector2 dis = EmptyLands[ChoosenSet[i]].CalculateDistance(EmptyLands[ChoosenSet[j]]._Pos);
+                    Vector2 dis = EmptyLands[ChoosenSet[i]].CalculateDistance(EmptyLands[ChoosenSet[j]]._GroundPos);
                     if ((int)dis.x == 1 && (int)dis.y == 0)
                     {
                         r = j;
