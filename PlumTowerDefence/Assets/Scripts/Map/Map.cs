@@ -483,7 +483,7 @@ public class Map : MonoBehaviour
                 continue;
             }
 
-            if(NextTile.TileType == ETileType.AttackRoute && NextTile.IsSelectedAttackRoute == false)
+            if(NextTile.CheckTileType(ETileType.AttackRoute) && NextTile.IsSelectedAttackRoute == false)
             {
                 NextDirs.Add(OutDir);
             }

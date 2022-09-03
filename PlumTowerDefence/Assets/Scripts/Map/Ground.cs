@@ -108,15 +108,15 @@ public class Ground : MonoBehaviour
 
             Tiles[i]._MapPos.PosY = _Pos.PosY * 7 - (Tiles[i]._GroundPos.PosX - 3);
 
-            Tiles[i].TileType = Tables.GroundPattern.Get(id)._Tiles[i];
+            Tiles[i].SetTileType(Tables.GroundPattern.Get(id)._Tiles[i]);
 
             Tiles[i].ParentGround = this;
 
-            if(Tiles[i].TileType == ETileType.Land)
+            if(Tiles[i].CheckTileType(ETileType.Land))
             {
                 EmptyLandTileCount++;
             }
-            else if(Tiles[i].TileType == ETileType.House)
+            else if(Tiles[i].CheckTileType(ETileType.House))
             {
                 HouseTileIndex = i;
             }
@@ -180,7 +180,7 @@ public class Ground : MonoBehaviour
 
         for (int i = 0; i < Tiles.Length; i++)
         {
-            if (Tiles[i].TileType == ETileType.Land && Tiles[i].GetObjectOnTile() == null)
+            if (Tiles[i].CheckTileType(ETileType.Land) && Tiles[i].GetObjectOnTile() == null)
             {
                 EmptyLandTiles.Add(Tiles[i]);
             }

@@ -764,7 +764,7 @@ public class Tables : ScriptableObject
     {
         public ETowerName _Name;
         public string _Korean;
-        public EAttackSepcialization _AttackSepcialization;
+        public EAttackSpecialization _AttackSepcialization;
         public ETowerType _Type;
         public int _Size;
         public float _Attack;
@@ -802,7 +802,7 @@ public class Tables : ScriptableObject
                 Tmp._ID = int.Parse(data[idx++]);
                 Tmp._Name = Enum.Parse<ETowerName>(data[idx++]);
                 Tmp._Korean = data[idx++];
-                Tmp._AttackSepcialization = Enum.Parse<EAttackSepcialization>(data[idx++]);
+                Tmp._AttackSepcialization = Enum.Parse<EAttackSpecialization>(data[idx++]);
                 Tmp._Type = Enum.Parse<ETowerType>(data[idx++]);
                 Tmp._Size = int.Parse(data[idx++]);
                 Tmp._Attack = float.Parse(data[idx++]);

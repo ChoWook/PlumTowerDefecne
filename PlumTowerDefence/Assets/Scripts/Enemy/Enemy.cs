@@ -62,6 +62,8 @@ public class Enemy : MonoBehaviour
 
     IEnumerator IE_PlayDeadAnimation()
     {
+        //GetComponent<BaseAniContoller>().DeadAnimation();
+
         switch (monsterType)
         {
             case EMonsterType.Bet:
@@ -116,7 +118,7 @@ public class Enemy : MonoBehaviour
         {
             CurrentHP -= damage * 0.01f * (100 - Armor);
         }
-        Debug.Log("Shield: " + CurrentShield + "HP: " + CurrentHP);
+        //Debug.Log("Shield: " + CurrentShield + "HP: " + CurrentHP);
 
         if (CurrentHP <= 0)
         {
@@ -133,7 +135,7 @@ public class Enemy : MonoBehaviour
             GameManager.instance.currentEnemyNumber--;
         }
         GetComponent<EnemyMovement>().MoveSpeed = 0;
-        Debug.Log("Killed Enemy");
+        //Debug.Log("Killed Enemy");
         StartCoroutine(IE_PlayDeadAnimation());                                         // 시체패는거 없애기
     }
 
@@ -318,6 +320,7 @@ public class Enemy : MonoBehaviour
         EnemyLevelUp(monsterType);
         SetStat();
         transform.tag = "Enemy";
+        IsAlive = true;
     }
    
 }

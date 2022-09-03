@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 
     //private int AttackPropertyID;        // 속성 아이디
 
-    private EAttackSepcialization AttackSepcialization; // 공격 종류
+    private EAttackSpecialization AttackSepcialization; // 공격 종류
 
 
     public float Speed = 1f;
@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
         
     }
 
-    public void Seek (GameObject _target, double _Damage, EAttackSepcialization _AttackSpecialization)
+    public void Seek (GameObject _target, double _Damage, EAttackSpecialization _AttackSpecialization)
     {
         target = _target;
         Damage = _Damage;

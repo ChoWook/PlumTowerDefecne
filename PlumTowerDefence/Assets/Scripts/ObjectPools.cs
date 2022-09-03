@@ -36,8 +36,8 @@ public class ObjectPools : MonoBehaviour
     {
         if (!pooledObjects.ContainsKey(poolPrefabs[idx].name))
         {
-            List<GameObject> newList = new List<GameObject>();
-            pooledObjects.Add(poolPrefabs[idx].name, newList);
+            List<GameObject> NewList = new();
+            pooledObjects.Add(poolPrefabs[idx].name, NewList);
             NameToIndex.Add(poolPrefabs[idx].name, idx);
         }
 
@@ -61,8 +61,9 @@ public class ObjectPools : MonoBehaviour
                     return pooledObjects[_name][i];
                 }
             }
-		
-	        // 용량이 꽉차 새로운 오브젝트를 생성할 필요가 생김
+            
+
+            // 용량이 꽉차 새로운 오브젝트를 생성할 필요가 생김
             int beforeCreateCount = pooledObjects[_name].Count;
 
             CreatePoolObjects(NameToIndex[_name]);

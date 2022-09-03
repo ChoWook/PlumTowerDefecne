@@ -17,8 +17,6 @@ public class Tile : MonoBehaviour
     [SerializeField] Material[] AttackRouteTileMaterials;
 
     [SerializeField] MeshRenderer PlaneMeshRenderer;
-
-    public ETileType TileType;
     
     public Pos _GroundPos = new();
 
@@ -36,11 +34,14 @@ public class Tile : MonoBehaviour
 
     public Ground ParentGround;
 
+    ETileType _TileType;
+
     int RandomLand = 0;
 
     int RandomAttackRoute = 0;
 
 
+    /*
 #if UNITY_EDITOR
     private void Update()
     {
@@ -69,6 +70,7 @@ public class Tile : MonoBehaviour
         PosText.color = NewColor;
     }
 #endif
+    */
 
     public void OnEnable()
     {
@@ -100,9 +102,22 @@ public class Tile : MonoBehaviour
         return true;
     }
 
+    public void SetTileType(ETileType Sender)
+    {
+        _TileType = Sender;
+
+        UpdateTileMateral();
+    }
+
+    public bool CheckTileType(ETileType Sender)
+    {
+        return _TileType == Sender;
+    }
+
+
     void UpdateTileMateral()
     {
-        if(TileType == ETileType.Land || TileType == ETileType.House)
+        if(_TileType == ETileType.Land || _TileType == ETileType.House)
         {
             if(LandTileMaterals.Length != 0)
             {
