@@ -93,7 +93,7 @@ public enum ETowerType
     Lane = 6,
 }
 
-public enum EAttackSepcialization
+public enum EAttackSpecialization
 {
     Default = 1,
     Health = 2,

@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
     public void ShowObstacleUI(Obstacle Sender)
     {
         UIClear();
-        TowerUI.GetComponent<ObstacleUI>().SetObstacle(Sender);
+        ObstacleUI.GetComponent<ObstacleUI>().SetObstacle(Sender);
         ObstacleUI.SetActive(true);
     }
 

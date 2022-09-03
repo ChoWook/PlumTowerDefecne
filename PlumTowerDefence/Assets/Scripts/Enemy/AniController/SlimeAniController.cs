@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeAniController : MonoBehaviour
+public class SlimeAniController : BaseAniContoller
 {
     private GameObject run1;
     private GameObject dead1;
@@ -26,10 +26,17 @@ public class SlimeAniController : MonoBehaviour
         }
     }
 
-    public void DeadAnimation()
+    public override void DeadAnimation()
     {
         run1.SetActive(false);
         dead1.SetActive(true);
         deadEffect1.SetActive(true);
+    }
+
+    public override void InitAnimation()
+    {
+        run1.SetActive(true);
+        dead1.SetActive(false);
+        deadEffect1.SetActive(false);
     }
 }

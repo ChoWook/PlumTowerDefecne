@@ -95,6 +95,7 @@ public class EnemySpawner : MonoBehaviour
             EnemyArr[randEnemy]--;
             EnemyNumber--;
 
+            Debug.Log("Spawn Enemy");
             yield return ws;
         }
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
@@ -109,6 +110,8 @@ public class EnemySpawner : MonoBehaviour
         emove.Route = Route;
         emove.WaypointIndex = WaypointIndex;
         enemy.transform.position = SpawnPoint.position;
+
+        enemy.GetComponent<BaseAniContoller>().InitAnimation();
 
         enemy.GetComponent<Enemy>().monsterType = monsterType;
 

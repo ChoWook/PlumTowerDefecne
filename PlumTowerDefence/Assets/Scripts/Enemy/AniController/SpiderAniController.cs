@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpiderAniController : MonoBehaviour
+public class SpiderAniController : BaseAniContoller
 {
     Animator animator;
 
@@ -16,6 +16,17 @@ public class SpiderAniController : MonoBehaviour
         deadEffect1.SetActive(false);
     }
 
+    public override void DeadAnimation()
+    {
+        TriggerAnimation();
+    }
+
+    public override void InitAnimation()
+    {
+        anim1.SetActive(true);
+        deadEffect1.SetActive(false);
+
+    }
 
     public void TriggerAnimation()
     {

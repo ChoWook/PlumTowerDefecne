@@ -89,7 +89,7 @@ public class TowerButtonGenerate : MonoBehaviour
                     SelectedTower.transform.position = tile.transform.position;
 
                     // 타워를 짓지 못하는 곳은 오브젝트가 빨간색으로 변해야 함
-                    if (tile.TileType == ETileType.Land && tile.GetObjectOnTile() == null)
+                    if (tile.CheckTileType(ETileType.Land) && tile.GetObjectOnTile() == null)
                     {
                         ChangeSelectedTowerMaterial(true);
                     }
@@ -134,7 +134,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
                     // TODO 채굴 타워는 tile.ObjectOnTile이 자원이어야 함
 
-                    if (tile.TileType == ETileType.Land && tile.GetObjectOnTile() == null)
+                    if (tile.CheckTileType(ETileType.Land) && tile.GetObjectOnTile() == null)
                     {
                         IsAvailableTile = true;
                     }
