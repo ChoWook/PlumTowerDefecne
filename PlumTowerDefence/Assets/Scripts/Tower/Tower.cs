@@ -13,12 +13,13 @@ public class Tower : MonoBehaviour
     [Header("Attributes")]
 
     public float Range;                               // 공격 사거리
+    public float TileSize = 3f;                          //사거리 기준 단위
     public float SpeedStat;                       // 공격 속도 스텟(데이터테이블)
     private float FireCountdown = 0f;                      // 발사 카운트다운
 
     
 
-    public string TowerName = "화살타워";                  // 타워 이름
+    public ETowerName TowerName;                  // 타워 이름
     protected EAttackSepcialization AttackSpecialization;                      // 공격 속성(데이터테이블)
     protected ETowerType TypeID;                             // 속성 ID (데이터테이블)
     protected int Size;                                // 타워 크기 (데이터테이블)
@@ -79,10 +80,12 @@ public class Tower : MonoBehaviour
 
     private void OnEnable()
     {
+
+        float RealRange = Range * TileSize;
         //사거리 지정 Range 값 넣기
         Transform parent = transform.parent;
         transform.parent = null;
-        Boundary.transform.localScale = new Vector3(Range, 0.05f, Range);
+        Boundary.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
         transform.parent = parent;
 
         //StartCoroutine(IE_GetTargets());
@@ -94,9 +97,9 @@ public class Tower : MonoBehaviour
     void UpdateTarget()
     {
         
-        /*
-        SortAttackPriority();
-        */
+        
+        //SortAttackPriority();
+        
         
 
         
@@ -124,6 +127,7 @@ public class Tower : MonoBehaviour
         {
             Target = null;
         }
+        
         
     }
 
@@ -266,21 +270,23 @@ public class Tower : MonoBehaviour
 
     }
 
-    public void Setstat(int _id)
+    public void Setstat(ETowerName _TowerName)
     {
-        TowerID = Tables.Tower.Get(_id)._ID;
-        TowerName = Tables.Tower.Get(_id)._Name;
-        AttackSpecialization = Tables.Tower.Get(_id)._AttackSepcialization;
-        TypeID = Tables.Tower.Get(_id)._Type;
-        Size = Tables.Tower.Get(_id)._Size;
-        AttackStat = Tables.Tower.Get(_id)._Attack;
-        SpeedStat = Tables.Tower.Get(_id)._Speed;
-        ProjectileSpeed = Tables.Tower.Get(_id)._ProjectileSpeed;
-        UpgradeStat = Tables.Tower.Get(_id)._UpgradeStat;
-        UpgradeAmount = Tables.Tower.Get(_id)._UpgradeAmount;
-        UpgradePrice = Tables.Tower.Get(_id)._UpgradePrice;
-        Range = Tables.Tower.Get(_id)._Range;
-        Price = Tables.Tower.Get(_id)._Price;
+
+
+        TowerID = Tables.Tower.Get(_TowerName)._ID;
+        TowerName = Tables.Tower.Get(_TowerName)._Name;
+        AttackSpecialization = Tables.Tower.Get(_TowerName)._AttackSepcialization;
+        TypeID = Tables.Tower.Get(_TowerName)._Type;
+        Size = Tables.Tower.Get(_TowerName)._Size;
+        AttackStat = Tables.Tower.Get(_TowerName)._Attack;
+        SpeedStat = Tables.Tower.Get(_TowerName)._Speed;
+        ProjectileSpeed = Tables.Tower.Get(_TowerName)._ProjectileSpeed;
+        UpgradeStat = Tables.Tower.Get(_TowerName)._UpgradeStat;
+        UpgradeAmount = Tables.Tower.Get(_TowerName)._UpgradeAmount;
+        UpgradePrice = Tables.Tower.Get(_TowerName)._UpgradePrice;
+        Range = Tables.Tower.Get(_TowerName)._Range;
+        Price = Tables.Tower.Get(_TowerName)._Price;
     }
 
 

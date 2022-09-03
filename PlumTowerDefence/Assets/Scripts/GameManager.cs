@@ -159,6 +159,16 @@ public class GameManager : MonoBehaviour
         set { _isClickedTower = value; }
     }
 
+    //사거리 계산 단위
+
+    private float _unitTileSize;
+    
+    public float unitTileSize
+    {
+        get { return _unitTileSize; }
+        set { _unitTileSize = value; }
+    }
+
 
     // 타워 무료 쿠폰
     private List<int> _TowerCoupon;
@@ -197,4 +207,8 @@ public class GameManager : MonoBehaviour
         else
             return true;
     }
+
+    
+
+
 }
