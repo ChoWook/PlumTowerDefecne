@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
         
     float Enforced = 1.0f;          // 강화특성
 
+    public EMonsterType monsterType;
+
     Animator animator;  
 
     private void Awake()
@@ -33,6 +35,10 @@ public class Enemy : MonoBehaviour
             currentLevel[i] = 1;
         }
     }
+
+    
+
+
     public void GetStat(EMonsterType monsterType)
     {
         int id = Tables.Monster.Get((int)monsterType)._ID;
@@ -44,7 +50,7 @@ public class Enemy : MonoBehaviour
         MaxShield = BaseShield;
         Speed = BaseSpeed;
         Armor = BaseArmor;
-        
+        ShieldOn = true;
     }
     
     public void SetStat()
@@ -54,22 +60,41 @@ public class Enemy : MonoBehaviour
         Debug.Log("CurrentHP: " + CurrentHP + " CurrentShield: " + CurrentShield + " Armor: " + Armor + " Speed: " + Speed);
     }
 
-    IEnumerator IE_TriggerAnimation()
+    IEnumerator IE_PlayDeadAnimation()
     {
-        animator = gameObject.GetComponent<Animator>();
-        if (animator != null)
+        switch (monsterType)
         {
-            animator.SetTrigger("DeadTrigger");
-            GameManager.instance.currentEnemyNumber--;
-            GetComponent<EnemyMovement>().MoveSpeed = 0;
-            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-            ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+            case EMonsterType.Bet:
+                GetComponent<BatAniController>().DeadAnimation();
+                break;
+            case EMonsterType.Mushroom:
+                GetComponent<MushAniController>().DeadAnimation();
+                break;
+            case EMonsterType.Flower:
+                GetComponent<FlowerAniController>().DeadAnimation();
+                break;
+            case EMonsterType.Slime:
+                GetComponent<SlimeAniController>().DeadAnimation();
+                break;
+            case EMonsterType.Fish:
+                GetComponent<FishAniController>().TriggerAnimation();
+                break;
+            case EMonsterType.Pirate:
+                GetComponent<PirateAniController>().TriggerAnimation();
+                break;
+            case EMonsterType.Spider:
+                GetComponent<SpiderAniController>().TriggerAnimation();
+                break;
+            case EMonsterType.Bear:
+                GetComponent<BearAniController>().TriggerAnimation();
+                break;
         }
-        else
-            Debug.Log("Null");
-
-        
+        yield return new WaitForSeconds(1);
+        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
     }
+
+
+    
 
     public void TakeDamage(float damage)
     {
@@ -95,15 +120,21 @@ public class Enemy : MonoBehaviour
 
         if (CurrentHP <= 0)
         {
-            
             KillEnemy();
         }
     }
 
     void KillEnemy()
     {
-        IsAlive = false;
-        StartCoroutine(IE_TriggerAnimation());                                         // 시체패는거 없애기
+        transform.tag = "Untagged";
+        if(IsAlive == true)
+        {
+            IsAlive = false;
+            GameManager.instance.currentEnemyNumber--;
+        }
+        GetComponent<EnemyMovement>().MoveSpeed = 0;
+        Debug.Log("Killed Enemy");
+        StartCoroutine(IE_PlayDeadAnimation());                                         // 시체패는거 없애기
     }
 
     PropertyType MyProperty;
@@ -241,34 +272,28 @@ public class Enemy : MonoBehaviour
         Debug.Log("enemySpawnCount: " + enemySpawnCount);
         int id = (int)monsterType;
 
-        if(enemySpawnCount == 1)
-        {
-            currentLevel[id - 1] = 1;
-        }
-        else if(enemySpawnCount == 2 || enemySpawnCount == 3)
-        {
-            currentLevel[id - 1] = 2;
-        }
-        else if(enemySpawnCount == 4 || enemySpawnCount == 5)
-        {
-            currentLevel[id - 1] = 3;
-        }
-        else if(enemySpawnCount == 6 || enemySpawnCount == 7)
-        {
-            currentLevel[id - 1] = 4;
-        }
-        else if(enemySpawnCount >= 8)
+        int countLevel = enemySpawnCount / 2 + 1;
+        if(countLevel >= 5)
         {
             currentLevel[id - 1] = 5;
         }
+        else
+            currentLevel[id - 1] = countLevel;
+
 
         Debug.Log(monsterType + " CurrentLevel: " + currentLevel[id - 1]);
 
         MaxHP += BaseHP * Tables.MonsterLevel.Get(currentLevel[id - 1])._Hp * currentLevel[id-1] / 100;
         MaxShield += BaseShield * Tables.MonsterLevel.Get(currentLevel[id -1])._Sheild * currentLevel[id - 1] / 100;
         Armor += BaseArmor * Tables.MonsterLevel.Get(currentLevel[id -1])._Armor * currentLevel[id - 1] / 100;
+    }
 
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            DealDamageForSeconds(130);
+        }
     }
 
     public void DealDamageForSeconds(float damage)
@@ -285,6 +310,14 @@ public class Enemy : MonoBehaviour
             TakeDamage(damage);
             yield return new WaitForSeconds(time);
         }
+    }
+
+    public void InitStat()
+    {
+        GetStat(monsterType);
+        EnemyLevelUp(monsterType);
+        SetStat();
+        transform.tag = "Enemy";
     }
    
 }
