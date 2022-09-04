@@ -26,7 +26,7 @@ public class Obstacle : MonoBehaviour
     {
         ObstacleType = Sender;
 
-        //DeletePrice = Tables.MapGimmickObstacle.Get(ObstacleType)._Removal;
+        DeletePrice = Tables.MapGimmickObstacle.Get(ObstacleType)._Removal;
 
         UpdateObstacleType();
     }
@@ -36,7 +36,7 @@ public class Obstacle : MonoBehaviour
     {
         for(int i = 0; i < Bodys.Length; i++)
         {
-            if(ObstacleType == i)
+            if(ObstacleType == i + 1)
             {
                 Bodys[i].gameObject.SetActive(true);
 
@@ -54,6 +54,7 @@ public class Obstacle : MonoBehaviour
                     }
                 }
             }
+
             else
             {
                 Bodys[i].gameObject.SetActive(false);

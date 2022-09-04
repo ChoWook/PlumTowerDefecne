@@ -148,13 +148,13 @@ public class Tower : MonoBehaviour
 
             }
 
-            Debug.Log("shortestDistance" + shortestDistance);
-            Debug.Log("RealRange" + RealRange);
+            //Debug.Log("shortestDistance" + shortestDistance);
+            //Debug.Log("RealRange" + RealRange);
 
             if (nearestEnemy != null && shortestDistance <= RealRange)
             {
                 Target = nearestEnemy;
-                Debug.Log("nearestEnemy");
+                //Debug.Log("nearestEnemy");
 
             }
             else

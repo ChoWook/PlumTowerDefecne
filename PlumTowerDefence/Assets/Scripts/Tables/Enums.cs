@@ -170,3 +170,11 @@ public enum ETowerName
     Wall = 13,
     Bomb = 14,
 }
+
+public enum EPickaxeType
+{
+    Wood = 1,
+    Blue = 2,
+    Red = 3,
+    Black = 4,
+}

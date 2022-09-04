@@ -22,6 +22,7 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
+        if (tower == null) return;
         MissileRange = tower.AbilityStat * GameManager.instance.unitTileSize;
     }
 

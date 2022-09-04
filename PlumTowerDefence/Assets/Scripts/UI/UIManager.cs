@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject GroundTowerUI;
     public GameObject AllTowerUI;
     public GameObject ObstacleUI;
+    public GameObject MiningUI;
     
     public static UIManager instance = null;
 
@@ -22,8 +23,11 @@ public class UIManager : MonoBehaviour
     {
         TowerUI.SetActive(false);
         GroundTowerUI.SetActive(false);
+        AllTowerUI.SetActive(false);
         ObstacleUI.SetActive(false);
-        
+        MiningUI.SetActive(false);
+
+
         GameManager.instance.isClickedTower = false;
         GameManager.instance.isSettingTarget = 0;
         
@@ -57,5 +61,12 @@ public class UIManager : MonoBehaviour
         UIClear();
         AllTowerUI.GetComponent<UpdateAllTowerUI>().SetTower(tower);
         AllTowerUI.SetActive(true);
+    }
+
+    public void ShowMiningUI(Resource resource)
+    {
+        UIClear();
+        MiningUI.GetComponent<MiningUI>().SetResource(resource);
+        MiningUI.SetActive(true);
     }
 }

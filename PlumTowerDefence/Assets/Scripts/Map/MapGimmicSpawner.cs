@@ -162,11 +162,11 @@ public class MapGimmicSpawner : MonoBehaviour
                         if (d >= 0)
                         {
                             IncludeObstacle(d, obj);
-                            ObstacleType = 7;
+                            ObstacleType = 8;
                         }
                         else
                         {
-                            ObstacleType = 4;
+                            ObstacleType = 5;
                         }
                     }
                     else
@@ -174,11 +174,11 @@ public class MapGimmicSpawner : MonoBehaviour
                         if(d >= 0)
                         {
                             IncludeObstacle(d, obj);
-                            ObstacleType = 3;
+                            ObstacleType = 4;
                         }
                         else
                         {
-                            ObstacleType = 1;
+                            ObstacleType = 2;
                         }
                     }
                 }
@@ -190,24 +190,24 @@ public class MapGimmicSpawner : MonoBehaviour
                         if (rd >= 0)
                         {
                             IncludeObstacle(rd, obj);
-                            ObstacleType = 6;
+                            ObstacleType = 7;
                         }
                         else
                         {
                             if(ld >= 0)
                             {
                                 IncludeObstacle(ld, obj);
-                                ObstacleType = 5;
+                                ObstacleType = 6;
                             }
                             else
                             {
-                                ObstacleType = 2;
+                                ObstacleType = 3;
                             }
                         }
                     }
                     else
                     {
-                        ObstacleType = 0;
+                        ObstacleType = 1;
                     }
                 }
 

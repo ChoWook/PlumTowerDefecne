@@ -1,0 +1,6 @@
+﻿ID,Type,Korean,Price,MiningSpeed,Color
+int,ResourceType,string,int,float,string
+1,Wood,우드,1,0.1,FFFFFF
+2,Blue,블루,3,0.15,3968FF
+3,Red,레드,7,0.3,FF1917
+4,Black,블랙,13,0.5,000000

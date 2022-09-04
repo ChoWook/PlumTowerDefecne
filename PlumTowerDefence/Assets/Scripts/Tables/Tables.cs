@@ -995,4 +995,44 @@ public class Tables : ScriptableObject
             }
         }
     }
+
+    public class Pickaxe : CSVFile<Pickaxe>
+    {
+        public EPickaxeType _Type;
+        public string _Korean;
+        public int _Price;
+        public float _MiningSpeed;
+        public string _Color;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/Pickaxe");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("Pickaxe : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                Pickaxe Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Type = Enum.Parse<EPickaxeType>(data[idx++]);
+                Tmp._Price = int.Parse(data[idx++]);
+                Tmp._MiningSpeed = float.Parse(data[idx++]);
+                Tmp._Color = data[idx++];
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
 }

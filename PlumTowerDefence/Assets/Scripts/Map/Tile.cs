@@ -17,7 +17,9 @@ public class Tile : MonoBehaviour
     [SerializeField] Material[] AttackRouteTileMaterials;
 
     [SerializeField] MeshRenderer PlaneMeshRenderer;
-    
+
+    [SerializeField] GameObject _ObjectOnTile;
+
     public Pos _GroundPos = new();
 
     public Pos _MapPos = new();
@@ -25,8 +27,6 @@ public class Tile : MonoBehaviour
     public int WaypointIndex = -1;
 
     public int WaypointRoute = -1;
-
-    GameObject _ObjectOnTile;
 
     public bool IsFixedObstacle = false;            // 장애물 설치를 위한 변수, 장애물 모양이 결정되면 true
 
@@ -179,18 +179,17 @@ public class Tile : MonoBehaviour
             return CheckBuildAvailableTile();
         }
 
-        if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.R])).CheckBuildAvailableTile() == false) return false;
-        if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.DR])).CheckBuildAvailableTile() == false) return false;
-        if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.D])).CheckBuildAvailableTile() == false) return false;
-
+        if (CheckAroundTile(Map.Instance._Direction[Direction.R]) == false) return false;
+        if (CheckAroundTile(Map.Instance._Direction[Direction.D]) == false) return false;
+        if (CheckAroundTile(Map.Instance._Direction[Direction.DR]) == false) return false;
 
         if (size == 3)
         {
-            if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.UL])).CheckBuildAvailableTile() == false) return false;
-            if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.U])).CheckBuildAvailableTile() == false) return false;
-            if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.UR])).CheckBuildAvailableTile() == false) return false;
-            if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.L])).CheckBuildAvailableTile() == false) return false;
-            if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.DL])).CheckBuildAvailableTile() == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[Direction.UL]) == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[Direction.U]) == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[Direction.UR]) == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[Direction.L]) == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[Direction.DL]) == false) return false;
         }
 
         return true;
@@ -198,11 +197,23 @@ public class Tile : MonoBehaviour
 
     bool CheckBuildAvailableTile()
     {
-        if(_ObjectOnTile == null || !_ObjectOnTile.activeSelf || _TileType == ETileType.Land)
+        if(_TileType == ETileType.Land && (_ObjectOnTile == null || !_ObjectOnTile.activeSelf))
         {
             return true;
         }
 
         return false;
+    }
+
+    bool CheckAroundTile(Pos TilePos)
+    {
+        var tile = Map.Instance.GetTileInMap(_MapPos.SumPos(TilePos));
+
+        if (tile == null)
+        {
+            return false;
+        }
+
+        return tile.CheckBuildAvailableTile();
     }
 }

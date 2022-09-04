@@ -11,7 +11,7 @@ public class TowerButtonGenerate : MonoBehaviour
     /// </summary>
     /// 
 
-    Tower SelectedTower;
+    GameObject SelectedTower;
 
     GameObject SelectedTowerAvailable;
 
@@ -21,6 +21,8 @@ public class TowerButtonGenerate : MonoBehaviour
 
     public int fontSize = 16;
 
+    int TowerSize;
+
     Ray ray;
 
     RaycastHit[] hits;
@@ -29,8 +31,6 @@ public class TowerButtonGenerate : MonoBehaviour
 
     private void Awake()
     {
-        int idx = 0;
-
         for (ETowerName TName = ETowerName.Arrow; TName <= ETowerName.Bomb; TName++)
         {
             // enum에는 있고 csv에 없는 타워는 버튼 생성 X
@@ -62,7 +62,9 @@ public class TowerButtonGenerate : MonoBehaviour
     {
         if(SelectedTower != null)
         {
-            return;
+            ObjectPools.Instance.ReleaseObjectToPool(SelectedTower);
+
+            SelectedTower = null;
         }
 
 
@@ -72,30 +74,36 @@ public class TowerButtonGenerate : MonoBehaviour
         //    return;
         //}
 
-        var obj = ObjectPools.Instance.GetPooledObject($"Disabled_{TName}Tower");
 
-        if (obj == null)
+        /*
+        if (SelectedTower == null)
         {
             // 구현이 안된 프리팹에 대해서는 리턴
             return ;
         }
-
-        SelectedTower = obj.GetComponent<Tower>();
+        */
 
         SelectedTowerName = TName;
 
-        StartCoroutine(IE_FallowingMouse());
+        StartCoroutine(IE_FallowingMouse(TName));
     }
 
-    IEnumerator IE_FallowingMouse()
+    IEnumerator IE_FallowingMouse(ETowerName TName)
     {
         WaitForFixedUpdate wf = new WaitForFixedUpdate();
 
         Map.Instance.ShowAllGridLine();
 
+        // 버튼 밑에 타일이 있어서 바로 설치되는 것을 방지
         yield return wf;
 
-        SelectedTower.transform.localScale = new Vector3(0.2f * SelectedTower.Size, 0.2f * SelectedTower.Size, 0.2f * SelectedTower.Size);
+        // 타워 크기 조정을 위해 임시로 타워 하나 가져옴
+
+        SelectedTower = ObjectPools.Instance.GetPooledObject($"Disabled_{TName}Tower");
+
+        TowerSize = Tables.Tower.Get(SelectedTowerName)._Size;
+
+        SelectedTower.transform.localScale = new Vector3(0.2f * TowerSize, 0.2f * TowerSize, 0.2f * TowerSize);
 
         SelectedTowerAvailable = SelectedTower.transform.Find("Available").gameObject;
 
@@ -116,10 +124,19 @@ public class TowerButtonGenerate : MonoBehaviour
                     Tile tile = hit.collider.transform.parent.GetComponent<Tile>();
 
                     // 마우스 따라다니는 오브젝트 위치 고정
-                    SelectedTower.transform.position = tile.transform.position;
+                    if (TowerSize == 2)
+                    {
+                        float half = GameManager.instance.unitTileSize / 2;
+                        SelectedTower.transform.position = new Vector3(tile.transform.position.x + half, tile.transform.position.y, tile.transform.position.z - half);
+                    }
+                    else
+                    {
+                        SelectedTower.transform.position = tile.transform.position;
+                    }
 
                     // 타워를 짓지 못하는 곳은 오브젝트가 빨간색으로 변해야 함
-                    if (tile.CheckObjectOnTileWithSize(SelectedTower.Size))
+                    //if(true)
+                    if (tile.CheckObjectOnTileWithSize(TowerSize))
                     {
                         ChangeSelectedTowerMaterial(true);
                     }
@@ -162,9 +179,8 @@ public class TowerButtonGenerate : MonoBehaviour
                 {
                     tile = hit.collider.transform.parent.GetComponent<Tile>();
 
-                    // TODO 채굴 타워는 tile.ObjectOnTile이 자원이어야 함
-
-                    if (tile.CheckTileType(ETileType.Land) && tile.GetObjectOnTile() == null)
+                    //if (tile.CheckTileType(ETileType.Land) && tile.GetObjectOnTile() == null)
+                    if(tile.CheckObjectOnTileWithSize(TowerSize))
                     {
                         IsAvailableTile = true;
                     }
@@ -183,18 +199,29 @@ public class TowerButtonGenerate : MonoBehaviour
 
             StopAllCoroutines();
 
-            ObjectPools.Instance.ReleaseObjectToPool(SelectedTower.gameObject);
+            ObjectPools.Instance.ReleaseObjectToPool(SelectedTower);
 
-            SelectedTower = ObjectPools.Instance.GetPooledObject($"{SelectedTowerName}Tower")?.GetComponent<Tower>();
+            SelectedTower = ObjectPools.Instance.GetPooledObject($"{SelectedTowerName}Tower");
 
-            SelectedTower.transform.position = tile.transform.position;
+            // 크기가 2일때는 우하향쪽으로 생성되어야 함
+            if (TowerSize == 2)
+            {
+                float half = GameManager.instance.unitTileSize / 2;
+                SelectedTower.transform.position = new Vector3(tile.transform.position.x + half, tile.transform.position.y, tile.transform.position.z - half);
+            }
+            else
+            {
+                SelectedTower.transform.position = tile.transform.position;
+            }
 
-            SelectedTower.belowTile = tile;
+            Tower t = SelectedTower.GetComponent<Tower>();
 
-            SelectedTower.transform.localScale = new Vector3(0.2f * SelectedTower.Size, 0.2f * SelectedTower.Size, 0.2f * SelectedTower.Size);
+            t.belowTile = tile;
+
+            SelectedTower.transform.localScale = new Vector3(0.2f * TowerSize, 0.2f * TowerSize, 0.2f * TowerSize);
 
             // 타워의 사이즈가 매개변수로 들어가야 함
-            tile.SetObjectOnTile(SelectedTower.gameObject, SelectedTower.Size);
+            tile.SetObjectOnTile(SelectedTower.gameObject, TowerSize);
 
             SelectedTower = null;
         }

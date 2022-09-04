@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
-public class ObstacleUI : MonoBehaviour
+public class MiningUI : MonoBehaviour
 {
     [SerializeField] Button Cancel;
 
@@ -13,11 +12,11 @@ public class ObstacleUI : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI RequireMoney;
 
-    Obstacle _Obstacle;
+    Resource _Resource;
 
-    public void SetObstacle(Obstacle Sender)
+    public void SetResource(Resource Sender)
     {
-        _Obstacle = Sender;
+        _Resource = Sender;
 
         UpdateInfo();
     }
@@ -29,13 +28,13 @@ public class ObstacleUI : MonoBehaviour
 
     public void OnAcceptBtnClicK()
     {
-        _Obstacle.DeleteObstacle();
+        //_Resource.DeleteObstacle();
 
         gameObject.SetActive(false);
     }
 
     public void UpdateInfo()
     {
-        RequireMoney.text = _Obstacle.DeletePrice.ToString();
+        //RequireMoney.text = _Resource.DeletePrice.ToString();
     }
 }
