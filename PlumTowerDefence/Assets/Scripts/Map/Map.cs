@@ -472,7 +472,7 @@ public class Map : MonoBehaviour
         // 해당 타일이 코너도 아니고 분기점도 아닌지 검사
         List<Direction> NextDirs = new();
         
-        foreach(Direction OutDir in _Direction.Keys)
+        for(Direction OutDir = Direction.R; OutDir <= Direction.U; OutDir++)
         {
             Pos NextPos = pos.SumPos(_Direction[OutDir]);
 
