@@ -17,8 +17,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
     GameObject SelectedTowerDisabled;
 
-    private int tower_num = 11; //데이터베이스에서 받아야 함
-    private int tower_row = 7;
+    private int tower_num = 13; //데이터베이스에서 받아야 함
 
     public int fontSize = 16;
 
@@ -50,16 +49,9 @@ public class TowerButtonGenerate : MonoBehaviour
             TowerBtnItem item = obj.GetComponent<TowerBtnItem>();
             
             item.SetTowerName(TName);
-
-            if (idx++ < tower_row)
-            {
-                obj.transform.SetParent(transform.GetChild(0));
-            }
-            else
-            {
-                obj.transform.SetParent(transform.GetChild(1));
-            }
-            obj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            
+            obj.transform.SetParent(transform.GetChild(0));
+            obj.transform.localScale = new Vector3(1f, 1f, 1f);
 
             ETowerName tmp = TName;
             obj.GetComponent<Button>().onClick.AddListener(() => OnBuildTowerBtnClick(tmp));
