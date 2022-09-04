@@ -86,9 +86,9 @@ public class EnemySpawner : MonoBehaviour
             EnemyArr[i] = SpawnEnemyNumber;
             EachTotalSpawn += SpawnEnemyNumber;
         }
-        Debug.Log("Total EnemyNum: " + EnemyNumber);
+        //Debug.Log("Total EnemyNum: " + EnemyNumber);
         int spawnEnemyNum = 0;
-        Debug.Log("EachTotalSpawn: " + EachTotalSpawn);
+        //Debug.Log("EachTotalSpawn: " + EachTotalSpawn);
         while (EachTotalSpawn > 0)
         {
             int randEnemy = Choose(EnemyArr);
