@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CategoryButton : MonoBehaviour
@@ -13,32 +14,29 @@ public class CategoryButton : MonoBehaviour
     
     [HideInInspector] public int id;
     private TextMeshProUGUI text;
-    private int id_count = 14;
+    private int id_count;
     
     private void OnEnable()     //초기화
     {
         text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();   //텍스트 초기화
     }
 
-    private void Update()
+    public void SetId(int _id)
     {
-        ChangeText();
-    }
-
-    void ChangeText()       //순서 떄문에 update로 지속적인 초기화를 시켜줘야함
-    {
-        text.text = id.ToString();
+        id = _id;
+        text.text = Tables.UpgradeCategory.Get(id)._Text;
+        id_count = Tables.UpgradeCategory.Get(id)._CardNum;
     }
 
     public void GenerateCategoryCard()  //해당 버튼 클릭
     {
         DeleteAll();
-        for (int i = 0; i < id_count; i++)
+        for (int i = 1; i <= id_count; i++)
         {
             GameObject obj = ObjectPools.Instance.GetPooledObject("UpgradeSelect");
             obj.transform.SetParent(transform.parent.parent.parent.GetChild(0));
 
-            obj.GetComponent<Upgrade>().id = id + i;
+            obj.GetComponent<Upgrade>().SetID(id + i);
             obj.transform.localScale = new Vector3(1f, 1f, 1f);
             obj.transform.position = new Vector3(0, 0, 0);
         }
