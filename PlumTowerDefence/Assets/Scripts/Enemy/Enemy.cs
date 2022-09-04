@@ -306,6 +306,7 @@ public class Enemy : MonoBehaviour
     {
         GetStat();
         EnemyLevelUp();
+        AddSpeciality();
         SetStat();
         transform.tag = "Enemy";
         IsAlive = true;
