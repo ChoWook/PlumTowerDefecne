@@ -19,7 +19,7 @@ public class EditModeText : MonoBehaviour
 
         foreach (TextMeshProUGUI text in txt)
         {
-            text.text = Tables.StringUI.Get(text.gameObject.name)?._Korean;
+            //text.text = Tables.StringUI.Get(text.gameObject.name)?._Korean;
         }
     }
     #endif

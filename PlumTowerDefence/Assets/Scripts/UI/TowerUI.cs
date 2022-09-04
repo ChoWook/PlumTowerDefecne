@@ -14,7 +14,7 @@ public class TowerUI : MonoBehaviour, IPointerClickHandler
         bool checkTime = Time.realtimeSinceStartup - clickTime < checkDoubleClickTime;
         if (doubleClicked && checkTime)
         {
-            Debug.Log("3");
+            ShowAllTowerUI();
             doubleClicked = false;
         }
         else if (checkTime)
@@ -48,5 +48,10 @@ public class TowerUI : MonoBehaviour, IPointerClickHandler
         clickTime = Time.realtimeSinceStartup;
 
         doubleClicked = true;
+    }
+
+    private void ShowAllTowerUI()
+    {
+        UIManager.instance.ShowAllTowerUI(GetComponent<Tower>());
     }
 }

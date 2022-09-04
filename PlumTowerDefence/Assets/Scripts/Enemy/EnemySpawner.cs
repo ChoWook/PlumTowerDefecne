@@ -96,7 +96,6 @@ public class EnemySpawner : MonoBehaviour
             SpawnEnemy(Tables.Monster.Get(id)._Type);
             EnemyArr[randEnemy]--;
             EachTotalSpawn--;
-
             spawnEnemyNum++;
             Debug.Log(Tables.Monster.Get(id)._Type + " Spawn Enemy: " + spawnEnemyNum);
             yield return ws;

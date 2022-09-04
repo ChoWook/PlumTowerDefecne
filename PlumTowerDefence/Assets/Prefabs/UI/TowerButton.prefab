@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2350179233792262970}
   - component: {fileID: 2350179233792262971}
   - component: {fileID: 2350179233792262948}
+  - component: {fileID: 8310379762168759342}
   m_Layer: 5
   m_Name: TowerButton
   m_TagString: Untagged
@@ -124,6 +125,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8310379762168759342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350179233792262950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae71d6fa3758c08488cc7dcda7254fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 2350179234398335117}
+  cost: {fileID: 2350179234263012859}
+  index: 0
 --- !u!1 &2350179234263012837
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +206,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD0C0\uC6CC\uC758 \uBE44\uC6A9 : {0}\r"
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ded744e2c6372374f91e24d1ef318ae2, type: 2}
   m_sharedMaterial: {fileID: -7759695043144438274, guid: ded744e2c6372374f91e24d1ef318ae2,
@@ -326,7 +342,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD0C0\uC6CC\uC758 \uC774\uB984\r"
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ded744e2c6372374f91e24d1ef318ae2, type: 2}
   m_sharedMaterial: {fileID: -7759695043144438274, guid: ded744e2c6372374f91e24d1ef318ae2,
