@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     int SpawnEnemyNumber;
     float[] EnemyArr;
     static int remainder;
+    bool enemySpecial;
 
     public static Dictionary<EMonsterType, int> EnemySpawnCounts = new();
 
@@ -67,7 +68,7 @@ public class EnemySpawner : MonoBehaviour
     {
         WaitForSeconds ws = new WaitForSeconds(0.5f);
 
-        WaveNumber = GameManager.instance.level;    // 커밋할때 바꿔주기
+        WaveNumber = GameManager.instance.level;                              // 커밋할때 바꿔주기
         Debug.Log("WaveNumber: " + WaveNumber);
 
 
@@ -89,8 +90,15 @@ public class EnemySpawner : MonoBehaviour
         //Debug.Log("Total EnemyNum: " + EnemyNumber);
         int spawnEnemyNum = 0;
         //Debug.Log("EachTotalSpawn: " + EachTotalSpawn);
+        int specialityAmount = Tables.MonsterSpecialityAmount.Get(WaveNumber)._Amount;
+        GetSpawnNumber(specialityAmount);
+        //Debug.Log("나눠진 특성 가진 몬스터 수: " + SpawnEnemyNumber);
         while (EachTotalSpawn > 0)
         {
+            if (EachTotalSpawn <= SpawnEnemyNumber)
+            {
+                enemySpecial = true;
+            }
             int randEnemy = Choose(EnemyArr);
             int id = Tables.MonsterAmount.Get(WaveNumber)._Monster[randEnemy]._ID;
             SpawnEnemy(Tables.Monster.Get(id)._Type);
@@ -128,6 +136,13 @@ public class EnemySpawner : MonoBehaviour
         enemy.GetComponent<BaseAniContoller>().InitAnimation();
 
         enemy.GetComponent<Enemy>().monsterType = monsterType;
+
+        if(enemySpecial == true)
+        {
+            enemy.GetComponent<Enemy>().hasSpecial = true;
+        }
+        else
+            enemy.GetComponent<Enemy>().hasSpecial = false;
 
         enemy.GetComponent<Enemy>().InitStat();
 
@@ -167,7 +182,10 @@ public class EnemySpawner : MonoBehaviour
 
     void GetSpawnNumber(int eachEnemyAmount)
     {
-        int RouteCount = Map.Instance.CurAttackRouteCnt;
+
+        int RouteCount = Map.Instance.CurAttackRouteCnt;                  // 커밋할때 바꾸기
+        //int RouteCount = 1;
+
         SpawnEnemyNumber = eachEnemyAmount / RouteCount;
         remainder = eachEnemyAmount % RouteCount;
         //Debug.Log("RouteCount: " + RouteCount);
