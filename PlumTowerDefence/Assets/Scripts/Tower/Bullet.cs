@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
 
     //public GameObject ObjectPool;
 
-    private double Damage;               // 타겟에게 가할 데미지
+    private float Damage;               // 타겟에게 가할 데미지
 
     //private int AttackPropertyID;        // 속성 아이디
 
@@ -70,7 +70,7 @@ public class Bullet : MonoBehaviour
     {
         // 데미지 전달함수 추가
 
-        //target.GetComponent<Enemy>().TakeDamage((float)Damage); //Damage 전달 -> 나중에 속성 추가
+        target.GetComponent<Enemy>().TakeDamage(Damage, AttackSepcialization); //Damage 전달 -> 나중에 속성 추가
         
         DestroyBullet();
     }

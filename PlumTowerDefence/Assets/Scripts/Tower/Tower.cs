@@ -18,7 +18,6 @@ public class Tower : MonoBehaviour
     private float FireCountdown = 0f;                         // 발사 카운트다운
 
 
-
     public ETowerName TowerName;                              // 타워 이름
     protected EAttackSpecialization AttackSpecialization;    // 공격 속성(데이터테이블)
     protected ETowerType TypeID;                             // 속성 ID (데이터테이블)
@@ -27,7 +26,7 @@ public class Tower : MonoBehaviour
     protected int AbilityStat;
 
     public Transform PartToRotate;                           //회전 오브젝트
-    public float TurnSpeed = 10f;                           //회전 속도
+    public float TurnSpeed = 10f;                            //회전 속도
 
 
 
@@ -62,7 +61,7 @@ public class Tower : MonoBehaviour
 
     [Header("Enemy")]
 
-    public List<GameObject> EnemyLIst = new List<GameObject>();
+    public List<GameObject> EnemyList = new List<GameObject>();
 
     public GameObject Target;
 
@@ -152,7 +151,7 @@ public class Tower : MonoBehaviour
 
         } else if (Target.GetComponent<Enemy>().IsAlive == false)
         {
-            //EnemyLIst.RemoveAt(0);
+            //EnemyList.RemoveAt(0);
             return;
         }
 
@@ -191,8 +190,6 @@ public class Tower : MonoBehaviour
             UpdateTarget();
 
             yield return ws;
-
-            yield return new WaitForEndOfFrame();
         }    
         
     }
@@ -213,9 +210,9 @@ public class Tower : MonoBehaviour
         {
             case 0:
                 // 먼저 들어온 몬스터
-                if (EnemyLIst.Count != 0 )
+                if (EnemyList.Count != 0 )
                 {
-                    Target = EnemyLIst[0];
+                    Target = EnemyList[0];
                     Debug.Log("Target Locked");
                 }
                     
@@ -233,7 +230,7 @@ public class Tower : MonoBehaviour
 
             case 3:
                 // 방어력 높은 적 우선 공격
-                //EnemyLIst.Sort(gameObject.GetComponent<Enemy>().) <- 적 변수 public으로 바꿔주세요~
+                //EnemyList.Sort(gameObject.GetComponent<Enemy>().) <- 적 변수 public으로 바꿔주세요~
 
                 break;
         }    

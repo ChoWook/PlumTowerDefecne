@@ -15,7 +15,7 @@ public class Collision : MonoBehaviour
     {
        // tower = GetComponentInParent<Tower>();
 
-        enemyList = tower.EnemyLIst;
+        enemyList = tower.EnemyList;
         
     }
 
@@ -36,7 +36,7 @@ public class Collision : MonoBehaviour
     public void OnTriggerExit(Collider other)
     {
         var obj = other.gameObject;
-        if (obj != null && obj.tag == "Enemy" )
+        if (obj != null && obj.CompareTag(enemyTag) )
         {
             enemyList.Remove(obj);
         }
