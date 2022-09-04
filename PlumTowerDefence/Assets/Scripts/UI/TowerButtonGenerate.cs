@@ -199,8 +199,10 @@ public class TowerButtonGenerate : MonoBehaviour
 
             SelectedTower.GetComponent<Tower>().belowTile = tile;
 
+            Tower tower = SelectedTower.GetComponent<Tower>();
+
             // TODO 타워의 사이즈가 매개변수로 들어가야 함
-            tile.SetObjectOnTile(SelectedTower);
+            tile.SetObjectOnTile(SelectedTower,tower.Size);
 
             SelectedTower = null;
         }
