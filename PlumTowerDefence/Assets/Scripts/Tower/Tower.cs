@@ -190,8 +190,6 @@ public class Tower : MonoBehaviour
             UpdateTarget();
 
             yield return ws;
-
-            yield return new WaitForEndOfFrame();
         }    
         
     }
