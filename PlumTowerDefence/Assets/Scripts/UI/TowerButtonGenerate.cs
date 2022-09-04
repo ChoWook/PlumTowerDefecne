@@ -30,14 +30,28 @@ public class TowerButtonGenerate : MonoBehaviour
 
     private void Awake()
     {
+        int idx = 0;
+
         for (ETowerName TName = ETowerName.Arrow; TName <= ETowerName.Bomb; TName++)
         {
+            // enum에는 있고 csv에 없는 타워는 버튼 생성 X
+            if (Tables.Tower.Get(TName) == null) continue;
+
+            // csv에는 있지만 프리팹 구현이 안되 오브젝트풀에 존재하지 않는 타워는 버튼 생성X
+            var _t = ObjectPools.Instance.GetPooledObject($"Disabled_{TName}Tower");
+            if (_t == null)
+            {
+                continue;
+            }
+            ObjectPools.Instance.ReleaseObjectToPool(_t);
+
             GameObject obj = ObjectPools.Instance.GetPooledObject("TowerButton");
+
             TowerBtnItem item = obj.GetComponent<TowerBtnItem>();
             
             item.SetTowerName(TName);
 
-            if ((int)TName <= tower_row)
+            if (idx++ < tower_row)
             {
                 obj.transform.SetParent(transform.GetChild(0));
             }
