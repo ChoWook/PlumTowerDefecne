@@ -14,11 +14,13 @@ public class Enemy : MonoBehaviour
 
     public float CurrentShield;
     bool ShieldOn = true;
-    float Armor;
+    public float Armor;
     protected float BaseArmor;            
     public float BaseSpeed;               
     public float Speed;                     
     public bool IsAlive = true;
+    public bool hasSpecial;
+
 
     private int[] currentLevel = new int[8];
         
@@ -253,6 +255,35 @@ public class Enemy : MonoBehaviour
 
     public void AddSpeciality()
     {
+        int id = Tables.Monster.Get((int)monsterType)._ID;
+        int specialityType;
+        if(Random.Range(0, 2) == 0)
+        {
+            specialityType = Tables.Monster.Get(id)._Speciality_1;
+        }
+        else
+            specialityType= Tables.Monster.Get(id)._Speciality_2;
+
+        var changeStat = Tables.MonsterSpeciality.Get(specialityType)._Amount/100;
+        var monsterStat = Tables.MonsterSpeciality.Get(specialityType)._ChangeStat;
+
+        switch (monsterStat)
+        {
+            case EMonsterStat.Hp:
+                MaxHP +=  BaseHP * changeStat;
+                break;
+            case EMonsterStat.Armor:
+                Armor += BaseArmor * changeStat;
+                break;
+            case EMonsterStat.Shield:
+                MaxShield += BaseShield * changeStat;
+                break;
+            case EMonsterStat.Speed:
+                Speed += BaseSpeed * changeStat;
+                break;
+        }
+
+
 
     }
 
@@ -306,7 +337,11 @@ public class Enemy : MonoBehaviour
     {
         GetStat();
         EnemyLevelUp();
-        AddSpeciality();
+        if(hasSpecial == true)
+        {
+            AddSpeciality();
+            Debug.Log("SpecialMonsterSpawned");
+        }
         SetStat();
         transform.tag = "Enemy";
         IsAlive = true;

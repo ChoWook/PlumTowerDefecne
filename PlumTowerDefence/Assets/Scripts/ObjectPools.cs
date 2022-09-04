@@ -6,20 +6,25 @@ public class ObjectPools : MonoBehaviour
 {
     public static ObjectPools Instance;
     
+    [SerializeField] ObjectPoolsScriptable PrefabsScriptable;
+
+    GameObject[] poolPrefabs;
+
+    public int poolingCount;
+
+    Dictionary<object, List<GameObject>> pooledObjects = new Dictionary<object, List<GameObject>>();
+    Dictionary<string, int> NameToIndex = new Dictionary<string, int>();
+
     private void Awake()
     {
         Instance = this;
+
+        poolPrefabs = PrefabsScriptable.ObjectPrefabs;
 
         CreateMultiplePoolObjects();
 
         Tables.Load();
     }
-
-    [SerializeField] GameObject[] poolPrefabs;
-    public int poolingCount;
-
-    private Dictionary<object, List<GameObject>> pooledObjects = new Dictionary<object, List<GameObject>>();
-    private Dictionary<string, int> NameToIndex = new Dictionary<string, int>();
 
     public void CreateMultiplePoolObjects()
     {

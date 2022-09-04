@@ -203,8 +203,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
         type: 3}
+      propertyPath: PrefabsScriptable
+      value: 
+      objectReference: {fileID: 11400000, guid: c177c6b332c455c4b8375d197d6344b3,
+        type: 2}
+    - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
+        type: 3}
       propertyPath: poolPrefabs.Array.size
-      value: 21
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
         type: 3}
@@ -331,6 +337,42 @@ PrefabInstance:
       propertyPath: poolPrefabs.Array.data[20]
       value: 
       objectReference: {fileID: 1371166827395727813, guid: 00a95fc2fcea4234abc84bf8a3d3e232,
+        type: 3}
+    - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
+        type: 3}
+      propertyPath: poolPrefabs.Array.data[21]
+      value: 
+      objectReference: {fileID: 5179898955674766579, guid: 71b2166d892fc2e488c1c3b00ea1a083,
+        type: 3}
+    - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
+        type: 3}
+      propertyPath: poolPrefabs.Array.data[22]
+      value: 
+      objectReference: {fileID: 2399667665582056751, guid: 5f274f48277f95d4093390f0305a40f7,
+        type: 3}
+    - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
+        type: 3}
+      propertyPath: poolPrefabs.Array.data[23]
+      value: 
+      objectReference: {fileID: 8365674672838500105, guid: 42f7b3773085f6b4aac8efa7d6ae4d82,
+        type: 3}
+    - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
+        type: 3}
+      propertyPath: poolPrefabs.Array.data[24]
+      value: 
+      objectReference: {fileID: 5179898955674766579, guid: f8bd3d7bb31f56d40bf14ea75016bbee,
+        type: 3}
+    - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
+        type: 3}
+      propertyPath: poolPrefabs.Array.data[25]
+      value: 
+      objectReference: {fileID: 2399667665582056751, guid: 1f46868ce8c1d174296af8b0d063d4f0,
+        type: 3}
+    - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
+        type: 3}
+      propertyPath: poolPrefabs.Array.data[26]
+      value: 
+      objectReference: {fileID: 8365674672838500105, guid: a2b2ad96c7360e64b9b6e805c2e06582,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d2e3a780231a8f4bb024a1ecebee3e3, type: 3}
@@ -753,6 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a94dc96660f9b43a6f9cccc1bc31a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fontSize: 16
 --- !u!114 &426856301
 MonoBehaviour:
   m_ObjectHideFlags: 0

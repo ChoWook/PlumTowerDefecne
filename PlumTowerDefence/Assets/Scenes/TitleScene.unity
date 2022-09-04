@@ -2553,6 +2553,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
         type: 3}
+      propertyPath: PrefabsScriptable
+      value: 
+      objectReference: {fileID: 11400000, guid: 59045ecfa7dcbf64b907b06023828b40,
+        type: 2}
+    - target: {fileID: 7586546226743302459, guid: 2d2e3a780231a8f4bb024a1ecebee3e3,
+        type: 3}
       propertyPath: poolPrefabs.Array.size
       value: 2
       objectReference: {fileID: 0}
