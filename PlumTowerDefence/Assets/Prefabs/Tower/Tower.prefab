@@ -111,15 +111,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerID: 0
   Range: 3
-  TowerName: 
+  RealRange: 0
+  SpeedStat: 0
+  TowerName: 0
+  AttackStat: 0
   PartToRotate: {fileID: 0}
   TurnSpeed: 10
+  belowTile: {fileID: 0}
   Selected: 0
   Fixed: 0
+  AttackPriorityID: 0
+  UpgradeCount: 0
   BulletPrefab: {fileID: 0}
   FirePoint: {fileID: 0}
   Boundary: {fileID: 0}
-  ObjectPool: {fileID: 0}
+  EnemyList: []
   Target: {fileID: 0}
   enemyTag: Enemy
-  DefenceStat: 10
