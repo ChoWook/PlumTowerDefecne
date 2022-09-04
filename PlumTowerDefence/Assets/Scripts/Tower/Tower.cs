@@ -21,9 +21,9 @@ public class Tower : MonoBehaviour
     public ETowerName TowerName;                              // 타워 이름
     protected EAttackSpecialization AttackSpecialization;    // 공격 속성(데이터테이블)
     protected ETowerType TypeID;                             // 속성 ID (데이터테이블)
-    protected int Size;                                      // 타워 크기 (데이터테이블)
+    public int Size;                                      // 타워 크기 (데이터테이블)
     public float AttackStat;                                 // 공격력 스텟(데이터테이블)
-    protected int AbilityStat;
+    protected float AbilityStat;
 
     public Transform PartToRotate;                           //회전 오브젝트
     public float TurnSpeed = 10f;                            //회전 속도
@@ -51,7 +51,6 @@ public class Tower : MonoBehaviour
 
     public GameObject BulletPrefab;
     public Transform FirePoint;
-    public GameObject Boundary;                            //사거리 Cylinder
     protected float ProjectileSpeed;                       //투사체 속도
 
 
@@ -82,11 +81,14 @@ public class Tower : MonoBehaviour
         RealRange = Range * GameManager.instance.unitTileSize; //TileSize 나중에 GameManager로 받기
 
         Debug.Log("Range : " + RealRange);
+
+        /*
         //사거리 지정 Range 값 넣기
         Transform parent = transform.parent;
         transform.parent = null;
         //Boundary.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
         transform.parent = parent;
+        */
 
         StartCoroutine(IE_GetTargets());
         //InvokeRepeating("UpdateTarget", 0, 0.5f); // 0.5초 마다 반복하기
@@ -186,18 +188,20 @@ public class Tower : MonoBehaviour
         PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
         // 발사
+        if (FireCountdown <= 0f)
+        {
+            Shoot();
+            FireCountdown = 1f / SpeedStat;
+        }
 
-        switch(TypeID)
+        FireCountdown -= Time.deltaTime;
+
+        /*
+        switch (TypeID)
         {
             case ETowerType.AttackProjectile:
                 {
-                    if (FireCountdown <= 0f)
-                    {
-                        Shoot();
-                        FireCountdown = 1f / SpeedStat;
-                    }
-
-                    FireCountdown -= Time.deltaTime;
+                    
 
                     break;
                 }
@@ -215,7 +219,7 @@ public class Tower : MonoBehaviour
                     break;
                 }
         }
-
+        */
     }
 
 
@@ -264,7 +268,7 @@ public class Tower : MonoBehaviour
     }
 
     
-    void Shoot() // 수정
+    public virtual void Shoot() // 수정
     {
         Debug.Log("Shooting!");
 
@@ -281,8 +285,29 @@ public class Tower : MonoBehaviour
     void UpgradeTower() // 데이터 연동해서 수정하기
     {
         //Attackstat + 5 로 해놓기
-        AttackStat += UpgradeAmount;
+        
+        switch(UpgradeStat)
+        {
+            case EUpgradeStat.Attack:
+                {
+                    AttackStat += UpgradeAmount;
+                    break;
+                }
+               
+            case EUpgradeStat.Ability:
+                {
+                    AbilityStat += UpgradeAmount;
+                    break;
+                }
+                
+            case EUpgradeStat.Speed:
+                {
+                    SpeedStat += UpgradeAmount;
+                    break;
+                }
+                
 
+        }
 
         //돈 40 잃기
 
@@ -296,7 +321,7 @@ public class Tower : MonoBehaviour
     void SellTower()
     {
         // 타워 반납하기
-        Destroy(gameObject); // 타워 풀에 추가한 뒤 바꾸기
+        Destroy(gameObject); // 타워 풀에 추가한 뒤 바꾸기 ? 
 
 
         // 돈 받기 (타워 설치비용 + 업그레이드 비용 ) * 0.6
