@@ -166,6 +166,6 @@ public class Resource : MonoBehaviour, IPointerClickHandler
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        //MiningResource();
+        MiningResource();
     }
 }
