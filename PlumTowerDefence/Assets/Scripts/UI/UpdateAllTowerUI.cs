@@ -36,6 +36,8 @@ public class UpdateAllTowerUI : MonoBehaviour
                 }
             }
         }
+        
+        Debug.Log("SelectedTower count : " + selectedTower.Count);
     }
 
     public void SetTarget()

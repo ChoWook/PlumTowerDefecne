@@ -10,13 +10,13 @@ public class EnemyUI : MonoBehaviour, IPointerClickHandler
         switch (GameManager.instance.isSettingTarget)
         {
             case 3:
-                UIManager.instance.AllTowerUI.GetComponent<UpdateAllTowerUI>().AttackEnemy(gameObject);
+                UIManager.instance.AllTowerUI.GetComponent<UpdateAllTowerUI>().AttackEnemy(transform.parent.gameObject);
                 break;
             case 2:
-                UIManager.instance.GroundTowerUI.GetComponent<UpdateGroundTowerUI>().AttackEnemy(gameObject);
+                UIManager.instance.GroundTowerUI.GetComponent<UpdateGroundTowerUI>().AttackEnemy(transform.parent.gameObject);
                 break;
             case 1:
-                UIManager.instance.TowerUI.GetComponent<UpdateTowerUI>().AttackEnemy(gameObject);
+                UIManager.instance.TowerUI.GetComponent<UpdateTowerUI>().AttackEnemy(transform.parent.gameObject);
                 break;
         }
     }
