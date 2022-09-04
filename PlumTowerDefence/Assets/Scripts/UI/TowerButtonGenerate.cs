@@ -26,12 +26,18 @@ public class TowerButtonGenerate : MonoBehaviour
 
     RaycastHit[] hits;
 
+    ETowerName SelectedTowerName = ETowerName.Arrow;
+
     private void Awake()
     {
-        for (int i = 0; i < tower_num; i++)
+        for (ETowerName TName = ETowerName.Arrow; TName <= ETowerName.Bomb; TName++)
         {
             GameObject obj = ObjectPools.Instance.GetPooledObject("TowerButton");
-            if (i < tower_row)
+            TowerBtnItem item = obj.GetComponent<TowerBtnItem>();
+            
+            item.SetTowerName(TName);
+
+            if ((int)TName <= tower_row)
             {
                 obj.transform.SetParent(transform.GetChild(0));
             }
@@ -41,24 +47,34 @@ public class TowerButtonGenerate : MonoBehaviour
             }
             obj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
 
-            obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Tables.Tower.Get(i + 1)._Korean;
-            obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().fontSize = fontSize;
-            obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = Tables.Tower.Get(i + 1)._Price.ToString();
+            ETowerName tmp = TName;
+            obj.GetComponent<Button>().onClick.AddListener(() => OnBuildTowerBtnClick(tmp));
         }
     }
 
-    public void OnBuildTowerBtnClick()
+    public void OnBuildTowerBtnClick(ETowerName TName)
     {
         if(SelectedTower != null)
         {
             return;
         }
 
+
         // 돈이 적으면 리턴
-        //if(GameManager.instance.money < ???.price)
+        //if(GameManager.instance.money < .price)
         //{
         //    return;
         //}
+
+        SelectedTower = ObjectPools.Instance.GetPooledObject($"Disabled_{TName}Tower");
+
+        if (SelectedTower == null)
+        {
+            // 구현이 안된 프리팹에 대해서는 리턴
+            return ;
+        }
+
+        SelectedTowerName = TName;
 
         StartCoroutine(IE_FallowingMouse());
     }
@@ -70,8 +86,6 @@ public class TowerButtonGenerate : MonoBehaviour
         Map.Instance.ShowAllGridLine();
 
         yield return wf;
-
-        SelectedTower = ObjectPools.Instance.GetPooledObject("Disabled_ArrowTower");
 
         SelectedTower.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 
@@ -163,7 +177,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
             ObjectPools.Instance.ReleaseObjectToPool(SelectedTower);
 
-            SelectedTower = ObjectPools.Instance.GetPooledObject("ArrowTower");
+            SelectedTower = ObjectPools.Instance.GetPooledObject($"{SelectedTowerName}Tower");
 
             SelectedTower.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b984c9331507b4f44949be1ba880224d, type: 3}
+  m_Name: EnemyTestObjectPoolData
+  m_EditorClassIdentifier: 
+  ObjectPrefabs:
+  - {fileID: 332475847446176992, guid: fa66e8a91b058364db621683ac90c552, type: 3}
+  - {fileID: 8895986488616667394, guid: 6835a7ca3feeaaa4b852f23b4da615eb, type: 3}
+  - {fileID: 5108826797337551647, guid: fcee46c97fdcc0a46ab34965bbe1dcd4, type: 3}
+  - {fileID: 1218643214457103205, guid: 0adbbf6927d4dbd4f8af9863767c2214, type: 3}
+  - {fileID: 2044402032841126780, guid: 8b64788e8e65f71468eff95c3d426b8a, type: 3}
+  - {fileID: 7640435751183979383, guid: dc7424b2964d63f4f8bdba8ab3b266f4, type: 3}
+  - {fileID: 4290227622000657683, guid: 32534f83cb9b01e4e8578e8e1226f2cd, type: 3}
+  - {fileID: 112281327295664972, guid: 8f684e73ef6b9154cb6a19061c793840, type: 3}
