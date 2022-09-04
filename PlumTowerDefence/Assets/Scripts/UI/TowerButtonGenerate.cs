@@ -20,6 +20,8 @@ public class TowerButtonGenerate : MonoBehaviour
     private int tower_num = 11; //데이터베이스에서 받아야 함
     private int tower_row = 7;
 
+    public int fontSize = 16;
+
     Ray ray;
 
     RaycastHit[] hits;
@@ -39,13 +41,9 @@ public class TowerButtonGenerate : MonoBehaviour
             }
             obj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
 
-            obj.transform.GetChild(0).name = Tables.Tower.Get(i + 1)._Korean;
             obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Tables.Tower.Get(i + 1)._Korean;
-            obj.transform.GetChild(1).name = Tables.Tower.Get(i + 1)._Price.ToString();
+            obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().fontSize = fontSize;
             obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = Tables.Tower.Get(i + 1)._Price.ToString();
-
-            //obj.GetComponent<UpdateTowerButton>().index = i;
-            //obj.GetComponent<UpdateTowerButton>().ChangeText();
         }
     }
 

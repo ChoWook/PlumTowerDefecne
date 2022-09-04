@@ -12,7 +12,7 @@ public class ChangeText : MonoBehaviour
         TextMeshProUGUI[] texts = GetComponentsInChildren<TextMeshProUGUI>();
         foreach (var txt in texts)
         {
-            //txt.text = Tables.StringUI.Get(txt.gameObject.name)?._Korean;
+            txt.text = Tables.StringUI.Get(txt.gameObject.name)?._Korean;
         }
     }
 }
