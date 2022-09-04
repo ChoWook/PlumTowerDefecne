@@ -120,77 +120,45 @@ public class Tower : MonoBehaviour
 
         if (Target == null || Target.GetComponent<Enemy>().IsAlive == false || Vector3.Distance(transform.position, Target.transform.position) > RealRange)
         {
+            EnemyList.Clear();
+
             GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  태그로 적 찾기
             float shortestDistance = Mathf.Infinity;
             GameObject nearestEnemy = null;
             //Debug.Log("EnemiesCount" + enemies.Length);
 
-            switch(TypeID)
+            foreach (GameObject enemy in enemies)
             {
-                case ETowerType.AttackProjectile:
-                    {
-                        foreach (GameObject enemy in enemies)
-                        {
-                            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // 적과의 거리 구하기
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // 적과의 거리 구하기
 
-                            // Debug.Log("DistanceEnemy" + distanceToEnemy);
+                // Debug.Log("DistanceEnemy" + distanceToEnemy);
 
-                            if (distanceToEnemy < shortestDistance)  // 우선순위 찾기 SortAttackPriority();
-                            {
-                                shortestDistance = distanceToEnemy;
-                                nearestEnemy = enemy;
-                            }
+                if(distanceToEnemy <= RealRange) // 사거리 안에 있는 타겟들
+                {
+                    EnemyList.Add(enemy);
+                }
 
-                        }
-
-                        Debug.Log("shortestDistance" + shortestDistance);
-                        Debug.Log("RealRange" + RealRange);
-
-                        if (nearestEnemy != null && shortestDistance <= RealRange)
-                        {
-                            Target = nearestEnemy;
-                            Debug.Log("nearestEnemy");
-
-                        }
-                        else
-                        {
-                            Target = null;
-                        }
-
-                        break;
-                    }
-                case ETowerType.Attack:
-                    {
-                        foreach (GameObject enemy in enemies)
-                        {
-                            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // 적과의 거리 구하기
-
-                            // Debug.Log("DistanceEnemy" + distanceToEnemy);
-
-                            if (distanceToEnemy <= RealRange)  // 우선순위 찾기 SortAttackPriority();
-                            {
-                                Target = enemy;
-                                return;
-                            }
-
-                        }
-
-                        break;
-                    }
-                case ETowerType.Buff:
-                    {
-                        break;
-                    }
-                case ETowerType.Debuff:
-                    {
-                        break;
-                    }
+                if (distanceToEnemy < shortestDistance)  // 우선순위 찾기 SortAttackPriority();
+                {
+                    shortestDistance = distanceToEnemy;
+                    nearestEnemy = enemy;
+                }
 
             }
 
-            
+            Debug.Log("shortestDistance" + shortestDistance);
+            Debug.Log("RealRange" + RealRange);
 
-            
+            if (nearestEnemy != null && shortestDistance <= RealRange)
+            {
+                Target = nearestEnemy;
+                Debug.Log("nearestEnemy");
+
+            }
+            else
+            {
+                Target = null;
+            }
         }
         
     }
@@ -206,7 +174,6 @@ public class Tower : MonoBehaviour
 
         } else if (Target.GetComponent<Enemy>().IsAlive == false)
         {
-            //EnemyList.RemoveAt(0);
             return;
         }
 
@@ -249,14 +216,7 @@ public class Tower : MonoBehaviour
                 }
         }
 
-
-        
-
     }
-
-
-
-   
 
 
 
@@ -265,6 +225,9 @@ public class Tower : MonoBehaviour
         if (Vector3.Distance(transform.position, Sender.transform.position) <= RealRange)
             Target = Sender;
     }
+
+
+
 
     
     // 공격 우선순위 정하는 함수
@@ -301,7 +264,7 @@ public class Tower : MonoBehaviour
     }
 
     
-    void Shoot()
+    void Shoot() // 수정
     {
         Debug.Log("Shooting!");
 
@@ -315,7 +278,7 @@ public class Tower : MonoBehaviour
     // 상호작용 함수
 
     //Upgrade
-    void UpgradeTower()
+    void UpgradeTower() // 데이터 연동해서 수정하기
     {
         //Attackstat + 5 로 해놓기
         AttackStat += UpgradeAmount;
@@ -388,12 +351,5 @@ public class Tower : MonoBehaviour
     }
 
 
-    /*
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, Range);
-    }
-    */
 
 }

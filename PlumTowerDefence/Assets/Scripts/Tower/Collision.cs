@@ -15,7 +15,7 @@ public class Collision : MonoBehaviour
     {
        // tower = GetComponentInParent<Tower>();
 
-        enemyList = tower.EnemyList;
+        //enemyList = tower.EnemyList;
         
     }
 

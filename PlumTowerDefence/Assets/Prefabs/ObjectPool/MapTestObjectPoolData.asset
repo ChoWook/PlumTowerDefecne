@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b984c9331507b4f44949be1ba880224d, type: 3}
+  m_Name: MapTestObjectPoolData
+  m_EditorClassIdentifier: 
+  ObjectPrefabs:
+  - {fileID: 6095799242169149362, guid: 772ebeb3e2b548f40b94958bfd4cb91f, type: 3}
+  - {fileID: 8385172303407954630, guid: 6af9bcd04638d464d9a3dafca9f0ccc3, type: 3}
+  - {fileID: 50656276707978358, guid: d8de8be490dea0d459edd92cb39a6a51, type: 3}
+  - {fileID: 596013541029764843, guid: 15df3efa74f97dd4cb3d040c247f9339, type: 3}
+  - {fileID: 2120333552706596562, guid: 1b57c9adc4270a64e8f3a27e656e338e, type: 3}
+  - {fileID: 3196118956388769579, guid: b7bee8b258731f849b0f880275111a7a, type: 3}
