@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Category : MonoBehaviour
@@ -8,18 +9,27 @@ public class Category : MonoBehaviour
     /// <summary>
     /// 오브젝트 풀을 이용한 카테고리 생성 스크립트
     /// </summary>
+
+    [SerializeField] private TextMeshProUGUI towerText;
+    [SerializeField] private TextMeshProUGUI resourecText;
+    [SerializeField] private TextMeshProUGUI passiveText;
     
-    private int number_Of_TowerCategory = 12;
-    private int number_Of_ResourceCategory = 5;
-    private int number_Of_PassiveCategory = 6;
+    private int number_Of_TowerCategory;
+    private int number_Of_ResourceCategory;
+    private int number_Of_PassiveCategory;
     private void Awake()
     {
-        //number_Of_TowerCategory = Tables.GlobalSystem.Get(~)
-        //number_Of_ResourceCategory = Talbes.GlobalSystem.Get(~)
-        //number_Of_PassiveCategory = Talbes.GlobalSystem.Get(~)
+        towerText.text = Tables.UpgradeButton.Get(1)._Korean;
+        resourecText.text = Tables.UpgradeButton.Get(2)._Korean;
+        passiveText.text = Tables.UpgradeButton.Get(3)._Korean;
     }
 
-    
+    private void Start()
+    {
+        number_Of_TowerCategory = Tables.UpgradeButton.Get(1)._CategoryNum;
+        number_Of_ResourceCategory = Tables.UpgradeButton.Get(2)._CategoryNum;
+        number_Of_PassiveCategory = Tables.UpgradeButton.Get(3)._CategoryNum;
+    }
 
     public void SelectTower(bool isOn)
     {
@@ -60,7 +70,7 @@ public class Category : MonoBehaviour
     
     private void GenerateCategory(int num, ECategoryType type)
     {
-        for (int i = 0; i < num; i++)
+        for (int i = 1; i <= num; i++)
         {
             GameObject obj = ObjectPools.Instance.GetPooledObject("UpgradeCategoryButton");
 
@@ -70,13 +80,13 @@ public class Category : MonoBehaviour
             switch (type)
             {
                 case ECategoryType.Tower:
-                    obj.GetComponent<CategoryButton>().id = i * 100 + 10000;
+                    obj.GetComponent<CategoryButton>().SetId(i * 100 + 10000);
                     break;
                 case ECategoryType.Resource:
-                    obj.GetComponent<CategoryButton>().id = i * 100 + 20000;
+                    obj.GetComponent<CategoryButton>().SetId(i * 100 + 20000);
                     break;
                 case ECategoryType.Passive:
-                    obj.GetComponent<CategoryButton>().id = i * 100 + 30000;
+                    obj.GetComponent<CategoryButton>().SetId(i * 100 + 30000);
                     break;
             }
             

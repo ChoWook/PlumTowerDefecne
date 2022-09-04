@@ -5247,10 +5247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3adaad70b4a7614e8e10c9fb0129b34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolPrefabs:
-  - {fileID: 8512218874839391579, guid: 858dc67e6d982f544a48ce047856ee1b, type: 3}
-  - {fileID: 7817341427025157785, guid: 420841f344d022e4fbe669c57287451b, type: 3}
-  - {fileID: 0}
+  PrefabsScriptable: {fileID: 11400000, guid: 01dd6b761e0f14d43b55a29cd0390294, type: 2}
   poolingCount: 10
 --- !u!4 &657899628
 Transform:

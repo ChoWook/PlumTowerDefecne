@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Upgrade : MonoBehaviour
 {
@@ -11,20 +12,19 @@ public class Upgrade : MonoBehaviour
     /// </summary>
 
     [HideInInspector] public int id;
-    private TextMeshProUGUI text;
+    private TextMeshProUGUI title;
+    private TextMeshProUGUI context;
 
     private void OnEnable()
     {
-        text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();   //텍스트 초기화
+        title = transform.GetChild(0).GetComponent<TextMeshProUGUI>();   //텍스트 초기화
+        context = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
     }
 
-    private void Update()
+    public void SetID(int _id)
     {
-        ChangeText();
-    }
-
-    void ChangeText()
-    {
-        text.text = id.ToString();
+        id = _id;
+        title.text = Tables.UpgradeCard.Get(id)._Title;
+        context.text = Tables.UpgradeCard.Get(id)._Contents;
     }
 }
