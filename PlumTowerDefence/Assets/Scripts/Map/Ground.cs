@@ -209,8 +209,13 @@ public class Ground : MonoBehaviour
         return Tiles[Sender.PosX + GroundSize * Sender.PosY];
     }
 
-    public void StartEnemySpawners()
+    public void StartEnemySpawners(int idx)
     {
+        if(idx == 0)
+        {
+            EnemySpawners[0].UpdateEnemySpawnCounts();
+        }
+
         for(int i = 0; i < EnemySpawners.Count; i++)
         {
             EnemySpawners[i].SpawnWave();

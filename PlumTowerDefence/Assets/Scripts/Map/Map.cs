@@ -329,7 +329,7 @@ public class Map : MonoBehaviour
     {
         for(int i = 0; i < CurEnemySpawnerGrounds.Count; i++)
         {
-            CurEnemySpawnerGrounds[i].StartEnemySpawners();
+            CurEnemySpawnerGrounds[i].StartEnemySpawners(i);
         }
     }
 
