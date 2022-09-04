@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Collision : MonoBehaviour
 {
-
+    /*
     public string enemyTag = "Enemy";
 
     [SerializeField]Tower tower;
@@ -42,5 +42,5 @@ public class Collision : MonoBehaviour
         }
     }
 
-
+    */
 }

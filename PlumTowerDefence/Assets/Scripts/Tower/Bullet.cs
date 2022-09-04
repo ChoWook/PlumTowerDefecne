@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 
     //private int AttackPropertyID;        // 속성 아이디
 
-    private EAttackSpecialization AttackSepcialization; // 공격 종류
+    private EAttackSpecialization AttackSpecialization; // 공격 종류
 
 
     public float Speed;
@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
         target = _target;
         Speed = _Speed;
         Damage = _Damage;
-        AttackSepcialization = _AttackSpecialization;
+        AttackSpecialization = _AttackSpecialization;
     }
 
 
@@ -66,7 +66,7 @@ public class Bullet : MonoBehaviour
     {
         // 데미지 전달함수 추가
 
-        target.GetComponent<Enemy>().TakeDamage(Damage, AttackSepcialization); //Damage 전달 -> 나중에 속성 추가
+        target.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization); //Damage 전달
         
         DestroyBullet();
     }

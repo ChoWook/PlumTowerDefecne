@@ -186,18 +186,20 @@ public class Tower : MonoBehaviour
         PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
         // 발사
+        if (FireCountdown <= 0f)
+        {
+            Shoot();
+            FireCountdown = 1f / SpeedStat;
+        }
 
-        switch(TypeID)
+        FireCountdown -= Time.deltaTime;
+
+        /*
+        switch (TypeID)
         {
             case ETowerType.AttackProjectile:
                 {
-                    if (FireCountdown <= 0f)
-                    {
-                        Shoot();
-                        FireCountdown = 1f / SpeedStat;
-                    }
-
-                    FireCountdown -= Time.deltaTime;
+                    
 
                     break;
                 }
@@ -215,7 +217,7 @@ public class Tower : MonoBehaviour
                     break;
                 }
         }
-
+        */
     }
 
 
@@ -264,7 +266,7 @@ public class Tower : MonoBehaviour
     }
 
     
-    void Shoot() // 수정
+    public virtual void Shoot() // 수정
     {
         Debug.Log("Shooting!");
 
