@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour
         MoveSpeed = GetComponent<Enemy>().Speed;
         Target = Waypoints.points[Route][WaypointIndex];
     }
-    void Update()
+    void FixedUpdate()
     {
 
         Vector3 dir = Target.position - transform.position; 

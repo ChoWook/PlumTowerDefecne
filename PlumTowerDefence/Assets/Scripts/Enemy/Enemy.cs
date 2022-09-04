@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
     {
         CurrentHP = MaxHP;
         CurrentShield = MaxShield;
-        Debug.Log("CurrentHP: " + CurrentHP + " CurrentShield: " + CurrentShield + " Armor: " + Armor + " Speed: " + Speed);
+        //Debug.Log("CurrentHP: " + CurrentHP + " CurrentShield: " + CurrentShield + " Armor: " + Armor + " Speed: " + Speed);
     }
 
     IEnumerator IE_PlayDeadAnimation()
@@ -259,7 +259,7 @@ public class Enemy : MonoBehaviour
     public void EnemyLevelUp()        // waveNumber
     {                                   //체력, 방어구 10% 증가
         int enemySpawnCount = EnemySpawner.EnemySpawnCounts[monsterType];
-        Debug.Log("enemySpawnCount: " + enemySpawnCount);
+        //Debug.Log("enemySpawnCount: " + enemySpawnCount);
         int id = (int)monsterType;
 
         int countLevel = enemySpawnCount / 2 + 1;
@@ -271,7 +271,7 @@ public class Enemy : MonoBehaviour
             currentLevel[id - 1] = countLevel;
 
 
-        Debug.Log(monsterType + " CurrentLevel: " + currentLevel[id - 1]);
+        //Debug.Log(monsterType + " CurrentLevel: " + currentLevel[id - 1]);
 
         MaxHP += BaseHP * Tables.MonsterLevel.Get(currentLevel[id - 1])._Hp * currentLevel[id-1] / 100;
         MaxShield += BaseShield * Tables.MonsterLevel.Get(currentLevel[id -1])._Sheild * currentLevel[id - 1] / 100;

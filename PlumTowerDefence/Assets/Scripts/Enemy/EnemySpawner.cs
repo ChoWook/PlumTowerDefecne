@@ -85,11 +85,10 @@ public class EnemySpawner : MonoBehaviour
 
             EnemyArr[i] = SpawnEnemyNumber;
             EachTotalSpawn += SpawnEnemyNumber;
-            int id = Tables.MonsterAmount.Get(WaveNumber)._Monster[i]._ID;
-            EnemySpawnCounts[Tables.Monster.Get(id)._Type] += 1;
         }
         Debug.Log("Total EnemyNum: " + EnemyNumber);
         int spawnEnemyNum = 0;
+        Debug.Log("EachTotalSpawn: " + EachTotalSpawn);
         while (EachTotalSpawn > 0)
         {
             int randEnemy = Choose(EnemyArr);
@@ -99,7 +98,7 @@ public class EnemySpawner : MonoBehaviour
             EachTotalSpawn--;
 
             spawnEnemyNum++;
-            Debug.Log("Spawn Enemy: " + spawnEnemyNum);
+            Debug.Log(Tables.Monster.Get(id)._Type + " Spawn Enemy: " + spawnEnemyNum);
             yield return ws;
         }
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
@@ -171,8 +170,8 @@ public class EnemySpawner : MonoBehaviour
     {
         int RouteCount = Map.Instance.CurAttackRouteCnt;
         SpawnEnemyNumber = eachEnemyAmount / RouteCount;
-        remainder = EnemyNumber % RouteCount;
-        Debug.Log("RouteCount: " + RouteCount);
+        remainder = eachEnemyAmount % RouteCount;
+        //Debug.Log("RouteCount: " + RouteCount);
 
         switch (remainder)
         {
