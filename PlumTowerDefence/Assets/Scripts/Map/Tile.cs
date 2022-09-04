@@ -171,4 +171,38 @@ public class Tile : MonoBehaviour
 
         return null;
     }
+
+    public bool CheckObjectOnTileWithSize(int size = 1)
+    {
+        if (size == 1)
+        {
+            return CheckBuildAvailableTile();
+        }
+
+        if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.R])).CheckBuildAvailableTile() == false) return false;
+        if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.DR])).CheckBuildAvailableTile() == false) return false;
+        if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.D])).CheckBuildAvailableTile() == false) return false;
+
+
+        if (size == 3)
+        {
+            if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.UL])).CheckBuildAvailableTile() == false) return false;
+            if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.U])).CheckBuildAvailableTile() == false) return false;
+            if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.UR])).CheckBuildAvailableTile() == false) return false;
+            if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.L])).CheckBuildAvailableTile() == false) return false;
+            if (Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.DL])).CheckBuildAvailableTile() == false) return false;
+        }
+
+        return true;
+    }
+
+    bool CheckBuildAvailableTile()
+    {
+        if(_ObjectOnTile == null || !_ObjectOnTile.activeSelf || _TileType == ETileType.Land)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

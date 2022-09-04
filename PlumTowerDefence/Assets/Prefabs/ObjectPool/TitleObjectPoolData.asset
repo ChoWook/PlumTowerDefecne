@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b984c9331507b4f44949be1ba880224d, type: 3}
   m_Name: TitleObjectPoolData
   m_EditorClassIdentifier: 
-  ObjectPrefabs: []
+  ObjectPrefabs:
+  - {fileID: 342314504436660779, guid: 1a45f069720cefa4b88270f7b5460e19, type: 3}
+  - {fileID: 5545216919503375975, guid: 93164d2d880dc4d4ea177a08361e0930, type: 3}

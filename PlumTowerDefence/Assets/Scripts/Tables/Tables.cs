@@ -30,7 +30,7 @@ public class Tables : ScriptableObject
             MonsterSpecialityAmount.Load();
             Tower.Load();
             UpgradeButton.Load();
-            //UpgradeCard.Load();
+            UpgradeCard.Load();
             UpgradeCategory.Load();
             MonsterLaneBuff.Load();
 

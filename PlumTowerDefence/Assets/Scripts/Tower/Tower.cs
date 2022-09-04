@@ -86,7 +86,7 @@ public class Tower : MonoBehaviour
         //사거리 지정 Range 값 넣기
         Transform parent = transform.parent;
         transform.parent = null;
-        Boundary.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
+        //Boundary.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
         transform.parent = parent;
         */
 
