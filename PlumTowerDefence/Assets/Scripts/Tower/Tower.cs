@@ -23,7 +23,7 @@ public class Tower : MonoBehaviour
     protected ETowerType TypeID;                             // 속성 ID (데이터테이블)
     public int Size;                                      // 타워 크기 (데이터테이블)
     public float AttackStat;                                 // 공격력 스텟(데이터테이블)
-    protected float AbilityStat;
+    public float AbilityStat;
 
     public Transform PartToRotate;                           //회전 오브젝트
     public float TurnSpeed = 10f;                            //회전 속도
@@ -181,11 +181,16 @@ public class Tower : MonoBehaviour
 
         Debug.Log("Target != null");
 
-        // 타워 회전
-        Vector3 dir = Target.transform.position - transform.position;
-        Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation,lookRotation,Time.deltaTime * TurnSpeed).eulerAngles;
-        PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+
+        if (PartToRotate != null)
+        {
+            // 타워 회전
+            Vector3 dir = Target.transform.position - transform.position;
+            Quaternion lookRotation = Quaternion.LookRotation(dir);
+            Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation, lookRotation, Time.deltaTime * TurnSpeed).eulerAngles;
+            PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        }
+        
 
         // 발사
         if (FireCountdown <= 0f)

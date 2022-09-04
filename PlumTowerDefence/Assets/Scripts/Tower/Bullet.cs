@@ -5,6 +5,8 @@ public class Bullet : MonoBehaviour
 {
     private GameObject target;            // 타겟
 
+    public Tower tower;                        
+
     //public GameObject ObjectPool;
 
     private float Damage;               // 타겟에게 가할 데미지
@@ -16,6 +18,12 @@ public class Bullet : MonoBehaviour
 
     public float Speed;
 
+    public float MissileRange;
+
+    private void OnEnable()
+    {
+        MissileRange = tower.AbilityStat * GameManager.instance.unitTileSize;
+    }
 
     public void Seek (GameObject _target, float _Speed,float _Damage, EAttackSpecialization _AttackSpecialization)
     {
@@ -69,6 +77,27 @@ public class Bullet : MonoBehaviour
         target.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization); //Damage 전달
         
         DestroyBullet();
+
+        if (tower.TowerName == ETowerName.Missile)
+        {
+
+            GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+            for (int i = 0; i < Enemies.Length; i++) //타워 사거리 상관없어서 바꿔야 함~~~.
+            {
+                float distanceToEnemy = Vector3.Distance(target.transform.position, tower.EnemyList[i].transform.position); // 적과의 거리 구하기
+
+                // Debug.Log("DistanceEnemy" + distanceToEnemy);
+
+                if (distanceToEnemy <= MissileRange) // 사거리 안에 있는 타겟들
+                {
+                    target.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization);
+                }
+            }
+        }
+
+
+
     }
 
 
