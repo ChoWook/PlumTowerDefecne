@@ -122,7 +122,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8719500718126167532}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8719500718718620079}
+        m_TargetAssemblyTypeName: MiningUI, Assembly-CSharp
+        m_MethodName: OnAcceptBtnClicK
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8719500718245934752
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +257,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8719500718245934781}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8719500718718620079}
+        m_TargetAssemblyTypeName: MiningUI, Assembly-CSharp
+        m_MethodName: OnCancelBtnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8719500718338368345
 GameObject:
   m_ObjectHideFlags: 0

@@ -413,6 +413,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a71d68ed52cdf42a4838f0979f6360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &164082302 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8719500718718619987, guid: ec6912196dc7e9a47be883885b565804,
+    type: 3}
+  m_PrefabInstance: {fileID: 8719500718554948397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &164082303 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8719500718718619986, guid: ec6912196dc7e9a47be883885b565804,
@@ -1431,7 +1437,7 @@ MonoBehaviour:
   GroundTowerUI: {fileID: 861025705}
   AllTowerUI: {fileID: 77859495}
   ObstacleUI: {fileID: 422988982}
-  MiningUI: {fileID: 0}
+  MiningUI: {fileID: 164082302}
 --- !u!1 &1619318876 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9157829015255684658, guid: 55a2a2d32437111428415e2f23eff3e3,
