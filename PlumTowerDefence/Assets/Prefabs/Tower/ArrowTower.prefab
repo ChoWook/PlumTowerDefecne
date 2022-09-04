@@ -915,7 +915,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 775646588377268172}
-  - component: {fileID: 8191689212692357129}
   m_Layer: 0
   m_Name: ArrowHead
   m_TagString: Untagged
@@ -940,39 +939,6 @@ Transform:
   m_Father: {fileID: 7817341427025157790}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8191689212692357129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3955684889859252043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f0ce2e4c941df6459221fc26bb3d909, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDamage: 20
-  attackSpeed: 2
-  projectileVelocity: 50
-  attackRange: 20
-  explosionRadius: 1
-  reloadDelay: 0.7
-  releaseTimer: 0.1
-  projectile: {fileID: 2204602030321775278, guid: 995944979139f1f4f84301f701529161,
-    type: 3}
-  projectileSpawnPoint: {fileID: 4128318673279507345}
-  shootParticle: {fileID: 48619853358237287, guid: 78983eee7ca925f4ab35a12bc1bbfd31,
-    type: 3}
-  psSpawnPoint: {fileID: 1897154479966061791}
-  projectileSize: {x: 5.2, y: 5.2, z: 5.2}
-  scaleUpSpeed: 1.1
-  shrinkSpeed: 30
-  rotationSpeed: 15
-  controller: {fileID: 3945014946413862746}
-  lookTowardsObj: {fileID: 0}
-  flipRotation: 1
-  isStationary: 0
 --- !u!1 &4201381867126625797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2668,7 +2634,6 @@ MonoBehaviour:
   TowerID: 0
   Range: 0
   RealRange: 0
-  TileSize: 3
   SpeedStat: 0
   TowerName: 0
   AttackStat: 0
@@ -2683,7 +2648,7 @@ MonoBehaviour:
     type: 3}
   FirePoint: {fileID: 661962042565045397}
   Boundary: {fileID: 8138642334970068589}
-  EnemyLIst: []
+  EnemyList: []
   Target: {fileID: 0}
   enemyTag: Enemy
 --- !u!114 &6398613423302632109
