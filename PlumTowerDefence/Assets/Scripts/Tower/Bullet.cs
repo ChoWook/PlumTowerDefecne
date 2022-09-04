@@ -16,10 +16,6 @@ public class Bullet : MonoBehaviour
 
     public float Speed;
 
-    public void Awake()
-    {
-        
-    }
 
     public void Seek (GameObject _target, float _Speed,float _Damage, EAttackSpecialization _AttackSpecialization)
     {

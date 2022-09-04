@@ -93,6 +93,23 @@ public class Tower : MonoBehaviour
 
     }
 
+    // 추적 알고리즘 코루틴
+    IEnumerator IE_GetTargets()
+    {
+        WaitForSeconds ws = new WaitForSeconds(0.5f);
+
+        //사거리 안에 들어온 적들 EnemyList에 정리 + 사거리에서 나가면 지우기.
+
+        while (true)
+        {
+            //SortAttackPriority();
+            UpdateTarget();
+
+            yield return ws;
+        }
+
+    }
+
 
     // 타겟 업데이트 ( 체력 우선, 방어구 우선, 방어력 높은 적 우선 추가하기)
     void UpdateTarget()
@@ -108,34 +125,72 @@ public class Tower : MonoBehaviour
             GameObject nearestEnemy = null;
             //Debug.Log("EnemiesCount" + enemies.Length);
 
-
-            foreach (GameObject enemy in enemies)
+            switch(TypeID)
             {
-                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // 적과의 거리 구하기
+                case ETowerType.AttackProjectile:
+                    {
+                        foreach (GameObject enemy in enemies)
+                        {
+                            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // 적과의 거리 구하기
 
-                // Debug.Log("DistanceEnemy" + distanceToEnemy);
+                            // Debug.Log("DistanceEnemy" + distanceToEnemy);
 
-                if (distanceToEnemy < shortestDistance)  // 우선순위 찾기 SortAttackPriority();
-                {
-                    shortestDistance = distanceToEnemy;
-                    nearestEnemy = enemy;
-                }
+                            if (distanceToEnemy < shortestDistance)  // 우선순위 찾기 SortAttackPriority();
+                            {
+                                shortestDistance = distanceToEnemy;
+                                nearestEnemy = enemy;
+                            }
+
+                        }
+
+                        Debug.Log("shortestDistance" + shortestDistance);
+                        Debug.Log("RealRange" + RealRange);
+
+                        if (nearestEnemy != null && shortestDistance <= RealRange)
+                        {
+                            Target = nearestEnemy;
+                            Debug.Log("nearestEnemy");
+
+                        }
+                        else
+                        {
+                            Target = null;
+                        }
+
+                        break;
+                    }
+                case ETowerType.Attack:
+                    {
+                        foreach (GameObject enemy in enemies)
+                        {
+                            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // 적과의 거리 구하기
+
+                            // Debug.Log("DistanceEnemy" + distanceToEnemy);
+
+                            if (distanceToEnemy <= RealRange)  // 우선순위 찾기 SortAttackPriority();
+                            {
+                                Target = enemy;
+                                return;
+                            }
+
+                        }
+
+                        break;
+                    }
+                case ETowerType.Buff:
+                    {
+                        break;
+                    }
+                case ETowerType.Debuff:
+                    {
+                        break;
+                    }
 
             }
 
-            Debug.Log("shortestDistance" + shortestDistance);
-            Debug.Log("RealRange" + RealRange);
+            
 
-            if (nearestEnemy != null && shortestDistance <= RealRange)
-            {
-                Target = nearestEnemy;
-                Debug.Log("nearestEnemy");
-
-            }
-            else
-            {
-                Target = null;
-            }
+            
         }
         
     }
@@ -165,34 +220,43 @@ public class Tower : MonoBehaviour
 
         // 발사
 
-        if (FireCountdown <= 0f)
+        switch(TypeID)
         {
-            Shoot();
-            FireCountdown = 1f / SpeedStat;
+            case ETowerType.AttackProjectile:
+                {
+                    if (FireCountdown <= 0f)
+                    {
+                        Shoot();
+                        FireCountdown = 1f / SpeedStat;
+                    }
+
+                    FireCountdown -= Time.deltaTime;
+
+                    break;
+                }
+            case ETowerType.Attack:
+                {
+                   
+                    break;
+                }
+            case ETowerType.Buff:
+                {
+                    break;
+                }
+            case ETowerType.Debuff:
+                {
+                    break;
+                }
         }
 
-        FireCountdown -= Time.deltaTime;
 
-    }
-
-
-
-    // 추적 알고리즘 코루틴
-    IEnumerator IE_GetTargets()
-    {
-        WaitForSeconds ws = new WaitForSeconds(0.5f);
-
-        //사거리 안에 들어온 적들 EnemyList에 정리 + 사거리에서 나가면 지우기.
-
-        while(true)
-        {
-            //SortAttackPriority();
-            UpdateTarget();
-
-            yield return ws;
-        }    
         
+
     }
+
+
+
+   
 
 
 
