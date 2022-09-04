@@ -40,6 +40,7 @@ public class EnemyMovement : MonoBehaviour
         if(WaypointIndex <= 0)
         {
             GameManager.instance.currentEnemyNumber--;
+            GameManager.instance.currentHp--;
             ObjectPools.Instance.ReleaseObjectToPool(gameObject);
             return;
         }

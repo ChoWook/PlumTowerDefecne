@@ -4,13 +4,30 @@ using UnityEngine;
 
 public class Collision : MonoBehaviour
 {
+
+    public string enemyTag = "Enemy";
+
+    [SerializeField]Tower tower;
+
+    List<GameObject> enemyList;
+
+    private void Awake()
+    {
+       // tower = GetComponentInParent<Tower>();
+
+        enemyList = tower.EnemyLIst;
+        
+    }
+
+
+
     // 적 들어오면 추가
     public void OnTriggerEnter(Collider other)
     {
         var obj = other.gameObject;
-        if(obj != null && obj.tag == "Enemy")
+        if(obj != null && obj.CompareTag(enemyTag))
         {
-            this.GetComponentInParent<Tower>().EnemyLIst.Add(obj);
+            enemyList.Add(obj);
         }
         
     }
@@ -21,7 +38,7 @@ public class Collision : MonoBehaviour
         var obj = other.gameObject;
         if (obj != null && obj.tag == "Enemy" )
         {
-            this.GetComponentInParent<Tower>().EnemyLIst.Remove(obj);
+            enemyList.Remove(obj);
         }
     }
 

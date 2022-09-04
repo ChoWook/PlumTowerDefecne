@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0206acf53779e14089fdfa4902de8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1479595732193802973, guid: 3b7034ad4389e324898e253692411052,
-    type: 3}
   SpawnPoint: {fileID: 0}
-  WaveNumber: 1
+  WaveNumber: 0
   Route: 0
+  WaypointIndex: 5

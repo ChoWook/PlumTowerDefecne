@@ -16,11 +16,11 @@ public class WaveManager : MonoBehaviour
    
     private void Update()
     {
-        /* if (Input.GetKeyDown(KeyCode.A))
+         /*if (Input.GetKeyDown(KeyCode.A))
          {
              var enemyHit = GetComponent<Enemy>();
              Debug.Log("a pressed");
-             enemyHit.TakeDamage(50);
+             enemyHit.DealDamageForSeconds(30);
              Debug.Log("Shield: " + enemyHit.CurrentShield);
              Debug.Log("HP: " + enemyHit.CurrentHP);
          }*/

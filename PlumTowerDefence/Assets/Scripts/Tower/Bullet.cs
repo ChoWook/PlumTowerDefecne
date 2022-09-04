@@ -5,20 +5,26 @@ public class Bullet : MonoBehaviour
 {
     private GameObject target;            // 타겟
 
-    public GameObject ObjectPool;
+    //public GameObject ObjectPool;
 
     private double Damage;               // 타겟에게 가할 데미지
 
     //private int AttackPropertyID;        // 속성 아이디
 
-    private EAttackSepcialization AttackSepcialization; // 공격 종류
+    private EAttackSpecialization AttackSepcialization; // 공격 종류
 
 
-    public float Speed = 1f;
+    public float Speed;
 
-    public void Seek (GameObject _target, double _Damage, EAttackSepcialization _AttackSpecialization)
+    public void Awake()
+    {
+        
+    }
+
+    public void Seek (GameObject _target, float _Speed,float _Damage, EAttackSepcialization _AttackSpecialization)
     {
         target = _target;
+        Speed = _Speed;
         Damage = _Damage;
         AttackSepcialization = _AttackSpecialization;
     }
@@ -56,9 +62,7 @@ public class Bullet : MonoBehaviour
 
     private void DestroyBullet()
     {
-        ObjectPool = GameObject.Find("ObjectPool");
-
-        ObjectPool.GetComponent<ObjectPools>().ReleaseObjectToPool(gameObject);
+        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
     }
 
 

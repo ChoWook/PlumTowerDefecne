@@ -168,7 +168,20 @@ public class Map : MonoBehaviour
 
         // 처음에 열려 있는 그라운드를 제외하고 전부 비활성화
         InitGrounds();
+
+        // 게임이 시작됐으니 게임매니저 정보 초기화
+        InitGameManager();
     }
+
+    void InitGameManager()
+    {
+        // 유닛 타일 사이즈 계산
+        GameManager.instance.unitTileSize = GetTileInMap(new Pos { PosX = 1, PosY = 0 }).transform.position.x
+            - GetTileInMap(new Pos { PosX = 0, PosY = 0 }).transform.position.x;
+
+        GameManager.instance.InitCoupon();
+    }
+
 
     // 특정한 좌표에 Ground 생성
     public void AddGround(int x, int y, EGroundType type)
@@ -470,7 +483,7 @@ public class Map : MonoBehaviour
                 continue;
             }
 
-            if(NextTile.TileType == ETileType.AttackRoute && NextTile.IsSelectedAttackRoute == false)
+            if(NextTile.CheckTileType(ETileType.AttackRoute) && NextTile.IsSelectedAttackRoute == false)
             {
                 NextDirs.Add(OutDir);
             }

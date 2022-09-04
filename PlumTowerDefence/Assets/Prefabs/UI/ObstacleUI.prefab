@@ -215,6 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12c3dbcbe832c764e93d0af25c960dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cancel: {fileID: 5771277489775287970}
+  Accept: {fileID: 3809693940168687664}
+  RequireMoney: {fileID: 132490148908583249}
 --- !u!1 &6021107137487496431
 GameObject:
   m_ObjectHideFlags: 0

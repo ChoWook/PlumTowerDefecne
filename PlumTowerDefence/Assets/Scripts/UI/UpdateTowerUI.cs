@@ -34,7 +34,7 @@ public class UpdateTowerUI : MonoBehaviour
 
     private void UpdateTowerInfo()
     {
-        TowerName.text = _tower.TowerName;
+        TowerName.text = _tower.TowerName.ToString();
         /*
         TowerLevel.text = string.Format(Tables.StringUI.Get(TowerLevel.gameObject.name)._Korean, _tower.UpgradeCount);
         TowerDamage.text = string.Format(Tables.StringUI.Get(TowerDamage.gameObject.name)._Korean, _tower.AttackStat);

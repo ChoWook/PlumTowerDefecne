@@ -93,7 +93,7 @@ public enum ETowerType
     Lane = 6,
 }
 
-public enum EAttackSepcialization
+public enum EAttackSpecialization
 {
     Default = 1,
     Health = 2,
@@ -103,9 +103,9 @@ public enum EAttackSepcialization
 
 public enum EUpgradeStat
 {
-    AttackStat = 1,
-    AbilityStat = 2,
-    SpeedStat = 3,
+    Attack = 1,
+    Ability = 2,
+    Speed = 3,
 }
 
 public enum EPropertyType
@@ -150,4 +150,19 @@ public enum ECategoryType
     Tower = 1,
     Resource = 2,
     Passive = 3,
+}
+
+public enum ETowerName
+{
+    Arrow = 1,
+    Hourglass = 2,
+    Poison = 3,
+    Flame = 4,
+    AttackBuff = 5,
+    SpeedBuff = 6,
+    Laser = 7,
+    Missile = 8,
+    Electric = 9,
+    Gatling = 10,
+    Cannon = 11,
 }

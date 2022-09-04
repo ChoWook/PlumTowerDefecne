@@ -6,23 +6,25 @@ public class Enemy : MonoBehaviour
 {
     // 기본 Enemy 스탯, 속성, 특성 Class만들기
 
-    protected float BaseHP;               // 데이터테이블에서 가져오기
+    protected float BaseHP;               
     float MaxHP;
     public float CurrentHP;
-    protected float BaseShield;           // 데이터테이블에서 가져오기
+    protected float BaseShield;           
     float MaxShield;
 
     public float CurrentShield;
     bool ShieldOn = true;
     float Armor;
-    protected float BaseArmor;            // 데이터테이블에서 가져오기
-    public float BaseSpeed;     // 데이터테이블에서 가져오기
-    public float Speed;             // EnemyMovement 에서 조정
+    protected float BaseArmor;            
+    public float BaseSpeed;               
+    public float Speed;                     
     public bool IsAlive = true;
 
     private int[] currentLevel = new int[8];
         
     float Enforced = 1.0f;          // 강화특성
+
+    public EMonsterType monsterType;
 
     Animator animator;  
 
@@ -33,7 +35,8 @@ public class Enemy : MonoBehaviour
             currentLevel[i] = 1;
         }
     }
-    public void GetStat(EMonsterType monsterType)
+
+    public void GetStat()
     {
         int id = Tables.Monster.Get((int)monsterType)._ID;
         BaseHP = Tables.Monster.Get(id)._Hp;
@@ -44,7 +47,7 @@ public class Enemy : MonoBehaviour
         MaxShield = BaseShield;
         Speed = BaseSpeed;
         Armor = BaseArmor;
-        
+        ShieldOn = true;
     }
     
     public void SetStat()
@@ -54,56 +57,69 @@ public class Enemy : MonoBehaviour
         Debug.Log("CurrentHP: " + CurrentHP + " CurrentShield: " + CurrentShield + " Armor: " + Armor + " Speed: " + Speed);
     }
 
-    IEnumerator IE_TriggerAnimation()
+    IEnumerator IE_PlayDeadAnimation()
     {
-        animator = gameObject.GetComponent<Animator>();
-        if (animator != null)
-        {
-            animator.SetTrigger("DeadTrigger");
-            GameManager.instance.currentEnemyNumber--;
-            GetComponent<EnemyMovement>().MoveSpeed = 0;
-            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-            ObjectPools.Instance.ReleaseObjectToPool(gameObject);
-        }
-        else
-            Debug.Log("Null");
-
-        
+        GetComponent<BaseAniContoller>().DeadAnimation();
+        yield return new WaitForSeconds(1);
+        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
     }
 
-    public void TakeDamage(float damage)
-    {
 
+
+
+    public void TakeDamage(float damage, EAttackSpecialization type)
+    {
+        float hpSpecial = 1.0f;
+        float shieldSpecial = 1.0f;
+        float penetrationOn = 1.0f;
+        switch (type)
+        {
+            case EAttackSpecialization.Health:
+                hpSpecial = 1.2f;
+                break;
+            case EAttackSpecialization.Shield:
+                shieldSpecial = 1.2f;
+                break;
+            case EAttackSpecialization.Defense:
+                penetrationOn = 0;
+                break;
+        }
         if (ShieldOn == true)                                      // 실드가 있는 경우
         {
             float DamageProtect = CurrentShield;
-            CurrentShield -= damage * 0.01f * (100 - Armor) * 0.9f; // 현재 실드를 깐다
+            CurrentShield -= damage * 0.01f * (100 - Armor * penetrationOn) * 0.9f * shieldSpecial; // 현재 실드를 깐다
 
             if (CurrentShield <= 0)                               // 방어구가 다 까지면 
             {
                 ShieldOn = false;                                 // 방어구 제거
                 damage -= DamageProtect;                          // 데미지 경감
-                CurrentHP -= damage * 0.01f * (100 - Armor);
+                CurrentHP -= damage * 0.01f * (100 - Armor * penetrationOn) * hpSpecial;
                 CurrentShield = 0;
             }
         }
         else                                                      // 실드가 없는 경우
         {
-            CurrentHP -= damage * 0.01f * (100 - Armor);
+            CurrentHP -= damage * 0.01f * (100 - Armor * penetrationOn) * hpSpecial;
         }
-        Debug.Log("Shield: " + CurrentShield + "HP: " + CurrentHP);
+        //Debug.Log("Shield: " + CurrentShield + "HP: " + CurrentHP);
 
         if (CurrentHP <= 0)
         {
-            
             KillEnemy();
         }
     }
 
     void KillEnemy()
     {
-        IsAlive = false;
-        StartCoroutine(IE_TriggerAnimation());                                         // 시체패는거 없애기
+        transform.tag = "Untagged";
+        if(IsAlive == true)
+        {
+            IsAlive = false;
+            GameManager.instance.currentEnemyNumber--;
+        }
+        GetComponent<EnemyMovement>().MoveSpeed = 0;
+        //Debug.Log("Killed Enemy");
+        StartCoroutine(IE_PlayDeadAnimation());                                         
     }
 
     PropertyType MyProperty;
@@ -235,40 +251,39 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void EnemyLevelUp(EMonsterType monsterType)        // waveNumber
+    public void AddSpeciality()
+    {
+
+    }
+
+    public void EnemyLevelUp()        // waveNumber
     {                                   //체력, 방어구 10% 증가
         int enemySpawnCount = EnemySpawner.EnemySpawnCounts[monsterType];
         Debug.Log("enemySpawnCount: " + enemySpawnCount);
         int id = (int)monsterType;
 
-        if(enemySpawnCount == 1)
-        {
-            currentLevel[id - 1] = 1;
-        }
-        else if(enemySpawnCount == 2 || enemySpawnCount == 3)
-        {
-            currentLevel[id - 1] = 2;
-        }
-        else if(enemySpawnCount == 4 || enemySpawnCount == 5)
-        {
-            currentLevel[id - 1] = 3;
-        }
-        else if(enemySpawnCount == 6 || enemySpawnCount == 7)
-        {
-            currentLevel[id - 1] = 4;
-        }
-        else if(enemySpawnCount >= 8)
+        int countLevel = enemySpawnCount / 2 + 1;
+        if(countLevel >= 5)
         {
             currentLevel[id - 1] = 5;
         }
+        else
+            currentLevel[id - 1] = countLevel;
+
 
         Debug.Log(monsterType + " CurrentLevel: " + currentLevel[id - 1]);
 
         MaxHP += BaseHP * Tables.MonsterLevel.Get(currentLevel[id - 1])._Hp * currentLevel[id-1] / 100;
         MaxShield += BaseShield * Tables.MonsterLevel.Get(currentLevel[id -1])._Sheild * currentLevel[id - 1] / 100;
         Armor += BaseArmor * Tables.MonsterLevel.Get(currentLevel[id -1])._Armor * currentLevel[id - 1] / 100;
+    }
 
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            DealDamageForSeconds(130);
+        }
     }
 
     public void DealDamageForSeconds(float damage)
@@ -282,9 +297,18 @@ public class Enemy : MonoBehaviour
         Debug.Log("ok");
         while (true)
         {
-            TakeDamage(damage);
+            //TakeDamage(damage);
             yield return new WaitForSeconds(time);
         }
+    }
+
+    public void InitStat()
+    {
+        GetStat();
+        EnemyLevelUp();
+        SetStat();
+        transform.tag = "Enemy";
+        IsAlive = true;
     }
    
 }
