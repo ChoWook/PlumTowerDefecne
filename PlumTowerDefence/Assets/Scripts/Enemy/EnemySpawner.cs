@@ -13,7 +13,7 @@ public class EnemySpawner : MonoBehaviour
     int EnemyNumber = 1;
     int SpawnEnemyNumber;
     float[] EnemyArr;
-
+    static int remainder;
 
     public static Dictionary<EMonsterType, int> EnemySpawnCounts = new();
 
@@ -76,30 +76,45 @@ public class EnemySpawner : MonoBehaviour
         EnemyTypeNum = Tables.MonsterAmount.Get(WaveNumber)._Monster.Count;
         EnemyArr = new float[EnemyTypeNum];
 
+        int EachTotalSpawn = 0;
 
-
-        for(int i = 0; i < EnemyTypeNum; i++)
+        for (int i = 0; i < EnemyTypeNum; i++)
         {
-            EnemyArr[i] = Tables.MonsterAmount.Get(WaveNumber)._Monster[i]._Amount;
+           int EachEnemyAmount = Tables.MonsterAmount.Get(WaveNumber)._Monster[i]._Amount;
+            GetSpawnNumber(EachEnemyAmount);
 
-            int id = Tables.MonsterAmount.Get(WaveNumber)._Monster[i]._ID;
-            EnemySpawnCounts[Tables.Monster.Get(id)._Type] += 1;
+            EnemyArr[i] = SpawnEnemyNumber;
+            EachTotalSpawn += SpawnEnemyNumber;
         }
-        Debug.Log("Total EnemyNum: " + EnemyNumber);
-
-        while (EnemyNumber > 0)
+        //Debug.Log("Total EnemyNum: " + EnemyNumber);
+        int spawnEnemyNum = 0;
+        //Debug.Log("EachTotalSpawn: " + EachTotalSpawn);
+        while (EachTotalSpawn > 0)
         {
             int randEnemy = Choose(EnemyArr);
             int id = Tables.MonsterAmount.Get(WaveNumber)._Monster[randEnemy]._ID;
             SpawnEnemy(Tables.Monster.Get(id)._Type);
             EnemyArr[randEnemy]--;
-            EnemyNumber--;
+            EachTotalSpawn--;
 
-            Debug.Log("Spawn Enemy");
+            spawnEnemyNum++;
+            Debug.Log(Tables.Monster.Get(id)._Type + " Spawn Enemy: " + spawnEnemyNum);
             yield return ws;
         }
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
 
+    }
+
+    public void UpdateEnemySpawnCounts()
+    {
+        WaveNumber = GameManager.instance.level;
+        EnemyTypeNum = Tables.MonsterAmount.Get(WaveNumber)._Monster.Count;
+
+        for (int i = 0; i < EnemyTypeNum; i++)
+        {
+            int id = Tables.MonsterAmount.Get(WaveNumber)._Monster[i]._ID;
+            EnemySpawnCounts[Tables.Monster.Get(id)._Type] += 1;
+        }
     }
 
 
@@ -151,12 +166,35 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
-    int GetSpawnNumber()
+    void GetSpawnNumber(int eachEnemyAmount)
     {
+        int RouteCount = Map.Instance.CurAttackRouteCnt;
+        SpawnEnemyNumber = eachEnemyAmount / RouteCount;
+        remainder = eachEnemyAmount % RouteCount;
+        //Debug.Log("RouteCount: " + RouteCount);
 
+        switch (remainder)
+        {
+            case 0: 
+                break;
+            case 1: 
+                if(Route == 0)
+                {
+                    SpawnEnemyNumber++;
+                }
+                break;
+            case 2:
+                if(Route == 0)
+                {
+                    SpawnEnemyNumber++;
+                }
+                else if(Route == 1)
+                {
+                    SpawnEnemyNumber++;
+                }
+                break;
+        }
 
-
-        return EnemyNumber;
     }
     
 
