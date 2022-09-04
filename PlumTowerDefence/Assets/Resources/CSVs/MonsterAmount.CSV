@@ -1,4 +1,4 @@
-ID,Wave,Amount,Monster1,Monster1Amount,Monster2,Monster2Amount,Monster3,Monster3Amount,Monster4,Monster4Amount,Monster5,Monster5Amount,Monster6,Monster6Amount,Monster7,Monster7Amount,Monster8,Monster8Amount
+﻿ID,Wave,Amount,Monster1,Monster1Amount,Monster2,Monster2Amount,Monster3,Monster3Amount,Monster4,Monster4Amount,Monster5,Monster5Amount,Monster6,Monster6Amount,Monster7,Monster7Amount,Monster8,Monster8Amount
 int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int
 1,1,6,1,6,,,,,,,,,,,,,,
 2,2,10,1,10,,,,,,,,,,,,,,
@@ -49,4 +49,4 @@ int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int
 47,47,1985,8,496,2,497,3,496,4,496,,,,,,,,
 48,48,2283,8,570,3,573,4,570,5,570,,,,,,,,
 49,49,2625,8,656,4,657,5,656,6,656,,,,,,,,
-50+NA10:M52,50,3019,8,377,1,380,2,377,3,377,4,377,5,377,6,377,7,377
+50,50,3019,8,377,1,380,2,377,3,377,4,377,5,377,6,377,7,377

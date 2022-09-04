@@ -1,4 +1,4 @@
-ID,None,Water,Ground,Fire,Electric,Time,Tower,StatType,Amount,
+﻿ID,None,Water,Ground,Fire,Electric,Time,Tower,StatType,Amount,
 int,bool,bool,bool,bool,bool,int,int,MonsterStat,float,
 101110,TRUE,TRUE,TRUE,TRUE,TRUE,0,0,Hp,10,
 102110,TRUE,TRUE,TRUE,TRUE,TRUE,0,0,Hp,-7,

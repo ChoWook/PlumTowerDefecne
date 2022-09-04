@@ -29,6 +29,10 @@ public class Tables : ScriptableObject
             MonsterSpeciality.Load();
             MonsterSpecialityAmount.Load();
             Tower.Load();
+            UpgradeButton.Load();
+            //UpgradeCard.Load();
+            UpgradeCategory.Load();
+            MonsterLaneBuff.Load();
 
             IsLoaded = true;
             Debug.Log("Load End");
@@ -690,7 +694,7 @@ public class Tables : ScriptableObject
     {
         public ESpecialityType _SpecialityType;
         public string _Korean;
-        public EMosterStat _ChangeStat;
+        public EMonsterStat _ChangeStat;
         public float _Amount;
 
         public static void Load()
@@ -717,7 +721,7 @@ public class Tables : ScriptableObject
                 Tmp._ID = int.Parse(data[idx++]);
                 Tmp._SpecialityType = Enum.Parse<ESpecialityType>(data[idx++]);
                 Tmp._Korean = data[idx++];
-                Tmp._ChangeStat = Enum.Parse<EMosterStat>(data[idx++]);
+                Tmp._ChangeStat = Enum.Parse<EMonsterStat>(data[idx++]);
                 Tmp._Amount = float.Parse(data[idx++]);
 
                 Tmp.Add(Tmp);
@@ -825,6 +829,170 @@ public class Tables : ScriptableObject
             Tower tmp;
             _MapWithTower.TryGetValue(name, out tmp);
             return tmp;
+        }
+    }
+
+    public class UpgradeButton : CSVFile<UpgradeButton>
+    {
+        public string _Type;
+        public string _Korean;
+        public int _CategoryNum;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/UpgradeButton");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("UpgradeButton : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                UpgradeButton Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Type = data[idx++];
+                Tmp._Korean = data[idx++];
+                Tmp._CategoryNum = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+
+    public class UpgradeCategory : CSVFile<UpgradeCategory>
+    {
+        public string _Text;
+        public int _CardNum;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/UpgradeCategory");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("UpgradeCategory : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                UpgradeCategory Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Text = data[idx++];
+                Tmp._CardNum = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+
+    public class UpgradeCard : CSVFile<UpgradeCard>
+    {
+        public string _Title;
+        public string _Contents;
+        public int _XpCost;
+        public int _Parents;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/UpgradeCard");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("UpgradeCard : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+                for(int j = 0; j < data.Length; j++)
+                {
+                    data[j] = data[j].Replace("<c>", ",");
+                }
+                
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                UpgradeCard Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Title = data[idx++];
+                Tmp._Contents = data[idx++];
+                Tmp._XpCost = int.Parse(data[idx++]);
+                Tmp._Parents = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+
+    public class MonsterLaneBuff : CSVFile<MonsterLaneBuff>
+    {
+        public bool _None;
+        public bool _Water;
+        public bool _Ground;
+        public bool _Fire;
+        public bool _Electric;
+        public int _Time;
+        public int _Tower;
+        public EMonsterStat _StatType;
+        public float _Amount;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterLaneBuff");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterLaneBuff : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterLaneBuff Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._None = bool.Parse(data[idx++]);
+                Tmp._Water = bool.Parse(data[idx++]);
+                Tmp._Ground = bool.Parse(data[idx++]);
+                Tmp._Fire = bool.Parse(data[idx++]);
+                Tmp._Electric = bool.Parse(data[idx++]);
+                Tmp._Time = int.Parse(data[idx++]);
+                Tmp._Tower = int.Parse(data[idx++]);
+                Tmp._StatType = Enum.Parse<EMonsterStat>(data[idx++]);
+                Tmp._Amount = float.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
         }
     }
 }

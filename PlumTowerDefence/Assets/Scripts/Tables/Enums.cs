@@ -135,13 +135,14 @@ public enum ESpecialityType
     Rapid = 8,
 }
 
-public enum EMosterStat
+public enum EMonsterStat
 {
     NULL = 1,
     Hp = 2,
     Armor = 3,
     Shield = 4,
     Speed = 5,
+    Damage = 6,
 }
 
 
@@ -165,4 +166,7 @@ public enum ETowerName
     Electric = 9,
     Gatling = 10,
     Cannon = 11,
+    Mine = 12,
+    Wall = 13,
+    Bomb = 14,
 }
