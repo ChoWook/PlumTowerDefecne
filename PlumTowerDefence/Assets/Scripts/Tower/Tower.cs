@@ -241,7 +241,7 @@ public class Tower : MonoBehaviour
     {
         Debug.Log("Shooting!");
 
-        GameObject bulletGO = ObjectPools.Instance.GetPooledObject("Arrow");
+        GameObject bulletGO = ObjectPools.Instance.GetPooledObject(BulletPrefab.name);
         bulletGO.transform.position = FirePoint.position;
 
         bulletGO.GetComponent<Bullet>()?.Seek(Target, ProjectileSpeed, AttackStat, AttackSpecialization);
