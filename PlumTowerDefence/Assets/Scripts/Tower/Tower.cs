@@ -147,7 +147,7 @@ public class Tower : MonoBehaviour
 
         if (Target == null)
         {
-            Debug.Log("Target == null");
+            //Debug.Log("Target == null");
             return;
 
         } else if (Target.GetComponent<Enemy>().IsAlive == false)

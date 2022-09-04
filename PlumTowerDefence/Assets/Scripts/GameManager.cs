@@ -151,7 +151,15 @@ public class GameManager : MonoBehaviour
         } 
     }
 
-    private bool _isClickedTower = false;
+    private int _isSettingTarget = 0;  //타겟팅을 정하는 중인가,  0=X, 1=updateTowerUI, 2=GroundTower, 3=AllTower
+
+    public int isSettingTarget
+    {
+        get { return _isSettingTarget; }
+        set { _isSettingTarget = value; }
+    }
+
+    private bool _isClickedTower = false;   //tower를 누른 상태(타워ui가 활성화된 상태)인가
 
     public bool isClickedTower
     {

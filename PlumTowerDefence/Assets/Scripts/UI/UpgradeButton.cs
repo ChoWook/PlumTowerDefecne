@@ -31,6 +31,7 @@ public class UpgradeButton : MonoBehaviour
     public void MoveMainMenu()
     {
         _panel.transform.DOLocalMoveX(0, 1).SetEase(Ease);
+        JsonManager.instance.WriteJson();
     }
 
     public void ResetXP()

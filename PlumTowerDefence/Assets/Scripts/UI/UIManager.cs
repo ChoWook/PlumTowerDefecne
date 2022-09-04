@@ -6,9 +6,10 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject TowerUI;
-    [SerializeField] private GameObject GroundTowerUI;
-    [SerializeField] private GameObject ObstacleUI;
+    public GameObject TowerUI;
+    public GameObject GroundTowerUI;
+    public GameObject AllTowerUI;
+    public GameObject ObstacleUI;
     
     public static UIManager instance = null;
 
@@ -24,6 +25,7 @@ public class UIManager : MonoBehaviour
         ObstacleUI.SetActive(false);
         
         GameManager.instance.isClickedTower = false;
+        GameManager.instance.isSettingTarget = 0;
         
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
@@ -48,5 +50,12 @@ public class UIManager : MonoBehaviour
         UIClear();
         GroundTowerUI.GetComponent<UpdateGroundTowerUI>().SetTower(tower);
         GroundTowerUI.SetActive(true);
+    }
+
+    public void ShowAllTowerUI(Tower tower)
+    {
+        UIClear();
+        AllTowerUI.GetComponent<UpdateAllTowerUI>().SetTower(tower);
+        AllTowerUI.SetActive(true);
     }
 }

@@ -12,19 +12,19 @@ public class GameOver : MonoBehaviour
 
     private void Awake()
     {
+        Debug.LogWarning("GameOverAwake");
         GameManager.instance.AddGameOverCallBack(ShowGameOverUI);
-        gameObject.SetActive(false);
     }
 
     public void ShowGameOverUI()
     {
-        gameObject.SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(true);
         Time.timeScale = 0;
     }
 
     public void MoveMainMenu()
     {
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
         Time.timeScale = 1;
         MoveScene.MoveTitleScene();
     }

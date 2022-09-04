@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerButtonGenerate : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
     GameObject SelectedTowerDisabled;
 
-    private int tower_num = 12; //데이터베이스에서 받아야 함
+    private int tower_num = 11; //데이터베이스에서 받아야 함
     private int tower_row = 7;
 
     Ray ray;
@@ -36,6 +38,14 @@ public class TowerButtonGenerate : MonoBehaviour
                 obj.transform.SetParent(transform.GetChild(1));
             }
             obj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            obj.transform.GetChild(0).name = Tables.Tower.Get(i + 1)._Korean;
+            obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Tables.Tower.Get(i + 1)._Korean;
+            obj.transform.GetChild(1).name = Tables.Tower.Get(i + 1)._Price.ToString();
+            obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = Tables.Tower.Get(i + 1)._Price.ToString();
+
+            //obj.GetComponent<UpdateTowerButton>().index = i;
+            //obj.GetComponent<UpdateTowerButton>().ChangeText();
         }
     }
 
@@ -160,6 +170,8 @@ public class TowerButtonGenerate : MonoBehaviour
             SelectedTower.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 
             SelectedTower.transform.position = tile.transform.position;
+
+            SelectedTower.GetComponent<Tower>().belowTile = tile;
 
             // TODO 타워의 사이즈가 매개변수로 들어가야 함
             tile.SetObjectOnTile(SelectedTower);
