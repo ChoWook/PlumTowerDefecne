@@ -8,12 +8,22 @@ public class FishAniController : BaseAniContoller
 
     private GameObject anim1;
     private GameObject deadEffect1;
+    private GameObject anim2;
+    private GameObject anim3;
+    private GameObject anim4;
+    int currentElement;
+
 
     private void Awake()
     {
         anim1 = transform.GetChild(0).gameObject;
         deadEffect1 = transform.GetChild(1).gameObject;
-        deadEffect1.SetActive(false);
+        anim2 = transform.GetChild(2).gameObject;
+        anim3 = transform.GetChild(3).gameObject;
+        anim4 = transform.GetChild(4).gameObject;
+
+        currentElement = GetComponent<Enemy>().CurrentElement;
+
     }
 
     public override void DeadAnimation()
@@ -23,7 +33,21 @@ public class FishAniController : BaseAniContoller
 
     public override void InitAnimation()
     {
-        anim1.SetActive(true);
+        switch (currentElement)
+        {
+            case 0:
+                anim1.SetActive(true);
+                break;
+            case 1:
+                anim2.SetActive(true);
+                break;
+            case 3:
+                anim3.SetActive(true);
+                break;
+            case 4:
+                anim4.SetActive(true);
+                break;
+        }
         deadEffect1.SetActive(false);
 
     }
@@ -36,7 +60,21 @@ public class FishAniController : BaseAniContoller
 
     public IEnumerator IE_TriggerAnimation()
     {
-        animator = anim1.GetComponent<Animator>();
+        switch (currentElement)
+        {
+            case 0:
+                animator = anim1.GetComponent<Animator>();
+                break;
+            case 1:
+                animator = anim2.GetComponent<Animator>();
+                break;
+            case 3:
+                animator = anim3.GetComponent<Animator>();
+                break;
+            case 4:
+                animator = anim4.GetComponent<Animator>();
+                break;
+        }
         if (animator != null)
         {
             animator.SetTrigger("DeadTrigger");

@@ -34,8 +34,8 @@ Transform:
   - {fileID: 1510063210551105647}
   - {fileID: 748796790207692771}
   - {fileID: 2625076912718663595}
-  - {fileID: 2039156071023633808}
   - {fileID: 8373574829711110518}
+  - {fileID: 2039156071023633808}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -53,9 +53,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentHP: 0
   CurrentShield: 0
+  Armor: 0
   BaseSpeed: 0
   Speed: 0
   IsAlive: 1
+  hasSpecial: 0
+  CurrentElement: 0
   monsterType: 0
   LevelType: 0
 --- !u!114 &3728052765750604232
@@ -263,7 +266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4257542853045284, guid: 92c87c50912f902419e244850d831184, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4257542853045284, guid: 92c87c50912f902419e244850d831184, type: 3}
       propertyPath: m_LocalPosition.x
@@ -459,7 +462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4085429610389234, guid: 82af923688a05f94dbabddc032d8527b, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4085429610389234, guid: 82af923688a05f94dbabddc032d8527b, type: 3}
       propertyPath: m_LocalPosition.x

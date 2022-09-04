@@ -31,11 +31,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2333186672874377743}
-  - {fileID: 8891296529060640062}
-  - {fileID: 5198054082884185295}
   - {fileID: 6197638261871258653}
   - {fileID: 459365353623524818}
+  - {fileID: 5198054082884185295}
+  - {fileID: 2333186672874377743}
+  - {fileID: 8891296529060640062}
   - {fileID: 3466654899127525752}
   - {fileID: 7367986257932297417}
   m_Father: {fileID: 0}
@@ -67,9 +67,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentHP: 0
   CurrentShield: 0
+  Armor: 0
   BaseSpeed: 0
   Speed: 0
   IsAlive: 1
+  hasSpecial: 0
+  CurrentElement: 0
   monsterType: 0
   LevelType: 0
 --- !u!114 &1176294544961529376
@@ -100,11 +103,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1354968227943842, guid: 76f1b29473fbfdb4caa3809f1cc11f01, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4441425321589806, guid: 76f1b29473fbfdb4caa3809f1cc11f01, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4441425321589806, guid: 76f1b29473fbfdb4caa3809f1cc11f01, type: 3}
       propertyPath: m_LocalPosition.x
@@ -328,11 +331,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1024136758897546, guid: f0083ec7cb42fa745bc4a3e94c65a7a7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4142644406973932, guid: f0083ec7cb42fa745bc4a3e94c65a7a7, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4142644406973932, guid: f0083ec7cb42fa745bc4a3e94c65a7a7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -495,7 +498,7 @@ PrefabInstance:
     - target: {fileID: 6558303569776668118, guid: f5d047db157f465418b522f8a2dde562,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6558303569776668118, guid: f5d047db157f465418b522f8a2dde562,
         type: 3}
@@ -505,7 +508,7 @@ PrefabInstance:
     - target: {fileID: 6563363682972314684, guid: f5d047db157f465418b522f8a2dde562,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6563363682972314684, guid: f5d047db157f465418b522f8a2dde562,
         type: 3}
@@ -624,9 +627,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Creatures_Bat_Dead_001
       objectReference: {fileID: 0}
+    - target: {fileID: 1964922721492912, guid: 7024e8ecb402b9842bc87811331443d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4749348525518076, guid: 7024e8ecb402b9842bc87811331443d0, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4749348525518076, guid: 7024e8ecb402b9842bc87811331443d0, type: 3}
       propertyPath: m_LocalPosition.x

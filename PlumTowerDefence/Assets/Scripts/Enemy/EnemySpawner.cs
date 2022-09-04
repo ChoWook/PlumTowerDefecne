@@ -108,7 +108,7 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log(Tables.Monster.Get(id)._Type + " Spawn Enemy: " + spawnEnemyNum);
             yield return ws;
         }
-        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+        ObjectPools.Instance.ReleaseObjectToPool(gameObject);                           // Ä¿¹ÔÇÒ¶§ ¹Ù²ãÁÖ±â
 
     }
 
@@ -133,8 +133,6 @@ public class EnemySpawner : MonoBehaviour
         emove.WaypointIndex = WaypointIndex;
         enemy.transform.position = SpawnPoint.position;
 
-        enemy.GetComponent<BaseAniContoller>().InitAnimation();
-
         enemy.GetComponent<Enemy>().monsterType = monsterType;
 
         if(enemySpecial == true)
@@ -145,6 +143,9 @@ public class EnemySpawner : MonoBehaviour
             enemy.GetComponent<Enemy>().hasSpecial = false;
 
         enemy.GetComponent<Enemy>().InitStat();
+
+        enemy.GetComponent<BaseAniContoller>().InitAnimation();
+
 
         emove.InitSpeed(monsterType);
 

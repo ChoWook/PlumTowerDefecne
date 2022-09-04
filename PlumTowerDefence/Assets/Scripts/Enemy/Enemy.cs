@@ -20,9 +20,12 @@ public class Enemy : MonoBehaviour
     public float Speed;                     
     public bool IsAlive = true;
     public bool hasSpecial;
+    public int CurrentElement;
+
 
 
     private int[] currentLevel = new int[8];
+    float[] ElementArr = new float[5];
         
     float Enforced = 1.0f;          // 강화특성
 
@@ -36,6 +39,7 @@ public class Enemy : MonoBehaviour
         {
             currentLevel[i] = 1;
         }
+        
     }
 
     public void GetStat()
@@ -125,7 +129,6 @@ public class Enemy : MonoBehaviour
     }
 
     PropertyType MyProperty;
-    Speciality1Type MySpeciality1;
     Speciality2Type MySpeciality2;
 
     public enum PropertyType                                      // 속성은 맵이나 타워에도 적용
@@ -133,10 +136,7 @@ public class Enemy : MonoBehaviour
         물, 흙, 불, 전기
     }
 
-    enum Speciality1Type
-    {
-        없음, 큰, 거대한, 튼튼한, 단단한, 풍부한, 신속한, 쾌속의
-    }
+   
 
     enum Speciality2Type
     {
@@ -180,39 +180,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void ApplySpeciality1Type()
-    {
-        // MySpeciality1 결정방식 필요
-        // 웨이브 정보?
-        // 완전 랜덤? 계수?
-
-        switch (MySpeciality1)
-        {
-            case Speciality1Type.큰:                         //체력 5% 증가
-                MaxHP += BaseHP * 0.05f * Enforced;
-                break;
-            case Speciality1Type.거대한:                     // 체력 10% 증가
-                MaxHP += BaseHP * 0.10f * Enforced;
-                break;
-            case Speciality1Type.튼튼한:                     //방어력 5% 증가
-                Armor += BaseArmor * 0.05f * Enforced;
-                break;
-            case Speciality1Type.단단한:                     //방어력 10% 증가
-                Armor += BaseArmor * 0.10f * Enforced;
-                break;
-            case Speciality1Type.풍부한:                     // 방어막 5% 증가
-                MaxShield += BaseShield * 0.05f * Enforced;
-                break;
-            case Speciality1Type.신속한:                     //속도 10% 증가
-                Speed += BaseSpeed * 0.10f * Enforced;
-                break;
-            case Speciality1Type.쾌속의:                     // 속도 20% 증가
-                Speed += BaseSpeed * 0.20f * Enforced;
-                break;
-            default:
-                break;
-        }
-    }
+    
 
     void ApplySpeciality2Type()
     {
@@ -282,13 +250,95 @@ public class Enemy : MonoBehaviour
                 Speed += BaseSpeed * changeStat;
                 break;
         }
+    }
 
+    public void AddElementType()
+    {
+        int waveNum = GameManager.instance.level;                         // 커밋할때 바꾸기
+        //int waveNum = GetComponent<EnemySpawner>().WaveNumber;              //
+  
 
+        ElementArr[0] = Tables.Monster.Get((int)monsterType)._None;
+        ElementArr[1] = Tables.Monster.Get((int)monsterType)._Water;
+        ElementArr[2] = Tables.Monster.Get((int)monsterType)._Ground;
+        ElementArr[3] = Tables.Monster.Get((int)monsterType)._Fire;
+        ElementArr[4] = Tables.Monster.Get((int)monsterType)._Electric;
+
+        if (waveNum <= 5)
+        {
+            CurrentElement = 0;
+            return;
+        }
+        else if(waveNum > 40)
+        {
+            switch (monsterType)
+            {
+                case EMonsterType.Bet:
+                    CurrentElement = 0;
+                    break;
+                case EMonsterType.Mushroom:
+                    CurrentElement = 0;
+                    break;
+                case EMonsterType.Flower:
+                    CurrentElement = 0;
+                    break;
+                case EMonsterType.Fish:
+                    CurrentElement = 1;
+                    break;
+                case EMonsterType.Slime:
+                    CurrentElement = Random.Range(0,5);
+                    break;
+                case EMonsterType.Pirate:
+                    CurrentElement = 1;
+                    break;
+                case EMonsterType.Spider:
+                    CurrentElement = 2;
+                    break;
+                case EMonsterType.Bear:
+                    CurrentElement = 4;
+                    break;
+                default:
+                    CurrentElement = 0;
+                    break;
+            }
+        }
+        else
+        {
+            CurrentElement = Choose(ElementArr);
+        }
+        switch (CurrentElement)
+        {
+            case 0:
+                break;
+            case 1:
+                // 기존보다 체력이 50% 많으며, 방어막이 35% 적다
+                MaxHP += BaseHP * 0.50f;
+                MaxShield -= BaseShield * 0.35f;
+                break;
+            case 2:
+                // 기존보다 체력과 방어막이 25%씩 증가하며, 속도가 40% 감소한다.
+                MaxHP += BaseHP * 0.25f;
+                MaxShield += BaseShield * 0.25f;
+                Speed -= BaseSpeed * 0.40f;
+                break;
+            case 3:
+                // 기존보다 체력이 50% 적으며, 방어막이 40% 많으며, 속도가 10% 증가한다.
+                MaxHP -= BaseHP * 0.50f;
+                MaxShield += BaseShield * 0.40f;
+                Speed += BaseSpeed * 0.10f;
+                break;
+            case 4:
+                // 체력과 방어막이 25%씩 감소하며, 속도가 40% 증가한다.
+                MaxHP -= BaseHP * 0.25f;
+                MaxShield -= BaseShield * 0.25f;
+                Speed += BaseSpeed * 0.40f;
+                break;
+        }
 
     }
 
-    public void EnemyLevelUp()        // waveNumber
-    {                                   //체력, 방어구 10% 증가
+    public void EnemyLevelUp()        
+    {                                   
         int enemySpawnCount = EnemySpawner.EnemySpawnCounts[monsterType];
         //Debug.Log("enemySpawnCount: " + enemySpawnCount);
         int id = (int)monsterType;
@@ -308,6 +358,8 @@ public class Enemy : MonoBehaviour
         MaxShield += BaseShield * Tables.MonsterLevel.Get(currentLevel[id -1])._Sheild * currentLevel[id - 1] / 100;
         Armor += BaseArmor * Tables.MonsterLevel.Get(currentLevel[id -1])._Armor * currentLevel[id - 1] / 100;
     }
+
+    
 
     private void Update()
     {
@@ -337,6 +389,7 @@ public class Enemy : MonoBehaviour
     {
         GetStat();
         EnemyLevelUp();
+        AddElementType();
         if(hasSpecial == true)
         {
             AddSpeciality();
@@ -346,5 +399,31 @@ public class Enemy : MonoBehaviour
         transform.tag = "Enemy";
         IsAlive = true;
     }
-   
+
+    int Choose(float[] probs)
+    {
+
+        float total = 0;
+
+        foreach (float elem in probs)
+        {
+            total += elem;
+        }
+
+        float randomPoint = Random.value * total;
+
+        for (int i = 0; i < probs.Length; i++)
+        {
+            if (randomPoint < probs[i])
+            {
+                return i;
+            }
+            else
+            {
+                randomPoint -= probs[i];
+            }
+        }
+        return probs.Length - 1;
+    }
+
 }

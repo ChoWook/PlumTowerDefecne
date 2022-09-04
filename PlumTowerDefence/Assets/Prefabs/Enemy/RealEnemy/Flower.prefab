@@ -34,10 +34,10 @@ Transform:
   - {fileID: 5150104367214665850}
   - {fileID: 9203025921465489329}
   - {fileID: 6425755495345349328}
-  - {fileID: 254350317199573733}
-  - {fileID: 243742513959265934}
   - {fileID: 7668979917091317594}
   - {fileID: 3725856401345593603}
+  - {fileID: 254350317199573733}
+  - {fileID: 243742513959265934}
   - {fileID: 8638159039074711926}
   - {fileID: 5325767742891208131}
   m_Father: {fileID: 0}
@@ -57,9 +57,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentHP: 0
   CurrentShield: 0
+  Armor: 0
   BaseSpeed: 0
   Speed: 0
   IsAlive: 1
+  hasSpecial: 0
+  CurrentElement: 0
   monsterType: 0
   LevelType: 0
 --- !u!114 &6724535689441917780
@@ -106,7 +109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4351348573298872, guid: 3dbd694d5e8a0b741aa4ed733c4d2b0b, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4351348573298872, guid: 3dbd694d5e8a0b741aa4ed733c4d2b0b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -173,7 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4526288208046900, guid: c21cc88f692dd624bb345b3fc3b68fa1, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4526288208046900, guid: c21cc88f692dd624bb345b3fc3b68fa1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -272,7 +275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4007436562464048, guid: 86a6214d3f3d8de49a4dd05176e67933, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4007436562464048, guid: 86a6214d3f3d8de49a4dd05176e67933, type: 3}
       propertyPath: m_LocalPosition.x
@@ -578,7 +581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4069631193239432, guid: 9fa55e89ecf7abf4fb8ac4742cd3788c, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4069631193239432, guid: 9fa55e89ecf7abf4fb8ac4742cd3788c, type: 3}
       propertyPath: m_LocalPosition.x
