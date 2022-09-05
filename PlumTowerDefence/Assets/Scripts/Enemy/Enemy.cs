@@ -21,6 +21,9 @@ public class Enemy : MonoBehaviour
     public bool IsAlive = true;
     public bool hasSpecial;
     public int CurrentElement;
+    public bool IsBoss;
+    public bool IsSubBoss;
+    private Vector3 scaleChange;
 
 
 
@@ -39,7 +42,6 @@ public class Enemy : MonoBehaviour
         {
             currentLevel[i] = 1;
         }
-        
     }
 
     public void GetStat()
@@ -69,8 +71,6 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(1);
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
     }
-
-
 
 
     public void TakeDamage(float damage, EAttackSpecialization type)
@@ -126,99 +126,6 @@ public class Enemy : MonoBehaviour
         GetComponent<EnemyMovement>().MoveSpeed = 0;
         //Debug.Log("Killed Enemy");
         StartCoroutine(IE_PlayDeadAnimation());                                         
-    }
-
-    PropertyType MyProperty;
-    Speciality2Type MySpeciality2;
-
-    public enum PropertyType                                      // 속성은 맵이나 타워에도 적용
-    {
-        물, 흙, 불, 전기
-    }
-
-   
-
-    enum Speciality2Type
-    {
-        없음, 강화된, 분열의, 분열된, 은밀한, 부활의, 부활한,
-        생성의, 이끄는, 저주하는
-    }
-
-    public int LevelType;
-
-    void ApplyPropertyType()
-    {
-        // MyProperty 결정방식 필요
-        // 웨이브 정보?
-        // 완전 랜덤? 계수?
-
-        switch (MyProperty)
-        {
-            case PropertyType.물:
-                // 기존보다 체력이 50% 많으며, 방어막이 35% 적다
-                MaxHP += BaseHP * 0.50f;
-                MaxShield -= BaseShield * 0.35f;
-                break;
-            case PropertyType.흙:
-                // 기존보다 체력과 방어막이 25%씩 증가하며, 속도가 40% 감소한다.
-                MaxHP += BaseHP * 0.25f;
-                MaxShield += BaseShield * 0.25f;
-                Speed -= BaseSpeed * 0.40f;
-                break;
-            case PropertyType.불:
-                // 기존보다 체력이 50% 적으며, 방어막이 40% 많으며, 속도가 10% 증가한다.
-                MaxHP -= BaseHP * 0.50f;
-                MaxShield += BaseShield * 0.40f;
-                Speed += BaseSpeed * 0.10f;
-                break;
-            case PropertyType.전기:
-                // 체력과 방어막이 25%씩 감소하며, 속도가 40% 증가한다.
-                MaxHP -= BaseHP * 0.25f;
-                MaxShield -= BaseShield * 0.25f;
-                Speed += BaseSpeed * 0.40f;
-                break;
-        }
-    }
-
-    
-
-    void ApplySpeciality2Type()
-    {
-
-        //if(게임매니저 웨이브 == 웨이브 값)
-        //{
-        // 일반몬스터일 경우 0 or 1 랜덤 부여
-        // 서브보스일 경우 1 ~ 4 랜덤 부여
-        // 보스일 경우 1~9 랜덤 부여
-        //}
-
-
-        switch (MySpeciality2)
-        {
-            case Speciality2Type.강화된:
-                Enforced = 1.2f;
-                break;
-            case Speciality2Type.분열의:   // 소환 로직 필요
-                break;
-            case Speciality2Type.분열된:
-                break;
-            case Speciality2Type.은밀한:   // 타워정보필요
-                break;
-            case Speciality2Type.부활의:   // 소환 로직 필요
-                break;
-            case Speciality2Type.부활한:
-                break;
-            case Speciality2Type.생성의:   // 소환 로직 필요
-                break;
-            case Speciality2Type.이끄는:   // 칸 정보 필요(맵)
-                                        // 버프 로직 필요
-                break;
-            case Speciality2Type.저주하는: // 맵, UI 정보 필요
-                break;
-            default:
-                break;
-        }
-
     }
 
     public void AddSpeciality()
@@ -337,6 +244,25 @@ public class Enemy : MonoBehaviour
 
     }
 
+    public void AddSubBoss()
+    {
+        MaxHP += BaseHP * Tables.MonsterClass.Get(2)._Hp / 100;
+        MaxShield += BaseShield * Tables.MonsterClass.Get(2)._Sheild / 100;
+        float size = Tables.MonsterClass.Get(2)._Size / 100;
+        float currentSize = transform.localScale.x;
+        scaleChange = new Vector3(currentSize * size, currentSize * size, currentSize * size);
+        transform.localScale += scaleChange;
+    }
+    public void AddBoss()
+    {
+        MaxHP += BaseHP * Tables.MonsterClass.Get(3)._Hp / 100;
+        MaxShield += BaseShield * Tables.MonsterClass.Get(3)._Sheild / 100;
+        float size = Tables.MonsterClass.Get(3)._Size / 100;
+        float currentSize = transform.localScale.x;
+        scaleChange = new Vector3(currentSize * size, currentSize * size, currentSize * size);
+        transform.localScale += scaleChange;
+    }
+
     public void EnemyLevelUp()        
     {                                   
         int enemySpawnCount = EnemySpawner.EnemySpawnCounts[monsterType];
@@ -363,13 +289,13 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
             DealDamageForSeconds(130);
-        }
+        }*/
     }
 
-    public void DealDamageForSeconds(float damage)
+   /* public void DealDamageForSeconds(float damage)
     {
         StartCoroutine(DealDamage(damage));
     }
@@ -383,7 +309,7 @@ public class Enemy : MonoBehaviour
             //TakeDamage(damage);
             yield return new WaitForSeconds(time);
         }
-    }
+    }*/
 
     public void InitStat()
     {
@@ -395,6 +321,15 @@ public class Enemy : MonoBehaviour
             AddSpeciality();
             Debug.Log("SpecialMonsterSpawned");
         }
+        if(IsSubBoss == true)
+        {
+            AddSubBoss();
+        }
+        if(IsBoss == true)
+        {
+            AddBoss();
+        }        
+
         SetStat();
         transform.tag = "Enemy";
         IsAlive = true;

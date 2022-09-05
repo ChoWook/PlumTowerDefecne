@@ -15,6 +15,9 @@ public class EnemySpawner : MonoBehaviour
     float[] EnemyArr;
     static int remainder;
     bool enemySpecial;
+    bool bossEnemy;
+    bool subbossEnemy;
+
 
     public static Dictionary<EMonsterType, int> EnemySpawnCounts = new();
 
@@ -92,13 +95,25 @@ public class EnemySpawner : MonoBehaviour
         //Debug.Log("EachTotalSpawn: " + EachTotalSpawn);
         int specialityAmount = Tables.MonsterSpecialityAmount.Get(WaveNumber)._Amount;
         GetSpawnNumber(specialityAmount);
+        int specialEnemyNum = SpawnEnemyNumber;
         //Debug.Log("나눠진 특성 가진 몬스터 수: " + SpawnEnemyNumber);
         while (EachTotalSpawn > 0)
         {
-            if (EachTotalSpawn <= SpawnEnemyNumber)
+            if (EachTotalSpawn <= specialEnemyNum)
             {
                 enemySpecial = true;
+
             }
+            if(EachTotalSpawn == 2 && ((WaveNumber % 3) == 0 || (WaveNumber % 5)==0))
+            {
+                subbossEnemy = true;
+            }
+            if(EachTotalSpawn == 1 && (WaveNumber % 5) == 0)
+            {
+                subbossEnemy = false;
+                bossEnemy = true;
+            }
+
             int randEnemy = Choose(EnemyArr);
             int id = Tables.MonsterAmount.Get(WaveNumber)._Monster[randEnemy]._ID;
             SpawnEnemy(Tables.Monster.Get(id)._Type);
@@ -141,6 +156,24 @@ public class EnemySpawner : MonoBehaviour
         }
         else
             enemy.GetComponent<Enemy>().hasSpecial = false;
+
+        if(bossEnemy == true)
+        {
+            enemy.GetComponent<Enemy>().IsBoss = true;
+        }
+        else
+        {
+            enemy.GetComponent<Enemy>().IsBoss = false;
+        }
+        if(subbossEnemy == true)
+        {
+            enemy.GetComponent<Enemy>().IsSubBoss = true;
+        }
+        else
+        {
+            enemy.GetComponent <Enemy>().IsSubBoss = false;
+        }
+
 
         enemy.GetComponent<Enemy>().InitStat();
 
