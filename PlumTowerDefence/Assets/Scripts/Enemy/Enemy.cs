@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     float Enforced = 1.0f;          // 강화특성
 
     public EMonsterType monsterType;
+    public EPropertyType propertyType;
 
     Animator animator;  
 
@@ -55,23 +56,60 @@ public class Enemy : MonoBehaviour
         MaxShield = BaseShield;
         Speed = BaseSpeed;
         Armor = BaseArmor;
-        ShieldOn = true;
     }
     
     public void SetStat()
     {
         CurrentHP = MaxHP;
         CurrentShield = MaxShield;
+        ShieldOn = true;
+
         //Debug.Log("CurrentHP: " + CurrentHP + " CurrentShield: " + CurrentShield + " Armor: " + Armor + " Speed: " + Speed);
     }
 
     IEnumerator IE_PlayDeadAnimation()
     {
         GetComponent<BaseAniContoller>().DeadAnimation();
-        yield return new WaitForSeconds(1);
-        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
-    }
+        if(propertyType == EPropertyType.Resurrect)
+        {
+            propertyType = EPropertyType.Resurrected;
 
+        }
+        else if(propertyType == EPropertyType.Divisive)
+        {
+            propertyType = EPropertyType.Divided;
+        }
+        else
+        {
+            yield return new WaitForSeconds(1);
+
+            ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+        }
+    }
+    IEnumerator IE_Resurrection()
+    {
+        SetStat();
+        transform.tag = "Untagged";
+        GetComponent<EnemyMovement>().MoveSpeed *= 0.2f;
+        StartCoroutine(IE_PlayDeadAnimation());
+        if(propertyType == EPropertyType.Resurrected)
+        {
+            yield return new WaitForSeconds(1f);
+        }
+        else if(propertyType == EPropertyType.Divided)
+        {
+            yield return null;
+        }
+        GetComponent<EnemyMovement>().MoveSpeed *= 5f;
+
+        GetComponent<BaseAniContoller>().InitAnimation();
+        transform.tag = "Enemy";
+
+    }
+    void Resurrect()
+    {
+        StartCoroutine(IE_Resurrection());
+    }
 
     public void TakeDamage(float damage, EAttackSpecialization type)
     {
@@ -111,7 +149,50 @@ public class Enemy : MonoBehaviour
 
         if (CurrentHP <= 0)
         {
-            KillEnemy();
+           if(propertyType == EPropertyType.Resurrect)
+            {
+                Resurrect(); 
+            }
+           else if(propertyType == EPropertyType.Divisive)
+            {
+                Resurrect();
+                                
+                MaxHP *= 0.3f;
+                MaxShield *= 0.2f;
+                SetStat();
+
+                var enemy = ObjectPools.Instance.GetPooledObject(monsterType.ToString());
+                var emove = enemy.GetComponent<EnemyMovement>();
+                emove.Route = gameObject.GetComponent<EnemyMovement>().Route;
+                emove.WaypointIndex = gameObject.GetComponent<EnemyMovement>().WaypointIndex;
+                enemy.transform.position = gameObject.transform.position;
+                var getComponent = enemy.GetComponent<Enemy>();
+                getComponent.monsterType = monsterType;
+                getComponent.hasSpecial = true;
+                getComponent.InitStat();
+                enemy.GetComponent<BaseAniContoller>().InitAnimation();
+                emove.InitSpeed(monsterType);
+                getComponent.propertyType = EPropertyType.Divided;
+                getComponent.MaxHP = MaxHP;
+                getComponent.MaxShield = MaxShield;
+                getComponent.SetStat();
+
+                GameManager.instance.currentEnemyNumber++;
+
+                float currentSize = enemy.transform.localScale.x;
+                scaleChange = new Vector3(currentSize, currentSize, currentSize);
+                transform.localScale = scaleChange;
+
+                GetComponent<EnemyMovement>().MoveSpeed *= 0.9f;
+
+            }
+           else
+            {
+                KillEnemy();
+            }
+
+            // else
+                // 부활/ 분열 추가 
         }
     }
 
@@ -213,6 +294,7 @@ public class Enemy : MonoBehaviour
         {
             CurrentElement = Choose(ElementArr);
         }
+
         switch (CurrentElement)
         {
             case 0:
@@ -244,6 +326,29 @@ public class Enemy : MonoBehaviour
 
     }
 
+    public void AddProperty()
+    {
+        int waveNum = GameManager.instance.level;
+
+        if(waveNum <= 6)
+        {
+            return;
+        }
+
+        if (IsBoss == true)
+        {
+            propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
+        }
+        else if (IsSubBoss == true)
+        {
+            propertyType = Tables.MonsterProperty.Get(3)._PropertyType;
+        }
+        else
+            propertyType = Tables.MonsterProperty.Get(1)._PropertyType;
+
+
+    }
+
     public void AddSubBoss()
     {
         MaxHP += BaseHP * Tables.MonsterClass.Get(2)._Hp / 100;
@@ -252,6 +357,7 @@ public class Enemy : MonoBehaviour
         float currentSize = transform.localScale.x;
         scaleChange = new Vector3(currentSize * size, currentSize * size, currentSize * size);
         transform.localScale += scaleChange;
+        propertyType = Tables.MonsterProperty.Get(3)._PropertyType;
     }
     public void AddBoss()
     {
@@ -261,6 +367,9 @@ public class Enemy : MonoBehaviour
         float currentSize = transform.localScale.x;
         scaleChange = new Vector3(currentSize * size, currentSize * size, currentSize * size);
         transform.localScale += scaleChange;
+        propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
+
+
     }
 
     public void EnemyLevelUp()        
@@ -273,6 +382,10 @@ public class Enemy : MonoBehaviour
         if(countLevel >= 5)
         {
             currentLevel[id - 1] = 5;
+        }
+        else if(countLevel >= 6)
+        {
+            currentLevel[id - 1] = 10;
         }
         else
             currentLevel[id - 1] = countLevel;

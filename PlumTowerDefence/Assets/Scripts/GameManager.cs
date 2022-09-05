@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    private int _money = 100;
+    private int _money = 100000;
     public int money
     {
         get { return _money; }
