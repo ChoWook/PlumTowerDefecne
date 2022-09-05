@@ -1054,4 +1054,43 @@ public class Tables : ScriptableObject
             return tmp;
         }
     }
+
+    public class MonsterElementStat : CSVFile<MonsterElementStat>
+    {
+        public EElementalType _Type;
+        public int _Hp;
+        public int _Shield;
+        public int _Speed;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterElementStat");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterElementStat : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterElementStat Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Type = Enum.Parse<EElementalType>(data[idx++]);
+                Tmp._Hp = int.Parse(data[idx++]);
+                Tmp._Shield = int.Parse(data[idx++]);
+                Tmp._Speed = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
 }
