@@ -175,5 +175,7 @@ public class Resource : MonoBehaviour, IPointerClickHandler
         {
             Pickaxes[i].GetComponentInChildren<Pickaxe>()?.SetPickaxeType(Sender);
         }
+
+        MiningTime = Tables.Pickaxe.Get(Sender)._MiningSpeed;
     }
 }
