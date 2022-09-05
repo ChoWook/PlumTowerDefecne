@@ -65,28 +65,20 @@ public class TowerButtonGenerate : MonoBehaviour
 
     public void OnBuildTowerBtnClick(ETowerName TName)
     {
+        // 해당 버튼의 타워 가격보다 돈이 적으면 리턴
+        if(Tables.Tower.Get(TName)._Price > GameManager.instance.money)
+        {
+            return;
+        }
+
+
+        // 이미 선택한 타워가 있다면 바꿔야 함
         if(SelectedTower != null)
         {
             ObjectPools.Instance.ReleaseObjectToPool(SelectedTower);
 
             SelectedTower = null;
         }
-
-
-        // 돈이 적으면 리턴
-        //if(GameManager.instance.money < .price)
-        //{
-        //    return;
-        //}
-
-
-        /*
-        if (SelectedTower == null)
-        {
-            // 구현이 안된 프리팹에 대해서는 리턴
-            return ;
-        }
-        */
 
         SelectedTowerName = TName;
 
