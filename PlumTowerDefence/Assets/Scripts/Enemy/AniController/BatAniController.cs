@@ -23,7 +23,7 @@ public class BatAniController : BaseAniContoller
         run3 = transform.GetChild(5).gameObject;
         dead3 = transform.GetChild(6).gameObject;
 
-        currentElement = GetComponent<Enemy>().CurrentElement;
+        run1.SetActive(false);
     }
 
     private void Update()
@@ -35,18 +35,20 @@ public class BatAniController : BaseAniContoller
 
     public override void DeadAnimation()
     {
+        currentElement = GetComponent<Enemy>().CurrentElement;
+        run1.SetActive(false);
+        run2.SetActive(false);
+        run3.SetActive(false);
+
         switch (currentElement)
         {
             case 0:
-                run1.SetActive(false);
                 dead1.SetActive(true);
                 break;
             case 2:
-                run2.SetActive(false);
                 dead2.SetActive(true);
                 break;
             case 3:
-                run3.SetActive(false);
                 dead3.SetActive(true);
                 break;
         }
@@ -55,19 +57,21 @@ public class BatAniController : BaseAniContoller
 
     public override void InitAnimation()
     {
+        currentElement = GetComponent<Enemy>().CurrentElement;
+        dead1.SetActive(false);
+        dead2.SetActive(false);
+        dead3.SetActive(false);
+
         switch (currentElement)
         {
             case 0:
                 run1.SetActive(true);
-                dead1.SetActive(false);
                 break;
             case 2:
                 run2.SetActive(true);
-                dead2.SetActive(false);
                 break;
             case 3:
                 run3.SetActive(true);
-                dead3.SetActive(false);
                 break;
         }
         deadEffect1.SetActive(false);

@@ -22,17 +22,28 @@ public class FishAniController : BaseAniContoller
         anim3 = transform.GetChild(3).gameObject;
         anim4 = transform.GetChild(4).gameObject;
 
-        currentElement = GetComponent<Enemy>().CurrentElement;
+       
+    }
+    private void OnEnable()
+    {
+        anim1.SetActive(false);
+        anim2.SetActive(false);
+        anim3.SetActive(false);
+        anim4.SetActive(false);
 
     }
 
     public override void DeadAnimation()
     {
+        currentElement = GetComponent<Enemy>().CurrentElement;
+
         TriggerAnimation();
     }
 
     public override void InitAnimation()
     {
+        currentElement = GetComponent<Enemy>().CurrentElement;
+
         switch (currentElement)
         {
             case 0:

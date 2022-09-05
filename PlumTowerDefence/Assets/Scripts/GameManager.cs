@@ -210,7 +210,7 @@ public class GameManager : MonoBehaviour
 
     public bool HasCoupon(ETowerName name)
     {
-        if (_TowerCoupon[name] == 0)
+        if (_TowerCoupon[name] <= 0)
             return false;
         else
             return true;

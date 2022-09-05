@@ -34,12 +34,17 @@ public class TowerButtonGenerate : MonoBehaviour
         for (ETowerName TName = ETowerName.Arrow; TName <= ETowerName.Bomb; TName++)
         {
             // enum에는 있고 csv에 없는 타워는 버튼 생성 X
-            if (Tables.Tower.Get(TName) == null) continue;
+            if (Tables.Tower.Get(TName) == null)
+            {
+                Debug.Log("CSV is not contain key : " + TName.ToString());
+                continue;
+            }
 
             // csv에는 있지만 프리팹 구현이 안되 오브젝트풀에 존재하지 않는 타워는 버튼 생성X
             var _t = ObjectPools.Instance.GetPooledObject($"Disabled_{TName}Tower");
             if (_t == null)
             {
+                Debug.Log("Prefabs is not contain key : " + TName.ToString());
                 continue;
             }
             ObjectPools.Instance.ReleaseObjectToPool(_t);
@@ -60,28 +65,20 @@ public class TowerButtonGenerate : MonoBehaviour
 
     public void OnBuildTowerBtnClick(ETowerName TName)
     {
+        // 해당 버튼의 타워 가격보다 돈이 적고 쿠폰도 없으면 리턴
+        if(Tables.Tower.Get(TName)._Price > GameManager.instance.money && !GameManager.instance.HasCoupon(TName))
+        {
+            return;
+        }
+
+
+        // 이미 선택한 타워가 있다면 바꿔야 함
         if(SelectedTower != null)
         {
             ObjectPools.Instance.ReleaseObjectToPool(SelectedTower);
 
             SelectedTower = null;
         }
-
-
-        // 돈이 적으면 리턴
-        //if(GameManager.instance.money < .price)
-        //{
-        //    return;
-        //}
-
-
-        /*
-        if (SelectedTower == null)
-        {
-            // 구현이 안된 프리팹에 대해서는 리턴
-            return ;
-        }
-        */
 
         SelectedTowerName = TName;
 
@@ -149,6 +146,10 @@ public class TowerButtonGenerate : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("Ground"))
                 {
+                    if(SelectedTower == null)
+                    {
+                        continue;
+                    }
                     SelectedTower.transform.position = hit.point;
 
                     ChangeSelectedTowerMaterial(false);
@@ -193,6 +194,23 @@ public class TowerButtonGenerate : MonoBehaviour
             if(IsAvailableTile == false)
             {
                 return;
+            }
+
+            // 돈도 부족하고 쿠폰도 없으면 리턴
+            if(Tables.Tower.Get(SelectedTowerName)._Price > GameManager.instance.money && !GameManager.instance.HasCoupon(SelectedTowerName))
+            {
+                return;
+            }
+
+
+            // 돈보다 쿠폰 먼저 사용
+            if (GameManager.instance.HasCoupon(SelectedTowerName))
+            {
+                GameManager.instance.RemoveCoupon(SelectedTowerName);
+            }
+            else
+            {
+                GameManager.instance.money -= Tables.Tower.Get(SelectedTowerName)._Price;
             }
 
             Map.Instance.HideAllGridLine();

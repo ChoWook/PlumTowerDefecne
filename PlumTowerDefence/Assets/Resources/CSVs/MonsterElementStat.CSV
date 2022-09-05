@@ -1,0 +1,7 @@
+ID,Type,Hp,Shield,Speed
+int,ElementalType,int,int,int
+1,None,0,0,0
+2,Water,50,35,0
+3,Ground,25,25,30
+4,Fire,50,40,10
+5,Electric,25,25,40

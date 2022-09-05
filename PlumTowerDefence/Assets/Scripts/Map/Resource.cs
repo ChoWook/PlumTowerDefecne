@@ -155,11 +155,11 @@ public class Resource : MonoBehaviour, IPointerClickHandler
 
         for(int i = 0; i < MiningCnt; i++)
         {
+
+            yield return ws;
             GameManager.instance.money += MiningMoney;
 
             // TODO 돈이 증가되는 애니메이션 +~라는 UI를 게임상에 표시해줄 필요가 있을 것 같음
-
-            yield return ws;
         }
     }
 
@@ -167,5 +167,15 @@ public class Resource : MonoBehaviour, IPointerClickHandler
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         UIManager.instance.ShowMiningUI(this);
+    }
+
+    public void SetPickaxae(EPickaxeType Sender)
+    {
+        for(int i = 0; i < Pickaxes.Length; i++)
+        {
+            Pickaxes[i].GetComponentInChildren<Pickaxe>()?.SetPickaxeType(Sender);
+        }
+
+        MiningTime = Tables.Pickaxe.Get(Sender)._MiningSpeed;
     }
 }
