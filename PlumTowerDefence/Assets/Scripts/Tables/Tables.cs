@@ -909,7 +909,8 @@ public class Tables : ScriptableObject
         public string _Title;
         public string _Contents;
         public int _XpCost;
-        public int _Parents;
+        public int _Parent;
+        public int _Depth;
 
         public static void Load()
         {
@@ -940,7 +941,8 @@ public class Tables : ScriptableObject
                 Tmp._Title = data[idx++];
                 Tmp._Contents = data[idx++];
                 Tmp._XpCost = int.Parse(data[idx++]);
-                Tmp._Parents = int.Parse(data[idx++]);
+                Tmp._Parent = int.Parse(data[idx++]);
+                Tmp._Depth = int.Parse(data[idx++]);
 
                 Tmp.Add(Tmp);
             }

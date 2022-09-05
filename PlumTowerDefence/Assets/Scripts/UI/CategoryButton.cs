@@ -31,6 +31,7 @@ public class CategoryButton : MonoBehaviour
     public void GenerateCategoryCard()  //해당 버튼 클릭
     {
         DeleteAll();
+        
         for (int i = 1; i <= id_count; i++)
         {
             GameObject obj = ObjectPools.Instance.GetPooledObject("UpgradeSelect");
@@ -38,7 +39,6 @@ public class CategoryButton : MonoBehaviour
 
             obj.GetComponent<Upgrade>().SetID(id + i);
             obj.transform.localScale = new Vector3(1f, 1f, 1f);
-            obj.transform.position = new Vector3(0, 0, 0);
         }
     }
 

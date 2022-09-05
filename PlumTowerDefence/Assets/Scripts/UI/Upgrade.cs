@@ -12,8 +12,10 @@ public class Upgrade : MonoBehaviour
     /// </summary>
 
     [HideInInspector] public int id;
+
     private TextMeshProUGUI title;
     private TextMeshProUGUI context;
+    
 
     private void OnEnable()
     {
@@ -26,5 +28,11 @@ public class Upgrade : MonoBehaviour
         id = _id;
         title.text = Tables.UpgradeCard.Get(id)._Title;
         context.text = Tables.UpgradeCard.Get(id)._Contents;
+        name = id.ToString();
+    }
+
+    public void SetCardParent()
+    {
+        transform.SetParent(transform.parent.Find(Tables.UpgradeCard.Get(id)._Parent.ToString()));
     }
 }

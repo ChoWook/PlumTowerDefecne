@@ -76,6 +76,7 @@ public class Category : MonoBehaviour
 
             obj.transform.localScale = new Vector3(1f, 1f, 1f);
             obj.transform.SetParent(transform);
+            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 400 - (i - 1) * 67);
 
             switch (type)
             {

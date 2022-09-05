@@ -1,6 +1,6 @@
 ﻿ID,Type,Korean,Category_Num
 int,String,String,int
-1,Tower,타워,14
+1,Tower,타워,13
 2,Resource,자원,4
-3,Passive,패시브,0
+3,Passive,패시브,4
 ,,,
