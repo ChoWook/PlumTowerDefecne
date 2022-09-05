@@ -65,8 +65,8 @@ public class TowerButtonGenerate : MonoBehaviour
 
     public void OnBuildTowerBtnClick(ETowerName TName)
     {
-        // 해당 버튼의 타워 가격보다 돈이 적으면 리턴
-        if(Tables.Tower.Get(TName)._Price > GameManager.instance.money)
+        // 해당 버튼의 타워 가격보다 돈이 적고 쿠폰도 없으면 리턴
+        if(Tables.Tower.Get(TName)._Price > GameManager.instance.money && !GameManager.instance.HasCoupon(TName))
         {
             return;
         }
@@ -196,13 +196,22 @@ public class TowerButtonGenerate : MonoBehaviour
                 return;
             }
 
-            // 돈이 부족하면 리턴
-            if(Tables.Tower.Get(SelectedTowerName)._Price > GameManager.instance.money)
+            // 돈도 부족하고 쿠폰도 없으면 리턴
+            if(Tables.Tower.Get(SelectedTowerName)._Price > GameManager.instance.money && !GameManager.instance.HasCoupon(SelectedTowerName))
             {
                 return;
             }
 
-            GameManager.instance.money -= Tables.Tower.Get(SelectedTowerName)._Price;
+
+            // 돈보다 쿠폰 먼저 사용
+            if (GameManager.instance.HasCoupon(SelectedTowerName))
+            {
+                GameManager.instance.RemoveCoupon(SelectedTowerName);
+            }
+            else
+            {
+                GameManager.instance.money -= Tables.Tower.Get(SelectedTowerName)._Price;
+            }
 
             Map.Instance.HideAllGridLine();
 
