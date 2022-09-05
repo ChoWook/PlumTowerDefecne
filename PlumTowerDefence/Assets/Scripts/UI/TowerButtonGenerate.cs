@@ -34,12 +34,17 @@ public class TowerButtonGenerate : MonoBehaviour
         for (ETowerName TName = ETowerName.Arrow; TName <= ETowerName.Bomb; TName++)
         {
             // enum에는 있고 csv에 없는 타워는 버튼 생성 X
-            if (Tables.Tower.Get(TName) == null) continue;
+            if (Tables.Tower.Get(TName) == null)
+            {
+                Debug.Log("CSV is not contain key : " + TName.ToString());
+                continue;
+            }
 
             // csv에는 있지만 프리팹 구현이 안되 오브젝트풀에 존재하지 않는 타워는 버튼 생성X
             var _t = ObjectPools.Instance.GetPooledObject($"Disabled_{TName}Tower");
             if (_t == null)
             {
+                Debug.Log("Prefabs is not contain key : " + TName.ToString());
                 continue;
             }
             ObjectPools.Instance.ReleaseObjectToPool(_t);
@@ -149,6 +154,10 @@ public class TowerButtonGenerate : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("Ground"))
                 {
+                    if(SelectedTower == null)
+                    {
+                        continue;
+                    }
                     SelectedTower.transform.position = hit.point;
 
                     ChangeSelectedTowerMaterial(false);
@@ -194,6 +203,14 @@ public class TowerButtonGenerate : MonoBehaviour
             {
                 return;
             }
+
+            // 돈이 부족하면 리턴
+            if(Tables.Tower.Get(SelectedTowerName)._Price > GameManager.instance.money)
+            {
+                return;
+            }
+
+            GameManager.instance.money -= Tables.Tower.Get(SelectedTowerName)._Price;
 
             Map.Instance.HideAllGridLine();
 

@@ -14,12 +14,17 @@ public class Tables : ScriptableObject
         {
             // 새로운 Class가 생기면 추가해줘야 함
             StringUI.Load();
+            GlobalSystem.Load();
+
+            // 맵
             GroundPattern.Load();
             MapPattern.Load();
             MapGimmick.Load();
             MapGimmickObstacle.Load();
             MapGimmickResource.Load();
-            GlobalSystem.Load();
+            Pickaxe.Load();
+
+            // 몬스터
             Monster.Load();
             MonsterAmount.Load();
             MonsterClass.Load();
@@ -28,11 +33,15 @@ public class Tables : ScriptableObject
             MonsterPropertyAmount.Load();
             MonsterSpeciality.Load();
             MonsterSpecialityAmount.Load();
+            MonsterLaneBuff.Load();
+
+            // 타워
             Tower.Load();
+
+            // UI
             UpgradeButton.Load();
             UpgradeCard.Load();
             UpgradeCategory.Load();
-            MonsterLaneBuff.Load();
 
             IsLoaded = true;
             Debug.Log("Load End");
@@ -1004,6 +1013,7 @@ public class Tables : ScriptableObject
         public float _MiningSpeed;
         public string _Color;
 
+        static Dictionary<EPickaxeType, Pickaxe> _MapWithType = new();
         public static void Load()
         {
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/Pickaxe");
@@ -1027,12 +1037,21 @@ public class Tables : ScriptableObject
 
                 Tmp._ID = int.Parse(data[idx++]);
                 Tmp._Type = Enum.Parse<EPickaxeType>(data[idx++]);
+                Tmp._Korean = data[idx++];
                 Tmp._Price = int.Parse(data[idx++]);
                 Tmp._MiningSpeed = float.Parse(data[idx++]);
                 Tmp._Color = data[idx++];
 
                 Tmp.Add(Tmp);
+                _MapWithType.Add(Tmp._Type, Tmp);
             }
+        }
+
+        public static Pickaxe Get(EPickaxeType Sender)
+        {
+            Pickaxe tmp;
+            _MapWithType.TryGetValue(Sender, out tmp);
+            return tmp;
         }
     }
 }

@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class ObstacleUI : MonoBehaviour
 {
-    [SerializeField] Button Cancel;
+    [SerializeField] Button CancelBtn;
 
-    [SerializeField] Button Accept;
+    [SerializeField] Button AcceptBtn;
 
     [SerializeField] TextMeshProUGUI RequireMoney;
 
@@ -29,6 +29,13 @@ public class ObstacleUI : MonoBehaviour
 
     public void OnAcceptBtnClicK()
     {
+        if (_Obstacle.DeletePrice > GameManager.instance.money)
+        {
+            return;
+        }
+
+        GameManager.instance.money -= _Obstacle.DeletePrice;
+
         _Obstacle.DeleteObstacle();
 
         gameObject.SetActive(false);
@@ -36,6 +43,6 @@ public class ObstacleUI : MonoBehaviour
 
     public void UpdateInfo()
     {
-        RequireMoney.text = _Obstacle.DeletePrice.ToString();
+        RequireMoney.text = string.Format(Tables.StringUI.Get("Obstacle_Remove_Cost")._Korean, _Obstacle.DeletePrice);
     }
 }
