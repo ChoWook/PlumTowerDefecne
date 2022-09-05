@@ -178,3 +178,12 @@ public enum EPickaxeType
     Red = 3,
     Black = 4,
 }
+
+public enum EElementalType
+{
+    None = 1,
+    Water = 2,
+    Ground = 3,
+    Fire = 4,
+    Electric = 5,
+}
