@@ -189,6 +189,21 @@ public class Ground : MonoBehaviour
         return EmptyLandTiles;
     }
 
+    public List<Tile> GetAttackRouteInGround()
+    {
+        List<Tile> AttackRoutes = new();
+
+        for (int i = 0; i < Tiles.Length; i++)
+        {
+            if (Tiles[i].CheckTileType(ETileType.AttackRoute) && Tiles[i].GetObjectOnTile() == null)
+            {
+                AttackRoutes.Add(Tiles[i]);
+            }
+        }
+
+        return AttackRoutes;
+    }
+
     public void SetPosition(Pos Sender)
     {
         _Pos = Sender;

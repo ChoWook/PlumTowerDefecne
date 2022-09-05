@@ -11,7 +11,7 @@ public class MapGimmicSpawner : MonoBehaviour
 
     [SerializeField] GameObject Chest;
 
-    List<Tile> EmptyLands;
+    List<Tile> EmptyTiles;
 
     int[] ChoosenSet;
 
@@ -30,18 +30,30 @@ public class MapGimmicSpawner : MonoBehaviour
 
     void SpawnGimmickOnlyNextGround(EMapGimmickType GimmickType, int GroundIdx)
     {
-        EmptyLands = Map.Instance.Grounds[GroundIdx].GetEmptyLandTilesInGround();
-
-        ChoosenSet = ChooseEmptySet(Tables.MapGimmick.Get(GimmickType)._Probability, EmptyLands.Count);
-
-        // 장애물은 특수한 알고리즘으로 생성
-        if (GimmickType == EMapGimmickType.Obstacle)
+        if (GimmickType == EMapGimmickType.LaneBuff)
         {
-            CreateObstacleInGround();
+            EmptyTiles = Map.Instance.Grounds[GroundIdx].GetAttackRouteInGround();
+
+            ChoosenSet = ChooseEmptySet(Tables.MapGimmick.Get(GimmickType)._Probability, EmptyTiles.Count);
+
+            SpawnGimmickInChoosenSet(GimmickType);
         }
         else
         {
-            SpawnGimmickInChoosenSet(GimmickType);
+            EmptyTiles = Map.Instance.Grounds[GroundIdx].GetEmptyLandTilesInGround();
+
+            ChoosenSet = ChooseEmptySet(Tables.MapGimmick.Get(GimmickType)._Probability, EmptyTiles.Count);
+
+            // 장애물은 특수한 알고리즘으로 생성
+            if (GimmickType == EMapGimmickType.Obstacle)
+            {
+                CreateObstacleInGround();
+            }
+            // 공격로 버프는 공격로에만 생성되어야 함
+            else
+            {
+                SpawnGimmickInChoosenSet(GimmickType);
+            }
         }
     }
 
@@ -89,18 +101,18 @@ public class MapGimmicSpawner : MonoBehaviour
         for (int i = 0; i < ChoosenSet.Length; i++)
         {
 
-            if (!EmptyLands[ChoosenSet[i]].IsFixedObstacle)
+            if (!EmptyTiles[ChoosenSet[i]].IsFixedObstacle)
             {
 
                 GameObject obj = ObjectPools.Instance.GetPooledObject(EMapGimmickType.Obstacle.ToString());
 
                 Obstacle NewObstacle = obj.GetComponent<Obstacle>();
 
-                EmptyLands[ChoosenSet[i]].SetObjectOnTile(obj);
+                EmptyTiles[ChoosenSet[i]].SetObjectOnTile(obj);
 
-                EmptyLands[ChoosenSet[i]].IsFixedObstacle = true;
+                EmptyTiles[ChoosenSet[i]].IsFixedObstacle = true;
 
-                obj.transform.parent = EmptyLands[ChoosenSet[i]].transform;
+                obj.transform.parent = EmptyTiles[ChoosenSet[i]].transform;
 
                 obj.transform.localPosition = Vector3.zero;
 
@@ -115,12 +127,12 @@ public class MapGimmicSpawner : MonoBehaviour
                 for (int j = i + 1; j < ChoosenSet.Length; j++)
                 {
                     // 다른 장애물에 포함되 있는 타일은 스킵
-                    if (EmptyLands[ChoosenSet[j]].IsFixedObstacle)
+                    if (EmptyTiles[ChoosenSet[j]].IsFixedObstacle)
                     {
                         continue;
                     }
 
-                    Vector2 dis = EmptyLands[ChoosenSet[i]].CalculateDistance(EmptyLands[ChoosenSet[j]]._GroundPos);
+                    Vector2 dis = EmptyTiles[ChoosenSet[i]].CalculateDistance(EmptyTiles[ChoosenSet[j]]._GroundPos);
                     if ((int)dis.x == 0 && (int)dis.y == 1)
                     {
                         r = j;
@@ -218,13 +230,13 @@ public class MapGimmicSpawner : MonoBehaviour
 
     public void IncludeObstacle(int TileIdx, GameObject Sender)
     {
-        EmptyLands[ChoosenSet[TileIdx]].IsFixedObstacle = true;
-        EmptyLands[ChoosenSet[TileIdx]].SetObjectOnTile(Sender);
+        EmptyTiles[ChoosenSet[TileIdx]].IsFixedObstacle = true;
+        EmptyTiles[ChoosenSet[TileIdx]].SetObjectOnTile(Sender);
     }
     void SpawnGimmickHoleMap(EMapGimmickType GimmickType)
     {
-        // 장애물은 전체 맵에서 생성할 수 없음
-        if(GimmickType == EMapGimmickType.Obstacle)
+        // 장애물과 공격로버프는 전체 맵에서 생성할 수 없음
+        if(GimmickType == EMapGimmickType.Obstacle || GimmickType == EMapGimmickType.LaneBuff)
         {
             Debug.LogWarning("Worng Spawn Obstacle");
             return;
@@ -235,9 +247,9 @@ public class MapGimmicSpawner : MonoBehaviour
             {
                 if (Map.Instance.Grounds[i].ResourceTileCount == 0)
                 {
-                    EmptyLands = Map.Instance.Grounds[i].GetEmptyLandTilesInGround();
+                    EmptyTiles = Map.Instance.Grounds[i].GetEmptyLandTilesInGround();
 
-                    ChoosenSet = ChooseEmptySet(Random.Range(2, 6), EmptyLands.Count);
+                    ChoosenSet = ChooseEmptySet(Random.Range(2, 6), EmptyTiles.Count);
 
                     SpawnGimmickInChoosenSet(GimmickType);
                 }
@@ -245,10 +257,10 @@ public class MapGimmicSpawner : MonoBehaviour
         }
         else if(GimmickType == EMapGimmickType.Treasure)
         {
-            EmptyLands = Map.Instance.GetEmptyLandTilesInMap();
+            EmptyTiles = Map.Instance.GetEmptyLandTilesInMap();
 
             //ChoosenSet = ChooseEmptySet(Tables.MapGimmick.Get(GimmickType)._Probability, EmptyLands.Count);
-            ChoosenSet = ChooseEmptySet(Random.Range(0, 5), EmptyLands.Count);
+            ChoosenSet = ChooseEmptySet(Random.Range(0, 5), EmptyTiles.Count);
 
             SpawnGimmickInChoosenSet(GimmickType);
         }
@@ -260,15 +272,13 @@ public class MapGimmicSpawner : MonoBehaviour
         {
             GameObject obj = ObjectPools.Instance.GetPooledObject(GimmickType.ToString());
 
-            EmptyLands[ChoosenSet[i]].SetObjectOnTile(obj);
+            EmptyTiles[ChoosenSet[i]].SetObjectOnTile(obj);
 
-            obj.transform.parent = EmptyLands[ChoosenSet[i]].transform;
+            obj.transform.parent = EmptyTiles[ChoosenSet[i]].transform;
 
             if(GimmickType == EMapGimmickType.Resource)
             {
-                EmptyLands[ChoosenSet[i]].ParentGround.ResourceTileCount++;
-                // Tile > Tilemap > Grid > Ground
-                //obj.transform.parent.parent.parent.parent.GetComponent<Ground>().ResourceTileCount++;
+                EmptyTiles[ChoosenSet[i]].ParentGround.ResourceTileCount++;
             }
 
             obj.transform.localPosition = Vector3.zero;
