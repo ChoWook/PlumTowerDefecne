@@ -79,25 +79,26 @@ public class Bullet : MonoBehaviour
         
         DestroyBullet();
 
-        if (tower.TowerName == ETowerName.Missile)
+        if(tower != null)
         {
-
-            GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-            for (int i = 0; i < Enemies.Length; i++) //타워 사거리 상관없어서 바꿔야 함~~~.
+            if (tower.TowerName == ETowerName.Missile)
             {
-                float distanceToEnemy = Vector3.Distance(target.transform.position, tower.EnemyList[i].transform.position); // 적과의 거리 구하기
 
-                // Debug.Log("DistanceEnemy" + distanceToEnemy);
+                GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-                if (distanceToEnemy <= MissileRange) // 사거리 안에 있는 타겟들
+                for (int i = 0; i < Enemies.Length; i++) //타워 사거리 상관없어서 바꿔야 함~~~.
                 {
-                    target.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization);
+                    float distanceToEnemy = Vector3.Distance(target.transform.position, tower.EnemyList[i].transform.position); // 적과의 거리 구하기
+
+                    // Debug.Log("DistanceEnemy" + distanceToEnemy);
+
+                    if (distanceToEnemy <= MissileRange) // 사거리 안에 있는 타겟들
+                    {
+                        target.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization);
+                    }
                 }
             }
         }
-
-
 
     }
 
