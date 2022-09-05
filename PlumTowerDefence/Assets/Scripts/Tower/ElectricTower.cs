@@ -12,6 +12,6 @@ public class ElectricTower : Tower
 
     public override void Shoot()
     {
-        
+        // bulletprefab 정하면 생성
     }
 }

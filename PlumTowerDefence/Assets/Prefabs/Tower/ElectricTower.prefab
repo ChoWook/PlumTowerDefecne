@@ -44127,8 +44127,9 @@ MonoBehaviour:
   Fixed: 0
   AttackPriorityID: 0
   UpgradeCount: 0
-  BulletPrefab: {fileID: 0}
-  FirePoint: {fileID: 0}
+  BulletPrefab: {fileID: 5930870616202511199, guid: 661f687b216220e4ab21d0cdc55207b2,
+    type: 3}
+  FirePoint: {fileID: 7491143833733990530}
   EnemyList: []
   Target: {fileID: 0}
   enemyTag: Enemy
