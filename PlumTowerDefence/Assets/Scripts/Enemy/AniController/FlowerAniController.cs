@@ -27,7 +27,7 @@ public class FlowerAniController : BaseAniContoller
         run4 = transform.GetChild(7).gameObject;
         dead4 = transform.GetChild(8).gameObject;
 
-        currentElement = GetComponent<Enemy>().CurrentElement;
+        run1.SetActive(false);
     }
 
     private void Update()
@@ -40,22 +40,26 @@ public class FlowerAniController : BaseAniContoller
 
     public override void DeadAnimation()
     {
+        currentElement = GetComponent<Enemy>().CurrentElement;
+
+        run1.SetActive(false);
+        run2.SetActive(false);
+        run3.SetActive(false);
+        run4.SetActive(false);
+
+
         switch (currentElement)
         {
             case 0:
-                run1.SetActive(false);
                 dead1.SetActive(true);
                 break;
             case 1:
-                run2.SetActive(false);
                 dead2.SetActive(true);
                 break;
             case 2:
-                run3.SetActive(false);
                 dead3.SetActive(true);
                 break;
             case 3:
-                run4.SetActive(false);
                 dead4.SetActive(true);
                 break;
         }
@@ -64,23 +68,26 @@ public class FlowerAniController : BaseAniContoller
 
     public override void InitAnimation()
     {
+        currentElement = GetComponent<Enemy>().CurrentElement;
+
+        dead1.SetActive(false);
+        dead2.SetActive(false);
+        dead3.SetActive(false);
+        dead4.SetActive(false);
+
         switch (currentElement)
         {
             case 0:
                 run1.SetActive(true);
-                dead1.SetActive(false);
                 break;
             case 1:
                 run2.SetActive(true);
-                dead2.SetActive(false);
                 break;
             case 2:
                 run3.SetActive(true);
-                dead3.SetActive(false);
                 break;
             case 3:
                 run4.SetActive(true);
-                dead4.SetActive(false);
                 break;
         }
         deadEffect1.SetActive(false);

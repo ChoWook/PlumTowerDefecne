@@ -31,7 +31,11 @@ public class SlimeAniController : BaseAniContoller
         run5 = transform.GetChild(9).gameObject;
         dead5 = transform.GetChild(10).gameObject;
 
-        currentElement = GetComponent<Enemy>().CurrentElement;
+        run1.SetActive(false);
+        run2.SetActive(false);
+        run3.SetActive(false);
+        run4.SetActive(false);
+        run5.SetActive(false);
     }
 
     private void Update()
@@ -44,26 +48,29 @@ public class SlimeAniController : BaseAniContoller
 
     public override void DeadAnimation()
     {
+        currentElement = GetComponent<Enemy>().CurrentElement;
+        run1.SetActive(false);
+        run2.SetActive(false);
+        run3.SetActive(false);
+        run4.SetActive(false);
+        run5.SetActive(false);
+
+
         switch (currentElement)
         {
             case 0:
-                run1.SetActive(false);
                 dead1.SetActive(true);
                 break;
             case 1:
-                run2.SetActive(false);
                 dead2.SetActive(true);
                 break;
             case 2:
-                run3.SetActive(false);
                 dead3.SetActive(true);
                 break;
             case 3:
-                run4.SetActive(false);
                 dead4.SetActive(true);
                 break;
             case 4:
-                run5.SetActive(false);
                 dead5.SetActive(true);
                 break;
         }
@@ -72,27 +79,29 @@ public class SlimeAniController : BaseAniContoller
 
     public override void InitAnimation()
     {
+        currentElement = GetComponent<Enemy>().CurrentElement;
+        dead1.SetActive(false);
+        dead2.SetActive(false);
+        dead3.SetActive(false);
+        dead4.SetActive(false);
+        dead5.SetActive(false);
+
         switch (currentElement)
         {
             case 0:
                 run1.SetActive(true);
-                dead1.SetActive(false);
                 break;
             case 1:
                 run2.SetActive(true);
-                dead2.SetActive(false);
                 break;
             case 2:
                 run3.SetActive(true);
-                dead3.SetActive(false);
                 break;
             case 3:
                 run4.SetActive(true);
-                dead4.SetActive(false);
                 break;
             case 4:
                 run5.SetActive(true);
-                dead5.SetActive(false);
                 break;
         }
         deadEffect1.SetActive(false);

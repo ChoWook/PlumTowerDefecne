@@ -20,17 +20,26 @@ public class PirateAniController : BaseAniContoller
         anim2 = transform.GetChild(2).gameObject;
         anim3 = transform.GetChild(3).gameObject;
 
-        currentElement = GetComponent<Enemy>().CurrentElement;
-
+       
+    }
+    private void OnEnable()
+    {
+        anim1.SetActive(false);
+        anim2.SetActive(false);
+        anim3.SetActive(false);
     }
 
     public override void DeadAnimation()
     {
+        currentElement = GetComponent<Enemy>().CurrentElement;
+
         TriggerAnimation();
     }
 
     public override void InitAnimation()
     {
+        currentElement = GetComponent<Enemy>().CurrentElement;
+
         switch (currentElement)
         {
             case 0:
@@ -42,10 +51,8 @@ public class PirateAniController : BaseAniContoller
             case 4:
                 anim3.SetActive(true);
                 break;
-
         }
         deadEffect1.SetActive(false);
-
     }
 
 
