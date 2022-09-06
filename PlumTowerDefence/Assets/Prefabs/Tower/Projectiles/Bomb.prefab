@@ -159,4 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 942ae60b4f4f4e148bc9c36e7ad11155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tower: {fileID: 7728573975507635311, guid: f8bd3d7bb31f56d40bf14ea75016bbee, type: 3}
   Speed: 0
+  MissileRange: 0
+  ElectricRange: 0
+  ElecRangeStat: 2

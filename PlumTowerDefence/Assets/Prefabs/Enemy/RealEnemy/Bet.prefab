@@ -73,8 +73,12 @@ MonoBehaviour:
   IsAlive: 1
   hasSpecial: 0
   CurrentElement: 0
+  IsBoss: 0
+  IsSubBoss: 0
+  IsBuffed: 
   monsterType: 0
-  LevelType: 0
+  propertyType: 0
+  currentBuffType: 0
 --- !u!114 &1176294544961529376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +240,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.83
-  m_Center: {x: -0.03, y: 0.36, z: 0.5}
+  m_Center: {x: -0.03, y: 2.17, z: 0.5}
 --- !u!114 &4829103149264477458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,7 +407,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.85
-  m_Center: {x: -0.09, y: 0.3, z: 0}
+  m_Center: {x: -0.09, y: 2.17, z: 0}
 --- !u!114 &7498019565176638995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,7 +607,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
-  m_Center: {x: -0.06, y: 0.54, z: 0.12}
+  m_Center: {x: -0.06, y: 2.71, z: 0.12}
 --- !u!114 &2176391839081272131
 MonoBehaviour:
   m_ObjectHideFlags: 0

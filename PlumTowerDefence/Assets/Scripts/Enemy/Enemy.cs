@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     public bool IsBoss;
     public bool IsSubBoss;
     private Vector3 scaleChange;
-
+    public bool[] IsBuffed;
 
 
     private int[] currentLevel = new int[8];
@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
 
     public EMonsterType monsterType;
     public EPropertyType propertyType;
+    public ELaneBuffType currentBuffType;
 
     Animator animator;  
 
@@ -43,6 +44,15 @@ public class Enemy : MonoBehaviour
         {
             currentLevel[i] = 1;
         }
+    }
+    private void OnEnable()
+    {
+        IsBuffed = new bool[6];
+        for(int i = 0; i < 6; i++)
+        {
+            IsBuffed[i] = false;
+        }
+
     }
 
     public void GetStat()
@@ -110,9 +120,72 @@ public class Enemy : MonoBehaviour
     {
         StartCoroutine(IE_Resurrection());
     }
-
-    public void TakeDamage(float damage, EAttackSpecialization type)
+    
+    public void TakeDamage(float damage, EAttackSpecialization type, ETowerName towerName)
     {
+        float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+        switch (towerName)
+        {
+            case ETowerName.Arrow:
+                if (IsBuffed[0])
+                {
+                    damage += damage * buffedBonus / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        IsBuffed[0] = false;
+                    }));
+                }
+                break;
+            case ETowerName.Hourglass:
+                if (IsBuffed[1])
+                {
+                    //GetComponent<EnemyMovement>().MoveSpeed += GetComponent<EnemyMovement>().MoveSpeed * buffedBonus / 100;
+                    
+                }
+                break;
+            case ETowerName.Poison:
+                if (IsBuffed[2])
+                {
+                    damage += damage * buffedBonus / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        IsBuffed[2] = false;
+                    }));
+                }
+                break;
+            case ETowerName.Flame:
+                if (IsBuffed[3])
+                {
+                    damage += damage * buffedBonus / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        IsBuffed[3] = false;
+                    }));
+                }
+                break;
+            case ETowerName.Laser:
+                if (IsBuffed[4])
+                {
+                    damage += damage * buffedBonus / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        IsBuffed[4] = false;
+                    }));
+                }
+                break;
+            case ETowerName.Missile:
+                if (IsBuffed[5])
+                {
+                    damage += damage * buffedBonus / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        IsBuffed[5] = false;
+                    }));
+                }
+                break;
+
+        }
+
         float hpSpecial = 1.0f;
         float shieldSpecial = 1.0f;
         float penetrationOn = 1.0f;
@@ -146,6 +219,7 @@ public class Enemy : MonoBehaviour
             CurrentHP -= damage * 0.01f * (100 - Armor * penetrationOn) * hpSpecial;
         }
         //Debug.Log("Shield: " + CurrentShield + "HP: " + CurrentHP);
+
 
         if (CurrentHP <= 0)
         {
@@ -191,10 +265,205 @@ public class Enemy : MonoBehaviour
                 KillEnemy();
             }
 
-            // else
-                // 부활/ 분열 추가 
         }
     }
+
+    public void TakeBuff(ELaneBuffType laneBufftype)
+    {
+        currentBuffType = laneBufftype;
+        float statChange =Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+
+        switch (currentBuffType)
+        {
+            case ELaneBuffType.AllHealHp:
+                CurrentHP += MaxHP * statChange / 100;
+                break;
+            case ELaneBuffType.AllDealHp:
+                CurrentHP += MaxHP * statChange / 100;
+                break;
+            case ELaneBuffType.AllHealShield:
+                CurrentShield += MaxShield * statChange / 100;
+                break;
+            case ELaneBuffType.AllDealShield:
+                CurrentShield += MaxShield * statChange / 100;
+                break;
+            case ELaneBuffType.AllBuffArmor:
+                Armor += BaseArmor * statChange / 100;
+                StartCoroutine(IE_BuffTimeLast(() =>
+                {
+                    Armor -= BaseArmor * statChange / 100;
+                }));
+                break;
+            case ELaneBuffType.AllNurfArmor:
+                Armor += BaseArmor * statChange / 100;
+                StartCoroutine(IE_BuffTimeLast(() =>
+                {
+                    Armor -= BaseArmor * statChange / 100;
+                }));
+                break;
+            case ELaneBuffType.WaterHealHp:
+                if((EElementalType)CurrentElement == EElementalType.Water)
+                {
+                    CurrentHP += MaxHP * statChange / 100;
+                }
+                break;
+            case ELaneBuffType.GroundHealHp:
+                if ((EElementalType)CurrentElement == EElementalType.Ground)
+                {
+                    CurrentHP += MaxHP * statChange / 100;
+                }
+                break;
+            case ELaneBuffType.FireHealHp:
+                if ((EElementalType)CurrentElement == EElementalType.Fire)
+                {
+                    CurrentHP += MaxHP * statChange / 100;
+                }
+                break;
+            case ELaneBuffType.ElectricHealHp:
+                if ((EElementalType)CurrentElement == EElementalType.Electric)
+                {
+                    CurrentHP += MaxHP * statChange / 100;
+                }
+                break;
+            case ELaneBuffType.WaterDealHp:
+                if ((EElementalType)CurrentElement == EElementalType.Water)
+                {
+                    CurrentHP += MaxHP * statChange / 100;
+                }
+                break;
+            case ELaneBuffType.GroundDealHp:
+                if ((EElementalType)CurrentElement == EElementalType.Ground)
+                {
+                    CurrentHP += MaxHP * statChange / 100;
+                }
+                break;
+            case ELaneBuffType.FireDealHp:
+                if ((EElementalType)CurrentElement == EElementalType.Fire)
+                {
+                    CurrentHP += MaxHP * statChange / 100;
+                }
+                break;
+            case ELaneBuffType.ElectricDealHp:
+                if ((EElementalType)CurrentElement == EElementalType.Electric)
+                {
+                    CurrentHP += MaxHP * statChange / 100;
+                }
+                break;
+            case ELaneBuffType.WaterBuffArmor:
+                if ((EElementalType)CurrentElement == EElementalType.Water)
+                {
+                    Armor += BaseArmor * statChange / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        Armor -= BaseArmor * statChange / 100;
+                    }));
+                    break;
+                }
+                break;
+            case ELaneBuffType.GroundBuffArmor:
+                if ((EElementalType)CurrentElement == EElementalType.Ground)
+                {
+                    Armor += BaseArmor * statChange / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        Armor -= BaseArmor * statChange / 100;
+                    }));
+                    break;
+                }
+                break;
+            case ELaneBuffType.FireBuffArmor:
+                if ((EElementalType)CurrentElement == EElementalType.Fire)
+                {
+                    Armor += BaseArmor * statChange / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        Armor -= BaseArmor * statChange / 100;
+                    }));
+                    break;
+                }
+                break;
+            case ELaneBuffType.ElectricBuffArmor:
+                if ((EElementalType)CurrentElement == EElementalType.Electric)
+                {
+                    Armor += BaseArmor * statChange / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        Armor -= BaseArmor * statChange / 100;
+                    }));
+                    break;
+                }
+                break;
+            case ELaneBuffType.WaterNurfArmor:
+                if ((EElementalType)CurrentElement == EElementalType.Water)
+                {
+                    Armor += BaseArmor * statChange / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        Armor -= BaseArmor * statChange / 100;
+                    }));
+                    break;
+                }
+                break;
+            case ELaneBuffType.GroundNurfArmor:
+                if ((EElementalType)CurrentElement == EElementalType.Ground)
+                {
+                    Armor += BaseArmor * statChange / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        Armor -= BaseArmor * statChange / 100;
+                    }));
+                    break;
+                }
+                break;
+            case ELaneBuffType.FireNurfArmor:
+                if ((EElementalType)CurrentElement == EElementalType.Fire)
+                {
+                    Armor += BaseArmor * statChange / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        Armor -= BaseArmor * statChange / 100;
+                    }));
+                    break;
+                }
+                break;
+            case ELaneBuffType.ElectricNurfArmor:
+                if ((EElementalType)CurrentElement == EElementalType.Electric)
+                {
+                    Armor += BaseArmor * statChange / 100;
+                    StartCoroutine(IE_BuffTimeLast(() =>
+                    {
+                        Armor -= BaseArmor * statChange / 100;
+                    }));
+                    break;
+                }
+                break;
+
+            case ELaneBuffType.ArrowBuff:
+                IsBuffed[0] = true;
+                break;
+            case ELaneBuffType.SlowBuff:
+                IsBuffed[1] = true;
+                break;
+            case ELaneBuffType.PoisonBuff:
+                IsBuffed[2] = true;
+                break;
+            case ELaneBuffType.LazerBuff:
+                IsBuffed[3] = true;
+                break;
+            case ELaneBuffType.MissileBuff:
+                IsBuffed[4] = true;
+                break;
+        }
+    }
+
+    IEnumerator IE_BuffTimeLast(System.Action onEnd)
+    {
+        int bufftime = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Time;
+        yield return new WaitForSeconds(bufftime);
+        onEnd();
+    }
+
+
 
     void KillEnemy()
     {
@@ -326,7 +595,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void AddProperty()
+    /*public void AddProperty()
     {
         int waveNum = GameManager.instance.level;
 
@@ -334,7 +603,7 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
-
+        Debug.Log("ADDED PROPERTY");    
         if (IsBoss == true)
         {
             propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
@@ -346,29 +615,35 @@ public class Enemy : MonoBehaviour
         else
             propertyType = Tables.MonsterProperty.Get(1)._PropertyType;
 
-
-    }
+    }*/
 
     public void AddSubBoss()
     {
+        int waveNum = GameManager.instance.level;
         MaxHP += BaseHP * Tables.MonsterClass.Get(2)._Hp / 100;
         MaxShield += BaseShield * Tables.MonsterClass.Get(2)._Sheild / 100;
         float size = Tables.MonsterClass.Get(2)._Size / 100;
         float currentSize = transform.localScale.x;
         scaleChange = new Vector3(currentSize * size, currentSize * size, currentSize * size);
         transform.localScale += scaleChange;
-        propertyType = Tables.MonsterProperty.Get(3)._PropertyType;
+        if(waveNum > 6)
+        {
+            propertyType = Tables.MonsterProperty.Get(3)._PropertyType;
+        }
     }
     public void AddBoss()
     {
+        int waveNum = GameManager.instance.level;
         MaxHP += BaseHP * Tables.MonsterClass.Get(3)._Hp / 100;
         MaxShield += BaseShield * Tables.MonsterClass.Get(3)._Sheild / 100;
         float size = Tables.MonsterClass.Get(3)._Size / 100;
         float currentSize = transform.localScale.x;
         scaleChange = new Vector3(currentSize * size, currentSize * size, currentSize * size);
         transform.localScale += scaleChange;
-        propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
-
+        if(waveNum > 6)
+        {
+            propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
+        }
 
     }
 
@@ -398,35 +673,46 @@ public class Enemy : MonoBehaviour
         Armor += BaseArmor * Tables.MonsterLevel.Get(currentLevel[id -1])._Armor * currentLevel[id - 1] / 100;
     }
 
-    
-
-    private void Update()
+    void InitSize()
     {
-        /*if (Input.GetKeyDown(KeyCode.A))
+        if (monsterType == EMonsterType.Bet)
         {
-            DealDamageForSeconds(130);
-        }*/
-    }
-
-   /* public void DealDamageForSeconds(float damage)
-    {
-        StartCoroutine(DealDamage(damage));
-    }
-
-    public IEnumerator DealDamage(float damage)
-    {
-        int time = 1;
-        Debug.Log("ok");
-        while (true)
-        {
-            //TakeDamage(damage);
-            yield return new WaitForSeconds(time);
+            transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
         }
-    }*/
+        else if (monsterType == EMonsterType.Mushroom)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else if (monsterType == EMonsterType.Flower)
+        {
+            transform.localScale = new Vector3(1.4f, 1.4f, 1.4f);
+        }
+        else if (monsterType == EMonsterType.Fish)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else if (monsterType == EMonsterType.Slime)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else if (monsterType == EMonsterType.Pirate)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else if (monsterType == EMonsterType.Spider)
+        {
+            transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+        }
+        else if (monsterType == EMonsterType.Bear)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+    }
 
     public void InitStat()
     {
         GetStat();
+        InitSize();
         EnemyLevelUp();
         AddElementType();
         if(hasSpecial == true)

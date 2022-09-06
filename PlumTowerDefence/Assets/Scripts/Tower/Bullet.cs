@@ -82,7 +82,7 @@ public class Bullet : MonoBehaviour
     {
         // 데미지 전달함수 추가
 
-        target.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization); //Damage 전달
+        target.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage 전달
 
         DestroyBullet();
 
@@ -102,7 +102,7 @@ public class Bullet : MonoBehaviour
 
                             if (distanceToEnemy <= MissileRange) // 사거리 안에 있는 타겟들
                             {
-                                Enemies[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization);
+                                Enemies[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
                             }
                         }
 
@@ -154,7 +154,7 @@ public class Bullet : MonoBehaviour
                         // AbilityStat만큼 공격하기
                         for(int i=0; i < tower.AbilityStat; i++)
                         {
-                            EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization);
+                            EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
                         }
 
                         break;

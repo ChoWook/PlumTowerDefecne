@@ -29,7 +29,7 @@ public class FlameTower : Tower
 
             if (EachAngle < Angle / 2)
             {
-                target.GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization);
+                target.GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization , TowerName);
             }
 
         }
