@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaneBuff : MonoBehaviour
 {
-    // ELaneBuffType Type
+    ELaneBuffType Type;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,11 +15,11 @@ public class LaneBuff : MonoBehaviour
             return;
         }
 
-        // enemy.TakeBuff(Type);
+         enemy.TakeBuff(Type);
     }
 
-    public void SetType(/*ELaneBuffType Sender*/)
+    public void SetType(ELaneBuffType Sender)
     {
-        //Type = Sender;
+        Type = Sender;
     }
 }

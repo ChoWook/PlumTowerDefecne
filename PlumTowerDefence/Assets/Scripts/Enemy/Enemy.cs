@@ -25,6 +25,8 @@ public class Enemy : MonoBehaviour
     public bool IsSubBoss;
     private Vector3 scaleChange;
     public bool[] IsBuffed;
+    public bool IsSlowed = false;
+    public bool IsPoisoned = false;
 
 
     private int[] currentLevel = new int[8];
@@ -123,12 +125,14 @@ public class Enemy : MonoBehaviour
     
     public void TakeDamage(float damage, EAttackSpecialization type, ETowerName towerName)
     {
-        float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+        
         switch (towerName)
         {
             case ETowerName.Arrow:
                 if (IsBuffed[0])
                 {
+                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+
                     damage += damage * buffedBonus / 100;
                     StartCoroutine(IE_BuffTimeLast(() =>
                     {
@@ -146,6 +150,9 @@ public class Enemy : MonoBehaviour
             case ETowerName.Poison:
                 if (IsBuffed[2])
                 {
+
+                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+
                     damage += damage * buffedBonus / 100;
                     StartCoroutine(IE_BuffTimeLast(() =>
                     {
@@ -156,6 +163,8 @@ public class Enemy : MonoBehaviour
             case ETowerName.Flame:
                 if (IsBuffed[3])
                 {
+                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+
                     damage += damage * buffedBonus / 100;
                     StartCoroutine(IE_BuffTimeLast(() =>
                     {
@@ -166,6 +175,8 @@ public class Enemy : MonoBehaviour
             case ETowerName.Laser:
                 if (IsBuffed[4])
                 {
+                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+
                     damage += damage * buffedBonus / 100;
                     StartCoroutine(IE_BuffTimeLast(() =>
                     {
@@ -176,6 +187,8 @@ public class Enemy : MonoBehaviour
             case ETowerName.Missile:
                 if (IsBuffed[5])
                 {
+                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+
                     damage += damage * buffedBonus / 100;
                     StartCoroutine(IE_BuffTimeLast(() =>
                     {
@@ -265,6 +278,27 @@ public class Enemy : MonoBehaviour
                 KillEnemy();
             }
 
+        }
+    }
+
+
+    public void SlowEnemy(float abilty)
+    {
+        if(IsSlowed == false)
+        {
+            GetComponent<EnemyMovement>().MoveSpeed *= abilty;
+            IsSlowed = true;
+            StartCoroutine(IE_SlowTime());
+        }
+        
+    }
+
+    public void PoisonEnemy(float ability)
+    {
+        if(IsPoisoned == false)
+        {
+            IsPoisoned = true;
+            StartCoroutine(IE_PoisonDamage(ability));
         }
     }
 
@@ -462,7 +496,24 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(bufftime);
         onEnd();
     }
+    
+    IEnumerator IE_SlowTime()
+    {
+        float slowtime = 5f;
+        yield return new WaitForSeconds(slowtime);              // 시간초기화 구현 x
+        IsSlowed = false;
+        GetComponent<EnemyMovement>().MoveSpeed = Speed;
 
+    }
+
+    IEnumerator IE_PoisonDamage(float poisonDamage)
+    {
+        float poisonTime = 1f;
+        while(CurrentHP > 0) { 
+            TakeDamage(poisonDamage, EAttackSpecialization.Default, ETowerName.Poison);
+            yield return new WaitForSeconds(poisonTime);
+        }
+    }
 
 
     void KillEnemy()
