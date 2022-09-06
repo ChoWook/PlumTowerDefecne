@@ -4,22 +4,33 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+public class SaveData
+{
+    public List<int> upgradedCard;
+}
+
 public class JsonManager : MonoBehaviour
 {
     public static JsonManager instance = null;
 
-    public List<int> upgradedCard;
-
     public List<int> usingList;
+    private readonly SaveData saveData = new SaveData();
+
+    public SaveData SaveData
+    {
+        get { return saveData; }
+    }
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            upgradedCard = new List<int>();
+            SaveData.upgradedCard = new List<int>();
             ClearUpgrade();
             WriteJson();
+
+            Debug.Log(JsonUtility.ToJson(SaveData));
         }
     }
 
@@ -27,29 +38,29 @@ public class JsonManager : MonoBehaviour
     {
         if (!File.Exists(Application.dataPath + "/UpgradeJson.json"))
         {
-            File.WriteAllText(Application.dataPath + "/UpgradeJson.json", JsonUtility.ToJson(upgradedCard));
+            File.WriteAllText(Application.dataPath + "/UpgradeJson.json", JsonUtility.ToJson(SaveData));
         }
         else
         {
             string str = File.ReadAllText(Application.dataPath + "/UpgradeJson.json");
 
-            upgradedCard = JsonUtility.FromJson<List<int>>(str);
+            SaveData.upgradedCard = JsonUtility.FromJson<List<int>>(str);
         }
     }
 
     public void WriteJson()
     {
-        File.WriteAllText(Application.dataPath + "/UpgradeJson.json", JsonUtility.ToJson(upgradedCard));
+        File.WriteAllText(Application.dataPath + "/UpgradeJson.json", JsonUtility.ToJson(SaveData));
     }
 
     public void BuyUpgrade(int id)
     {
-        upgradedCard.Add(id);
+        SaveData.upgradedCard.Add(id);
     }
 
     public void ClearUpgrade()
     {
-        upgradedCard.Clear();
+        SaveData.upgradedCard.Clear();
 
         for (int i = 1; i <= 3; i++)
         {
@@ -59,7 +70,7 @@ public class JsonManager : MonoBehaviour
                 {
                     if (Tables.UpgradeCard.Get(i * 10000 + j * 100 + k)._XpCost == 0)
                     {
-                        upgradedCard.Add(i * 10000 + j * 100 + k);
+                        SaveData.upgradedCard.Add(i * 10000 + j * 100 + k);
                         Debug.Log("Add " + (i * 10000 + j * 100 + k));
                     }
                 }

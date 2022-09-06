@@ -54,13 +54,13 @@ public class Upgrade : MonoBehaviour
 
     public void ChangeSprite()
     {
-        if (JsonManager.instance.upgradedCard.Contains(id))     //이미 삼
+        if (JsonManager.instance.SaveData.upgradedCard.Contains(id))     //이미 삼
         {
             GetComponent<Image>().sprite = _sprites[0];
             button.SetActive(false);
             canBuy = false;
         }
-        else if (JsonManager.instance.upgradedCard.Contains(Tables.UpgradeCard.Get(id)._Parent))
+        else if (JsonManager.instance.SaveData.upgradedCard.Contains(Tables.UpgradeCard.Get(id)._Parent))
         {
             GetComponent<Image>().sprite = _sprites[0];         //살 수 있음
             button.SetActive(true);

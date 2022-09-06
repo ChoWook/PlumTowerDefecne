@@ -39,12 +39,13 @@ public class InGameUpgrade : MonoBehaviour
         Debug.Log("childIdx = " + childIdx);
         int UpgradeId = transform.GetChild(childIdx).GetComponent<InGameUpgradeSetting>().id;
         Debug.Log("증강체"+UpgradeId+"적용");
-        //TODO 적용된 증강체 list에서 제거하기
+        JsonManager.instance.usingList.Remove(UpgradeId);
         
         InGameButtonManager.GetComponent<InGameButtonManager>().ShowExpandButton();
         int count = transform.childCount;
         for (int i = 0; i < count; i++)
         {
+            transform.GetChild(0).Find("Select")?.GetComponent<Button>().onClick.RemoveAllListeners();
             ObjectPools.Instance.ReleaseObjectToPool(transform.GetChild(0).gameObject);
         }
         
