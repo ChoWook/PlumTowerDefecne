@@ -960,6 +960,8 @@ public class Tables : ScriptableObject
 
     public class MonsterLaneBuff : CSVFile<MonsterLaneBuff>
     {
+        public ELaneBuffType _Type;
+        public string _Korean;
         public bool _None;
         public bool _Water;
         public bool _Ground;
@@ -992,6 +994,8 @@ public class Tables : ScriptableObject
                 int idx = 0;
 
                 Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Type = Enum.Parse<ELaneBuffType>(data[idx++]);
+                Tmp._Korean = data[idx++];
                 Tmp._None = bool.Parse(data[idx++]);
                 Tmp._Water = bool.Parse(data[idx++]);
                 Tmp._Ground = bool.Parse(data[idx++]);
