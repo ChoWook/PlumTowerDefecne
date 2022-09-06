@@ -140,7 +140,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
-    void SpawnEnemy(EMonsterType monsterType)
+    public void SpawnEnemy(EMonsterType monsterType)
     {
         var enemy = ObjectPools.Instance.GetPooledObject(monsterType.ToString());        // GameObject
         var emove = enemy.GetComponent<EnemyMovement>();

@@ -77,8 +77,11 @@ MonoBehaviour:
   IsAlive: 1
   hasSpecial: 0
   CurrentElement: 0
+  IsBoss: 0
+  IsSubBoss: 0
   monsterType: 0
-  LevelType: 0
+  propertyType: 0
+  currentBuffType: 0
 --- !u!114 &2366484430228685357
 MonoBehaviour:
   m_ObjectHideFlags: 0
