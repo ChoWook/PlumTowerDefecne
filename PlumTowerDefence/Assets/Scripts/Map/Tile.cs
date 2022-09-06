@@ -209,7 +209,7 @@ public class Tile : MonoBehaviour
     {
         var tile = Map.Instance.GetTileInMap(_MapPos.SumPos(TilePos));
 
-        if (tile == null)
+        if (tile == null || tile.ParentGround.gameObject.activeSelf == false)
         {
             return false;
         }
