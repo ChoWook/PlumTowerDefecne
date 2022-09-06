@@ -181,11 +181,11 @@ public enum EPickaxeType
 
 public enum EElementalType
 {
-    None = 1,
-    Water = 2,
-    Ground = 3,
-    Fire = 4,
-    Electric = 5,
+    None = 0,
+    Water = 1,
+    Ground = 2,
+    Fire = 3,
+    Electric = 4,
 }
 
 public enum ELaneBuffType
