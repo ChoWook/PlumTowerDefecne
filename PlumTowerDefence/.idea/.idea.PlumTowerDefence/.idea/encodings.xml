@@ -7,6 +7,7 @@
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Enemy/MemoryPool.cs" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Enemy/Waypoints.cs" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Map/Gimmick/Resource.cs" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Map/Gimmick/Treasure.cs" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Map/Ground.cs" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Map/Map.cs" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Map/MapGimmicSpawner.cs" charset="x-windows-949" />

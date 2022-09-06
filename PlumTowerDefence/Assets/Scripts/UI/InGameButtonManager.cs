@@ -84,6 +84,7 @@ public class InGameButtonManager : MonoBehaviour
         if (!GameManager.instance.isPlayingGame)    //게임중이 아니라면
         {
             Map.Instance.ShowNextGrounds();
+            GameManager.instance.level++;
             expandButton.SetActive(false);
             startButton.SetActive(true);
         }
@@ -95,7 +96,6 @@ public class InGameButtonManager : MonoBehaviour
 
     public void PlayGame() //게임 시작시 호출
     {
-        GameManager.instance.level++;
         GameManager.instance.isPlayingGame = true;
         startButton.SetActive(false);
         expandButton.SetActive(true);

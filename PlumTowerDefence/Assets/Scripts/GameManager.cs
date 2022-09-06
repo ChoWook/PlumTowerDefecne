@@ -207,6 +207,7 @@ public class GameManager : MonoBehaviour
         if (HasCoupon(name))
         {
             _TowerCoupon[name]--;
+            _OnGetCouponCallBack?.Invoke();
         }
         else
         {
