@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,18 @@ public class TowerBtnItem : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI TowerPriceText;
 
+    [SerializeField] GameObject TowerSprite;
+
+    [SerializeField] GameObject RedDot;
+
+    [SerializeField] Sprite[] TowerButtonImage;
+
     ETowerName _Name;
+
+    private void Awake()
+    {
+        GameManager.instance.AddGetCouponCallBack(ChangeCouponImage);
+    }
 
     public void SetTowerName(ETowerName Sender)
     {
@@ -28,4 +40,26 @@ public class TowerBtnItem : MonoBehaviour
         TowerPriceText.text = _Tower._Price.ToString();
     }
 
+    public void SetTowerImage()
+    {
+        TowerSprite.GetComponent<Image>().sprite = TowerButtonImage[(int)_Name - 1];
+        ChangeCouponImage();
+    }
+
+    private void ChangeCouponImage()
+    {
+        if ((int)_Name != 0)
+        {
+            if (GameManager.instance.HasCoupon(_Name))
+            {
+                RedDot.SetActive(true);
+                RedDot.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text =
+                    GameManager.instance.GetCoupon(_Name).ToString();
+            }
+            else
+            {
+                RedDot.SetActive(false);
+            }
+        }
+    }
 }
