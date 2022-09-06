@@ -382,7 +382,7 @@ public class Map : MonoBehaviour
 
     void SpawnAllGimmick(bool IsExistedMap)
     {
-        for(EMapGimmickType type = EMapGimmickType.Obstacle; type <= EMapGimmickType.Treasure; type++)
+        for(EMapGimmickType type = EMapGimmickType.LaneBuff; type <= EMapGimmickType.Treasure; type++)
         {
             if (Tables.MapGimmick.Get(type)._ExistedMap == IsExistedMap)
             {

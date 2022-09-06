@@ -21,6 +21,9 @@ public class Enemy : MonoBehaviour
     public bool IsAlive = true;
     public bool hasSpecial;
     public int CurrentElement;
+    public bool IsBoss;
+    public bool IsSubBoss;
+    private Vector3 scaleChange;
 
 
 
@@ -30,6 +33,7 @@ public class Enemy : MonoBehaviour
     float Enforced = 1.0f;          // 강화특성
 
     public EMonsterType monsterType;
+    public EPropertyType propertyType;
 
     Animator animator;  
 
@@ -39,7 +43,6 @@ public class Enemy : MonoBehaviour
         {
             currentLevel[i] = 1;
         }
-        
     }
 
     public void GetStat()
@@ -53,25 +56,60 @@ public class Enemy : MonoBehaviour
         MaxShield = BaseShield;
         Speed = BaseSpeed;
         Armor = BaseArmor;
-        ShieldOn = true;
     }
     
     public void SetStat()
     {
         CurrentHP = MaxHP;
         CurrentShield = MaxShield;
+        ShieldOn = true;
+
         //Debug.Log("CurrentHP: " + CurrentHP + " CurrentShield: " + CurrentShield + " Armor: " + Armor + " Speed: " + Speed);
     }
 
     IEnumerator IE_PlayDeadAnimation()
     {
         GetComponent<BaseAniContoller>().DeadAnimation();
-        yield return new WaitForSeconds(1);
-        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+        if(propertyType == EPropertyType.Resurrect)
+        {
+            propertyType = EPropertyType.Resurrected;
+
+        }
+        else if(propertyType == EPropertyType.Divisive)
+        {
+            propertyType = EPropertyType.Divided;
+        }
+        else
+        {
+            yield return new WaitForSeconds(1);
+
+            ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+        }
     }
+    IEnumerator IE_Resurrection()
+    {
+        SetStat();
+        transform.tag = "Untagged";
+        GetComponent<EnemyMovement>().MoveSpeed *= 0.2f;
+        StartCoroutine(IE_PlayDeadAnimation());
+        if(propertyType == EPropertyType.Resurrected)
+        {
+            yield return new WaitForSeconds(1f);
+        }
+        else if(propertyType == EPropertyType.Divided)
+        {
+            yield return null;
+        }
+        GetComponent<EnemyMovement>().MoveSpeed *= 5f;
 
+        GetComponent<BaseAniContoller>().InitAnimation();
+        transform.tag = "Enemy";
 
-
+    }
+    void Resurrect()
+    {
+        StartCoroutine(IE_Resurrection());
+    }
 
     public void TakeDamage(float damage, EAttackSpecialization type)
     {
@@ -111,7 +149,50 @@ public class Enemy : MonoBehaviour
 
         if (CurrentHP <= 0)
         {
-            KillEnemy();
+           if(propertyType == EPropertyType.Resurrect)
+            {
+                Resurrect(); 
+            }
+           else if(propertyType == EPropertyType.Divisive)
+            {
+                Resurrect();
+                                
+                MaxHP *= 0.3f;
+                MaxShield *= 0.2f;
+                SetStat();
+
+                var enemy = ObjectPools.Instance.GetPooledObject(monsterType.ToString());
+                var emove = enemy.GetComponent<EnemyMovement>();
+                emove.Route = gameObject.GetComponent<EnemyMovement>().Route;
+                emove.WaypointIndex = gameObject.GetComponent<EnemyMovement>().WaypointIndex;
+                enemy.transform.position = gameObject.transform.position;
+                var getComponent = enemy.GetComponent<Enemy>();
+                getComponent.monsterType = monsterType;
+                getComponent.hasSpecial = true;
+                getComponent.InitStat();
+                enemy.GetComponent<BaseAniContoller>().InitAnimation();
+                emove.InitSpeed(monsterType);
+                getComponent.propertyType = EPropertyType.Divided;
+                getComponent.MaxHP = MaxHP;
+                getComponent.MaxShield = MaxShield;
+                getComponent.SetStat();
+
+                GameManager.instance.currentEnemyNumber++;
+
+                float currentSize = enemy.transform.localScale.x;
+                scaleChange = new Vector3(currentSize, currentSize, currentSize);
+                transform.localScale = scaleChange;
+
+                GetComponent<EnemyMovement>().MoveSpeed *= 0.9f;
+
+            }
+           else
+            {
+                KillEnemy();
+            }
+
+            // else
+                // 부활/ 분열 추가 
         }
     }
 
@@ -126,99 +207,6 @@ public class Enemy : MonoBehaviour
         GetComponent<EnemyMovement>().MoveSpeed = 0;
         //Debug.Log("Killed Enemy");
         StartCoroutine(IE_PlayDeadAnimation());                                         
-    }
-
-    PropertyType MyProperty;
-    Speciality2Type MySpeciality2;
-
-    public enum PropertyType                                      // 속성은 맵이나 타워에도 적용
-    {
-        물, 흙, 불, 전기
-    }
-
-   
-
-    enum Speciality2Type
-    {
-        없음, 강화된, 분열의, 분열된, 은밀한, 부활의, 부활한,
-        생성의, 이끄는, 저주하는
-    }
-
-    public int LevelType;
-
-    void ApplyPropertyType()
-    {
-        // MyProperty 결정방식 필요
-        // 웨이브 정보?
-        // 완전 랜덤? 계수?
-
-        switch (MyProperty)
-        {
-            case PropertyType.물:
-                // 기존보다 체력이 50% 많으며, 방어막이 35% 적다
-                MaxHP += BaseHP * 0.50f;
-                MaxShield -= BaseShield * 0.35f;
-                break;
-            case PropertyType.흙:
-                // 기존보다 체력과 방어막이 25%씩 증가하며, 속도가 40% 감소한다.
-                MaxHP += BaseHP * 0.25f;
-                MaxShield += BaseShield * 0.25f;
-                Speed -= BaseSpeed * 0.40f;
-                break;
-            case PropertyType.불:
-                // 기존보다 체력이 50% 적으며, 방어막이 40% 많으며, 속도가 10% 증가한다.
-                MaxHP -= BaseHP * 0.50f;
-                MaxShield += BaseShield * 0.40f;
-                Speed += BaseSpeed * 0.10f;
-                break;
-            case PropertyType.전기:
-                // 체력과 방어막이 25%씩 감소하며, 속도가 40% 증가한다.
-                MaxHP -= BaseHP * 0.25f;
-                MaxShield -= BaseShield * 0.25f;
-                Speed += BaseSpeed * 0.40f;
-                break;
-        }
-    }
-
-    
-
-    void ApplySpeciality2Type()
-    {
-
-        //if(게임매니저 웨이브 == 웨이브 값)
-        //{
-        // 일반몬스터일 경우 0 or 1 랜덤 부여
-        // 서브보스일 경우 1 ~ 4 랜덤 부여
-        // 보스일 경우 1~9 랜덤 부여
-        //}
-
-
-        switch (MySpeciality2)
-        {
-            case Speciality2Type.강화된:
-                Enforced = 1.2f;
-                break;
-            case Speciality2Type.분열의:   // 소환 로직 필요
-                break;
-            case Speciality2Type.분열된:
-                break;
-            case Speciality2Type.은밀한:   // 타워정보필요
-                break;
-            case Speciality2Type.부활의:   // 소환 로직 필요
-                break;
-            case Speciality2Type.부활한:
-                break;
-            case Speciality2Type.생성의:   // 소환 로직 필요
-                break;
-            case Speciality2Type.이끄는:   // 칸 정보 필요(맵)
-                                        // 버프 로직 필요
-                break;
-            case Speciality2Type.저주하는: // 맵, UI 정보 필요
-                break;
-            default:
-                break;
-        }
-
     }
 
     public void AddSpeciality()
@@ -306,6 +294,7 @@ public class Enemy : MonoBehaviour
         {
             CurrentElement = Choose(ElementArr);
         }
+
         switch (CurrentElement)
         {
             case 0:
@@ -337,6 +326,52 @@ public class Enemy : MonoBehaviour
 
     }
 
+    public void AddProperty()
+    {
+        int waveNum = GameManager.instance.level;
+
+        if(waveNum <= 6)
+        {
+            return;
+        }
+
+        if (IsBoss == true)
+        {
+            propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
+        }
+        else if (IsSubBoss == true)
+        {
+            propertyType = Tables.MonsterProperty.Get(3)._PropertyType;
+        }
+        else
+            propertyType = Tables.MonsterProperty.Get(1)._PropertyType;
+
+
+    }
+
+    public void AddSubBoss()
+    {
+        MaxHP += BaseHP * Tables.MonsterClass.Get(2)._Hp / 100;
+        MaxShield += BaseShield * Tables.MonsterClass.Get(2)._Sheild / 100;
+        float size = Tables.MonsterClass.Get(2)._Size / 100;
+        float currentSize = transform.localScale.x;
+        scaleChange = new Vector3(currentSize * size, currentSize * size, currentSize * size);
+        transform.localScale += scaleChange;
+        propertyType = Tables.MonsterProperty.Get(3)._PropertyType;
+    }
+    public void AddBoss()
+    {
+        MaxHP += BaseHP * Tables.MonsterClass.Get(3)._Hp / 100;
+        MaxShield += BaseShield * Tables.MonsterClass.Get(3)._Sheild / 100;
+        float size = Tables.MonsterClass.Get(3)._Size / 100;
+        float currentSize = transform.localScale.x;
+        scaleChange = new Vector3(currentSize * size, currentSize * size, currentSize * size);
+        transform.localScale += scaleChange;
+        propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
+
+
+    }
+
     public void EnemyLevelUp()        
     {                                   
         int enemySpawnCount = EnemySpawner.EnemySpawnCounts[monsterType];
@@ -347,6 +382,10 @@ public class Enemy : MonoBehaviour
         if(countLevel >= 5)
         {
             currentLevel[id - 1] = 5;
+        }
+        else if(countLevel >= 6)
+        {
+            currentLevel[id - 1] = 10;
         }
         else
             currentLevel[id - 1] = countLevel;
@@ -363,13 +402,13 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
             DealDamageForSeconds(130);
-        }
+        }*/
     }
 
-    public void DealDamageForSeconds(float damage)
+   /* public void DealDamageForSeconds(float damage)
     {
         StartCoroutine(DealDamage(damage));
     }
@@ -383,7 +422,7 @@ public class Enemy : MonoBehaviour
             //TakeDamage(damage);
             yield return new WaitForSeconds(time);
         }
-    }
+    }*/
 
     public void InitStat()
     {
@@ -395,6 +434,15 @@ public class Enemy : MonoBehaviour
             AddSpeciality();
             Debug.Log("SpecialMonsterSpawned");
         }
+        if(IsSubBoss == true)
+        {
+            AddSubBoss();
+        }
+        if(IsBoss == true)
+        {
+            AddBoss();
+        }        
+
         SetStat();
         transform.tag = "Enemy";
         IsAlive = true;
