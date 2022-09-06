@@ -47,7 +47,8 @@ public class Tower : MonoBehaviour
     protected int Price;                                   // 구매 가격(데이터테이블)
     private int SellPrice;                                 // 판매 가격
 
-
+    public bool CheckAttackBuff;                           //버프 받고 있는지 확인
+    public bool CheckSpeedBuff;                           //버프 받고 있는지 확인
 
     public GameObject BulletPrefab;
     public Transform FirePoint;
@@ -114,7 +115,7 @@ public class Tower : MonoBehaviour
 
 
     // 타겟 업데이트 ( 체력 우선, 방어구 우선, 방어력 높은 적 우선 추가하기)
-    void UpdateTarget()
+    protected virtual void UpdateTarget()
     {
         //Debug.Log("UpdateTarget");
 
@@ -166,12 +167,12 @@ public class Tower : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
 
         if (Target == null)
         {
-            //Debug.Log("Target == null");
+            // Debug.Log("Target == null");
             return;
 
         } else if (Target.GetComponent<Enemy>().IsAlive == false)
@@ -286,6 +287,23 @@ public class Tower : MonoBehaviour
         }
 
     }
+
+    //공격력 버프
+    public void GetAttackBuff(float _BuffAmount)
+    {
+        AttackStat += _BuffAmount;
+    }
+
+
+    // 공격속도 버프
+    public void GetSpeedBuff(float _BuffAmount)
+    {
+        SpeedStat += _BuffAmount;
+    }
+
+
+
+
 
     // 상호작용 함수
 

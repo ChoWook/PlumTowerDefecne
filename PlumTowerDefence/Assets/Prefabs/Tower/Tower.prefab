@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4248981224369765954}
   m_Layer: 0
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,7 +114,9 @@ MonoBehaviour:
   RealRange: 0
   SpeedStat: 0
   TowerName: 0
+  Size: 0
   AttackStat: 0
+  AbilityStat: 0
   PartToRotate: {fileID: 0}
   TurnSpeed: 10
   belowTile: {fileID: 0}
@@ -124,7 +126,6 @@ MonoBehaviour:
   UpgradeCount: 0
   BulletPrefab: {fileID: 0}
   FirePoint: {fileID: 0}
-  Boundary: {fileID: 0}
   EnemyList: []
   Target: {fileID: 0}
   enemyTag: Enemy

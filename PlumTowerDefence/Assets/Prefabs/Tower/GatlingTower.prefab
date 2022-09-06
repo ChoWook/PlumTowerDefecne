@@ -291,8 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c093dbe262a60c7459ec811eee78f7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTag: Enemy
-  tower: {fileID: 6512687076063829636}
 --- !u!1 &906223152
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,6 +743,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GatlingTower
       objectReference: {fileID: 0}
+    - target: {fileID: 4248981224369765953, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
+        type: 3}
+      propertyPath: m_TagString
+      value: Tower
+      objectReference: {fileID: 0}
     - target: {fileID: 4248981224369765955, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
         type: 3}
       propertyPath: m_Size.x
@@ -869,7 +872,9 @@ MonoBehaviour:
   RealRange: 0
   SpeedStat: 0
   TowerName: 0
+  Size: 0
   AttackStat: 0
+  AbilityStat: 0
   PartToRotate: {fileID: 78447799}
   TurnSpeed: 10
   belowTile: {fileID: 0}
@@ -880,7 +885,6 @@ MonoBehaviour:
   BulletPrefab: {fileID: 1371166827395727813, guid: 00a95fc2fcea4234abc84bf8a3d3e232,
     type: 3}
   FirePoint: {fileID: 1501188666}
-  Boundary: {fileID: 731894607}
   EnemyList: []
   Target: {fileID: 0}
   enemyTag: Enemy

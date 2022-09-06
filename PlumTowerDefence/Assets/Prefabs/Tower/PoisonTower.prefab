@@ -292,6 +292,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PoisonTower
       objectReference: {fileID: 0}
+    - target: {fileID: 4248981224369765953, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
+        type: 3}
+      propertyPath: m_TagString
+      value: Tower
+      objectReference: {fileID: 0}
     - target: {fileID: 4248981224369765955, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
         type: 3}
       propertyPath: m_Size.x
@@ -376,6 +381,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1123052920667461155}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5953318608087613394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3846790169718188130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48bb78e7430f8f94c81ae5025ec0f9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8178973267751810183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,18 +425,6 @@ MonoBehaviour:
   EnemyList: []
   Target: {fileID: 0}
   enemyTag: Enemy
---- !u!114 &5953318608087613394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3846790169718188130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48bb78e7430f8f94c81ae5025ec0f9a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &3846790169718188133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4248981224369765958, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
