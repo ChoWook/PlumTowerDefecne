@@ -10,12 +10,17 @@ public class JsonManager : MonoBehaviour
 
     public List<int> upgradedCard;
 
+    public List<int> usingList;
+
     private void Awake()
     {
-        instance = this;
-        upgradedCard = new List<int>();
-
-        LoadJson();
+        if (instance == null)
+        {
+            instance = this;
+            upgradedCard = new List<int>();
+            ClearUpgrade();
+            WriteJson();
+        }
     }
 
     public void LoadJson()
@@ -45,5 +50,20 @@ public class JsonManager : MonoBehaviour
     public void ClearUpgrade()
     {
         upgradedCard.Clear();
+
+        for (int i = 1; i <= 3; i++)
+        {
+            for (int j = 1; j <= Tables.UpgradeButton.Get(i)._CategoryNum; j++)
+            {
+                for (int k = 1; k <= Tables.UpgradeCategory.Get(i * 10000 + j * 100)._CardNum; k++)
+                {
+                    if (Tables.UpgradeCard.Get(i * 10000 + j * 100 + k)._XpCost == 0)
+                    {
+                        upgradedCard.Add(i * 10000 + j * 100 + k);
+                        Debug.Log("Add " + (i * 10000 + j * 100 + k));
+                    }
+                }
+            }
+        }
     }
 }

@@ -35,20 +35,25 @@ public class CategoryButton : MonoBehaviour
         for (int i = 1; i <= id_count; i++)
         {
             GameObject obj = ObjectPools.Instance.GetPooledObject("UpgradeSelect");
-            obj.transform.SetParent(transform.parent.parent.parent.GetChild(0));
+            obj.transform.SetParent(transform.parent.parent.parent.GetChild(0).GetChild(Tables.UpgradeCard.Get(id+i)._Depth-1));
 
             obj.GetComponent<Upgrade>().SetID(id + i);
             obj.transform.localScale = new Vector3(1f, 1f, 1f);
+            
+            
         }
     }
 
     private void DeleteAll()
     {
         Transform panel = transform.parent.parent.parent.GetChild(0);
-        int cnt = panel.childCount;
-        for (int i = 0; i < cnt; i++)
+        for (int i = 0; i < 5; i++)
         {
-            ObjectPools.Instance.ReleaseObjectToPool(panel.GetChild(0).gameObject);
+            int cnt = panel.GetChild(i).childCount;
+            for (int j = 0; j < cnt; j++)
+            {
+                ObjectPools.Instance.ReleaseObjectToPool(panel.GetChild(i).GetChild(0).gameObject);
+            }
         }
     }
 }

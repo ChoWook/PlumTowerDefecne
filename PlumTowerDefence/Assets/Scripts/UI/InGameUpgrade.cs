@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class InGameUpgrade : MonoBehaviour
 {
@@ -25,12 +26,21 @@ public class InGameUpgrade : MonoBehaviour
             obj.transform.SetParent(gameObject.transform);                               //부모 설정
             obj.transform.localScale = new Vector3(1f, 1f, 1f);                    //스케일 변환
             obj.GetComponent<Toggle>().group = gameObject.GetComponent<ToggleGroup>();  //라디오 버튼 설정
-            obj.transform.Find("Select")?.GetComponent<Button>().onClick.AddListener(()=>SelectInGameUpgrade());//온 버튼 적용
+            int idx = i;
+            obj.transform.Find("Select")?.GetComponent<Button>().onClick.AddListener(()=>SelectInGameUpgrade(idx));//온 버튼 적용
+
+            int Rnd = Random.Range(0, JsonManager.instance.usingList.Count);
+            obj.GetComponent<InGameUpgradeSetting>().SettingUpgrade(JsonManager.instance.usingList[Rnd]);
         }
     }
 
-    public void SelectInGameUpgrade()
+    public void SelectInGameUpgrade(int childIdx)
     {
+        Debug.Log("childIdx = " + childIdx);
+        int UpgradeId = transform.GetChild(childIdx).GetComponent<InGameUpgradeSetting>().id;
+        Debug.Log("증강체"+UpgradeId+"적용");
+        //TODO 적용된 증강체 list에서 제거하기
+        
         InGameButtonManager.GetComponent<InGameButtonManager>().ShowExpandButton();
         int count = transform.childCount;
         for (int i = 0; i < count; i++)

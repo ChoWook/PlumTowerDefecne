@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
@@ -23,6 +24,21 @@ public class MainMenuButtonManager : MonoBehaviour
 
     public void OnClickGameStart()   //게임시작 버튼을 눌렀을 때 호출 할 함수
     {
+        JsonManager.instance.usingList = JsonManager.instance.upgradedCard.ToList();
+        for (int i = 1; i <= Tables.UpgradeButton.Get(3)._CategoryNum; i++)
+        {
+            for (int j = 1; j <= Tables.UpgradeCategory.Get(30000 + i * 100)._CardNum; j++)
+            {
+                if (JsonManager.instance.usingList.Contains(30000 + i * 100 + j))
+                {
+                    //적용시키기
+                    Debug.Log("적용" + (30000 + i * 100 + j));
+                    //제거
+                    JsonManager.instance.usingList.RemoveAt(JsonManager.instance.usingList.BinarySearch(30000+i*100+j));
+                }
+            }
+        }
+        
         MoveScene.MoveDefenceScene();
         Debug.Log("게임시작");
     }

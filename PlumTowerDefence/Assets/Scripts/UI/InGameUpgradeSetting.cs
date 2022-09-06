@@ -15,14 +15,20 @@ public class InGameUpgradeSetting : MonoBehaviour
     
     GameObject SelectButton;
     Toggle _toggle;
+
+    private TMP_Text titleText;
+    private TMP_Text contentsText;
+
+    [HideInInspector] public int id;
+    
     void OnEnable()
     {
         Tables.Load();
 
-        TMP_Text titleText = gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        titleText = gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         titleText.text = Tables.StringUI.Get(titleText.transform.name)._Korean;         //증강체 제목 설정
 
-        TMP_Text contentsText = gameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        contentsText = gameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         contentsText.text = Tables.StringUI.Get(contentsText.transform.name)._Korean;   //증강체 내용 설정
 
         SelectButton = gameObject.transform.GetChild(2).gameObject;
@@ -40,5 +46,17 @@ public class InGameUpgradeSetting : MonoBehaviour
             SelectButton.SetActive(true);
         else
             SelectButton.SetActive(false);
+    }
+
+    public void SettingUpgrade(int _id)
+    {
+        id = _id;
+        titleText.text = Tables.UpgradeCard.Get(id)._Title;
+        contentsText.text = Tables.UpgradeCard.Get(id)._Contents;
+    }
+
+    public void SelectUpgrade()
+    {
+        
     }
 }
