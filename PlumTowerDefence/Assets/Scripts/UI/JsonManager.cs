@@ -28,9 +28,8 @@ public class JsonManager : MonoBehaviour
             instance = this;
             SaveData.upgradedCard = new List<int>();
             ClearUpgrade();
-            WriteJson();
-
-            Debug.Log(JsonUtility.ToJson(SaveData));
+            
+            LoadJson();
         }
     }
 

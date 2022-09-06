@@ -53,7 +53,10 @@ public class TowerButtonGenerate : MonoBehaviour
 
             TowerBtnItem item = obj.GetComponent<TowerBtnItem>();
             
+            GameManager.instance.InitCoupon();
+            
             item.SetTowerName(TName);
+            item.SetTowerImage();
             
             obj.transform.SetParent(transform.GetChild(0));
             obj.transform.localScale = new Vector3(1f, 1f, 1f);

@@ -65,8 +65,13 @@ public class GameManager : MonoBehaviour
     {
         _gameOverCallBack += gameOverCallBack;
     }
-    
-    
+
+    private CallBack _OnGetCouponCallBack;
+
+    public void AddGetCouponCallBack(CallBack OnGetCouponCallBack)
+    {
+        _OnGetCouponCallBack += OnGetCouponCallBack;
+    }
     
     private int _level = 0;
     public int level
@@ -194,6 +199,7 @@ public class GameManager : MonoBehaviour
     public void AddCoupon(ETowerName name)
     {
         _TowerCoupon[name]++;
+        _OnGetCouponCallBack?.Invoke();
     }
 
     public void RemoveCoupon(ETowerName name)
@@ -216,7 +222,10 @@ public class GameManager : MonoBehaviour
             return true;
     }
 
-    
+    public int GetCoupon(ETowerName name)
+    {
+        return _TowerCoupon[name];
+    }
 
 
 }

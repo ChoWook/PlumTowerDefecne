@@ -166,9 +166,8 @@ public enum ETowerName
     Electric = 9,
     Gatling = 10,
     Cannon = 11,
-    Mine = 12,
-    Wall = 13,
-    Bomb = 14,
+    Wall = 12,
+    Bomb = 13,
 }
 
 public enum EPickaxeType
