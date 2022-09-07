@@ -11,6 +11,9 @@ public class HourglassTower : Tower
 
     protected override void UpdateTarget()
     {
+        EnemyList.Clear();
+
+
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
 
         foreach (GameObject enemy in enemies)
