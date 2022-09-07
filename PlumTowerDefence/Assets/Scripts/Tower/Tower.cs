@@ -81,7 +81,6 @@ public class Tower : MonoBehaviour
 
         RealRange = Range * GameManager.instance.unitTileSize; //TileSize 나중에 GameManager로 받기
 
-        Debug.Log("Range : " + RealRange);
 
         /*
         //사거리 지정 Range 값 넣기
@@ -117,7 +116,6 @@ public class Tower : MonoBehaviour
     // 타겟 업데이트 ( 체력 우선, 방어구 우선, 방어력 높은 적 우선 추가하기)
     protected virtual void UpdateTarget()
     {
-        //Debug.Log("UpdateTarget");
 
         
 
@@ -128,13 +126,11 @@ public class Tower : MonoBehaviour
             GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  태그로 적 찾기
             float shortestDistance = Mathf.Infinity;
             GameObject nearestEnemy = null;
-            //Debug.Log("EnemiesCount" + enemies.Length);
 
             foreach (GameObject enemy in enemies)
             {
                 float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // 적과의 거리 구하기
 
-                // Debug.Log("DistanceEnemy" + distanceToEnemy);
 
                 if(distanceToEnemy <= RealRange) // 사거리 안에 있는 타겟들
                 {
@@ -149,13 +145,10 @@ public class Tower : MonoBehaviour
 
             }
 
-            //Debug.Log("shortestDistance" + shortestDistance);
-            //Debug.Log("RealRange" + RealRange);
 
             if (nearestEnemy != null && shortestDistance <= RealRange)
             {
                 Target = nearestEnemy;
-                //Debug.Log("nearestEnemy");
 
             }
             else
@@ -172,15 +165,12 @@ public class Tower : MonoBehaviour
 
         if (Target == null)
         {
-            // Debug.Log("Target == null");
             return;
 
         } else if (Target.GetComponent<Enemy>().IsAlive == false)
         {
             return;
         }
-
-        Debug.Log("Target != null");
 
 
         if (PartToRotate != null)
@@ -202,30 +192,7 @@ public class Tower : MonoBehaviour
 
         FireCountdown -= Time.deltaTime;
 
-        /*
-        switch (TypeID)
-        {
-            case ETowerType.AttackProjectile:
-                {
-                    
-
-                    break;
-                }
-            case ETowerType.Attack:
-                {
-                   
-                    break;
-                }
-            case ETowerType.Buff:
-                {
-                    break;
-                }
-            case ETowerType.Debuff:
-                {
-                    break;
-                }
-        }
-        */
+       
     }
 
 
@@ -250,7 +217,6 @@ public class Tower : MonoBehaviour
                 if (EnemyList.Count != 0 )
                 {
                     Target = EnemyList[0];
-                    Debug.Log("Target Locked");
                 }
                     
                 break;
@@ -276,7 +242,6 @@ public class Tower : MonoBehaviour
     
     public virtual void Shoot() // 수정
     {
-        Debug.Log("Shooting!");
 
         if (BulletPrefab != null)
         {
@@ -300,9 +265,6 @@ public class Tower : MonoBehaviour
     {
         SpeedStat += _BuffAmount;
     }
-
-
-
 
 
     // 상호작용 함수
@@ -393,12 +355,14 @@ public class Tower : MonoBehaviour
         Size = tower._Size;
         AttackStat = tower._Attack;
         SpeedStat = tower._Speed;
+        AbilityStat = tower._Ability;
         ProjectileSpeed = tower._ProjectileSpeed;
         UpgradeStat = tower._UpgradeStat;
         UpgradeAmount = tower._UpgradeAmount;
         UpgradePrice = tower._UpgradePrice;
         Range = tower._Range;
         Price = tower._Price;
+        
     }
 
 
