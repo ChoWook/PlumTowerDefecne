@@ -38,11 +38,21 @@ public class GameManager : MonoBehaviour
         _levelChangeCallBack += levelChangeCallBack;
     }
 
+    public void RemoveLevelChangeCallBack()
+    {
+        _levelChangeCallBack = null;
+    }
+
     private CallBack _xpChangeCallBack;
 
     public void AddXpChangeCallBack(CallBack xpChangeCallBack)
     {
         _xpChangeCallBack += xpChangeCallBack;
+    }
+    
+    public void RemoveXpChangeCallBack()
+    {
+        _xpChangeCallBack = null;
     }
 
     private CallBack _hpChangeCallBack;
@@ -51,12 +61,22 @@ public class GameManager : MonoBehaviour
     {
         _hpChangeCallBack += hpChangeCallBack;
     }
+    
+    public void RemoveHpChangeCallBack()
+    {
+        _hpChangeCallBack = null;
+    }
 
     private CallBack _moneyChangeCallBack;
 
     public void AddMoneyChangeCallBack(CallBack moneyChangeCallBack)
     {
         _moneyChangeCallBack += moneyChangeCallBack;
+    }
+    
+    public void RemoveMoneyChangeCallBack()
+    {
+        _moneyChangeCallBack = null;
     }
 
     private CallBack _gameOverCallBack;
