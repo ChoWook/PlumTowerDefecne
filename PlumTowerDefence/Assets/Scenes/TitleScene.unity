@@ -832,7 +832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &173885486
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7232,7 +7232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 677a8809e8566ce40a37172eb8cd55d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradedCard: 
   usingList: 
 --- !u!1001 &1397995849
 PrefabInstance:

@@ -179,7 +179,7 @@ public class Map : MonoBehaviour
         GameManager.instance.unitTileSize = GetTileInMap(new Pos { PosX = 1, PosY = 0 }).transform.position.x
             - GetTileInMap(new Pos { PosX = 0, PosY = 0 }).transform.position.x;
 
-        GameManager.instance.InitCoupon();
+        GameManager.instance.InitGame();
     }
 
 

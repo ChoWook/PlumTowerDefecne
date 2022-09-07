@@ -14,10 +14,11 @@ public class JsonManager : MonoBehaviour
     public static JsonManager instance = null;
 
     public List<int> usingList;
-    private readonly SaveData saveData = new SaveData();
+    private SaveData saveData = new SaveData();
 
     public SaveData SaveData
     {
+        set { saveData = value;}
         get { return saveData; }
     }
 
@@ -43,7 +44,7 @@ public class JsonManager : MonoBehaviour
         {
             string str = File.ReadAllText(Application.dataPath + "/UpgradeJson.json");
 
-            SaveData.upgradedCard = JsonUtility.FromJson<List<int>>(str);
+            SaveData = JsonUtility.FromJson<SaveData>(str);
         }
     }
 

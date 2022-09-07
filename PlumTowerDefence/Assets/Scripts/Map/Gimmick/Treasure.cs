@@ -96,7 +96,7 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
         if (Random.Range(0, 100) < RewardSecondProb)
         {
             // 2번째로 싼 타워일 것같은 쿠폰
-            textMeshProUGUI.text += "\n" + string.Format(Tables.StringUI.Get("Treasure_Secod_Low_Cost_Toer")._Korean,
+            textMeshProUGUI.text += "\n" + string.Format(Tables.StringUI.Get("Treasure_Second_Low_Cost_Tower")._Korean,
                 Tables.Tower.Get(ETowerName.Hourglass)._Korean);
             GameManager.instance.AddCoupon(ETowerName.Hourglass);
         }

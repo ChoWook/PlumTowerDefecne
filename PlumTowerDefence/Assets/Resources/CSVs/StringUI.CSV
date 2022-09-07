@@ -45,6 +45,7 @@ int,StringUI,String
 43,Obstacle_Remove_Cost,제거비용 : {0}
 44,Obstacle_Cancel,제거취소
 45,Obstacle_Remove,제거하기
-46,Treasure_Money,<color=yellow>+{0}
-47,Treasure_Low_Cost_Tower,<color=white>+{0}
-48,Treasure_Secod_Low_Cost_Toer,<color=white>+{0}
+46,Treasure_Money,+{0}
+47,Treasure_Low_Cost_Tower,+{0}
+48,Treasure_Second_Low_Cost_Tower,+{0}
+49,Monster_Intrusion,<color=red>몬스터가 침입했습니다!

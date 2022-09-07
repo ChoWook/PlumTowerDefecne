@@ -228,5 +228,12 @@ public class GameManager : MonoBehaviour
         return _TowerCoupon[name];
     }
 
-
+    public void InitGame()
+    {
+        money = 1000;
+        currentHp = maxHp;
+        level = 0;
+        
+        InitCoupon();
+    }
 }

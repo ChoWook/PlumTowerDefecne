@@ -48,6 +48,7 @@ public class Pause : MonoBehaviour
     public void MoveMainMenu()
     {
         resume();
+        
         MoveScene.MoveTitleScene();
     }
 }

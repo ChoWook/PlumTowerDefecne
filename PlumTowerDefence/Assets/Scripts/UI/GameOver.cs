@@ -25,6 +25,7 @@ public class GameOver : MonoBehaviour
     public void MoveMainMenu()
     {
         transform.GetChild(0).gameObject.SetActive(false);
+        
         Time.timeScale = 1;
         MoveScene.MoveTitleScene();
     }
