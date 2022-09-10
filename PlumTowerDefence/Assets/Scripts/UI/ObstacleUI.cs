@@ -45,6 +45,7 @@ public class ObstacleUI : MonoBehaviour
 
     public void UpdateInfo()
     {
+        // TODO String UI에 추가 필요
         NameText.text = "장애물";
 
         RequireMoney.text = string.Format(Tables.StringUI.Get("Obstacle_Remove_Cost")._Korean, _Obstacle.DeletePrice);

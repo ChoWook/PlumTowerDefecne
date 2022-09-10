@@ -119,6 +119,11 @@ public class TowerButtonGenerate : MonoBehaviour
 
             foreach (var hit in hits)
             {
+                if (SelectedTower == null)
+                {
+                    continue;
+                }
+
                 if (hit.collider.CompareTag("Tile"))
                 {
                     Tile tile = hit.collider.transform.parent.GetComponent<Tile>();
@@ -149,10 +154,6 @@ public class TowerButtonGenerate : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("Ground"))
                 {
-                    if(SelectedTower == null)
-                    {
-                        continue;
-                    }
                     SelectedTower.transform.position = hit.point;
 
                     ChangeSelectedTowerMaterial(false);

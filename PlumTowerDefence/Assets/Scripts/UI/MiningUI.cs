@@ -10,6 +10,8 @@ public class MiningUI : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI ResourceNameText;
 
+    [SerializeField] TextMeshProUGUI MiningDesText;
+
     Resource _Resource;
 
     private void Awake()
@@ -59,5 +61,8 @@ public class MiningUI : MonoBehaviour
         }
         
         ResourceNameText.text = Tables.MapGimmickResource.Get(_Resource.ResourceType)._Korean;
+
+        // TODO String UI에 추가 필요
+        MiningDesText.text = "사용할 곡괭이를 선택하세요";
     }
 }
