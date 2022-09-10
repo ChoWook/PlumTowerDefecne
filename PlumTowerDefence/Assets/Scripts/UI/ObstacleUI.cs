@@ -13,6 +13,8 @@ public class ObstacleUI : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI RequireMoney;
 
+    [SerializeField] TextMeshProUGUI NameText;
+
     Obstacle _Obstacle;
 
     public void SetObstacle(Obstacle Sender)
@@ -43,6 +45,8 @@ public class ObstacleUI : MonoBehaviour
 
     public void UpdateInfo()
     {
+        NameText.text = "Àå¾Ö¹°";
+
         RequireMoney.text = string.Format(Tables.StringUI.Get("Obstacle_Remove_Cost")._Korean, _Obstacle.DeletePrice);
     }
 }

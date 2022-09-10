@@ -8,7 +8,7 @@ public class MiningUI : MonoBehaviour
 {
     [SerializeField] Button[] PickaxeBtns;
 
-    [SerializeField] TextMeshProUGUI RequireMoney;
+    [SerializeField] TextMeshProUGUI ResourceNameText;
 
     Resource _Resource;
 
@@ -52,20 +52,12 @@ public class MiningUI : MonoBehaviour
 
     public void UpdateInfo()
     {
-        string tmp = "구매 가격\n";
-
         for(EPickaxeType PickaxeType = EPickaxeType.Wood; PickaxeType <= EPickaxeType.Black; PickaxeType++)
         {
-            PickaxeBtns[(int)PickaxeType - 1].transform.GetComponentInChildren<TextMeshProUGUI>().text = PickaxeType.ToString();
-
-            tmp += Tables.Pickaxe.Get(PickaxeType)._Price.ToString();
-
-            if(PickaxeType != EPickaxeType.Black)
-            {
-                tmp += "   |   ";
-            }
+            PickaxeBtns[(int)PickaxeType - 1].transform.GetComponentInChildren<TextMeshProUGUI>().text
+                = $"{Tables.Pickaxe.Get(PickaxeType)._Korean}({Tables.Pickaxe.Get(PickaxeType)._Price})";
         }
-
-        RequireMoney.text = tmp;
+        
+        ResourceNameText.text = Tables.MapGimmickResource.Get(_Resource.ResourceType)._Korean;
     }
 }
