@@ -1,10 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class LaneBuff : MonoBehaviour
+public class LaneBuff : MonoBehaviour, IPointerClickHandler
 {
-    ELaneBuffType Type;
+    public ELaneBuffType Type;
+
+
+    private void OnEnable()
+    {
+        InitLaneBuff();
+    }
+
+    void InitLaneBuff()
+    {
+        SetType((ELaneBuffType)Random.Range(1, 29));
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,5 +33,10 @@ public class LaneBuff : MonoBehaviour
     public void SetType(ELaneBuffType Sender)
     {
         Type = Sender;
+    }
+
+    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+    {
+        UIManager.instance.ShowLaneBuffUI(this);
     }
 }

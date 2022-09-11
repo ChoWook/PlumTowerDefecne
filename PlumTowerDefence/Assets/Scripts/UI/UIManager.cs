@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject AllTowerUI;
     public GameObject ObstacleUI;
     public GameObject MiningUI;
+    public GameObject LaneBuffUI;
     
     public static UIManager instance = null;
 
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
         AllTowerUI.SetActive(false);
         ObstacleUI.SetActive(false);
         MiningUI.SetActive(false);
+        LaneBuffUI.SetActive(false);
 
 
         GameManager.instance.isClickedTower = false;
@@ -68,5 +70,12 @@ public class UIManager : MonoBehaviour
         UIClear();
         MiningUI.GetComponent<MiningUI>().SetResource(resource);
         MiningUI.SetActive(true);
+    }
+
+    public void ShowLaneBuffUI(LaneBuff laneBuff)
+    {
+        UIClear();
+        LaneBuffUI.GetComponent<LaneBuffUI>().SetLaneBuff(laneBuff);
+        LaneBuffUI.SetActive(true);
     }
 }

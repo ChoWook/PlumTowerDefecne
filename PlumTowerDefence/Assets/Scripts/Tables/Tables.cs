@@ -972,6 +972,8 @@ public class Tables : ScriptableObject
         public EMonsterStat _StatType;
         public float _Amount;
 
+        static Dictionary<ELaneBuffType, MonsterLaneBuff> _MapWithType = new();
+
         public static void Load()
         {
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterLaneBuff");
@@ -1007,7 +1009,15 @@ public class Tables : ScriptableObject
                 Tmp._Amount = float.Parse(data[idx++]);
 
                 Tmp.Add(Tmp);
+                _MapWithType.Add(Tmp._Type, Tmp);
             }
+        }
+
+        public static MonsterLaneBuff Get(ELaneBuffType _Type)
+        {
+            MonsterLaneBuff tmp;
+            _MapWithType.TryGetValue(_Type, out tmp);
+            return tmp;
         }
     }
 
