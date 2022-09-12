@@ -86,6 +86,7 @@ public class Tables : ScriptableObject
         }
     }
 
+    #region System
     public class StringUI : CSVFile<StringUI>
     {
         public string _Code;
@@ -131,6 +132,55 @@ public class Tables : ScriptableObject
         }
     }
 
+    public class GlobalSystem : CSVFile<GlobalSystem>
+    {
+        public string _Code;
+        public int _Value;
+        public string _Description;
+
+        static Dictionary<string, GlobalSystem> _StringMap = new();
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/GlobalSystem");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("GlobalSystem : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                GlobalSystem Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Code = data[idx++];
+                Tmp._Value = int.Parse(data[idx++]);
+                Tmp._Description = data[idx++];
+
+                Tmp.Add(Tmp);
+                _StringMap.Add(Tmp._Code, Tmp);
+            }
+        }
+
+        public static GlobalSystem Get(string code)
+        {
+            GlobalSystem ret;
+            _StringMap.TryGetValue(code, out ret);
+            return ret;
+        }
+    }
+    #endregion
+
+    #region Map
     public class GroundPattern : CSVFile<GroundPattern>
     {
         public EGroundType _Type;
@@ -382,20 +432,21 @@ public class Tables : ScriptableObject
         }
     }
 
-    public class GlobalSystem : CSVFile<GlobalSystem>
+    public class Pickaxe : CSVFile<Pickaxe>
     {
-        public string _Code;
-        public int _Value;
-        public string _Description;
+        public EPickaxeType _Type;
+        public string _Korean;
+        public int _Price;
+        public float _MiningSpeed;
+        public string _Color;
 
-        static Dictionary<string, GlobalSystem> _StringMap = new();
-
+        static Dictionary<EPickaxeType, Pickaxe> _MapWithType = new();
         public static void Load()
         {
-            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/GlobalSystem");
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/Pickaxe");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("GlobalSystem : " + dataLines.Length);
+            Debug.Log("Pickaxe : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -407,28 +458,32 @@ public class Tables : ScriptableObject
                     break;
                 }
 
-                GlobalSystem Tmp = new();
+                Pickaxe Tmp = new();
 
                 int idx = 0;
 
                 Tmp._ID = int.Parse(data[idx++]);
-                Tmp._Code = data[idx++];
-                Tmp._Value = int.Parse(data[idx++]);
-                Tmp._Description = data[idx++];
+                Tmp._Type = Enum.Parse<EPickaxeType>(data[idx++]);
+                Tmp._Korean = data[idx++];
+                Tmp._Price = int.Parse(data[idx++]);
+                Tmp._MiningSpeed = float.Parse(data[idx++]);
+                Tmp._Color = data[idx++];
 
                 Tmp.Add(Tmp);
-                _StringMap.Add(Tmp._Code, Tmp);
+                _MapWithType.Add(Tmp._Type, Tmp);
             }
         }
 
-        public static GlobalSystem Get(string code)
+        public static Pickaxe Get(EPickaxeType Sender)
         {
-            GlobalSystem ret;
-            _StringMap.TryGetValue(code, out ret);
-            return ret;
+            Pickaxe tmp;
+            _MapWithType.TryGetValue(Sender, out tmp);
+            return tmp;
         }
     }
+    #endregion
 
+    #region Monster
     public class Monster : CSVFile<Monster>
     {
         public EMonsterType _Type;
@@ -773,6 +828,111 @@ public class Tables : ScriptableObject
         }
     }
 
+    public class MonsterLaneBuff : CSVFile<MonsterLaneBuff>
+    {
+        public ELaneBuffType _Type;
+        public string _Korean;
+        public bool _None;
+        public bool _Water;
+        public bool _Ground;
+        public bool _Fire;
+        public bool _Electric;
+        public int _Time;
+        public int _Tower;
+        public EMonsterStat _StatType;
+        public float _Amount;
+
+        static Dictionary<ELaneBuffType, MonsterLaneBuff> _MapWithType = new();
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterLaneBuff");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterLaneBuff : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterLaneBuff Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Type = Enum.Parse<ELaneBuffType>(data[idx++]);
+                Tmp._Korean = data[idx++];
+                Tmp._None = bool.Parse(data[idx++]);
+                Tmp._Water = bool.Parse(data[idx++]);
+                Tmp._Ground = bool.Parse(data[idx++]);
+                Tmp._Fire = bool.Parse(data[idx++]);
+                Tmp._Electric = bool.Parse(data[idx++]);
+                Tmp._Time = int.Parse(data[idx++]);
+                Tmp._Tower = int.Parse(data[idx++]);
+                Tmp._StatType = Enum.Parse<EMonsterStat>(data[idx++]);
+                Tmp._Amount = float.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+                _MapWithType.Add(Tmp._Type, Tmp);
+            }
+        }
+
+        public static MonsterLaneBuff Get(ELaneBuffType _Type)
+        {
+            MonsterLaneBuff tmp;
+            _MapWithType.TryGetValue(_Type, out tmp);
+            return tmp;
+        }
+    }
+
+    public class MonsterElementStat : CSVFile<MonsterElementStat>
+    {
+        public EElementalType _Type;
+        public int _Hp;
+        public int _Shield;
+        public int _Speed;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterElementStat");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterElementStat : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterElementStat Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Type = Enum.Parse<EElementalType>(data[idx++]);
+                Tmp._Hp = int.Parse(data[idx++]);
+                Tmp._Shield = int.Parse(data[idx++]);
+                Tmp._Speed = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Tower
     public class Tower : CSVFile<Tower>
     {
         public ETowerName _Name;
@@ -840,7 +1000,9 @@ public class Tables : ScriptableObject
             return tmp;
         }
     }
+    #endregion
 
+    #region UI
     public class UpgradeButton : CSVFile<UpgradeButton>
     {
         public string _Type;
@@ -958,155 +1120,6 @@ public class Tables : ScriptableObject
         }
     }
 
-    public class MonsterLaneBuff : CSVFile<MonsterLaneBuff>
-    {
-        public ELaneBuffType _Type;
-        public string _Korean;
-        public bool _None;
-        public bool _Water;
-        public bool _Ground;
-        public bool _Fire;
-        public bool _Electric;
-        public int _Time;
-        public int _Tower;
-        public EMonsterStat _StatType;
-        public float _Amount;
-
-        static Dictionary<ELaneBuffType, MonsterLaneBuff> _MapWithType = new();
-
-        public static void Load()
-        {
-            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterLaneBuff");
-            string[] dataLines = dataset.text.Split("\n");
-
-            Debug.Log("MonsterLaneBuff : " + dataLines.Length);
-
-            for (int i = 2; i < dataLines.Length; i++)
-            {
-                dataLines[i].Trim();
-                var data = dataLines[i].Split(',');
-
-                if (string.IsNullOrEmpty(data[0]))
-                {
-                    break;
-                }
-
-                MonsterLaneBuff Tmp = new();
-
-                int idx = 0;
-
-                Tmp._ID = int.Parse(data[idx++]);
-                Tmp._Type = Enum.Parse<ELaneBuffType>(data[idx++]);
-                Tmp._Korean = data[idx++];
-                Tmp._None = bool.Parse(data[idx++]);
-                Tmp._Water = bool.Parse(data[idx++]);
-                Tmp._Ground = bool.Parse(data[idx++]);
-                Tmp._Fire = bool.Parse(data[idx++]);
-                Tmp._Electric = bool.Parse(data[idx++]);
-                Tmp._Time = int.Parse(data[idx++]);
-                Tmp._Tower = int.Parse(data[idx++]);
-                Tmp._StatType = Enum.Parse<EMonsterStat>(data[idx++]);
-                Tmp._Amount = float.Parse(data[idx++]);
-
-                Tmp.Add(Tmp);
-                _MapWithType.Add(Tmp._Type, Tmp);
-            }
-        }
-
-        public static MonsterLaneBuff Get(ELaneBuffType _Type)
-        {
-            MonsterLaneBuff tmp;
-            _MapWithType.TryGetValue(_Type, out tmp);
-            return tmp;
-        }
-    }
-
-    public class Pickaxe : CSVFile<Pickaxe>
-    {
-        public EPickaxeType _Type;
-        public string _Korean;
-        public int _Price;
-        public float _MiningSpeed;
-        public string _Color;
-
-        static Dictionary<EPickaxeType, Pickaxe> _MapWithType = new();
-        public static void Load()
-        {
-            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/Pickaxe");
-            string[] dataLines = dataset.text.Split("\n");
-
-            Debug.Log("Pickaxe : " + dataLines.Length);
-
-            for (int i = 2; i < dataLines.Length; i++)
-            {
-                dataLines[i].Trim();
-                var data = dataLines[i].Split(',');
-
-                if (string.IsNullOrEmpty(data[0]))
-                {
-                    break;
-                }
-
-                Pickaxe Tmp = new();
-
-                int idx = 0;
-
-                Tmp._ID = int.Parse(data[idx++]);
-                Tmp._Type = Enum.Parse<EPickaxeType>(data[idx++]);
-                Tmp._Korean = data[idx++];
-                Tmp._Price = int.Parse(data[idx++]);
-                Tmp._MiningSpeed = float.Parse(data[idx++]);
-                Tmp._Color = data[idx++];
-
-                Tmp.Add(Tmp);
-                _MapWithType.Add(Tmp._Type, Tmp);
-            }
-        }
-
-        public static Pickaxe Get(EPickaxeType Sender)
-        {
-            Pickaxe tmp;
-            _MapWithType.TryGetValue(Sender, out tmp);
-            return tmp;
-        }
-    }
-
-    public class MonsterElementStat : CSVFile<MonsterElementStat>
-    {
-        public EElementalType _Type;
-        public int _Hp;
-        public int _Shield;
-        public int _Speed;
-
-        public static void Load()
-        {
-            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterElementStat");
-            string[] dataLines = dataset.text.Split("\n");
-
-            Debug.Log("MonsterElementStat : " + dataLines.Length);
-
-            for (int i = 2; i < dataLines.Length; i++)
-            {
-                dataLines[i].Trim();
-                var data = dataLines[i].Split(',');
-
-                if (string.IsNullOrEmpty(data[0]))
-                {
-                    break;
-                }
-
-                MonsterElementStat Tmp = new();
-
-                int idx = 0;
-
-                Tmp._ID = int.Parse(data[idx++]);
-                Tmp._Type = Enum.Parse<EElementalType>(data[idx++]);
-                Tmp._Hp = int.Parse(data[idx++]);
-                Tmp._Shield = int.Parse(data[idx++]);
-                Tmp._Speed = int.Parse(data[idx++]);
-
-                Tmp.Add(Tmp);
-            }
-        }
-    }
+    #endregion
+  
 }

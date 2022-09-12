@@ -6,6 +6,7 @@ using DG.Tweening;
 [ExecuteInEditMode]
 public class Ground : MonoBehaviour
 {
+    #region Serialize Field
     [SerializeField] GameObject GridLine;
 
     [SerializeField] GameObject CastlePrefab;
@@ -13,7 +14,9 @@ public class Ground : MonoBehaviour
     [SerializeField] int GroundSize = 7;
 
     [SerializeField] int GroundScale = 10;
+    #endregion
 
+    #region Public Field
 
     public Pos _Pos = new Pos();
 
@@ -21,21 +24,17 @@ public class Ground : MonoBehaviour
 
     public EGroundType GroundType = EGroundType.LR;
 
-    public Tile[] Tiles;
+    public Tile[] Tiles;                                // 그라운드 안의 타일
 
-    public List<Tile> EmptyLandTiles;
+    public List<Tile> EmptyLandTiles;                   // 그라운드 안의 빈 평지 타일
 
     public int EmptyLandTileCount = 0;
 
     public int ResourceTileCount = 0;
 
-    public List<EnemySpawner> EnemySpawners = new();
+    public List<EnemySpawner> EnemySpawners = new();    // 그라운드가 가지고 있는 에너미 스포너 (분기 그라운드에서는 스포너를 2개 가질 수 있음)
 
-    public Tile BranchTile;                       // 브랜치가 일어나는 타일
-
-    bool _IsActive;
-
-    int HouseTileIndex = -1;
+    public Tile BranchTile;                             // 브랜치가 일어나는 타일
 
     public bool IsActive
     {
@@ -48,6 +47,16 @@ public class Ground : MonoBehaviour
 
         }
     }
+
+    #endregion
+
+    #region Private Field
+    bool _IsActive;
+
+    int HouseTileIndex = -1;
+    #endregion
+
+    #region Unity Editor
 
 #if UNITY_EDITOR
 
@@ -72,8 +81,22 @@ public class Ground : MonoBehaviour
         }
     }
 #endif
+    #endregion
 
+    #region Init
 
+    // type에 맞는 패턴 중에 랜덤하게 선택
+    int SelectRandomPattern(EGroundType type)
+    {
+        var list = Tables.GroundPattern.Get(type);
+
+        if (list.Count == 0)
+        {
+            return 0;
+        }
+
+        return list[Random.Range(0, list.Count)]._ID;
+    }
 
     public void SetGroundPattern(EGroundType type)
     {
@@ -151,29 +174,24 @@ public class Ground : MonoBehaviour
         house.transform.RotateAround(Tiles[HouseTileIndex].transform.position, Vector3.up, YAngle);
     }
 
-    // type에 맞는 패턴 중에 랜덤하게 선택
-    int SelectRandomPattern(EGroundType type)
-    {
-        var list = Tables.GroundPattern.Get(type);
+    #endregion
 
-        if(list.Count == 0)
+    #region Ground Expand
+    public void StartEnemySpawners(int idx)
+    {
+        if (idx == 0)
         {
-            return 0;
+            EnemySpawners[0].UpdateEnemySpawnCounts();
         }
 
-        return list[Random.Range(0, list.Count)]._ID;
+        for (int i = 0; i < EnemySpawners.Count; i++)
+        {
+            EnemySpawners[i].SpawnWave();
+        }
     }
+    #endregion
 
-    public void HideGridLine()
-    {
-        GridLine.SetActive(false);
-    }
-
-    public void ShowGridLine()
-    {
-        GridLine.SetActive(true);
-    }
-
+    #region Get
     public List<Tile> GetEmptyLandTilesInGround()
     {
         EmptyLandTiles.Clear();
@@ -204,13 +222,6 @@ public class Ground : MonoBehaviour
         return AttackRoutes;
     }
 
-    public void SetPosition(Pos Sender)
-    {
-        _Pos = Sender;
-
-        transform.localPosition = new Vector3(_Pos.PosX * GroundScale, 0, _Pos.PosY * GroundScale);
-    }
-
     public Tile GetTileInMapPosition(Pos Sender)
     {
         Sender.PosX -= GroundSize * _Pos.PosX;
@@ -224,16 +235,27 @@ public class Ground : MonoBehaviour
         return Tiles[Sender.PosX + GroundSize * Sender.PosY];
     }
 
-    public void StartEnemySpawners(int idx)
-    {
-        if(idx == 0)
-        {
-            EnemySpawners[0].UpdateEnemySpawnCounts();
-        }
+    #endregion
 
-        for(int i = 0; i < EnemySpawners.Count; i++)
-        {
-            EnemySpawners[i].SpawnWave();
-        }
+    #region Set
+
+    public void HideGridLine()
+    {
+        GridLine.SetActive(false);
     }
+
+    public void ShowGridLine()
+    {
+        GridLine.SetActive(true);
+    }
+
+    public void SetPosition(Pos Sender)
+    {
+        _Pos = Sender;
+
+        transform.localPosition = new Vector3(_Pos.PosX * GroundScale, 0, _Pos.PosY * GroundScale);
+    }
+
+    #endregion
+
 }

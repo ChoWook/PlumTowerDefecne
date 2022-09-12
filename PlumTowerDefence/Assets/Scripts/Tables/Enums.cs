@@ -3,14 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum EPoolType
-{
-    Obtacle = 1,
-    Resource = 2,
-
-}
-
-
+#region Map
 public enum ETileType
 {
     Land = 1,
@@ -51,7 +44,17 @@ public enum EResourceType
     Gold = 3,
     Diamond = 4,
 }
+public enum EPickaxeType
+{
+    Wood = 1,
+    Blue = 2,
+    Red = 3,
+    Black = 4,
+}
 
+#endregion
+
+#region Monster
 public enum EMonsterType
 {
     Bet = 1,
@@ -71,41 +74,14 @@ public enum EMonsterClass
     Boss = 3,
 }
 
-public enum EInteraction
+public enum EMonsterStat
 {
-    Targeting = 1,
-    Upgrade = 2,
-    Move = 3,
-    Sell = 4,
-    Health_P = 5,
-    Shield_P = 6,
-    Defense_P = 7,
-
-}
-
-public enum ETowerType
-{
-    Attack = 1,
-    AttackProjectile = 2,
-    Buff = 3,
-    Debuff = 4,
-    Mining = 5,
-    Lane = 6,
-}
-
-public enum EAttackSpecialization
-{
-    Default = 1,
-    Health = 2,
-    Shield = 3,
-    Defense = 4,
-}
-
-public enum EUpgradeStat
-{
-    Attack = 1,
-    Ability = 2,
-    Speed = 3,
+    NULL = 1,
+    Hp = 2,
+    Armor = 3,
+    Shield = 4,
+    Speed = 5,
+    Damage = 6,
 }
 
 public enum EPropertyType
@@ -135,49 +111,6 @@ public enum ESpecialityType
     Rapid = 8,
 }
 
-public enum EMonsterStat
-{
-    NULL = 1,
-    Hp = 2,
-    Armor = 3,
-    Shield = 4,
-    Speed = 5,
-    Damage = 6,
-}
-
-
-public enum ECategoryType
-{
-    Tower = 1,
-    Resource = 2,
-    Passive = 3,
-}
-
-public enum ETowerName
-{
-    Arrow = 1,
-    Hourglass = 2,
-    Poison = 3,
-    Flame = 4,
-    AttackBuff = 5,
-    SpeedBuff = 6,
-    Laser = 7,
-    Missile = 8,
-    Electric = 9,
-    Gatling = 10,
-    Cannon = 11,
-    Wall = 12,
-    Bomb = 13,
-}
-
-public enum EPickaxeType
-{
-    Wood = 1,
-    Blue = 2,
-    Red = 3,
-    Black = 4,
-}
-
 public enum EElementalType
 {
     None = 0,
@@ -197,7 +130,7 @@ public enum ELaneBuffType
     AllNurfArmor = 6,
     WaterHealHp = 7,
     GroundHealHp = 8,
-    FireHealHp  = 9,
+    FireHealHp = 9,
     ElectricHealHp = 10,
     WaterDealHp = 11,
     GroundDealHp = 12,
@@ -218,3 +151,72 @@ public enum ELaneBuffType
     LazerBuff = 27,
     MissileBuff = 28,
 }
+
+#endregion
+
+#region Tower
+public enum ETowerType
+{
+    Attack = 1,
+    AttackProjectile = 2,
+    Buff = 3,
+    Debuff = 4,
+    Mining = 5,
+    Lane = 6,
+}
+
+public enum EAttackSpecialization
+{
+    Default = 1,
+    Health = 2,
+    Shield = 3,
+    Defense = 4,
+}
+
+public enum EUpgradeStat
+{
+    Attack = 1,
+    Ability = 2,
+    Speed = 3,
+}
+public enum ETowerName
+{
+    Arrow = 1,
+    Hourglass = 2,
+    Poison = 3,
+    Flame = 4,
+    AttackBuff = 5,
+    SpeedBuff = 6,
+    Laser = 7,
+    Missile = 8,
+    Electric = 9,
+    Gatling = 10,
+    Cannon = 11,
+    Wall = 12,
+    Bomb = 13,
+}
+
+public enum EInteraction
+{
+    Targeting = 1,
+    Upgrade = 2,
+    Move = 3,
+    Sell = 4,
+    Health_P = 5,
+    Shield_P = 6,
+    Defense_P = 7,
+
+}
+
+#endregion
+
+#region UI
+
+public enum ECategoryType
+{
+    Tower = 1,
+    Resource = 2,
+    Passive = 3,
+}
+
+#endregion

@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using TMPro;
 
 public class Resource : MonoBehaviour, IPointerClickHandler
 {
-    public EResourceType ResourceType = EResourceType.Magnetite;
 
     [SerializeField] GameObject[] Resources;
 
     [SerializeField] GameObject[] Pickaxes;
 
     //List<Transform> PickaxePoint = new();
+
+    public EResourceType ResourceType = EResourceType.Magnetite;
 
     public Ease AnimationEase = Ease.Linear;
 
@@ -28,6 +30,7 @@ public class Resource : MonoBehaviour, IPointerClickHandler
 
     float MiningAngle = -100;
 
+    #region Unity Function
 #if UNITY_EDITOR
     private void Update()
     {
@@ -41,6 +44,8 @@ public class Resource : MonoBehaviour, IPointerClickHandler
 
         InitPickaxe();
     }
+
+    #endregion
 
     void InitResource()
     {
@@ -159,7 +164,15 @@ public class Resource : MonoBehaviour, IPointerClickHandler
             yield return ws;
             GameManager.instance.money += MiningMoney;
 
-            // TODO 돈이 증가되는 애니메이션 +~라는 UI를 게임상에 표시해줄 필요가 있을 것 같음
+            // 증가된 돈 표시
+            GameObject obj = ObjectPools.Instance.GetPooledObject("BonusText");
+
+            var text = obj.GetComponent<BonusText>();
+
+            text.SetPosition(transform.position);
+
+            text.AddText(string.Format(Tables.StringUI.Get("Treasure_Money")._Korean, MiningMoney));
+
         }
     }
 

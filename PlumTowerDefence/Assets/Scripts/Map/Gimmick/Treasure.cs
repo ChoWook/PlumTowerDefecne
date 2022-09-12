@@ -61,8 +61,6 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
 
     void GetReward()
     {
-        var TempPosition = mainCamera.WorldToScreenPoint(transform.position);
-        var ScreenPosition = UICamera.ScreenToWorldPoint(TempPosition);
         
         if(GameManager.instance == null)
         {
@@ -75,32 +73,32 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
 
         GameManager.instance.money += RewardMoney;
         
-        GameObject obj = ObjectPools.Instance.GetPooledObject("TreasureText");
-        obj.transform.position = ScreenPosition;
-        obj.transform.SetParent(GameObject.Find("UICanvas").transform);
-        obj.transform.localScale = Vector3.one;
-        
-        TextMeshProUGUI textMeshProUGUI = obj.GetComponent<TextMeshProUGUI>();
+        GameObject obj = ObjectPools.Instance.GetPooledObject("BonusText");
 
-       textMeshProUGUI.text = string.Format(Tables.StringUI.Get("Treasure_Money")._Korean, RewardMoney);
+        var text = obj.GetComponent<BonusText>();
+
+        text.SetPosition(transform.position);
+
+        text.AddText(string.Format(Tables.StringUI.Get("Treasure_Money")._Korean, RewardMoney));
         
         
         if(Random.Range(0, 100) < RewardSecondProb)
         {
             // °¡Àå ½Ñ È­»ìÅ¸¿ö ÄíÆù
-            textMeshProUGUI.text += "\n" + string.Format(Tables.StringUI.Get("Treasure_Low_Cost_Tower")._Korean,
-                Tables.Tower.Get(ETowerName.Arrow)._Korean);
+            text.AddText("\n" + string.Format(Tables.StringUI.Get("Treasure_Low_Cost_Tower")._Korean,
+                Tables.Tower.Get(ETowerName.Arrow)._Korean));
+
             GameManager.instance.AddCoupon(ETowerName.Arrow);
         }
 
         if (Random.Range(0, 100) < RewardSecondProb)
         {
             // 2¹øÂ°·Î ½Ñ Å¸¿öÀÏ °Í°°Àº ÄíÆù
-            textMeshProUGUI.text += "\n" + string.Format(Tables.StringUI.Get("Treasure_Second_Low_Cost_Tower")._Korean,
-                Tables.Tower.Get(ETowerName.Hourglass)._Korean);
+            text.AddText("\n" + string.Format(Tables.StringUI.Get("Treasure_Second_Low_Cost_Tower")._Korean,
+                Tables.Tower.Get(ETowerName.Hourglass)._Korean));
+
             GameManager.instance.AddCoupon(ETowerName.Hourglass);
         }
         
-        obj.transform.DOLocalMoveY(obj.transform.localPosition.y + 100, 1).OnComplete(() => ObjectPools.Instance.ReleaseObjectToPool(obj));
     }
 }
