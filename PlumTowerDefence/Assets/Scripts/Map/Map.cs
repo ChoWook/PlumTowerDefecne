@@ -19,7 +19,7 @@ public struct Pos{
     }
 }
 
-public enum Direction
+public enum EDirection
 {
     R,
     L,
@@ -63,6 +63,10 @@ public class Map : MonoBehaviour
     [SerializeField] GameObject EnemySpawnerPrefab;
 
     [SerializeField] GameObject Waypoint;
+
+    [SerializeField] int TreesLayer = 2;
+
+    [SerializeField] float MaxCameraHeight = 20;
     #endregion
 
     #region Public Field
@@ -81,7 +85,10 @@ public class Map : MonoBehaviour
     [HideInInspector]
     public Dictionary<Pos, Ground> GroundsWithPos = new Dictionary<Pos, Ground>(new PosComparer());      // 그라운드의 위치를 키값으로 하는 딕셔너리
 
-    public Dictionary<Direction, Pos> _Direction;               // 방향에 대한 값을 저장해둔 딕셔너리
+    [HideInInspector]
+    public Dictionary<Pos, GameObject> TreesWithPos = new Dictionary<Pos, GameObject>(new PosComparer());
+
+    public Dictionary<EDirection, Pos> _Direction;               // 방향에 대한 값을 저장해둔 딕셔너리
 
     #endregion
 
@@ -93,7 +100,7 @@ public class Map : MonoBehaviour
 
     List<Ground> CurEnemySpawnerGrounds = new();                // 이번 스테이지에서 몹이 나와야할 그라운드
 
-    int GroundSize = 10;
+    const int GroundSize = 10;
 
     float YFOV = 20;
 
@@ -115,15 +122,15 @@ public class Map : MonoBehaviour
         Instance = this;
 
         _Direction = new();
-        _Direction.Add(Direction.R, new Pos { PosX = 1, PosY = 0 });        // 동서남북
-        _Direction.Add(Direction.L, new Pos { PosX = -1, PosY = 0 });
-        _Direction.Add(Direction.D, new Pos { PosX = 0, PosY = -1 });
-        _Direction.Add(Direction.U, new Pos { PosX = 0, PosY = 1 });
+        _Direction.Add(EDirection.R, new Pos { PosX = 1, PosY = 0 });        // 동서남북
+        _Direction.Add(EDirection.L, new Pos { PosX = -1, PosY = 0 });
+        _Direction.Add(EDirection.D, new Pos { PosX = 0, PosY = -1 });
+        _Direction.Add(EDirection.U, new Pos { PosX = 0, PosY = 1 });
 
-        _Direction.Add(Direction.UR, new Pos { PosX = 1, PosY = 1 });
-        _Direction.Add(Direction.UL, new Pos { PosX = -1, PosY = 1 });
-        _Direction.Add(Direction.DR, new Pos { PosX = 1, PosY = -1 });
-        _Direction.Add(Direction.DL, new Pos { PosX = -1, PosY = -1 });
+        _Direction.Add(EDirection.UR, new Pos { PosX = 1, PosY = 1 });
+        _Direction.Add(EDirection.UL, new Pos { PosX = -1, PosY = 1 });
+        _Direction.Add(EDirection.DR, new Pos { PosX = 1, PosY = -1 });
+        _Direction.Add(EDirection.DL, new Pos { PosX = -1, PosY = -1 });
 
 
 
@@ -167,7 +174,7 @@ public class Map : MonoBehaviour
         HideAllGridLine();
     }
 
-    public void SetMapPattern(int id = 0)
+    void SetMapPattern(int id = 0)
     {
         if(id == 0)
         {
@@ -207,7 +214,7 @@ public class Map : MonoBehaviour
         GameManager.instance.InitGame();
     }
 
-    public void InitCameraLimit(int x, int y)
+    void InitCameraLimit(int x, int y)
     {
         MainCamera.MinX = -x * GroundSize;
         MainCamera.MaxX = x * GroundSize;
@@ -217,7 +224,7 @@ public class Map : MonoBehaviour
     }
 
     // 특정한 좌표에 Ground 생성
-    public void AddGround(int x, int y, EGroundType type)
+    void AddGround(int x, int y, EGroundType type)
     {
         Ground NewGround = Instantiate(GroundPrefab, transform).GetComponent<Ground>();
 
@@ -232,7 +239,7 @@ public class Map : MonoBehaviour
         GroundsWithPos.Add(NewPos, NewGround);
     }
 
-    public void InitGrounds()
+    void InitGrounds()
     {
         int StartGround = Tables.GlobalSystem.Get("Start_Ground_Num")._Value;
 
@@ -247,13 +254,15 @@ public class Map : MonoBehaviour
         for (int i = 0; i < StartGround; i++)
         {
             UpdateCameraLimit(Grounds[i]._Pos.PosX, Grounds[i]._Pos.PosY);
+
+            CreateTreesAroundGround(Grounds[i]._Pos, TreesLayer);
         }
 
         // 맨 첫 그라운드에 하우스 생성
         Grounds[0].CreateCastle();
     }
 
-    public void CreateEnemySpawner(Tile cur, Transform next, int Route)
+    void CreateEnemySpawner(Tile cur, Transform next, int Route)
     {
         var Spawner = ObjectPools.Instance.GetPooledObject("EnemySpawner");
 
@@ -271,6 +280,7 @@ public class Map : MonoBehaviour
 
         cur.ParentGround.EnemySpawners.Add(ES);
     }
+
     #endregion
 
     #region Set Waypoints
@@ -280,24 +290,24 @@ public class Map : MonoBehaviour
 
         Waypoints.points[0].Add(HouseTile.transform);
 
-        Direction HouseDir;
+        EDirection HouseDir;
 
         switch (HouseTile.ParentGround.GroundType)
         {
             case EGroundType.TD:
-                HouseDir = Direction.D;
+                HouseDir = EDirection.D;
                 break;
             case EGroundType.TL:
-                HouseDir = Direction.L;
+                HouseDir = EDirection.L;
                 break;
             case EGroundType.TR:
-                HouseDir = Direction.R;
+                HouseDir = EDirection.R;
                 break;
             case EGroundType.TU:
-                HouseDir = Direction.U;
+                HouseDir = EDirection.U;
                 break;
             default:
-                HouseDir = Direction.R;
+                HouseDir = EDirection.R;
                 break;
         }
 
@@ -305,7 +315,7 @@ public class Map : MonoBehaviour
     }
 
     // dir은 이 타일이 어느 방향으로부터 확장되어 왔는가
-    void FindNextAttackRouteTile(Pos pos, Direction InDir, int Route)
+    void FindNextAttackRouteTile(Pos pos, EDirection InDir, int Route)
     {
         Tile CurTile = GetTileInMap(pos);
 
@@ -319,9 +329,9 @@ public class Map : MonoBehaviour
         */
 
         // 해당 타일이 코너도 아니고 분기점도 아닌지 검사
-        List<Direction> NextDirs = new();
+        List<EDirection> NextDirs = new();
 
-        for (Direction OutDir = Direction.R; OutDir <= Direction.U; OutDir++)
+        for (EDirection OutDir = EDirection.R; OutDir <= EDirection.U; OutDir++)
         {
             Pos NextPos = pos.SumPos(_Direction[OutDir]);
 
@@ -473,8 +483,11 @@ public class Map : MonoBehaviour
 
         var hy = y * YFOV;
 
-        MainCamera.maxHeight = ((hx > hy) ? hx : hy) / 2;
+        float tmpHeight = ((hx > hy) ? hx : hy) / 4;
 
+        tmpHeight = (tmpHeight > MaxCameraHeight) ? MaxCameraHeight : tmpHeight;
+
+        MainCamera.maxHeight = tmpHeight;
     }
 
     #endregion
@@ -510,6 +523,20 @@ public class Map : MonoBehaviour
 
             SpawnAllGimmick(false);
 
+            // 그라운드가 생성될 위치에 트리가 있으면 지우기
+            GameObject Trees;
+
+            TreesWithPos.TryGetValue(_Ground._Pos, out Trees);
+
+            if(Trees != null)
+            {
+                TreesWithPos.Remove(_Ground._Pos);
+
+                ObjectPools.Instance.ReleaseObjectToPool(Trees);
+            }
+
+            CreateTreesAroundGround(_Ground._Pos, TreesLayer);
+
             OpenGroundCnt++;
         }
 
@@ -540,6 +567,47 @@ public class Map : MonoBehaviour
                 {
                     GimmicSpawner.SpawnGimmick(type, OpenGroundCnt);
                 }
+
+            }
+        }
+    }
+
+    void CreateTreesAroundGround(Pos GroundPos, int Layer = 1)
+    {
+        if (Layer <= 0)
+        {
+            return;
+        }
+
+        for (EDirection i = EDirection.R; i <= EDirection.DR; i++)
+        {
+            Ground ground;
+
+            Pos TreesPos = GroundPos.SumPos(_Direction[i]);
+
+            GroundsWithPos.TryGetValue(TreesPos, out ground);
+
+            // 그라운드가 비활성화일 때만 생성
+            if (ground == null || ground.gameObject.activeSelf == false)
+            {
+                GameObject Trees;
+
+                TreesWithPos.TryGetValue(TreesPos, out Trees);
+
+                // 트리가 이미 생성되어 있었어도 그 너머에 트리를 소환할 필요가 있음
+                CreateTreesAroundGround(TreesPos, Layer - 1);
+
+                // 이미 트리가 생성되어 있으면 continue
+                if (Trees != null)
+                {
+                    continue;
+                }
+
+                Trees = ObjectPools.Instance.GetPooledObject("Trees");
+
+                SetTreesPosition(Trees.transform, TreesPos);
+
+                TreesWithPos.TryAdd(TreesPos, Trees);
 
             }
         }
@@ -593,7 +661,7 @@ public class Map : MonoBehaviour
             pos.PosY -= 1;
         }
 
-        Ground ground = null;
+        Ground ground;
         GroundsWithPos.TryGetValue(pos, out ground);
 
         return ground?.GetTileInMapPosition(Sender);
@@ -648,5 +716,13 @@ public class Map : MonoBehaviour
             Grounds[i].ShowGridLine();
         }
     }
+
+    public void SetTreesPosition(Transform Trees, Pos Sender)
+    {
+        Trees.SetParent(transform);
+
+        Trees.transform.localPosition = new Vector3(Sender.PosX * GroundSize, 0, Sender.PosY * GroundSize);
+    }
+
     #endregion
 }

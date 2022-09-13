@@ -169,7 +169,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   maxHeight: 15
-  minHeight: 2
+  minHeight: 1
   heightDampening: 5
   keyboardZoomingSensitivity: 2
   scrollWheelZoomingSensitivity: 100
@@ -390,11 +390,11 @@ MonoBehaviour:
     type: 3}
   Waypoint: {fileID: 2120333552706596562, guid: 1b57c9adc4270a64e8f3a27e656e338e,
     type: 3}
-  Grounds: []
   OpenGroundCnt: 0
   AttackRouteCnt: 1
   CurAttackRouteCnt: 1
   HoleEmptyLandCnt: 0
+  Grounds: []
   MapInput: {fileID: 0}
 --- !u!1 &6051654916856160087
 GameObject:

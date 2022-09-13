@@ -121,17 +121,17 @@ public class Tile : MonoBehaviour
             return CheckBuildAvailableTile();
         }
 
-        if (CheckAroundTile(Map.Instance._Direction[Direction.R]) == false) return false;
-        if (CheckAroundTile(Map.Instance._Direction[Direction.D]) == false) return false;
-        if (CheckAroundTile(Map.Instance._Direction[Direction.DR]) == false) return false;
+        if (CheckAroundTile(Map.Instance._Direction[EDirection.R]) == false) return false;
+        if (CheckAroundTile(Map.Instance._Direction[EDirection.D]) == false) return false;
+        if (CheckAroundTile(Map.Instance._Direction[EDirection.DR]) == false) return false;
 
         if (size == 3)
         {
-            if (CheckAroundTile(Map.Instance._Direction[Direction.UL]) == false) return false;
-            if (CheckAroundTile(Map.Instance._Direction[Direction.U]) == false) return false;
-            if (CheckAroundTile(Map.Instance._Direction[Direction.UR]) == false) return false;
-            if (CheckAroundTile(Map.Instance._Direction[Direction.L]) == false) return false;
-            if (CheckAroundTile(Map.Instance._Direction[Direction.DL]) == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[EDirection.UL]) == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[EDirection.U]) == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[EDirection.UR]) == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[EDirection.L]) == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[EDirection.DL]) == false) return false;
         }
 
         return true;
@@ -177,19 +177,19 @@ public class Tile : MonoBehaviour
         //  TODO 사이즈만큼 주변 타일들도 이 오브젝트를 참조해야 함
         if(size != 1)
         {
-            Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.R])).SetObjectOnTile(go);
-            Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.DR])).SetObjectOnTile(go);
-            Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.D])).SetObjectOnTile(go);
+            Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[EDirection.R])).SetObjectOnTile(go);
+            Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[EDirection.DR])).SetObjectOnTile(go);
+            Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[EDirection.D])).SetObjectOnTile(go);
 
 
             // size == 3일 때 왼쪽 위, 위, 오른쪽 위, 왼쪽, 왼쪽 아래
             if (size == 3)
             {
-                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.UL])).SetObjectOnTile(go);
-                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.U])).SetObjectOnTile(go);
-                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.UR])).SetObjectOnTile(go);
-                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.L])).SetObjectOnTile(go);
-                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[Direction.DL])).SetObjectOnTile(go);
+                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[EDirection.UL])).SetObjectOnTile(go);
+                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[EDirection.U])).SetObjectOnTile(go);
+                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[EDirection.UR])).SetObjectOnTile(go);
+                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[EDirection.L])).SetObjectOnTile(go);
+                Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[EDirection.DL])).SetObjectOnTile(go);
             }
         }
     }
