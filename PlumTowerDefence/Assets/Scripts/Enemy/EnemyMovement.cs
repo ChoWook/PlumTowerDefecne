@@ -66,29 +66,27 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        WaypointIndex--;                 // ÁöÁ¡ ÀÎµ¦½º -1
+        WaypointIndex--;                 // ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ -1
 
-        Target = Waypoints.points[Route][WaypointIndex];   // Å¸±êÀ» º¯°æ
+        Target = Waypoints.points[Route][WaypointIndex];   // Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     void SendDamagedText()
     {
-        var TempPosition = mainCamera.WorldToScreenPoint(transform.position);
-        var ScreenPosition = UICamera.ScreenToWorldPoint(TempPosition);
         
         GameObject obj = ObjectPools.Instance.GetPooledObject("BonusText");
-        obj.transform.position = ScreenPosition;
-        obj.transform.SetParent(GameObject.Find("UICanvas").transform);
-        obj.transform.localScale = Vector3.one;
-        
-        TextMeshProUGUI textMeshProUGUI = obj.GetComponent<TextMeshProUGUI>();
 
-        textMeshProUGUI.text = string.Format(Tables.StringUI.Get("Monster_Intrusion")._Korean);
-        
-        obj.transform.DOLocalMoveY(obj.transform.localPosition.y + 100, 1).OnComplete(() => ObjectPools.Instance.ReleaseObjectToPool(obj));
+        var text = obj.GetComponent<BonusText>();
 
+        text.SetPosition(transform.position);
+
+        text.AddText(string.Format(Tables.StringUI.Get("Monster_Intrusion")._Korean));
+
+
+        // Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½é¸²
         mainCamera.transform.DOShakePosition(0.5f, 0.1F);
         
+        // ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
         GameObject ScreenEffect = GameObject.Find("EffectScreen");
         
         Image image = ScreenEffect.GetComponent<Image>();
