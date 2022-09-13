@@ -65,7 +65,7 @@ public class Tower : MonoBehaviour
 
     public GameObject Target;
 
-    public string enemyTag = "Enemy";
+    public const string enemyTag = "Enemy";
 
 
 
@@ -200,7 +200,10 @@ public class Tower : MonoBehaviour
     public void SetTarget(GameObject Sender)
     {
         if (Vector3.Distance(transform.position, Sender.transform.position) <= RealRange)
+        {
             Target = Sender;
+        }
+            
     }
 
 
