@@ -73,22 +73,20 @@ public class EnemyMovement : MonoBehaviour
 
     void SendDamagedText()
     {
-        var TempPosition = mainCamera.WorldToScreenPoint(transform.position);
-        var ScreenPosition = UICamera.ScreenToWorldPoint(TempPosition);
         
-        GameObject obj = ObjectPools.Instance.GetPooledObject("TreasureText");
-        obj.transform.position = ScreenPosition;
-        obj.transform.SetParent(GameObject.Find("UICanvas").transform);
-        obj.transform.localScale = Vector3.one;
-        
-        TextMeshProUGUI textMeshProUGUI = obj.GetComponent<TextMeshProUGUI>();
+        GameObject obj = ObjectPools.Instance.GetPooledObject("BonusText");
 
-        textMeshProUGUI.text = string.Format(Tables.StringUI.Get("Monster_Intrusion")._Korean);
-        
-        obj.transform.DOLocalMoveY(obj.transform.localPosition.y + 100, 1).OnComplete(() => ObjectPools.Instance.ReleaseObjectToPool(obj));
+        var text = obj.GetComponent<BonusText>();
 
+        text.SetPosition(transform.position);
+
+        text.AddText(string.Format(Tables.StringUI.Get("Monster_Intrusion")._Korean));
+
+
+        // 카메라 흔들림
         mainCamera.transform.DOShakePosition(0.5f, 0.1F);
         
+        // 피격 이팩트
         GameObject ScreenEffect = GameObject.Find("EffectScreen");
         
         Image image = ScreenEffect.GetComponent<Image>();
