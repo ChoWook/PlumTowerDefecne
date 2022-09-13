@@ -1119,6 +1119,44 @@ public class Tables : ScriptableObject
             }
         }
     }
+    
+    public class UpgradePassiveStat : CSVFile<UpgradePassiveStat>
+    {
+        public EPassiveType _Type;
+        public float _Increase_Passive_Value;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/UpgradePassiveStat");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("UpgradePassiveStat : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+                for(int j = 0; j < data.Length; j++)
+                {
+                    data[j] = data[j].Replace("<c>", ",");
+                }
+                
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                UpgradePassiveStat Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Type = Enum.Parse<EPassiveType>(data[idx++]);
+                Tmp._Increase_Passive_Value = float.Parse(data[idx++]);
+                Tmp.Add(Tmp);
+            }
+        }
+    }
 
     #endregion
   

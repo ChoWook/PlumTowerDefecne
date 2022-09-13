@@ -39,10 +39,7 @@ public class MainMenuButtonManager : MonoBehaviour
             }
         }
         
-        GameManager.instance.RemoveLevelChangeCallBack();
-        GameManager.instance.RemoveXpChangeCallBack();
-        GameManager.instance.RemoveHpChangeCallBack();
-        GameManager.instance.RemoveMoneyChangeCallBack();
+        GameManager.instance.CallBackClear();
         
         MoveScene.MoveDefenceScene();
         Debug.Log("게임시작");

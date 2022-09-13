@@ -76,7 +76,7 @@ public class EnemyMovement : MonoBehaviour
         var TempPosition = mainCamera.WorldToScreenPoint(transform.position);
         var ScreenPosition = UICamera.ScreenToWorldPoint(TempPosition);
         
-        GameObject obj = ObjectPools.Instance.GetPooledObject("TreasureText");
+        GameObject obj = ObjectPools.Instance.GetPooledObject("BonusText");
         obj.transform.position = ScreenPosition;
         obj.transform.SetParent(GameObject.Find("UICanvas").transform);
         obj.transform.localScale = Vector3.one;

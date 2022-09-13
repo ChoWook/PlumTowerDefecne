@@ -219,4 +219,12 @@ public enum ECategoryType
     Passive = 3,
 }
 
+public enum EPassiveType
+{
+    Increase_Hp = 1,
+    Upgrade_Count = 2,
+    Obstacle_Cost = 3,
+    Tower_Emergence = 4,
+}
+
 #endregion
