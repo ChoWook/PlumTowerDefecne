@@ -31,6 +31,11 @@ public class TowerButtonGenerate : MonoBehaviour
 
     private void Awake()
     {
+        CreateBtn();
+    }
+
+    void CreateBtn()
+    {
         for (ETowerName TName = ETowerName.Arrow; TName <= ETowerName.Bomb; TName++)
         {
             // enum에는 있고 csv에 없는 타워는 버튼 생성 X
@@ -52,17 +57,35 @@ public class TowerButtonGenerate : MonoBehaviour
             GameObject obj = ObjectPools.Instance.GetPooledObject("TowerButton");
 
             TowerBtnItem item = obj.GetComponent<TowerBtnItem>();
-            
+
             GameManager.instance.InitCoupon();
-            
+
             item.SetTowerName(TName);
             item.SetTowerImage();
-            
+
             obj.transform.SetParent(transform.GetChild(0));
             obj.transform.localScale = new Vector3(1f, 1f, 1f);
 
-            ETowerName tmp = TName;
-            obj.GetComponent<Button>().onClick.AddListener(() => OnBuildTowerBtnClick(tmp));
+
+            // 버튼 클릭 리스너 설정
+            Button btn = obj.GetComponent<Button>();
+
+            ETowerName tmp = TName;                                         // Ref 값으로 들어가는걸 막기 위한 tmp 변수 생성
+
+            btn.onClick.AddListener(() => OnBuildTowerBtnClick(tmp));
+
+            GameManager.instance.AddMoneyChangeCallBack(() =>
+            {
+                // 구매할 수 없는 버튼일 때
+                if (Tables.Tower.Get(item._Name)._Price > GameManager.instance.money)
+                {
+                    btn.interactable = false;
+                }
+                else
+                {
+                    btn.interactable = true;
+                }
+            });
         }
     }
 
