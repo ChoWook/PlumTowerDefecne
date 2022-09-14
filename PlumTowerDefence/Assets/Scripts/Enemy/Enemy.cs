@@ -646,7 +646,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    /*public void AddProperty()
+    public void AddProperty()
     {
         int waveNum = GameManager.instance.level;
 
@@ -654,7 +654,6 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
-        Debug.Log("ADDED PROPERTY");    
         if (IsBoss == true)
         {
             propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
@@ -666,36 +665,28 @@ public class Enemy : MonoBehaviour
         else
             propertyType = Tables.MonsterProperty.Get(1)._PropertyType;
 
-    }*/
-
-    public void AddSubBoss()
-    {
-        int waveNum = GameManager.instance.level;
-        MaxHP += BaseHP * Tables.MonsterClass.Get(2)._Hp / 100;
-        MaxShield += BaseShield * Tables.MonsterClass.Get(2)._Sheild / 100;
-        float size = Tables.MonsterClass.Get(2)._Size / 100;
-        float currentSize = transform.localScale.x;
-        scaleChange = new Vector3(currentSize * size, currentSize * size, currentSize * size);
-        transform.localScale += scaleChange;
-        if(waveNum > 6)
-        {
-            propertyType = Tables.MonsterProperty.Get(3)._PropertyType;
-        }
     }
-    public void AddBoss()
+
+    
+    public void AddBossStat()
     {
-        int waveNum = GameManager.instance.level;
-        MaxHP += BaseHP * Tables.MonsterClass.Get(3)._Hp / 100;
-        MaxShield += BaseShield * Tables.MonsterClass.Get(3)._Sheild / 100;
-        float size = Tables.MonsterClass.Get(3)._Size / 100;
+        int id;
+        if (IsBoss == true)
+        {
+            id = 3;
+        }
+        else if (IsSubBoss == true)
+        {
+            id = 2;
+        }
+        else
+            id = 1;
+        MaxHP += BaseHP * Tables.MonsterClass.Get(id)._Hp / 100;
+        MaxShield += BaseShield * Tables.MonsterClass.Get(id)._Sheild / 100;
+        float size = Tables.MonsterClass.Get(id)._Size / 100;
         float currentSize = transform.localScale.x;
         scaleChange = new Vector3(currentSize * size, currentSize * size, currentSize * size);
         transform.localScale += scaleChange;
-        if(waveNum > 6)
-        {
-            propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
-        }
-
     }
 
     public void EnemyLevelUp()        
@@ -771,14 +762,11 @@ public class Enemy : MonoBehaviour
             AddSpeciality();
             Debug.Log("SpecialMonsterSpawned");
         }
-        if(IsSubBoss == true)
+        if(IsSubBoss == true || IsBoss == true)
         {
-            AddSubBoss();
-        }
-        if(IsBoss == true)
-        {
-            AddBoss();
-        }        
+            AddBossStat();
+            AddProperty();
+        } 
 
         SetStat();
         transform.tag = "Enemy";
