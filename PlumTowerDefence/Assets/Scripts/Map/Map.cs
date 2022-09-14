@@ -535,7 +535,11 @@ public class Map : MonoBehaviour
                 ObjectPools.Instance.ReleaseObjectToPool(Trees);
             }
 
+            // 확장된 그라운드 주변 나무 생성
             CreateTreesAroundGround(_Ground._Pos, TreesLayer);
+
+            // 확장된 그라운드 표시
+            _Ground.ShowExpandedLine();
 
             OpenGroundCnt++;
         }
