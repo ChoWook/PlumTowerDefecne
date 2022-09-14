@@ -27,7 +27,15 @@ public class LaneBuffUI : MonoBehaviour
         var buff = Tables.MonsterLaneBuff.Get(_LaneBuff.Type);
 
         // TODO StringUI에 추가 필요
-        LaneBuffNameText.text = "몬스터 버프&디버프";
+        if (buff._IsBuff)
+        {
+            LaneBuffNameText.text = "몬스터 버프";
+        }
+        else
+        {
+            LaneBuffNameText.text = "몬스터 디버프";
+        }
+        
 
         LaneBuffDescriptionText.text = buff._Korean;
 
