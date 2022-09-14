@@ -17,7 +17,8 @@ public class TowerBtnItem : MonoBehaviour
 
     [SerializeField] Sprite[] TowerButtonImage;
 
-    ETowerName _Name;
+    [HideInInspector]
+    public ETowerName _Name;
 
     private void Awake()
     {

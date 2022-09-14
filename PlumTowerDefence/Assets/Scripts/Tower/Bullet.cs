@@ -25,12 +25,18 @@ public class Bullet : MonoBehaviour
 
     public float ElecRangeStat = 2f;
 
+    public float LaserLength;
+
+    public Transform LaserDestination;
+
+
     private void OnEnable()
     {
         if (tower == null) return;
 
         MissileRange = tower.AbilityStat * GameManager.instance.unitTileSize;
-        ElectricRange = ElecRangeStat * GameManager.instance.unitTileSize; // 타일 2개
+        ElectricRange = ElecRangeStat * GameManager.instance.unitTileSize;              // 타일 2개
+        LaserLength = tower.AbilityStat * GameManager.instance.unitTileSize;            // 레이저 길이 
     }
 
     public void Seek(GameObject _target, float _Speed, float _Damage, EAttackSpecialization _AttackSpecialization)
@@ -59,17 +65,44 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        Vector3 dir = target.transform.position - transform.position;
+        
+
         float distanceThisFrame = Speed * Time.deltaTime;
-        transform.LookAt(target.transform);
 
-        if (dir.magnitude <= distanceThisFrame)
+        if (tower.TowerName == ETowerName.Laser)
         {
-            HitTarget();
-            return;
-        }
+            // 벡터 값 받고
+            // 타겟 위치에서 생성(타워에서 관리)
+            // 벡터 y축 고정하고 해당 방향으로 ability만큼 움직임(폭은 1타일크기만큼 변경해주기)
 
-        transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+            Vector3 dir = target.transform.position - tower.transform.position;
+
+            dir.y = 0f; // y축 고정
+
+            dir = dir.normalized * LaserLength ;
+
+            LaserDestination.position = target.transform.position + dir;
+
+            transform.position = Vector3.Lerp(transform.position, LaserDestination.position, distanceThisFrame); // 이게 맞나?
+
+            
+            
+            // 이동하는 동안 콜라이더 받아서 부딪히는 적들 데미지 입히기(어떻게?????????)
+            // > HitTarget에서 설정?
+        }
+        else
+        {
+            Vector3 dir = target.transform.position - transform.position;
+            transform.LookAt(target.transform);
+
+            if (dir.magnitude <= distanceThisFrame)
+            {
+                HitTarget();
+                return;
+            }
+
+            transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+        }
     }
 
     private void DestroyBullet()

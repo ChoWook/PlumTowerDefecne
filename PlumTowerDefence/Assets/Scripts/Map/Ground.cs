@@ -9,6 +9,8 @@ public class Ground : MonoBehaviour
     #region Serialize Field
     [SerializeField] GameObject GridLine;
 
+    [SerializeField] GameObject ExpandedLine;
+
     [SerializeField] GameObject CastlePrefab;
 
     [SerializeField] int GroundSize = 7;
@@ -176,9 +178,11 @@ public class Ground : MonoBehaviour
 
     #endregion
 
-    #region Ground Expand
+    #region Start EnemySpawn
     public void StartEnemySpawners(int idx)
     {
+        HideExpandedLine();
+
         if (idx == 0)
         {
             EnemySpawners[0].UpdateEnemySpawnCounts();
@@ -248,6 +252,17 @@ public class Ground : MonoBehaviour
     {
         GridLine.SetActive(true);
     }
+
+    public void HideExpandedLine()
+    {
+        ExpandedLine.SetActive(false);
+    }
+
+    public void ShowExpandedLine()
+    {
+        ExpandedLine.SetActive(true);
+    }
+
 
     public void SetPosition(Pos Sender)
     {

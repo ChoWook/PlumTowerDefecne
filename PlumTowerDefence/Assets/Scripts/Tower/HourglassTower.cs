@@ -31,7 +31,10 @@ public class HourglassTower : Tower
     protected override void Update()
     {
         if (EnemyList.Count == 0)
+        {
             return;
+        }
+            
 
         Shoot();
 
