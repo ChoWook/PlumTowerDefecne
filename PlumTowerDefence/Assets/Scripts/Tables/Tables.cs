@@ -609,6 +609,7 @@ public class Tables : ScriptableObject
         public float _Hp;
         public float _Sheild;
         public float _Size;
+        public float _Money;
 
         public static void Load()
         {
@@ -637,6 +638,7 @@ public class Tables : ScriptableObject
                 Tmp._Hp = float.Parse(data[idx++]);
                 Tmp._Sheild = float.Parse(data[idx++]);
                 Tmp._Size = float.Parse(data[idx++]);
+                Tmp._Money = float.Parse(data[idx++]);
 
                 Tmp.Add(Tmp);
             }
@@ -841,6 +843,7 @@ public class Tables : ScriptableObject
         public int _Tower;
         public EMonsterStat _StatType;
         public float _Amount;
+        public bool _IsBuff;
 
         static Dictionary<ELaneBuffType, MonsterLaneBuff> _MapWithType = new();
 
@@ -877,6 +880,7 @@ public class Tables : ScriptableObject
                 Tmp._Tower = int.Parse(data[idx++]);
                 Tmp._StatType = Enum.Parse<EMonsterStat>(data[idx++]);
                 Tmp._Amount = float.Parse(data[idx++]);
+                Tmp._IsBuff = bool.Parse(data[idx++]);
 
                 Tmp.Add(Tmp);
                 _MapWithType.Add(Tmp._Type, Tmp);

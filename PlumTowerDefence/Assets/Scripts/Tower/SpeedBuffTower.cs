@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpeedBuffTower : Tower
 {
-    public string TowerTag = "Tower";
+    public const string TowerTag = "Tower";
 
     public List<GameObject> TowerList = new List<GameObject>();
 
@@ -33,15 +33,19 @@ public class SpeedBuffTower : Tower
     protected override void Update()
     {
         if (TowerList.Count == 0)
+        {
             return;
+        }
+           
 
         for (int i = 0; i < TowerList.Count; i++)
         {
-            if (!(TowerList[i].GetComponent<Tower>().CheckSpeedBuff))
+            Tower t = TowerList[i].GetComponent<Tower>();
+            if (!(t.CheckSpeedBuff))
             {
 
-                TowerList[i].GetComponent<Tower>().GetSpeedBuff(AbilityStat);
-                TowerList[i].GetComponent<Tower>().CheckSpeedBuff = true;
+                t.GetSpeedBuff(AbilityStat);
+                t.CheckSpeedBuff = true;
 
             }
         }

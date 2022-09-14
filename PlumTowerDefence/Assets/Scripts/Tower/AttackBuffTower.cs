@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackBuffTower : Tower
 {
-    public string TowerTag = "Tower";
+    public const string TowerTag = "Tower";
 
     public List<GameObject> TowerList = new List<GameObject>();
     
@@ -32,15 +32,21 @@ public class AttackBuffTower : Tower
     protected override void Update()
     {
         if (TowerList.Count == 0)
+        {
             return;
+        }
+           
 
         for(int i = 0; i < TowerList.Count; i++)
         {
-            if(!(TowerList[i].GetComponent<Tower>().CheckAttackBuff))
+
+            Tower t = TowerList[i].GetComponent<Tower>();
+
+            if (!(t.CheckAttackBuff))
             {
                 
-                TowerList[i].GetComponent<Tower>().GetAttackBuff(AbilityStat);
-                TowerList[i].GetComponent<Tower>().CheckAttackBuff = true;
+                t.GetAttackBuff(AbilityStat);
+                t.CheckAttackBuff = true;
 
             }
         }
