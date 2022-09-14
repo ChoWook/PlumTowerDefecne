@@ -120,7 +120,7 @@ public class EnemySpawner : MonoBehaviour
             EnemyArr[randEnemy]--;
             EachTotalSpawn--;
             spawnEnemyNum++;
-            Debug.Log(Tables.Monster.Get(id)._Type + " Spawn Enemy: " + spawnEnemyNum);
+            //Debug.Log(Tables.Monster.Get(id)._Type + " Spawn Enemy: " + spawnEnemyNum);
             yield return ws;
         }
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);                           // Ä¿¹ÔÇÒ¶§ ¹Ù²ãÁÖ±â

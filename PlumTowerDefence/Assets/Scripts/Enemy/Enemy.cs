@@ -276,6 +276,7 @@ public class Enemy : MonoBehaviour
            else
             {
                 KillEnemy();
+                IncreaseMoney();
             }
 
         }
@@ -283,7 +284,10 @@ public class Enemy : MonoBehaviour
 
     public void IncreaseMoney()
     {
-        
+        int waveNum = GameManager.instance.level;
+        int MoneyAdd = Tables.MonsterMoneyAmount.Get(waveNum)._Money;
+        GameManager.instance.money += MoneyAdd;
+
     }
 
     public void SlowEnemy(float abilty)
