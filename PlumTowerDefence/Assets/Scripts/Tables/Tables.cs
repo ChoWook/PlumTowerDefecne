@@ -34,6 +34,7 @@ public class Tables : ScriptableObject
             MonsterSpeciality.Load();
             MonsterSpecialityAmount.Load();
             MonsterLaneBuff.Load();
+            MonsterMoneyAmount.Load();
 
             // Å¸¿ö
             Tower.Load();
@@ -895,6 +896,41 @@ public class Tables : ScriptableObject
         }
     }
 
+    public class MonsterMoneyAmount : CSVFile<MonsterMoneyAmount>
+    {
+        public int _Wave;
+        public int _Money;
+
+        public static void Load()
+        {
+            TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterMoneyAmount");
+            string[] dataLines = dataset.text.Split("\n");
+
+            Debug.Log("MonsterMoneyAmount : " + dataLines.Length);
+
+            for (int i = 2; i < dataLines.Length; i++)
+            {
+                dataLines[i].Trim();
+                var data = dataLines[i].Split(',');
+
+                if (string.IsNullOrEmpty(data[0]))
+                {
+                    break;
+                }
+
+                MonsterMoneyAmount Tmp = new();
+
+                int idx = 0;
+
+                Tmp._ID = int.Parse(data[idx++]);
+                Tmp._Wave = int.Parse(data[idx++]);
+                Tmp._Money = int.Parse(data[idx++]);
+
+                Tmp.Add(Tmp);
+            }
+        }
+    }
+
     public class MonsterElementStat : CSVFile<MonsterElementStat>
     {
         public EElementalType _Type;
@@ -933,7 +969,6 @@ public class Tables : ScriptableObject
             }
         }
     }
-
     #endregion
 
     #region Tower
