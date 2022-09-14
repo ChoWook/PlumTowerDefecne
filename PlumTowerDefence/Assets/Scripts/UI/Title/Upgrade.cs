@@ -43,9 +43,9 @@ public class Upgrade : MonoBehaviour
 
     public void OnBuyButtonClick()
     {
-        if (canBuy && GameManager.instance.xp >= Tables.UpgradeCard.Get(id)._XpCost)
+        if (canBuy && GameManager.instance.totalxp >= Tables.UpgradeCard.Get(id)._XpCost)
         {
-            GameManager.instance.xp -= Tables.UpgradeCard.Get(id)._XpCost;
+            GameManager.instance.totalxp -= Tables.UpgradeCard.Get(id)._XpCost;
             JsonManager.instance.BuyUpgrade(id);
             button.SetActive(false);
             ChangeChildSprite();

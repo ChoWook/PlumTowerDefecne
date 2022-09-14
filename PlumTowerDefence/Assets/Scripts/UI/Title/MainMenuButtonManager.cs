@@ -25,24 +25,15 @@ public class MainMenuButtonManager : MonoBehaviour
     public void OnClickGameStart()   //게임시작 버튼을 눌렀을 때 호출 할 함수
     {
         JsonManager.instance.usingList = JsonManager.instance.SaveData.upgradedCard.ToList();
-        for (int i = 1; i <= Tables.UpgradeButton.Get(3)._CategoryNum; i++)
-        {
-            for (int j = 1; j <= Tables.UpgradeCategory.Get(30000 + i * 100)._CardNum; j++)
-            {
-                if (JsonManager.instance.usingList.Contains(30000 + i * 100 + j))
-                {
-                    //적용시키기
-                    Debug.Log("적용" + (30000 + i * 100 + j));
-                    //제거
-                    JsonManager.instance.usingList.Remove(30000+i*100+j);
-                }
-            }
-        }
         
-        GameManager.instance.RemoveLevelChangeCallBack();
-        GameManager.instance.RemoveXpChangeCallBack();
-        GameManager.instance.RemoveHpChangeCallBack();
-        GameManager.instance.RemoveMoneyChangeCallBack();
+        Debug.Log("upgradedCard : "+JsonManager.instance.SaveData.upgradedCard.Count);
+        Debug.Log("usinglist : " + JsonManager.instance.usingList.Count);
+        
+        SelectApplicationUpgrade();
+        
+        Debug.Log("After usinglist : " + JsonManager.instance.usingList.Count);
+        
+        GameManager.instance.CallBackClear();
         
         MoveScene.MoveDefenceScene();
         Debug.Log("게임시작");
@@ -77,6 +68,48 @@ public class MainMenuButtonManager : MonoBehaviour
         for (int i = 0; i < ButtonText.Length; i++)     //버튼 텍스트 변경
         {
             ButtonText[i].GetComponent<TextMeshProUGUI>().text = Tables.StringUI.Get(i+2)._Korean;
+        }
+    }
+
+    private void SelectApplicationUpgrade()
+    {
+        /*
+        for (int i = 1; i <= Tables.UpgradeButton.Get(3)._CategoryNum; i++)
+        {
+            for (int j = 1; j <= Tables.UpgradeCategory.Get(30000 + i * 100)._CardNum; j++)
+            {
+                if (JsonManager.instance.usingList.Contains(30000 + i * 100 + j))       //패시브 증강체 이면
+                {
+                    //적용시키기
+                    Debug.Log("적용" + (30000 + i * 100 + j));
+                    //제거
+                    JsonManager.instance.usingList.Remove(30000+i*100+j);
+                }
+            }
+        }
+        */
+        foreach (var card in JsonManager.instance.SaveData.upgradedCard)
+        {
+            if (card / 10000 == 3)      //패시브
+            {
+                //적용
+                Debug.Log("적용" + card);
+                //제거
+                JsonManager.instance.usingList.Remove(card);
+            }
+
+            if ((card % 100 == 1) && (card/10000 == 1))        //설명칸
+            {
+                JsonManager.instance.usingList.Remove(card);
+            }
+
+            int cardParent = Tables.UpgradeCard.Get(card)._Parent;
+
+            
+            if (!(cardParent / 10000 == 1 && cardParent % 100 == 1) && !(card / 10000 == 2 && cardParent == 1))
+            {
+                JsonManager.instance.usingList.Remove(card);
+            }
         }
     }
 }

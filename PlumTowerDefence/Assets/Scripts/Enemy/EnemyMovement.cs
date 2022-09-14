@@ -66,9 +66,9 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        WaypointIndex--;                 // ÁöÁ¡ ÀÎµ¦½º -1
+        WaypointIndex--;                 // ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ -1
 
-        Target = Waypoints.points[Route][WaypointIndex];   // Å¸±êÀ» º¯°æ
+        Target = Waypoints.points[Route][WaypointIndex];   // Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     void SendDamagedText()
@@ -83,10 +83,10 @@ public class EnemyMovement : MonoBehaviour
         text.AddText(string.Format(Tables.StringUI.Get("Monster_Intrusion")._Korean));
 
 
-        // Ä«¸Þ¶ó Èçµé¸²
+        // Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½é¸²
         mainCamera.transform.DOShakePosition(0.5f, 0.1F);
         
-        // ÇÇ°Ý ÀÌÆÑÆ®
+        // ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
         GameObject ScreenEffect = GameObject.Find("EffectScreen");
         
         Image image = ScreenEffect.GetComponent<Image>();

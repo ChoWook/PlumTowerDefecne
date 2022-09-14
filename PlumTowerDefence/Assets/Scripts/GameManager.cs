@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -92,6 +93,14 @@ public class GameManager : MonoBehaviour
     {
         _OnGetCouponCallBack += OnGetCouponCallBack;
     }
+
+    public void CallBackClear()
+    {
+        RemoveLevelChangeCallBack();
+        RemoveXpChangeCallBack();
+        RemoveHpChangeCallBack();
+        RemoveMoneyChangeCallBack();
+    }
     
     private int _level = 0;
     public int level
@@ -103,7 +112,7 @@ public class GameManager : MonoBehaviour
             _levelChangeCallBack?.Invoke();
         }
     }
-    private int _xp = 0;
+    private int _xp = 0;    //현재 xp
     public int xp
     {
         get { return _xp; }
@@ -111,6 +120,17 @@ public class GameManager : MonoBehaviour
         {
             _xp = value;
             _xpChangeCallBack?.Invoke();
+        }
+    }
+
+    private int _totalxp = 0;
+
+    public int totalxp
+    {
+        get { return _totalxp; }
+        set
+        {
+            _totalxp = value;
         }
     }
     private int _maxHp = 10;
@@ -130,6 +150,7 @@ public class GameManager : MonoBehaviour
             if (currentHp <= 0)
             {
                 _gameOverCallBack?.Invoke();
+                totalxp += xp;
             }
         }
     }

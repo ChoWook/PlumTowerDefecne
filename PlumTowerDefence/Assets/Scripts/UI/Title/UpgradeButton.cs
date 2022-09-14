@@ -25,7 +25,7 @@ public class UpgradeButton : MonoBehaviour
 
     private void Update()
     {
-        xpText.text = String.Format(Tables.StringUI.Get(xp.name)._Korean, GameManager.instance.xp);
+        xpText.text = String.Format(Tables.StringUI.Get(xp.name)._Korean, GameManager.instance.totalxp);
     }
 
     public void MoveMainMenu()
