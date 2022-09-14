@@ -281,6 +281,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void IncreaseMoney()
+    {
+        
+    }
 
     public void SlowEnemy(float abilty)
     {
@@ -717,38 +721,22 @@ public class Enemy : MonoBehaviour
 
     void InitSize()
     {
-        if (monsterType == EMonsterType.Bet)
+        switch (monsterType)
         {
-            transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+            case EMonsterType.Bet:
+                transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+                break;
+            case EMonsterType.Flower:
+                transform.localScale = new Vector3(1.4f, 1.4f, 1.4f);
+                break;
+            case EMonsterType.Spider:
+                transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+                break;
+            default:
+                transform.localScale = new Vector3(1f, 1f, 1f);
+                break;
         }
-        else if (monsterType == EMonsterType.Mushroom)
-        {
-            transform.localScale = new Vector3(1f, 1f, 1f);
-        }
-        else if (monsterType == EMonsterType.Flower)
-        {
-            transform.localScale = new Vector3(1.4f, 1.4f, 1.4f);
-        }
-        else if (monsterType == EMonsterType.Fish)
-        {
-            transform.localScale = new Vector3(1f, 1f, 1f);
-        }
-        else if (monsterType == EMonsterType.Slime)
-        {
-            transform.localScale = new Vector3(1f, 1f, 1f);
-        }
-        else if (monsterType == EMonsterType.Pirate)
-        {
-            transform.localScale = new Vector3(1f, 1f, 1f);
-        }
-        else if (monsterType == EMonsterType.Spider)
-        {
-            transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-        }
-        else if (monsterType == EMonsterType.Bear)
-        {
-            transform.localScale = new Vector3(1f, 1f, 1f);
-        }
+
     }
 
     public void InitStat()
