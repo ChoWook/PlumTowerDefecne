@@ -36,7 +36,15 @@ public class Bullet : MonoBehaviour
 
         MissileRange = tower.AbilityStat * GameManager.instance.unitTileSize;
         ElectricRange = ElecRangeStat * GameManager.instance.unitTileSize;              // 타일 2개
-        LaserLength = tower.AbilityStat * GameManager.instance.unitTileSize;            // 레이저 길이 
+        LaserLength = tower.AbilityStat * GameManager.instance.unitTileSize;            // 레이저 길이
+        
+        if (tower.TowerName == ETowerName.Laser)
+        {
+            Transform parent = transform.parent;
+            transform.parent = null;
+            transform.localScale = new Vector3(GameManager.instance.unitTileSize, 0.2f, GameManager.instance.unitTileSize); // 높이 추후 수정
+            transform.parent = parent;
+        }
     }
 
     public void Seek(GameObject _target, float _Speed, float _Damage, EAttackSpecialization _AttackSpecialization)
@@ -45,6 +53,11 @@ public class Bullet : MonoBehaviour
         Speed = _Speed;
         Damage = _Damage;
         AttackSpecialization = _AttackSpecialization;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        other.gameObject.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage 전달
     }
 
 
@@ -85,10 +98,14 @@ public class Bullet : MonoBehaviour
 
             transform.position = Vector3.Lerp(transform.position, LaserDestination.position, distanceThisFrame); // 이게 맞나?
 
+            if(transform.position == LaserDestination.position) // 더 좋은 방법?
+            {
+                DestroyBullet();
+                //tower.GetComponent<LaserTower>().StartCoroutine()
+            }
             
-            
-            // 이동하는 동안 콜라이더 받아서 부딪히는 적들 데미지 입히기(어떻게?????????)
-            // > HitTarget에서 설정?
+            // 이동하는 동안 콜라이더 받아서 부딪히는 적들 데미지 입히기 -> Trigger로 받는 것
+            // 다 돌면 딜레이 넣어주기
         }
         else
         {
@@ -99,7 +116,7 @@ public class Bullet : MonoBehaviour
             {
                 HitTarget();
                 return;
-            }
+            }   
 
             transform.Translate(dir.normalized * distanceThisFrame, Space.World);
         }
