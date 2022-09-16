@@ -253,6 +253,7 @@ public class GameManager : MonoBehaviour
     {
         _TowerCoupon[name]++;
         _OnGetCouponCallBack?.Invoke();
+        _moneyChangeCallBack?.Invoke();
     }
 
     public void RemoveCoupon(ETowerName name)
