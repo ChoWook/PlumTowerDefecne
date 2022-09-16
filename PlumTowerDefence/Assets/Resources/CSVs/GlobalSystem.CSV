@@ -7,3 +7,5 @@ int,string,int,string
 5,Tower_Size_Min,1,타워 최소 크기
 6,Tower_Size_Max,3,타워 최대 크기
 7,Branch_Number_Max,2,공격로 분기점 최대 개수
+8,User_Hp,10,인게임 사용자의 체력
+9,User_Money,1000,인게임 사용자의 돈
