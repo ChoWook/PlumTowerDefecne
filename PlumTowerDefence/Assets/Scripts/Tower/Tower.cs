@@ -12,33 +12,39 @@ public class Tower : MonoBehaviour
 
     [Header("Attributes")]
 
+    public GameObject MarkSizePrefab;                                               // Size 표시 오브젝트
+    public GameObject MarkRangePrefab;                                              // Range 표시 오브젝트
+
+
     public float Range;                                                              // 공격 사거리
     public float RealRange;                                                          // 실제 사거리
-    
+
 
     public ETowerName TowerName;                                                     // 타워 이름
     protected EAttackSpecialization AttackSpecialization;                            // 공격 속성(데이터테이블)
     protected ETowerType TypeID;                                                     // 속성 ID (데이터테이블)
-    public int Size;                                                                 // 타워 크기 (데이터테이블)
 
-    //AttackStat
+    public int Size;                                                                 // 타워 크기 (데이터테이블)
+    public float RealSize;                                                             // 실제 타워 크기
+
+    // AttackStat
     public float BaseAttackStat;                                                     // 공격력 스텟(데이터테이블)
-   // public float AttackStat;                                                       // 최종 공격력 스텟
+                                                                                     // public float AttackStat;                                                       // 최종 공격력 스텟
     static List<float> AttackPlusModifier = new List<float>();                       // AttackStat 반영 리스트 (덧셈)
     static List<float> AttackMultiModifier = new List<float>();                      // AttackStat 반영 리스트 (곱셈)
 
-    //AbilityStat
+    // AbilityStat
     public float BaseAbilityStat;                                                       //어빌리티 스텟(데이터테이블)
     //float AbilityStat;                                                                //최종 어빌리티 스텟
-    static List <float> AbilityPlusModifier = new List<float>();                        //AbilityStat 반영 리스트 (덧셈)
+    static List<float> AbilityPlusModifier = new List<float>();                        //AbilityStat 반영 리스트 (덧셈)
     static List<float> AbilityMultiModifier = new List<float>();                        //AbilityStat 반영 리스트 (곱셈)
 
 
-    //SpeedStat
+    // SpeedStat
     public float BaseSpeedStat;                                                              // 공격 속도 스텟(데이터테이블)
     // float SpeedStat;                                                                     // 최종 속도 스텟
-    static List <float> SpeedPlusModifier = new List<float>();                              // SpeedStat 반영리스트(덧셈)
-    static List <float> SpeedMultiModifier = new List<float>();                             // SpeedStat 반영리스트(곱셈)
+    static List<float> SpeedPlusModifier = new List<float>();                              // SpeedStat 반영리스트(덧셈)
+    static List<float> SpeedMultiModifier = new List<float>();                             // SpeedStat 반영리스트(곱셈)
 
     private float FireCountdown = 0f;                                                       // 발사 카운트다운
 
@@ -46,26 +52,24 @@ public class Tower : MonoBehaviour
     public float AttackBuffAmount;
     public float SpeedBuffAmount;
 
-
-
     public Transform PartToRotate;                                                          //회전 오브젝트
     public float TurnSpeed = 10f;                                                           //회전 속도
 
-   
+
 
 
     [Header("Interactions")]
 
     public Tile belowTile;
 
-    public bool Selected = false;                                                           // 타워 선택 여부()
-    public bool Fixed = false;                                                             // 타워 설치 여부 <- 필요한가?
+    public bool Selected = false;                                                           // 타워 선택 여부
+    public bool Fixed = false;                                                             // 타워 설치 여부 < -  필요한가?
 
     public int AttackPriorityID = 0;                                                       // 우선 공격 속성 ID
 
     public EUpgradeStat UpgradeStat;                                                       // 업그레이드 대상
     public int UpgradePrice;                                                               // 업그레이드 가격(데이터테이블)
-    public int UpgradeCount;                                                           // 업그레이드 횟수
+    public int UpgradeCount;                                                               // 업그레이드 횟수
     public float UpgradeAmount;                                                            // 업그레이드 강화량
 
     protected int Price;                                                                   // 구매 가격(데이터테이블)
@@ -80,7 +84,7 @@ public class Tower : MonoBehaviour
     public float ProjectileSpeed;                                                         //투사체 속도
 
 
-   
+
 
     // 적 스텟 (타겟 지정)
 
@@ -93,63 +97,47 @@ public class Tower : MonoBehaviour
     public const string enemyTag = "Enemy";
 
 
-    //get 받아주기
+    //get 받아주기 <- class로 하나를 만들면 좋겠다!
 
-    public float AttackStat
+    public float AttackStat 
     {
         get
         {
-
             float sum = 0f;
 
-            if(AttackPlusModifier.Count > 0)
+            for (int i = 0; i < AttackPlusModifier.Count; i++)
             {
-                for (int i = 0; i < AttackPlusModifier.Count; i++)
-                {
-                    sum += AttackPlusModifier[i];
-                }
+                sum += AttackPlusModifier[i];
             }
-            
+
             float multi = 1f;
 
-            if(AttackMultiModifier.Count > 0)
+            for (int i = 0; i < AttackMultiModifier.Count; i++)
             {
-                for (int i = 0; i < AttackMultiModifier.Count; i++)
-                {
-                    multi *= AttackMultiModifier[i];
-                }
+                multi *= AttackMultiModifier[i];
             }
-            
 
-            return (BaseAttackStat + sum + AttackBuffAmount) * multi; } // 순서?
+            return (BaseAttackStat + sum + AttackBuffAmount) * multi;
+        } // 순서?
     }
 
     public float SpeedStat
     {
         get
         {
-
             float sum = 0f;
 
-            if(SpeedPlusModifier.Count > 0)
+            for (int i = 0; i < SpeedPlusModifier.Count; i++)
             {
-                for (int i = 0; i < SpeedPlusModifier.Count; i++)
-                {
-                    sum += SpeedPlusModifier[i];
-                }
+                sum += SpeedPlusModifier[i];
             }
-           
 
             float multi = 1f;
 
-            if(SpeedMultiModifier.Count > 0)
+            for (int i = 0; i < SpeedMultiModifier.Count; i++)
             {
-                for (int i = 0; i < SpeedMultiModifier.Count; i++)
-                {
-                    multi *= SpeedMultiModifier[i];
-                }
+                multi *= SpeedMultiModifier[i];
             }
-            
 
             return (BaseSpeedStat + sum + SpeedBuffAmount) * multi;
         }
@@ -162,25 +150,18 @@ public class Tower : MonoBehaviour
 
             float sum = 0f;
 
-            if(AbilityPlusModifier.Count > 0)
+            for (int i = 0; i < AbilityPlusModifier.Count; i++)
             {
-                for (int i = 0; i < AbilityPlusModifier.Count; i++)
-                {
-                    sum += AbilityPlusModifier[i];
-                }
+                sum += AbilityPlusModifier[i];
             }
-           
 
             float multi = 1f;
 
-            if(AbilityMultiModifier.Count > 0)
+            for (int i = 0; i < AbilityMultiModifier.Count; i++)
             {
-                for (int i = 0; i < AbilityMultiModifier.Count; i++)
-                {
-                    multi *= AbilityMultiModifier[i];
-                }
+                multi *= AbilityMultiModifier[i];
             }
-           
+
 
             return (BaseAbilityStat + sum) * multi;
         }
@@ -191,8 +172,16 @@ public class Tower : MonoBehaviour
 
     // Select일 때 사거리 표시
 
+    public void IsSelected(bool sender)
+    {
+        Selected = sender;
 
+        //사거리, 타워 사이즈 표시 활성화
 
+        MarkSizePrefab.SetActive(sender);
+        MarkRangePrefab.SetActive(sender);
+
+    }
 
 
     private void OnEnable()
@@ -203,7 +192,28 @@ public class Tower : MonoBehaviour
 
         UpgradeCount = 0;
 
-        RealRange = Range * GameManager.instance.unitTileSize; //TileSize 나중에 GameManager로 받기
+        RealRange = Range * GameManager.instance.unitTileSize;
+
+        RealSize = Size * GameManager.instance.unitTileSize;
+
+        Debug.Log("RealRange : " + RealRange);
+        Debug.Log("RealSize : " + RealSize);
+
+        // 사거리, 타워 사이즈 설정하기 <- 안 되나!
+
+        MarkRangePrefab.transform.SetParent(null);
+        //MarkRangePrefab.transform.parent = null;
+        MarkRangePrefab.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
+
+        MarkRangePrefab.transform.SetParent(null);
+        //MarkSizePrefab.transform.parent = null;
+        MarkSizePrefab.transform.localScale = new Vector3(RealSize, 0.05f, RealSize);
+
+        MarkRangePrefab.transform.SetParent(transform, true);
+        MarkRangePrefab.transform.SetParent(transform, true);
+        //MarkRangePrefab.transform.parent = transform;
+        //MarkSizePrefab.transform.parent = transform;
+
 
 
         /*
@@ -215,7 +225,6 @@ public class Tower : MonoBehaviour
         */
 
         StartCoroutine(IE_GetTargets());
-        //InvokeRepeating("UpdateTarget", 0, 0.5f); // 0.5초 마다 반복하기
 
     }
 
@@ -254,7 +263,7 @@ public class Tower : MonoBehaviour
                 float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // 적과의 거리 구하기
 
 
-                if(distanceToEnemy <= RealRange) // 사거리 안에 있는 타겟들
+                if (distanceToEnemy <= RealRange) // 사거리 안에 있는 타겟들
                 {
                     EnemyList.Add(enemy);
                 }
@@ -271,14 +280,13 @@ public class Tower : MonoBehaviour
             if (nearestEnemy != null && shortestDistance <= RealRange)
             {
                 Target = nearestEnemy;
-
             }
             else
             {
                 Target = null;
             }
         }
-        
+
     }
 
     // Update is called once per frame
@@ -289,7 +297,8 @@ public class Tower : MonoBehaviour
         {
             return;
 
-        } else if (Target.GetComponent<Enemy>().IsAlive == false)
+        }
+        else if (Target.GetComponent<Enemy>().IsAlive == false)
         {
             return;
         }
@@ -303,7 +312,7 @@ public class Tower : MonoBehaviour
             Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation, lookRotation, Time.deltaTime * TurnSpeed).eulerAngles;
             PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
         }
-        
+
 
         // 발사
         if (FireCountdown <= 0f)
@@ -314,7 +323,7 @@ public class Tower : MonoBehaviour
 
         FireCountdown -= Time.deltaTime;
 
-       
+
     }
 
 
@@ -325,32 +334,32 @@ public class Tower : MonoBehaviour
         {
             Target = Sender;
         }
-            
+
     }
 
-    
+
     // 공격 우선순위 정하는 함수
     private void SortAttackPriority()
     {
-        switch(AttackPriorityID)
+        switch (AttackPriorityID)
         {
             case 0:
                 // 먼저 들어온 몬스터
-                if (EnemyList.Count != 0 )
+                if (EnemyList.Count != 0)
                 {
                     Target = EnemyList[0];
                 }
-                    
+
                 break;
 
             case 1:
                 // 체력 우선 공격 -> 방어구 없는 적 먼저 타겟팅하고 다 같으면 처음 들어온 몬스터
-                
+
                 break;
 
             case 2:
                 // 방어구 가진 몬스터 우선 공격 Enemy.CurrentShield
-                
+
                 break;
 
             case 3:
@@ -358,10 +367,10 @@ public class Tower : MonoBehaviour
                 //EnemyList.Sort(gameObject.GetComponent<Enemy>().) <- 적 변수 public으로 바꿔주세요~
 
                 break;
-        }    
+        }
     }
 
-    
+
     public virtual void Shoot() // 수정
     {
 
@@ -397,21 +406,21 @@ public class Tower : MonoBehaviour
     void UpgradeTower() // 데이터 연동해서 수정하기
     {
         //Attackstat + 5 로 해놓기
-        
-        switch(UpgradeStat)
+
+        switch (UpgradeStat)
         {
             case EUpgradeStat.Attack:
                 {
                     AttackPlusModifier.Add(UpgradeAmount);
                     break;
                 }
-               
+
             case EUpgradeStat.Ability:
                 {
                     AbilityPlusModifier.Add(UpgradeAmount);
                     break;
                 }
-                
+
             case EUpgradeStat.Speed:
                 {
                     SpeedPlusModifier.Add(UpgradeAmount);
@@ -486,7 +495,7 @@ public class Tower : MonoBehaviour
         UpgradePrice = tower._UpgradePrice;
         Range = tower._Range;
         Price = tower._Price;
-        
+
     }
 
 
