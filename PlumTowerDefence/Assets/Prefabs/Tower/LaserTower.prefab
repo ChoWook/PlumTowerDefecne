@@ -10137,11 +10137,14 @@ MonoBehaviour:
   Fixed: 0
   AttackPriorityID: 0
   UpgradeCount: 0
-  BulletPrefab: {fileID: 0}
+  CheckAttackBuff: 0
+  CheckSpeedBuff: 0
+  BulletPrefab: {fileID: 7312892870205596190, guid: 10c0804e16388014db75e149f988480d,
+    type: 3}
   FirePoint: {fileID: 0}
   EnemyList: []
   Target: {fileID: 0}
-  enemyTag: Enemy
+  IsCoolTime: 0
 --- !u!4 &6322426852260631975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4248981224369765958, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,

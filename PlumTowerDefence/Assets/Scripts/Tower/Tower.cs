@@ -196,9 +196,6 @@ public class Tower : MonoBehaviour
             
     }
 
-
-
-
     
     // 공격 우선순위 정하는 함수
     private void SortAttackPriority()
@@ -286,8 +283,6 @@ public class Tower : MonoBehaviour
                     SpeedStat += UpgradeAmount;
                     break;
                 }
-                
-
         }
 
         //돈 40 잃기
