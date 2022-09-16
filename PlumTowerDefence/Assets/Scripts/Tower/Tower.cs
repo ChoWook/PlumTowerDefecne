@@ -12,51 +12,75 @@ public class Tower : MonoBehaviour
 
     [Header("Attributes")]
 
-    public float Range;                                       // 공격 사거리
-    public float RealRange;                                   // 실제 사거리
-    public float SpeedStat;                                   // 공격 속도 스텟(데이터테이블)
-    private float FireCountdown = 0f;                         // 발사 카운트다운
+    public float Range;                                                              // 공격 사거리
+    public float RealRange;                                                          // 실제 사거리
+    
+
+    public ETowerName TowerName;                                                     // 타워 이름
+    protected EAttackSpecialization AttackSpecialization;                            // 공격 속성(데이터테이블)
+    protected ETowerType TypeID;                                                     // 속성 ID (데이터테이블)
+    public int Size;                                                                 // 타워 크기 (데이터테이블)
+
+    //AttackStat
+    public float BaseAttackStat;                                                     // 공격력 스텟(데이터테이블)
+   // public float AttackStat;                                                       // 최종 공격력 스텟
+    static List<float> AttackPlusModifier = new List<float>();                       // AttackStat 반영 리스트 (덧셈)
+    static List<float> AttackMultiModifier = new List<float>();                      // AttackStat 반영 리스트 (곱셈)
+
+    //AbilityStat
+    public float BaseAbilityStat;                                                       //어빌리티 스텟(데이터테이블)
+    //float AbilityStat;                                                                //최종 어빌리티 스텟
+    static List <float> AbilityPlusModifier = new List<float>();                        //AbilityStat 반영 리스트 (덧셈)
+    static List<float> AbilityMultiModifier = new List<float>();                        //AbilityStat 반영 리스트 (곱셈)
 
 
-    public ETowerName TowerName;                              // 타워 이름
-    protected EAttackSpecialization AttackSpecialization;    // 공격 속성(데이터테이블)
-    protected ETowerType TypeID;                             // 속성 ID (데이터테이블)
-    public int Size;                                      // 타워 크기 (데이터테이블)
-    public float AttackStat;                                 // 공격력 스텟(데이터테이블)
-    public float AbilityStat;
+    //SpeedStat
+    public float BaseSpeedStat;                                                              // 공격 속도 스텟(데이터테이블)
+    // float SpeedStat;                                                                     // 최종 속도 스텟
+    static List <float> SpeedPlusModifier = new List<float>();                              // SpeedStat 반영리스트(덧셈)
+    static List <float> SpeedMultiModifier = new List<float>();                             // SpeedStat 반영리스트(곱셈)
 
-    public Transform PartToRotate;                           //회전 오브젝트
-    public float TurnSpeed = 10f;                            //회전 속도
+    private float FireCountdown = 0f;                                                       // 발사 카운트다운
 
+    // Buff량
+    public float AttackBuffAmount;
+    public float SpeedBuffAmount;
+
+
+
+    public Transform PartToRotate;                                                          //회전 오브젝트
+    public float TurnSpeed = 10f;                                                           //회전 속도
+
+   
 
 
     [Header("Interactions")]
 
     public Tile belowTile;
 
-    public bool Selected = false;                           //타워 선택 여부()
-    public bool Fixed = false;                              //타워 설치 여부
+    public bool Selected = false;                                                           // 타워 선택 여부()
+    public bool Fixed = false;                                                             // 타워 설치 여부 <- 필요한가?
 
-    public int AttackPriorityID = 0;                        //우선 공격 속성 ID
+    public int AttackPriorityID = 0;                                                       // 우선 공격 속성 ID
 
-    public EUpgradeStat UpgradeStat;                    // 업그레이드 대상
-    public int UpgradePrice;                            // 업그레이드 가격(데이터테이블)
-    public int UpgradeCount = 0;                           // 업그레이드 횟수
-    public float UpgradeAmount;                         // 업그레이드 강화량
+    public EUpgradeStat UpgradeStat;                                                       // 업그레이드 대상
+    public int UpgradePrice;                                                               // 업그레이드 가격(데이터테이블)
+    public int UpgradeCount;                                                           // 업그레이드 횟수
+    public float UpgradeAmount;                                                            // 업그레이드 강화량
 
-    protected int Price;                                   // 구매 가격(데이터테이블)
-    public int SellPrice;                                 // 판매 가격
-    public int MovePrice;                                   //이동 가격
+    protected int Price;                                                                   // 구매 가격(데이터테이블)
+    public int SellPrice;                                                                  // 판매 가격
+    public int MovePrice;                                                                  // 이동 가격
 
-    public bool CheckAttackBuff;                           //버프 받고 있는지 확인
-    public bool CheckSpeedBuff;                           //버프 받고 있는지 확인
+    public bool CheckAttackBuff;                                                          //버프 받고 있는지 확인
+    public bool CheckSpeedBuff;                                                           //버프 받고 있는지 확인
 
     public GameObject BulletPrefab;
     public Transform FirePoint;
-    protected float ProjectileSpeed;                       //투사체 속도
+    public float ProjectileSpeed;                                                         //투사체 속도
 
 
-
+   
 
     // 적 스텟 (타겟 지정)
 
@@ -69,8 +93,115 @@ public class Tower : MonoBehaviour
     public const string enemyTag = "Enemy";
 
 
+    //get 받아주기
+
+    public float AttackStat
+    {
+        get
+        {
+
+            float sum = 0f;
+
+            if(AttackPlusModifier.Count > 0)
+            {
+                for (int i = 0; i < AttackPlusModifier.Count; i++)
+                {
+                    sum += AttackPlusModifier[i];
+                }
+            }
+            
+            float multi = 1f;
+
+            if(AttackMultiModifier.Count > 0)
+            {
+                for (int i = 0; i < AttackMultiModifier.Count; i++)
+                {
+                    multi *= AttackMultiModifier[i];
+                }
+            }
+            
+
+            return (BaseAttackStat + sum + AttackBuffAmount) * multi; } // 순서?
+    }
+
+    public float SpeedStat
+    {
+        get
+        {
+
+            float sum = 0f;
+
+            if(SpeedPlusModifier.Count > 0)
+            {
+                for (int i = 0; i < SpeedPlusModifier.Count; i++)
+                {
+                    sum += SpeedPlusModifier[i];
+                }
+            }
+           
+
+            float multi = 1f;
+
+            if(SpeedMultiModifier.Count > 0)
+            {
+                for (int i = 0; i < SpeedMultiModifier.Count; i++)
+                {
+                    multi *= SpeedMultiModifier[i];
+                }
+            }
+            
+
+            return (BaseSpeedStat + sum + SpeedBuffAmount) * multi;
+        }
+    }
+
+    public float AbilityStat
+    {
+        get
+        {
+
+            float sum = 0f;
+
+            if(AbilityPlusModifier.Count > 0)
+            {
+                for (int i = 0; i < AbilityPlusModifier.Count; i++)
+                {
+                    sum += AbilityPlusModifier[i];
+                }
+            }
+           
+
+            float multi = 1f;
+
+            if(AbilityMultiModifier.Count > 0)
+            {
+                for (int i = 0; i < AbilityMultiModifier.Count; i++)
+                {
+                    multi *= AbilityMultiModifier[i];
+                }
+            }
+           
+
+            return (BaseAbilityStat + sum) * multi;
+        }
+    }
+
+
+
+
+    // Select일 때 사거리 표시
+
+
+
+
+
     private void OnEnable()
     {
+        //스탯 초기화
+        AttackBuffAmount = 0f;
+        SpeedBuffAmount = 0f;
+
+        UpgradeCount = 0;
 
         RealRange = Range * GameManager.instance.unitTileSize; //TileSize 나중에 GameManager로 받기
 
@@ -244,17 +375,19 @@ public class Tower : MonoBehaviour
 
     }
 
+    //버프타워 없어지면 List에서 어떻게 빼지?
+
     //공격력 버프
     public void GetAttackBuff(float _BuffAmount)
     {
-        AttackStat += _BuffAmount;
+        AttackBuffAmount += _BuffAmount;
     }
 
 
     // 공격속도 버프
     public void GetSpeedBuff(float _BuffAmount)
     {
-        SpeedStat += _BuffAmount;
+        SpeedBuffAmount += _BuffAmount;
     }
 
 
@@ -269,19 +402,19 @@ public class Tower : MonoBehaviour
         {
             case EUpgradeStat.Attack:
                 {
-                    AttackStat += UpgradeAmount;
+                    AttackPlusModifier.Add(UpgradeAmount);
                     break;
                 }
                
             case EUpgradeStat.Ability:
                 {
-                    AbilityStat += UpgradeAmount;
+                    AbilityPlusModifier.Add(UpgradeAmount);
                     break;
                 }
                 
             case EUpgradeStat.Speed:
                 {
-                    SpeedStat += UpgradeAmount;
+                    SpeedPlusModifier.Add(UpgradeAmount);
                     break;
                 }
         }
@@ -298,7 +431,7 @@ public class Tower : MonoBehaviour
     void SellTower()
     {
         // 타워 반납하기
-        Destroy(gameObject); // 타워 풀에 추가한 뒤 바꾸기 ? 
+        Destroy(gameObject); // 타워 풀에 추가한 뒤 바꾸기 ?  <- 맵에서 다룬다!
 
 
         // 돈 받기 (타워 설치비용 + 업그레이드 비용 ) * 0.6
@@ -310,6 +443,8 @@ public class Tower : MonoBehaviour
         // 재화 연결 함수
 
         GameManager.instance.money += SellPrice;
+
+        // 공격, 공속 버프 타워일 때  버프 삭제 효과 넣어주기
 
     }
 
@@ -342,9 +477,9 @@ public class Tower : MonoBehaviour
         AttackSpecialization = tower._AttackSepcialization;
         TypeID = tower._Type;
         Size = tower._Size;
-        AttackStat = tower._Attack;
-        SpeedStat = tower._Speed;
-        AbilityStat = tower._Ability;
+        BaseAttackStat = tower._Attack;
+        BaseSpeedStat = tower._Speed;
+        BaseAbilityStat = tower._Ability;
         ProjectileSpeed = tower._ProjectileSpeed;
         UpgradeStat = tower._UpgradeStat;
         UpgradeAmount = tower._UpgradeAmount;
