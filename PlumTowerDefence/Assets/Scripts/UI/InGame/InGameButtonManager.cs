@@ -122,7 +122,7 @@ public class InGameButtonManager : MonoBehaviour
     {
         if (!isFast)
         {
-            Time.timeScale = 0.5f;
+            Time.timeScale = 5f;
             isFast = true;
         }
         else
