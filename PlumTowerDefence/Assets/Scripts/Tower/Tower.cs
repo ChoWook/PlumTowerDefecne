@@ -68,14 +68,6 @@ public class Tower : MonoBehaviour
     public const string enemyTag = "Enemy";
 
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-
     private void OnEnable()
     {
 
@@ -96,7 +88,7 @@ public class Tower : MonoBehaviour
     }
 
     // 추적 알고리즘 코루틴
-    IEnumerator IE_GetTargets()
+    protected virtual IEnumerator IE_GetTargets()
     {
         WaitForSeconds ws = new WaitForSeconds(0.5f);
 
@@ -116,8 +108,6 @@ public class Tower : MonoBehaviour
     // 타겟 업데이트 ( 체력 우선, 방어구 우선, 방어력 높은 적 우선 추가하기)
     protected virtual void UpdateTarget()
     {
-
-        
 
         if (Target == null || Target.GetComponent<Enemy>().IsAlive == false || Vector3.Distance(transform.position, Target.transform.position) > RealRange)
         {
