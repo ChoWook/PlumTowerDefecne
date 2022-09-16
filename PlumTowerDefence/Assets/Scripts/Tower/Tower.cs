@@ -34,18 +34,19 @@ public class Tower : MonoBehaviour
 
     public Tile belowTile;
 
-    public bool Selected = false;                           //타워 선택 여부
+    public bool Selected = false;                           //타워 선택 여부()
     public bool Fixed = false;                              //타워 설치 여부
 
     public int AttackPriorityID = 0;                        //우선 공격 속성 ID
 
-    protected EUpgradeStat UpgradeStat;                    // 업그레이드 대상
-    protected int UpgradePrice;                            // 업그레이드 가격(데이터테이블)
+    public EUpgradeStat UpgradeStat;                    // 업그레이드 대상
+    public int UpgradePrice;                            // 업그레이드 가격(데이터테이블)
     public int UpgradeCount = 0;                           // 업그레이드 횟수
-    protected float UpgradeAmount;                         // 업그레이드 강화량
+    public float UpgradeAmount;                         // 업그레이드 강화량
 
     protected int Price;                                   // 구매 가격(데이터테이블)
-    private int SellPrice;                                 // 판매 가격
+    public int SellPrice;                                 // 판매 가격
+    public int MovePrice;                                   //이동 가격
 
     public bool CheckAttackBuff;                           //버프 받고 있는지 확인
     public bool CheckSpeedBuff;                           //버프 받고 있는지 확인
@@ -323,7 +324,7 @@ public class Tower : MonoBehaviour
         float _MovePrice = (Price + UpgradeCount * UpgradePrice) * 0.5f;
 
 
-        int MovePrice = (int)_MovePrice;
+        MovePrice = (int)_MovePrice;
 
 
         // 재화 연결 함수
