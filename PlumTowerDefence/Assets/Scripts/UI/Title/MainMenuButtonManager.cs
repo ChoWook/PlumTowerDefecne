@@ -71,14 +71,14 @@ public class MainMenuButtonManager : MonoBehaviour
     private void ResetGameSystem()
     {
         GameManager.instance.level = 0;
-        GameManager.instance.money = 100000;
+        GameManager.instance.money = Tables.GlobalSystem.Get("User_Money")._Value;
         GameManager.instance.xp = 0;
-        GameManager.instance.maxHp = 10;
+        GameManager.instance.maxHp = Tables.GlobalSystem.Get("User_Hp")._Value;
         GameManager.instance.isPausing = false;
         GameManager.instance.isClickedTower = false;
         GameManager.instance.isPlayingGame = false;
         GameManager.instance.isSettingTarget = 0;
-        GameManager.instance.number_Of_Upgrade = 3;
+        GameManager.instance.number_Of_Upgrade = Tables.GlobalSystem.Get("Number_Of_Upgrade")._Value;
     }
 
     private void SelectApplicationUpgrade()
