@@ -982,8 +982,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerID: 0
-  MarkSizePrefab: {fileID: 316698316122557966}
-  MarkRangePrefab: {fileID: 5639812745439515212}
   Range: 0
   RealRange: 0
   TowerName: 0

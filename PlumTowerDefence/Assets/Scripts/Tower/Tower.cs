@@ -194,9 +194,9 @@ public class Tower : MonoBehaviour
 
         UpgradeCount = 0;
 
-        RealRange = Range * 5 * GameManager.instance.unitTileSize / Size;
+        RealRange = Range * GameManager.instance.unitTileSize;
 
-        RealSize = 5 * GameManager.instance.unitTileSize;
+        RealSize = Size * GameManager.instance.unitTileSize;
 
         Debug.Log("RealRange : " + RealRange);
         Debug.Log("RealSize : " + RealSize);
@@ -295,6 +295,13 @@ public class Tower : MonoBehaviour
         {
             return;
         }
+        else if (Vector3.Distance(transform.position, Target.transform.position) > RealRange)
+        {
+            return;
+        }
+        
+
+
 
 
         if (PartToRotate != null)
