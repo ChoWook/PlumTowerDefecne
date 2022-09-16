@@ -26,12 +26,9 @@ public class MainMenuButtonManager : MonoBehaviour
     {
         JsonManager.instance.usingList = JsonManager.instance.SaveData.upgradedCard.ToList();
         
-        Debug.Log("upgradedCard : "+JsonManager.instance.SaveData.upgradedCard.Count);
-        Debug.Log("usinglist : " + JsonManager.instance.usingList.Count);
+        ResetGameSystem();
         
         SelectApplicationUpgrade();
-        
-        Debug.Log("After usinglist : " + JsonManager.instance.usingList.Count);
         
         GameManager.instance.CallBackClear();
         
@@ -71,28 +68,27 @@ public class MainMenuButtonManager : MonoBehaviour
         }
     }
 
+    private void ResetGameSystem()
+    {
+        GameManager.instance.level = 0;
+        GameManager.instance.money = 100000;
+        GameManager.instance.xp = 0;
+        GameManager.instance.maxHp = 10;
+        GameManager.instance.isPausing = false;
+        GameManager.instance.isClickedTower = false;
+        GameManager.instance.isPlayingGame = false;
+        GameManager.instance.isSettingTarget = 0;
+        GameManager.instance.number_Of_Upgrade = 3;
+    }
+
     private void SelectApplicationUpgrade()
     {
-        /*
-        for (int i = 1; i <= Tables.UpgradeButton.Get(3)._CategoryNum; i++)
-        {
-            for (int j = 1; j <= Tables.UpgradeCategory.Get(30000 + i * 100)._CardNum; j++)
-            {
-                if (JsonManager.instance.usingList.Contains(30000 + i * 100 + j))       //패시브 증강체 이면
-                {
-                    //적용시키기
-                    Debug.Log("적용" + (30000 + i * 100 + j));
-                    //제거
-                    JsonManager.instance.usingList.Remove(30000+i*100+j);
-                }
-            }
-        }
-        */
         foreach (var card in JsonManager.instance.SaveData.upgradedCard)
         {
             if (card / 10000 == 3)      //패시브
             {
                 //적용
+                ApplicationUpgrade.instance.ApplicationPassiveUpgrade(card);
                 Debug.Log("적용" + card);
                 //제거
                 JsonManager.instance.usingList.Remove(card);
@@ -105,8 +101,7 @@ public class MainMenuButtonManager : MonoBehaviour
 
             int cardParent = Tables.UpgradeCard.Get(card)._Parent;
 
-            
-            if (!(cardParent / 10000 == 1 && cardParent % 100 == 1) && !(card / 10000 == 2 && cardParent == 1))
+            if (!(cardParent / 10000 == 1 && cardParent % 100 == 1) && !(card / 10000 == 2 && cardParent == 1)) 
             {
                 JsonManager.instance.usingList.Remove(card);
             }

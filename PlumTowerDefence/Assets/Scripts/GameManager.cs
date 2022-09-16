@@ -137,7 +137,11 @@ public class GameManager : MonoBehaviour
     public int maxHp
     {
         get { return _maxHp; }
-        private set { _maxHp = value; }
+        set
+        {
+            _maxHp = value;
+            currentHp = maxHp;
+        }
     }
     private int _currentHp = 10;
     public int currentHp
@@ -154,7 +158,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    private int _money = 100000;
+    private int _money;
     public int money
     {
         get { return _money; }
@@ -163,6 +167,14 @@ public class GameManager : MonoBehaviour
             _money = value;
             _moneyChangeCallBack?.Invoke();
         }
+    }
+    
+    private int _number_Of_Upgrade;
+
+    public int number_Of_Upgrade
+    {
+        get { return _number_Of_Upgrade; }
+        set { _number_Of_Upgrade = value; }
     }
 
     private bool _isPlayingGame = false;

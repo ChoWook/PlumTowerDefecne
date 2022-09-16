@@ -29,9 +29,4 @@ public class GameOver : MonoBehaviour
         Time.timeScale = 1;
         MoveScene.MoveTitleScene();
     }
-
-    public void TESTGameOver()
-    {
-        GameManager.instance.currentHp -= 5;
-    }
 }
