@@ -12,8 +12,8 @@ public class Tower : MonoBehaviour
 
     [Header("Attributes")]
 
-    public GameObject MarkSizePrefab;                                               // Size 표시 오브젝트
-    public GameObject MarkRangePrefab;                                              // Range 표시 오브젝트
+    //public GameObject MarkSizePrefab;                                               // Size 표시 오브젝트
+    //public GameObject MarkRangePrefab;                                              // Range 표시 오브젝트
 
 
     public float Range;                                                              // 공격 사거리
@@ -178,8 +178,10 @@ public class Tower : MonoBehaviour
 
         //사거리, 타워 사이즈 표시 활성화
 
-        MarkSizePrefab.SetActive(sender);
-        MarkRangePrefab.SetActive(sender);
+        //MarkSizePrefab.SetActive(sender);
+        //MarkRangePrefab.SetActive(sender);
+
+        GetComponent<TowerSizeController>().IsSelected(sender);
 
     }
 
@@ -192,27 +194,18 @@ public class Tower : MonoBehaviour
 
         UpgradeCount = 0;
 
-        RealRange = Range * GameManager.instance.unitTileSize;
+        RealRange = Range * 5 * GameManager.instance.unitTileSize / Size;
 
-        RealSize = Size * GameManager.instance.unitTileSize;
+        RealSize = 5 * GameManager.instance.unitTileSize;
 
         Debug.Log("RealRange : " + RealRange);
         Debug.Log("RealSize : " + RealSize);
 
         // 사거리, 타워 사이즈 설정하기 <- 안 되나!
 
-        MarkRangePrefab.transform.SetParent(null);
-        //MarkRangePrefab.transform.parent = null;
-        MarkRangePrefab.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
+        //MarkRangePrefab.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
+        //MarkSizePrefab.transform.localScale = new Vector3(RealSize, 0.05f, RealSize);
 
-        MarkRangePrefab.transform.SetParent(null);
-        //MarkSizePrefab.transform.parent = null;
-        MarkSizePrefab.transform.localScale = new Vector3(RealSize, 0.05f, RealSize);
-
-        MarkRangePrefab.transform.SetParent(transform, true);
-        MarkRangePrefab.transform.SetParent(transform, true);
-        //MarkRangePrefab.transform.parent = transform;
-        //MarkSizePrefab.transform.parent = transform;
 
 
 

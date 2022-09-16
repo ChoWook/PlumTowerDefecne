@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerSzieController : MonoBehaviour
+public class TowerSizeController : MonoBehaviour
 {
     [SerializeField] GameObject MarkSizePrefab;                                               // Size 표시 오브젝트
     [SerializeField] GameObject MarkRangePrefab;
@@ -23,7 +23,9 @@ public class TowerSzieController : MonoBehaviour
 
     private void OnEnable()
     {
-        float RealRange = Range * 5 * GameManager.instance.unitTileSize / Size;
+        float RealRange = Range * 5 * GameManager.instance.unitTileSize / Size * 2 ;
+
+       // Debug.Log("Range :" + Range + " / Real")
 
         float RealSize = 5 * GameManager.instance.unitTileSize;
 
@@ -42,5 +44,15 @@ public class TowerSzieController : MonoBehaviour
         {
             MarkSizePrefab.transform.localScale = new Vector3(RealSize, 0.05f, RealSize);
         }
+    }
+
+    public void IsSelected(bool sender)
+    {
+
+        //사거리, 타워 사이즈 표시 활성화
+
+        MarkSelectedPrefab?.SetActive(sender);
+        MarkRangePrefab?.SetActive(sender);
+
     }
 }

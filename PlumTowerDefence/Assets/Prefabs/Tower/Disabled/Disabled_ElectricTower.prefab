@@ -88046,7 +88046,12 @@ PrefabInstance:
     - target: {fileID: 4248981224369765953, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
         type: 3}
       propertyPath: m_Name
-      value: Diabled_ElectricTower
+      value: Disabled_ElectricTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248981224369765953, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4248981224369765958, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
         type: 3}
