@@ -91,6 +91,7 @@ public class InGameButtonManager : MonoBehaviour
         else
         {
             Debug.Log("전투중입니다!");
+            Debug.Log("남은 몬스터수: " + GameManager.instance.currentEnemyNumber);
         }
     }
 
