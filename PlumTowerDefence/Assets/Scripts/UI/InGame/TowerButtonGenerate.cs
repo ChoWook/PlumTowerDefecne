@@ -77,7 +77,7 @@ public class TowerButtonGenerate : MonoBehaviour
             GameManager.instance.AddMoneyChangeCallBack(() =>
             {
                 // 구매할 수 없는 버튼일 때
-                if (Tables.Tower.Get(item._Name)._Price > GameManager.instance.money)
+                if (Tables.Tower.Get(item._Name)._Price > GameManager.instance.money && !GameManager.instance.HasCoupon(tmp))
                 {
                     btn.interactable = false;
                 }
