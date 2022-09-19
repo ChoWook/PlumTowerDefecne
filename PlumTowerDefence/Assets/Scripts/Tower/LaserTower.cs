@@ -61,7 +61,7 @@ public class LaserTower : Tower
 
     public IEnumerator IE_CoolTime()
     {
-        WaitForSeconds cooltime = new WaitForSeconds(SpeedStat);
+        WaitForSeconds cooltime = new WaitForSeconds(1f/SpeedStat);
 
         yield return cooltime;
         IsCoolTime=false;
