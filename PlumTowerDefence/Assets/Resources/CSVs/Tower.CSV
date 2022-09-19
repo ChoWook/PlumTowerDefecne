@@ -1,16 +1,16 @@
 ID,English,Korean,AttackSpecialization,Type,Size,Attack,Speed,Projectile,Ability,UpgradeStat,UpgradeAmount,UpgradePrice,Range,Price
 int,TowerName,string,AttackSpecialization,TowerType,int,float,float,float,float,UpgradeStat,float,int,float,int
-1,Arrow,È­»ìÅ¸¿ö,Default,AttackProjectile,1,25,4,100,0,Attack,5,40,3,100
-2,Hourglass,¸ğ·¡½Ã°èÅ¸¿ö,Default,Debuff,1,0,0,0,0.75,Ability,-0.05,60,2,200
-3,Poison,µ¶Å¸¿ö,Default,Debuff,3,0,0,0,25,Ability,5,300,5,1000
-4,Flame,È­¿°¹æ»çÅ¸¿ö,Health,Attack,2,300,1,0,0,Speed,0.2,200,3,500
-5,AttackBuff,°ø°İ·Â¹öÇÁÅ¸¿ö,Default,Buff,1,0,0,0,25,Ability,5,300,3,500
-6,SpeedBuff,°ø°İ¼Óµµ¹öÇÁÅ¸¿ö,Default,Buff,1,0,0,0,0.25,Ability,0.15,300,3,500
-7,Laser,·¹ÀÌÀúÅ¸¿ö,Defense,AttackProjectile,3,250,0.5,100,3,Ability,0.6,200,4,600
-8,Missile,¹Ì»çÀÏÅ¸¿ö,Shield,AttackProjectile,2,500,0.25,25,1,Speed,0.15,100,4,300
-9,Electric,Àü±âÃæ°İ±âÅ¸¿ö,Default,Attack,1,50,2,0,2,Ability,1,150,2,400
-10,Gatling,°³Æ²¸µ°ÇÅ¸¿ö,Health,AttackProjectile,2,15,8,300,0,Attack,5,100,4,300
-11,Cannon,´ëÆ÷Å¸¿ö,Shield,AttackProjectile,2,150,1,150,0,Speed,0.2,150,5,400
-12,Wall,º®,Default,Lane,1,0,0,0,0,Attack,0,0,0,600
-13,Bomb,ÆøÅº,Default,Lane,1,0,0,0,0,Attack,0,0,0,300
+1,Arrow,í™”ì‚´íƒ€ì›Œ,Default,AttackProjectile,1,25,4,100,0,Attack,5,40,3,100
+2,Hourglass,ëª¨ë˜ì‹œê³„íƒ€ì›Œ,Default,Debuff,1,0,0,0,0.75,Ability,-0.05,60,2,200
+3,Poison,ë…íƒ€ì›Œ,Default,Debuff,3,0,0,0,25,Ability,5,300,5,1000
+4,Flame,í™”ì—¼ë°©ì‚¬íƒ€ì›Œ,Health,Attack,2,300,1,0,0,Speed,0.2,200,3,500
+5,AttackBuff,ê³µê²©ë ¥ë²„í”„íƒ€ì›Œ,Default,Buff,1,0,0,0,25,Ability,5,300,3,500
+6,SpeedBuff,ê³µê²©ì†ë„ë²„í”„íƒ€ì›Œ,Default,Buff,1,0,0,0,0.25,Ability,0.15,300,3,500
+7,Laser,ë ˆì´ì €íƒ€ì›Œ,Defense,AttackProjectile,3,250,0.5,100,3,Ability,0.6,200,4,600
+8,Missile,ë¯¸ì‚¬ì¼íƒ€ì›Œ,Shield,AttackProjectile,2,500,0.25,25,1,Speed,0.15,100,4,300
+9,Electric,ì „ê¸°ì¶©ê²©ê¸°íƒ€ì›Œ,Default,Attack,1,50,2,0,2,Ability,1,150,2,400
+10,Gatling,ê°œí‹€ë§ê±´íƒ€ì›Œ,Health,AttackProjectile,2,15,8,300,0,Attack,5,100,4,300
+11,Cannon,ëŒ€í¬íƒ€ì›Œ,Shield,AttackProjectile,2,150,1,150,0,Speed,0.2,150,5,400
+12,Wall,ë²½,Default,Lane,1,0,0,0,0,Attack,0,0,0,600
+13,Bomb,í­íƒ„,Default,Lane,1,0,0,0,0,Attack,0,0,0,300
 ,,,,,,,,,,,,,,
