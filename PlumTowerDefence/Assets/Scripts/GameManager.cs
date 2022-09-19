@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance = null;      //싱글톤 기법
+    public static GameManager instance = null; //싱글톤 기법
 
     private void Awake()
     {
@@ -14,12 +14,12 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            Tables.Load();                      //게임매니져가 생성될 당시 한번만 테이블을 로드
+            Tables.Load(); //게임매니져가 생성될 당시 한번만 테이블을 로드
         }
         else
         {
-            if(instance!=this)
-                Destroy(this.gameObject);       //이미 존재한다면 새로 생상된 오브젝트를 제거
+            if (instance != this)
+                Destroy(this.gameObject); //이미 존재한다면 새로 생상된 오브젝트를 제거
         }
     }
 
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     {
         _xpChangeCallBack += xpChangeCallBack;
     }
-    
+
     public void RemoveXpChangeCallBack()
     {
         _xpChangeCallBack = null;
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     {
         _hpChangeCallBack += hpChangeCallBack;
     }
-    
+
     public void RemoveHpChangeCallBack()
     {
         _hpChangeCallBack = null;
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
     {
         _moneyChangeCallBack += moneyChangeCallBack;
     }
-    
+
     public void RemoveMoneyChangeCallBack()
     {
         _moneyChangeCallBack = null;
@@ -101,8 +101,9 @@ public class GameManager : MonoBehaviour
         RemoveHpChangeCallBack();
         RemoveMoneyChangeCallBack();
     }
-    
+
     private int _level = 0;
+
     public int level
     {
         get { return _level; }
@@ -112,7 +113,9 @@ public class GameManager : MonoBehaviour
             _levelChangeCallBack?.Invoke();
         }
     }
-    private int _xp = 0;    //현재 xp
+
+    private int _xp = 0; //현재 xp
+
     public int xp
     {
         get { return _xp; }
@@ -128,12 +131,11 @@ public class GameManager : MonoBehaviour
     public int totalxp
     {
         get { return _totalxp; }
-        set
-        {
-            _totalxp = value;
-        }
+        set { _totalxp = value; }
     }
+
     private int _maxHp = 10;
+
     public int maxHp
     {
         get { return _maxHp; }
@@ -143,7 +145,9 @@ public class GameManager : MonoBehaviour
             currentHp = maxHp;
         }
     }
+
     private int _currentHp = 10;
+
     public int currentHp
     {
         get { return _currentHp; }
@@ -158,7 +162,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     private int _money;
+
     public int money
     {
         get { return _money; }
@@ -168,7 +174,7 @@ public class GameManager : MonoBehaviour
             _moneyChangeCallBack?.Invoke();
         }
     }
-    
+
     private int _number_Of_Upgrade;
 
     public int number_Of_Upgrade
@@ -194,22 +200,23 @@ public class GameManager : MonoBehaviour
     }
 
     private int _currentEnemyNumber;
+
     public int currentEnemyNumber
-    { 
-        get { return _currentEnemyNumber; } 
-        set 
-        { 
-            _currentEnemyNumber = value; 
-            if(_currentEnemyNumber == 0)
+    {
+        get { return _currentEnemyNumber; }
+        set
+        {
+            _currentEnemyNumber = value;
+            if (_currentEnemyNumber == 0)
             {
-                isPlayingGame = false;                 //Bool flase 만들어서 게임 끝을 알림
-                xp += level;      //level만큼 xp를 얻음
+                isPlayingGame = false; //Bool flase 만들어서 게임 끝을 알림
+                xp += level; //level만큼 xp를 얻음
                 _stageClearCallBack?.Invoke();
             }
-        } 
+        }
     }
 
-    private int _isSettingTarget = 0;  //타겟팅을 정하는 중인가,  0=X, 1=updateTowerUI, 2=GroundTower, 3=AllTower
+    private int _isSettingTarget = 0; //타겟팅을 정하는 중인가,  0=X, 1=updateTowerUI, 2=GroundTower, 3=AllTower
 
     public int isSettingTarget
     {
@@ -217,7 +224,7 @@ public class GameManager : MonoBehaviour
         set { _isSettingTarget = value; }
     }
 
-    private bool _isClickedTower = false;   //tower를 누른 상태(타워ui가 활성화된 상태)인가
+    private bool _isClickedTower = false; //tower를 누른 상태(타워ui가 활성화된 상태)인가
 
     public bool isClickedTower
     {
@@ -228,15 +235,31 @@ public class GameManager : MonoBehaviour
     //사거리 계산 단위
 
     private float _unitTileSize;
-    
+
     public float unitTileSize
     {
         get { return _unitTileSize; }
         set { _unitTileSize = value; }
     }
 
+    //장애물 파괴 할인율
+    private float _discountObstacle = 0f;
+    public float discountObstacle
+    {
+        get { return _discountObstacle; }
+        set { _discountObstacle = value; }
+    }
 
-    // 타워 무료 쿠폰
+    private float _increaseTowerCoupon = 0f;
+
+    public float increaseTowerCoupon
+    {
+        get { return _increaseTowerCoupon; }
+        set { _increaseTowerCoupon = value; }
+    }
+
+
+// 타워 무료 쿠폰
     private Dictionary<ETowerName ,int> _TowerCoupon;
 
     public void InitCoupon()
@@ -284,9 +307,19 @@ public class GameManager : MonoBehaviour
 
     public void InitGame()
     {
-        money = 1000;
+        money = Tables.GlobalSystem.Get("User_Money")._Value;
+        maxHp = Tables.GlobalSystem.Get("User_Hp")._Value;
         currentHp = maxHp;
+        xp = 0;
         level = 0;
+        discountObstacle = 0f;
+        increaseTowerCoupon = 0f;
+        number_Of_Upgrade = Tables.GlobalSystem.Get("Number_Of_Upgrade")._Value;
+        
+        isPausing = false;
+        isClickedTower = false;
+        isPlayingGame = false;
+        isSettingTarget = 0;
         
         InitCoupon();
     }

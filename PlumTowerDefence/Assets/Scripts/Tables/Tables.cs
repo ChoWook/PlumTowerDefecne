@@ -43,6 +43,7 @@ public class Tables : ScriptableObject
             UpgradeButton.Load();
             UpgradeCard.Load();
             UpgradeCategory.Load();
+            UpgradePassiveStat.Load();
 
             IsLoaded = true;
             Debug.Log("Load End");

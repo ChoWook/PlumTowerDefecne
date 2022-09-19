@@ -28,7 +28,7 @@ public class MainMenuButtonManager : MonoBehaviour
         
         GameManager.instance.CallBackClear();
         
-        ResetGameSystem();
+        GameManager.instance.InitGame();
         
         SelectApplicationUpgrade();
         
@@ -57,19 +57,6 @@ public class MainMenuButtonManager : MonoBehaviour
         {
             ButtonText[i].GetComponent<TextMeshProUGUI>().text = Tables.StringUI.Get(i+2)._Korean;
         }
-    }
-
-    private void ResetGameSystem()
-    {
-        GameManager.instance.level = 0;
-        GameManager.instance.money = Tables.GlobalSystem.Get("User_Money")._Value;
-        GameManager.instance.xp = 0;
-        GameManager.instance.maxHp = Tables.GlobalSystem.Get("User_Hp")._Value;
-        GameManager.instance.isPausing = false;
-        GameManager.instance.isClickedTower = false;
-        GameManager.instance.isPlayingGame = false;
-        GameManager.instance.isSettingTarget = 0;
-        GameManager.instance.number_Of_Upgrade = Tables.GlobalSystem.Get("Number_Of_Upgrade")._Value;
     }
 
     private void SelectApplicationUpgrade()
