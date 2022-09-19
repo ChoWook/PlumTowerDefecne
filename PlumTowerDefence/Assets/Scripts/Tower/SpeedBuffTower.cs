@@ -45,7 +45,7 @@ public class SpeedBuffTower : Tower
             {
 
                 t.GetSpeedBuff(AbilityStat);
-                t.CheckSpeedBuff = true;
+                t.CheckSpeedBuff = true ;
 
             }
         }

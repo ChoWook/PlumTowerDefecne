@@ -19,6 +19,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5176934347226426894, guid: f0bd20f2ac4104a42abd742aed55b2f6,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176934347226426894, guid: f0bd20f2ac4104a42abd742aed55b2f6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176934347226426894, guid: f0bd20f2ac4104a42abd742aed55b2f6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176934347226426894, guid: f0bd20f2ac4104a42abd742aed55b2f6,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.57
       objectReference: {fileID: 0}
@@ -67,6 +82,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5176934347226426894, guid: f0bd20f2ac4104a42abd742aed55b2f6,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267897310604533046, guid: f0bd20f2ac4104a42abd742aed55b2f6,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5176934347226426895, guid: f0bd20f2ac4104a42abd742aed55b2f6, type: 3}
     - {fileID: 5176934347226426892, guid: f0bd20f2ac4104a42abd742aed55b2f6, type: 3}
@@ -92,5 +117,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 2736430184614285559, guid: de5307a3a6931614d95d123bf2f7dd48, type: 3}
+  Lt: {fileID: 0}
   Speed: 0
   MissileRange: 0
+  ElectricRange: 0
+  ElecRangeStat: 2
+  LaserLength: 0
+  LaserDestination: {fileID: 0}

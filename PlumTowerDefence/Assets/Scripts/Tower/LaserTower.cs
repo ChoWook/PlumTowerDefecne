@@ -9,7 +9,7 @@ public class LaserTower : Tower
 
     private void Awake()
     {
-        Setstat(ETowerName.Laser);
+        Setstat(ETowerName.Laser); // onenable에서 변수 값 정리하기
     }
 
     // 타겟 잡으면
@@ -39,42 +39,24 @@ public class LaserTower : Tower
     public override void Shoot()
     {
         IsCoolTime = true;
-        if (BulletPrefab != null)
+       
+        if (BulletPrefab != null && Target != null)
         {
             GameObject bulletGO = ObjectPools.Instance.GetPooledObject(BulletPrefab.name);
             bulletGO.transform.position = Target.transform.position;
 
             bulletGO.GetComponent<Bullet>()?.Seek(Target, ProjectileSpeed, AttackStat, AttackSpecialization);
 
+            StopCoroutine(IE_GetTargets());
         }
     }
 
-
-
-    protected override IEnumerator IE_GetTargets()
+    public IEnumerator IE_CoolTime()
     {
-        WaitForSeconds ws = new WaitForSeconds(0.5f);
-
-        //사거리 안에 들어온 적들 EnemyList에 정리 + 사거리에서 나가면 지우기.
-
         WaitForSeconds cooltime = new WaitForSeconds(SpeedStat);
 
-
-        while (true)
-        {
-            if(IsCoolTime) // 한 번 공격했으면 쿨타임 돌리기
-            {
-                yield return cooltime;
-                IsCoolTime=false;
-            }
-            //SortAttackPriority();
-            UpdateTarget();
-
-            yield return ws;
-        }
-
+        yield return cooltime;
+        StartCoroutine(IE_GetTargets());
     }
-
-
 
 }

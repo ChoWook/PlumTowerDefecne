@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
 
     public Tower tower;
 
+    public LaserTower Lt;
+
     //public GameObject ObjectPool;
 
     private float Damage;               // 타겟에게 가할 데미지
@@ -40,10 +42,14 @@ public class Bullet : MonoBehaviour
         
         if (tower.TowerName == ETowerName.Laser)
         {
+            // 불릿 크기 지정
             Transform parent = transform.parent;
             transform.parent = null;
             transform.localScale = new Vector3(GameManager.instance.unitTileSize, 0.2f, GameManager.instance.unitTileSize); // 높이 추후 수정
             transform.parent = parent;
+
+            Lt = tower.GetComponent<LaserTower>();
+
         }
     }
 
@@ -57,7 +63,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        other.gameObject.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage 전달
+        if(tower.TowerName == ETowerName.Laser)
+        {
+            other.gameObject.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage 전달
+        }
+        
     }
 
 
@@ -78,7 +88,6 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        
 
         float distanceThisFrame = Speed * Time.deltaTime;
 
@@ -88,20 +97,15 @@ public class Bullet : MonoBehaviour
             // 타겟 위치에서 생성(타워에서 관리)
             // 벡터 y축 고정하고 해당 방향으로 ability만큼 움직임(폭은 1타일크기만큼 변경해주기)
 
-            Vector3 dir = target.transform.position - tower.transform.position;
+            LaserTarget();
 
-            dir.y = 0f; // y축 고정
-
-            dir = dir.normalized * LaserLength ;
-
-            LaserDestination.position = target.transform.position + dir;
-
-            transform.position = Vector3.Lerp(transform.position, LaserDestination.position, distanceThisFrame); // 이게 맞나?
+            transform.position = Vector3.Lerp(transform.position, LaserDestination.position, distanceThisFrame); // 이게 아니다!!!!
 
             if(transform.position == LaserDestination.position) // 더 좋은 방법?
             {
+                Debug.Log("Arrive");
                 DestroyBullet();
-                //tower.GetComponent<LaserTower>().StartCoroutine()
+                Lt.StartCoroutine(Lt.IE_CoolTime());
             }
             
             // 이동하는 동안 콜라이더 받아서 부딪히는 적들 데미지 입히기 -> Trigger로 받는 것
@@ -121,6 +125,20 @@ public class Bullet : MonoBehaviour
             transform.Translate(dir.normalized * distanceThisFrame, Space.World);
         }
     }
+
+    void LaserTarget()
+    {
+        Transform temp = target.transform;
+
+        Vector3 dir = temp.position - tower.transform.position;
+
+        dir.y = 0f; // y축 고정
+
+        dir = dir.normalized * LaserLength;
+
+        LaserDestination.position = temp.position + dir;
+    }
+
 
     private void DestroyBullet()
     {
