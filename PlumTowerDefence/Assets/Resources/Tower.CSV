@@ -1,0 +1,16 @@
+﻿ID,English,Korean,AttackSpecialization,Type,Size,Attack,Speed,Projectile,Ability,UpgradeStat,UpgradeAmount,UpgradePrice,Range,Price
+int,TowerName,string,AttackSpecialization,TowerType,int,float,float,float,float,UpgradeStat,float,int,float,int
+1,Arrow,화살타워,Default,AttackProjectile,1,25,4,100,0,Attack,5,40,3,100
+2,Hourglass,모래시계타워,Default,Debuff,1,0,0,0,0.75,Ability,-0.05,60,2,200
+3,Poison,독타워,Default,Debuff,3,0,0,0,25,Ability,5,300,5,1000
+4,Flame,화염방사타워,Health,Attack,2,300,1,0,0,Speed,0.2,200,3,500
+5,AttackBuff,공격력버프타워,Default,Buff,1,0,0,0,25,Ability,5,300,3,500
+6,SpeedBuff,공격속도버프타워,Default,Buff,1,0,0,0,0.25,Ability,0.15,300,3,500
+7,Laser,레이저타워,Defense,AttackProjectile,3,250,0.5,5,3,Ability,0.6,200,4,600
+8,Missile,미사일타워,Shield,AttackProjectile,2,500,0.25,25,1,Speed,0.15,100,4,300
+9,Electric,전기충격기타워,Default,Attack,1,50,2,0,2,Ability,1,150,2,400
+10,Gatling,개틀링건타워,Health,AttackProjectile,2,15,8,300,0,Attack,5,100,4,300
+11,Cannon,대포타워,Shield,AttackProjectile,2,150,1,150,0,Speed,0.2,150,5,400
+12,Wall,벽,Default,Lane,1,0,0,0,0,Attack,0,0,0,600
+13,Bomb,폭탄,Default,Lane,1,0,0,0,0,Attack,0,0,0,300
+,,,,,,,,,,,,,,
