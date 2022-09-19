@@ -106,6 +106,8 @@ public class TowerButtonGenerate : MonoBehaviour
             SelectedTower = null;
         }
 
+        UIManager.instance?.UIClear();
+
         SelectedTowerName = TName;
 
         StartCoroutine(IE_FallowingMouse(TName));
@@ -264,6 +266,9 @@ public class TowerButtonGenerate : MonoBehaviour
             t.belowTile = tile;
 
             SelectedTower.transform.localScale = new Vector3(0.2f * TowerSize, 0.2f * TowerSize, 0.2f * TowerSize);
+
+            // 타워 사거리 표시 안하기
+            t.IsSelected(false);
 
             // 타워의 사이즈가 매개변수로 들어가야 함
             tile.SetObjectOnTile(SelectedTower.gameObject, TowerSize);

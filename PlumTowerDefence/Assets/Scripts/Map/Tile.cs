@@ -116,25 +116,30 @@ public class Tile : MonoBehaviour
 
     public bool CheckObjectOnTileWithSize(int size = 1)
     {
+        /*
         if (size == 1)
         {
             return CheckBuildAvailableTile();
         }
-
-        if (CheckAroundTile(Map.Instance._Direction[EDirection.R]) == false) return false;
-        if (CheckAroundTile(Map.Instance._Direction[EDirection.D]) == false) return false;
-        if (CheckAroundTile(Map.Instance._Direction[EDirection.DR]) == false) return false;
-
-        if (size == 3)
+        */
+        if (size > 1)
         {
-            if (CheckAroundTile(Map.Instance._Direction[EDirection.UL]) == false) return false;
-            if (CheckAroundTile(Map.Instance._Direction[EDirection.U]) == false) return false;
-            if (CheckAroundTile(Map.Instance._Direction[EDirection.UR]) == false) return false;
-            if (CheckAroundTile(Map.Instance._Direction[EDirection.L]) == false) return false;
-            if (CheckAroundTile(Map.Instance._Direction[EDirection.DL]) == false) return false;
-        }
+            if (CheckAroundTile(Map.Instance._Direction[EDirection.R]) == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[EDirection.D]) == false) return false;
+            if (CheckAroundTile(Map.Instance._Direction[EDirection.DR]) == false) return false;
 
-        return true;
+            if (size == 3)
+            {
+                if (CheckAroundTile(Map.Instance._Direction[EDirection.UL]) == false) return false;
+                if (CheckAroundTile(Map.Instance._Direction[EDirection.U]) == false) return false;
+                if (CheckAroundTile(Map.Instance._Direction[EDirection.UR]) == false) return false;
+                if (CheckAroundTile(Map.Instance._Direction[EDirection.L]) == false) return false;
+                if (CheckAroundTile(Map.Instance._Direction[EDirection.DL]) == false) return false;
+            }
+        }
+        
+        // 사이즈가 1보다 클 때도 마우스가 올라가 있는 타일을 검사해야 함
+        return CheckBuildAvailableTile();
     }
 
     #endregion

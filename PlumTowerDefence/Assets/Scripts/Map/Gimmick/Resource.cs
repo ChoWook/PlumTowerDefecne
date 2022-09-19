@@ -174,6 +174,8 @@ public class Resource : MonoBehaviour, IPointerClickHandler
             text.AddText(string.Format(Tables.StringUI.Get("Treasure_Money")._Korean, MiningMoney));
 
         }
+
+        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
     }
 
 

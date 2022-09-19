@@ -29,6 +29,8 @@ public class UpdateGroundTowerUI : MonoBehaviour
                     if(tower.TowerName.CompareTo(_tower.TowerName)==0)
                     {
                         selectedTower.Add(tower);
+
+                        tower.IsSelected(true);
                     }
                 }
             }
@@ -55,5 +57,13 @@ public class UpdateGroundTowerUI : MonoBehaviour
         }
 
         GameManager.instance.isSettingTarget = 0;
+    }
+
+    public void ClearTowers()
+    {
+        foreach (var tower in selectedTower)
+        {
+            tower.IsSelected(false);
+        }
     }
 }
