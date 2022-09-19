@@ -574,18 +574,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7927591081521931657}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &422988984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 422988982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99a71d68ed52cdf42a4838f0979f6360, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &426856295
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,6 +708,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99a71d68ed52cdf42a4838f0979f6360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &441724765 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 441724766, guid: 097427cfd674c3d48ae8c8a69c61dee1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4000135243778620600}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195296397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3272096960f7e441be03c5a89a16156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &505293889
@@ -1844,9 +1844,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0832acccb93e342a9a388a1102bf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TowerUI: {fileID: 195296397}
-  GroundTowerUI: {fileID: 861025705}
-  AllTowerUI: {fileID: 77859495}
+  TowerUI: {fileID: 441724765}
+  GroundTowerUI: {fileID: 861025710}
+  AllTowerUI: {fileID: 77859497}
   ObstacleUI: {fileID: 422988982}
   MiningUI: {fileID: 164082302}
   LaneBuffUI: {fileID: 5003274544640469168}

@@ -29,6 +29,9 @@ public class UpdateTowerUI : MonoBehaviour
     public void SetTower(Tower tower)
     {
         _tower = tower;
+
+        _tower.IsSelected(true);
+
         UpdateTowerInfo();
     }
 
@@ -66,5 +69,10 @@ public class UpdateTowerUI : MonoBehaviour
         _tower.SetTarget(obj);
         
         GameManager.instance.isSettingTarget = 0;
+    }
+
+    public void ClearTower()
+    {
+        _tower?.IsSelected(false);
     }
 }
