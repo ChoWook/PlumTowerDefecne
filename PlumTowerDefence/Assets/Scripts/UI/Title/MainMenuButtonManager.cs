@@ -26,11 +26,11 @@ public class MainMenuButtonManager : MonoBehaviour
     {
         JsonManager.instance.usingList = JsonManager.instance.SaveData.upgradedCard.ToList();
         
-        ResetGameSystem();
+        GameManager.instance.CallBackClear();
+        
+        GameManager.instance.InitGame();
         
         SelectApplicationUpgrade();
-        
-        GameManager.instance.CallBackClear();
         
         MoveScene.MoveDefenceScene();
         Debug.Log("게임시작");
@@ -40,15 +40,6 @@ public class MainMenuButtonManager : MonoBehaviour
     {
         _panel.transform.DOLocalMoveX(-1920, 1).SetEase(Ease);
         Debug.Log("강화");
-    }
-
-    public void OnClickOption()    //환경설정 버튼을 눌렀을 때 호출 할 함수
-    {
-        GameObject obj = ObjectPools.Instance.GetPooledObject("Option");
-        obj.transform.SetParent(transform.parent);
-        obj.transform.localScale = new Vector3(1f, 1f, 1f);
-        obj.transform.position = new Vector3(0, 0, 0);
-        Debug.Log("설정");
     }
 
     public void OnClickGameEnd()   //게임종료 버튼을 눌렀을 때 호출 할 함수
@@ -66,19 +57,6 @@ public class MainMenuButtonManager : MonoBehaviour
         {
             ButtonText[i].GetComponent<TextMeshProUGUI>().text = Tables.StringUI.Get(i+2)._Korean;
         }
-    }
-
-    private void ResetGameSystem()
-    {
-        GameManager.instance.level = 0;
-        GameManager.instance.money = Tables.GlobalSystem.Get("User_Money")._Value;
-        GameManager.instance.xp = 0;
-        GameManager.instance.maxHp = Tables.GlobalSystem.Get("User_Hp")._Value;
-        GameManager.instance.isPausing = false;
-        GameManager.instance.isClickedTower = false;
-        GameManager.instance.isPlayingGame = false;
-        GameManager.instance.isSettingTarget = 0;
-        GameManager.instance.number_Of_Upgrade = Tables.GlobalSystem.Get("Number_Of_Upgrade")._Value;
     }
 
     private void SelectApplicationUpgrade()
