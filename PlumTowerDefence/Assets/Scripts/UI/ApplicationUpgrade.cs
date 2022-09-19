@@ -17,7 +17,7 @@ public class ApplicationUpgrade : MonoBehaviour
     {
         if (id / 100 == 301)    //HP증가
         {
-            GameManager.instance.maxHp += (int)Tables.UpgradePassiveStat.Get(id)._Increase_Passive_Value;
+            GameManager.instance.maxHp += 5;
         }
 
         if (id / 100 == 302)    //증강체 갯수 증가
@@ -31,6 +31,14 @@ public class ApplicationUpgrade : MonoBehaviour
         }
 
         if (id / 100 == 304)    //타워 출현 확률 증가
+        {
+            
+        }
+    }
+
+    public void ApplicationInGameUpgrade(int id)
+    {
+        switch (id)
         {
             
         }

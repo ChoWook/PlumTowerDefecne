@@ -26,11 +26,11 @@ public class MainMenuButtonManager : MonoBehaviour
     {
         JsonManager.instance.usingList = JsonManager.instance.SaveData.upgradedCard.ToList();
         
+        GameManager.instance.CallBackClear();
+        
         ResetGameSystem();
         
         SelectApplicationUpgrade();
-        
-        GameManager.instance.CallBackClear();
         
         MoveScene.MoveDefenceScene();
         Debug.Log("게임시작");
@@ -40,15 +40,6 @@ public class MainMenuButtonManager : MonoBehaviour
     {
         _panel.transform.DOLocalMoveX(-1920, 1).SetEase(Ease);
         Debug.Log("강화");
-    }
-
-    public void OnClickOption()    //환경설정 버튼을 눌렀을 때 호출 할 함수
-    {
-        GameObject obj = ObjectPools.Instance.GetPooledObject("Option");
-        obj.transform.SetParent(transform.parent);
-        obj.transform.localScale = new Vector3(1f, 1f, 1f);
-        obj.transform.position = new Vector3(0, 0, 0);
-        Debug.Log("설정");
     }
 
     public void OnClickGameEnd()   //게임종료 버튼을 눌렀을 때 호출 할 함수
