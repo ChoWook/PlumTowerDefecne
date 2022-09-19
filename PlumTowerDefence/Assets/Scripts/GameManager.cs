@@ -320,7 +320,10 @@ public class GameManager : MonoBehaviour
         isClickedTower = false;
         isPlayingGame = false;
         isSettingTarget = 0;
-        
+
         InitCoupon();
     }
+
+
+
 }

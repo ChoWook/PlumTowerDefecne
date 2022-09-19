@@ -275,6 +275,21 @@ public class TowerButtonGenerate : MonoBehaviour
 
             SelectedTower = null;
         }
+
+        // 오른쪽 마우스 클릭 시 타워 설치 취소
+        if (Input.GetMouseButtonUp(1))
+        {
+            if(SelectedTower == null)
+            {
+                return;
+            }
+
+            Map.Instance.HideAllGridLine();
+
+            StopAllCoroutines();
+
+            ObjectPools.Instance.ReleaseObjectToPool(SelectedTower);
+        }
     }
 
     public void ChangeSelectedTowerMaterial(bool Available)
