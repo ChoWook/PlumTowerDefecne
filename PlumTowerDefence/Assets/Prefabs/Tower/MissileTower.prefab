@@ -391,7 +391,7 @@ MonoBehaviour:
   TowerID: 0
   Range: 0
   RealRange: 0
-  TowerName: 0
+  TowerName: 8
   Size: 0
   RealSize: 0
   BaseAttackStat: 0

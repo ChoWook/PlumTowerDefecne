@@ -7,6 +7,6 @@ public class ArrowTower : Tower
 
     private void Awake()
     {
-        Setstat(ETowerName.Arrow);  
+        Setstat(ETowerName.Arrow);
     }
 }

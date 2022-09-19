@@ -9,9 +9,10 @@ public class ElectricTower : Tower
         Setstat(ETowerName.Electric);
     }
 
-
+    /*
     public override void Shoot()
     {
         // bulletprefab 정하면 생성
-    }
+
+    }*/
 }
