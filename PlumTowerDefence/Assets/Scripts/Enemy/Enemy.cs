@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
     public bool[] IsBuffed;
     public bool IsSlowed = false;
     public bool IsPoisoned = false;
-
+    private int dividedEnemyNum = 0;
 
     private int[] currentLevel = new int[8];
     float[] ElementArr = new float[5];
@@ -38,7 +38,8 @@ public class Enemy : MonoBehaviour
     public EPropertyType propertyType;
     public ELaneBuffType currentBuffType;
 
-    Animator animator;  
+    Animator animator;
+    float SlowedAbilty;
 
     private void Awake()
     {
@@ -46,6 +47,8 @@ public class Enemy : MonoBehaviour
         {
             currentLevel[i] = 1;
         }
+        IsSlowed = false;
+        IsPoisoned = false;
     }
     private void OnEnable()
     {
@@ -54,7 +57,11 @@ public class Enemy : MonoBehaviour
         {
             IsBuffed[i] = false;
         }
-
+        IsBoss = false;
+        IsSubBoss = false;
+        IsAlive = true;
+        GetComponent<BaseAniContoller>().Isrevived = false;
+        GetComponent<BaseAniContoller>().Isdivided = false;
     }
 
     public void GetStat()
@@ -100,22 +107,34 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator IE_Resurrection()
     {
+        IsAlive = false;
+        float currentSpeed = Speed;
         SetStat();
         transform.tag = "Untagged";
-        GetComponent<EnemyMovement>().MoveSpeed *= 0.2f;
+        Speed = 0;
         StartCoroutine(IE_PlayDeadAnimation());
         if(propertyType == EPropertyType.Resurrected)
         {
+            GetComponent<BaseAniContoller>().Isrevived = true;
             yield return new WaitForSeconds(1f);
+            transform.tag = "Enemy";
+            //GetComponent<EnemyMovement>().MoveSpeed = Speed;
+            IsAlive = true;
+            GetComponent<BaseAniContoller>().InitAnimation();
+            Speed = currentSpeed;
         }
         else if(propertyType == EPropertyType.Divided)
         {
             yield return null;
-        }
-        GetComponent<EnemyMovement>().MoveSpeed *= 5f;
+            GetComponent<BaseAniContoller>().Isdivided = true;
+            IsAlive = true;
+            transform.tag = "Enemy";
+            //GetComponent<EnemyMovement>().MoveSpeed = Speed;
 
-        GetComponent<BaseAniContoller>().InitAnimation();
-        transform.tag = "Enemy";
+            GetComponent<BaseAniContoller>().InitAnimation();
+            Speed = currentSpeed;
+        }
+
 
     }
     void Resurrect()
@@ -236,7 +255,8 @@ public class Enemy : MonoBehaviour
 
         if (CurrentHP <= 0)
         {
-           if(propertyType == EPropertyType.Resurrect)
+
+            if (propertyType == EPropertyType.Resurrect)
             {
                 Resurrect(); 
             }
@@ -246,40 +266,69 @@ public class Enemy : MonoBehaviour
                                 
                 MaxHP *= 0.3f;
                 MaxShield *= 0.2f;
-                SetStat();
 
-                var enemy = ObjectPools.Instance.GetPooledObject(monsterType.ToString());
-                var emove = enemy.GetComponent<EnemyMovement>();
-                emove.Route = gameObject.GetComponent<EnemyMovement>().Route;
-                emove.WaypointIndex = gameObject.GetComponent<EnemyMovement>().WaypointIndex;
-                enemy.transform.position = gameObject.transform.position;
-                var getComponent = enemy.GetComponent<Enemy>();
-                getComponent.monsterType = monsterType;
-                getComponent.hasSpecial = true;
-                getComponent.InitStat();
-                enemy.GetComponent<BaseAniContoller>().InitAnimation();
-                emove.InitSpeed(monsterType);
-                getComponent.propertyType = EPropertyType.Divided;
-                getComponent.MaxHP = MaxHP;
-                getComponent.MaxShield = MaxShield;
-                getComponent.SetStat();
-
-                GameManager.instance.currentEnemyNumber++;
-
-                float currentSize = enemy.transform.localScale.x;
-                scaleChange = new Vector3(currentSize, currentSize, currentSize);
-                transform.localScale = scaleChange;
-
-                GetComponent<EnemyMovement>().MoveSpeed *= 0.9f;
-
+                SpawnDivided();
             }
            else
             {
-                KillEnemy();
-                IncreaseMoney();
+                if(IsAlive == true)
+                {
+                    KillEnemy();
+                    IncreaseMoney();
+                }
             }
 
         }
+    }
+    void KillEnemy()
+    {
+        transform.tag = "Untagged";
+        if(IsAlive == true)
+        {
+            IsAlive = false;
+            GameManager.instance.currentEnemyNumber--;
+
+        }
+
+        //GetComponent<EnemyMovement>().MoveSpeed = 0;
+        Debug.Log("Killed Enemy" + "Current Enemy Num: " + GameManager.instance.currentEnemyNumber);
+        StartCoroutine(IE_PlayDeadAnimation());
+    }
+
+    public void SpawnDivided()
+    {
+        var enemy = ObjectPools.Instance.GetPooledObject(monsterType.ToString());
+        var emove = enemy.GetComponent<EnemyMovement>();
+        emove.Route = gameObject.GetComponent<EnemyMovement>().Route;
+        emove.WaypointIndex = gameObject.GetComponent<EnemyMovement>().WaypointIndex;
+        enemy.transform.position = gameObject.transform.position;
+        var getComponent = enemy.GetComponent<Enemy>();
+        getComponent.monsterType = monsterType;
+        getComponent.hasSpecial = true;
+        getComponent.IsSubBoss = true;
+        getComponent.GetStat();
+        getComponent.InitSize();
+        getComponent.EnemyLevelUp();
+        getComponent.transform.tag = "Enemy";
+        getComponent.IsAlive = true;
+        getComponent.CurrentElement = CurrentElement;
+        enemy.GetComponent<BaseAniContoller>().InitAnimation();
+        emove.InitSpeed(monsterType);
+        getComponent.propertyType = EPropertyType.Divided;
+        getComponent.MaxHP = MaxHP;
+        getComponent.MaxShield = MaxShield;
+        getComponent.SetStat();
+
+        GameManager.instance.currentEnemyNumber++;
+
+        float currentSize = enemy.transform.localScale.x;
+        scaleChange = new Vector3(currentSize, currentSize, currentSize);
+        transform.localScale = scaleChange;
+
+        GetComponent<EnemyMovement>().MoveSpeed *= 0.9f;
+        dividedEnemyNum++;
+        Debug.Log("Divided Enemy Spawned: " + dividedEnemyNum);
+        Debug.Log("Current Enemy Number" + GameManager.instance.currentEnemyNumber);
     }
 
     public void IncreaseMoney()
@@ -292,9 +341,11 @@ public class Enemy : MonoBehaviour
 
     public void SlowEnemy(float abilty)
     {
+        SlowedAbilty = abilty;
         if(IsSlowed == false)
         {
-            GetComponent<EnemyMovement>().MoveSpeed *= abilty;
+            //GetComponent<EnemyMovement>().MoveSpeed *= abilty;
+            Speed *= abilty;
             IsSlowed = true;
             StartCoroutine(IE_SlowTime());
         }
@@ -510,8 +561,8 @@ public class Enemy : MonoBehaviour
         float slowtime = 5f;
         yield return new WaitForSeconds(slowtime);              // 시간초기화 구현 x
         IsSlowed = false;
-        GetComponent<EnemyMovement>().MoveSpeed = Speed;
-
+        //GetComponent<EnemyMovement>().MoveSpeed = Speed;
+        Speed /= SlowedAbilty;
     }
 
     IEnumerator IE_PoisonDamage(float poisonDamage)
@@ -524,18 +575,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    void KillEnemy()
-    {
-        transform.tag = "Untagged";
-        if(IsAlive == true)
-        {
-            IsAlive = false;
-            GameManager.instance.currentEnemyNumber--;
-        }
-        GetComponent<EnemyMovement>().MoveSpeed = 0;
-        //Debug.Log("Killed Enemy");
-        StartCoroutine(IE_PlayDeadAnimation());                                         
-    }
+   
 
     public void AddSpeciality()
     {
@@ -658,10 +698,10 @@ public class Enemy : MonoBehaviour
     {
         int waveNum = GameManager.instance.level;
 
-        if(waveNum <= 6)
+        /*if(waveNum <= 6)
         {
             return;
-        }
+        }*/
         if (IsBoss == true)
         {
             propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
@@ -758,11 +798,11 @@ public class Enemy : MonoBehaviour
         {
             AddBossStat();
             AddProperty();
-        } 
-
-        SetStat();
+        }
         transform.tag = "Enemy";
         IsAlive = true;
+        SetStat();
+       
     }
 
     int Choose(float[] probs)

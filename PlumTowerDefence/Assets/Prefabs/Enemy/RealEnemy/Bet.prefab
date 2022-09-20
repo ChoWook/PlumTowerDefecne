@@ -76,6 +76,8 @@ MonoBehaviour:
   IsBoss: 0
   IsSubBoss: 0
   IsBuffed: 
+  IsSlowed: 0
+  IsPoisoned: 0
   monsterType: 0
   propertyType: 0
   currentBuffType: 0
@@ -313,6 +315,16 @@ PrefabInstance:
     - target: {fileID: 4563498795433456, guid: 097e2e1b5ebde3a428045b245e0812bd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199571785539121912, guid: 097e2e1b5ebde3a428045b245e0812bd,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199817019408383636, guid: 097e2e1b5ebde3a428045b245e0812bd,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 097e2e1b5ebde3a428045b245e0812bd, type: 3}

@@ -61,6 +61,24 @@ public class FishAniController : BaseAniContoller
         }
         deadEffect1.SetActive(false);
 
+        if(Isrevived == true)
+        {
+            if(animator != null)
+            {
+                animator.SetTrigger("ReviveTrigger");
+
+            }
+            else
+            {
+                Debug.Log("Null");
+
+            }
+        }
+        if(Isdivided == true)
+        {
+            animator.SetTrigger("DividedTrigger");
+
+        }
     }
 
 
@@ -89,12 +107,10 @@ public class FishAniController : BaseAniContoller
         if (animator != null)
         {
             animator.SetTrigger("DeadTrigger");
-            GetComponent<EnemyMovement>().MoveSpeed = 0;
             deadEffect1.SetActive(true);
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-            ObjectPools.Instance.ReleaseObjectToPool(gameObject);
         }
         else
             Debug.Log("Null");
     }
-}
+} 

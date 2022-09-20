@@ -7,4 +7,7 @@ public abstract class BaseAniContoller : MonoBehaviour
     public abstract void DeadAnimation();
 
     public abstract void InitAnimation();
+
+    public bool Isrevived;
+    public bool Isdivided;
 }
