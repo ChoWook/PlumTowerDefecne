@@ -64,6 +64,8 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
 
         CloseCap.rotation = CloseRotation;
+
+        TreasureOpening = false;
     }
 
     void GetReward()
