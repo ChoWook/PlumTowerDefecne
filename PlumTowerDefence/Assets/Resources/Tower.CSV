@@ -12,4 +12,4 @@ int,TowerName,string,AttackSpecialization,TowerType,int,float,float,float,float,
 10,Gatling,개틀링건타워,Health,AttackProjectile,2,15,8,300,0,Attack,5,100,4,300
 11,Cannon,대포타워,Shield,AttackProjectile,2,150,1,150,0,Speed,0.2,150,5,400
 12,Wall,벽,Default,Lane,1,0,0,0,1000,Attack,0,0,0,600
-13,Bomb,폭탄,Default,Lane,1,0,0,0,300,Attack,0,0,0,300
+13,Bomb,폭탄,Default,Lane,1,300,0,0,0,Attack,0,0,0,300
