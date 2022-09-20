@@ -116,8 +116,7 @@ public class EnemySpawner : MonoBehaviour
                 bossEnemy = true;
             }
 
-            bossEnemy = true;
-            subbossEnemy = false;
+       
             int randEnemy = Choose(EnemyArr);
             int id = Tables.MonsterAmount.Get(WaveNumber)._Monster[randEnemy]._ID;
             SpawnEnemy(Tables.Monster.Get(id)._Type);

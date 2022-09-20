@@ -291,7 +291,7 @@ public class Enemy : MonoBehaviour
         }
 
         //GetComponent<EnemyMovement>().MoveSpeed = 0;
-        Debug.Log("Killed Enemy" + "Current Enemy Num: " + GameManager.instance.currentEnemyNumber);
+        //Debug.Log("Killed Enemy" + "Current Enemy Num: " + GameManager.instance.currentEnemyNumber);
         StartCoroutine(IE_PlayDeadAnimation());
     }
 
@@ -327,8 +327,8 @@ public class Enemy : MonoBehaviour
 
         GetComponent<EnemyMovement>().MoveSpeed *= 0.9f;
         dividedEnemyNum++;
-        Debug.Log("Divided Enemy Spawned: " + dividedEnemyNum);
-        Debug.Log("Current Enemy Number" + GameManager.instance.currentEnemyNumber);
+        //Debug.Log("Divided Enemy Spawned: " + dividedEnemyNum);
+        //Debug.Log("Current Enemy Number" + GameManager.instance.currentEnemyNumber);
     }
 
     public void IncreaseMoney()
@@ -792,7 +792,7 @@ public class Enemy : MonoBehaviour
         if(hasSpecial == true)
         {
             AddSpeciality();
-            Debug.Log("SpecialMonsterSpawned");
+            //Debug.Log("SpecialMonsterSpawned");
         }
         if(IsSubBoss == true || IsBoss == true)
         {
