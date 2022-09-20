@@ -186,7 +186,7 @@ public class Tower : MonoBehaviour
     }
 
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         //스탯 초기화
         AttackBuffAmount = 0f;
@@ -392,6 +392,7 @@ public class Tower : MonoBehaviour
         SpeedBuffAmount += _BuffAmount;
     }
 
+    // 사라졌을 때 buff amount 감소 함수 추가
 
     // 상호작용 함수
 
@@ -423,7 +424,7 @@ public class Tower : MonoBehaviour
 
         //돈 40 잃기
 
-        GameManager.instance.money -= 40;
+        GameManager.instance.money -= UpgradePrice;
 
         UpgradeCount++;
 
