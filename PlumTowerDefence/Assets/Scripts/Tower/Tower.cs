@@ -186,7 +186,7 @@ public class Tower : MonoBehaviour
     }
 
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         //스탯 초기화
         AttackBuffAmount = 0f;
@@ -198,15 +198,8 @@ public class Tower : MonoBehaviour
 
         RealSize = Size * GameManager.instance.unitTileSize;
 
-        Debug.Log("RealRange : " + RealRange);
-        Debug.Log("RealSize : " + RealSize);
 
         // 사거리, 타워 사이즈 설정하기 <- 안 되나!
-
-        //MarkRangePrefab.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
-        //MarkSizePrefab.transform.localScale = new Vector3(RealSize, 0.05f, RealSize);
-
-
 
 
         /*
@@ -253,6 +246,7 @@ public class Tower : MonoBehaviour
 
             foreach (GameObject enemy in enemies)
             {
+
                 float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // 적과의 거리 구하기
 
 
@@ -299,10 +293,6 @@ public class Tower : MonoBehaviour
         {
             return;
         }
-        
-
-
-
 
         if (PartToRotate != null)
         {
@@ -379,7 +369,10 @@ public class Tower : MonoBehaviour
             GameObject bulletGO = ObjectPools.Instance.GetPooledObject(BulletPrefab.name);
             bulletGO.transform.position = FirePoint.position;
 
-            bulletGO.GetComponent<Bullet>()?.Seek(Target, ProjectileSpeed, AttackStat, AttackSpecialization);
+            Bullet b = bulletGO.GetComponent<Bullet>();
+
+            b?.SetTower(this);
+            b?.Seek(Target, ProjectileSpeed, AttackStat, AttackSpecialization);
         }
 
     }
@@ -399,6 +392,7 @@ public class Tower : MonoBehaviour
         SpeedBuffAmount += _BuffAmount;
     }
 
+    // 사라졌을 때 buff amount 감소 함수 추가
 
     // 상호작용 함수
 
@@ -430,7 +424,7 @@ public class Tower : MonoBehaviour
 
         //돈 40 잃기
 
-        GameManager.instance.money -= 40;
+        GameManager.instance.money -= UpgradePrice;
 
         UpgradeCount++;
 

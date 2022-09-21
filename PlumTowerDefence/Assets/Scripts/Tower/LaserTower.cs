@@ -24,9 +24,12 @@ public class LaserTower : Tower
         if (Target == null)
         {
             return;
-
         }
         else if (Target.GetComponent<Enemy>().IsAlive == false)
+        {
+            return;
+        }
+        else if (IsCoolTime)
         {
             return;
         }
@@ -38,6 +41,7 @@ public class LaserTower : Tower
 
     public override void Shoot()
     {
+
         IsCoolTime = true;
        
         if (BulletPrefab != null && Target != null)
@@ -45,7 +49,11 @@ public class LaserTower : Tower
             GameObject bulletGO = ObjectPools.Instance.GetPooledObject(BulletPrefab.name);
             bulletGO.transform.position = Target.transform.position;
 
-            bulletGO.GetComponent<Bullet>()?.Seek(Target, ProjectileSpeed, AttackStat, AttackSpecialization);
+            Bullet b = bulletGO.GetComponent<Bullet>();
+
+            b?.SetTower(this);
+            b?.Seek(Target, ProjectileSpeed, AttackStat, AttackSpecialization);
+      
 
             StopCoroutine(IE_GetTargets());
         }
@@ -53,9 +61,11 @@ public class LaserTower : Tower
 
     public IEnumerator IE_CoolTime()
     {
-        WaitForSeconds cooltime = new WaitForSeconds(SpeedStat);
+        WaitForSeconds cooltime = new WaitForSeconds(1f/SpeedStat);
 
         yield return cooltime;
+        IsCoolTime=false;
+
         StartCoroutine(IE_GetTargets());
     }
 

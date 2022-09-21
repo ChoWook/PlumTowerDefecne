@@ -48,6 +48,7 @@ public class EnemySpawner : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1)){
             WaveNumber++;
         }
+
     }
     
     private bool isStaticInit()
@@ -76,6 +77,7 @@ public class EnemySpawner : MonoBehaviour
 
 
         EnemyNumber = Tables.MonsterAmount.Get(WaveNumber)._TotalAmount;
+        Debug.Log("Total Enemy Number: " + EnemyNumber);
         GameManager.instance.currentEnemyNumber = EnemyNumber;
         EnemyTypeNum = Tables.MonsterAmount.Get(WaveNumber)._Monster.Count;
         EnemyArr = new float[EnemyTypeNum];
@@ -114,6 +116,7 @@ public class EnemySpawner : MonoBehaviour
                 bossEnemy = true;
             }
 
+       
             int randEnemy = Choose(EnemyArr);
             int id = Tables.MonsterAmount.Get(WaveNumber)._Monster[randEnemy]._ID;
             SpawnEnemy(Tables.Monster.Get(id)._Type);

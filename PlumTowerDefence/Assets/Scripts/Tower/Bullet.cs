@@ -29,23 +29,26 @@ public class Bullet : MonoBehaviour
 
     public float LaserLength;
 
-    public Transform LaserDestination;
+    public Vector3 LaserDestination = new Vector3();
 
 
-    private void OnEnable()
+
+    public void SetTower(Tower tower)
     {
-        if (tower == null) return;
+        this.tower = tower;
 
         MissileRange = tower.AbilityStat * GameManager.instance.unitTileSize;
         ElectricRange = ElecRangeStat * GameManager.instance.unitTileSize;              // 타일 2개
         LaserLength = tower.AbilityStat * GameManager.instance.unitTileSize;            // 레이저 길이
-        
+
+
         if (tower.TowerName == ETowerName.Laser)
         {
+
             // 불릿 크기 지정
             Transform parent = transform.parent;
             transform.parent = null;
-            transform.localScale = new Vector3(GameManager.instance.unitTileSize, 0.2f, GameManager.instance.unitTileSize); // 높이 추후 수정
+            transform.localScale = new Vector3(GameManager.instance.unitTileSize, 1, GameManager.instance.unitTileSize); // 높이 추후 수정
             transform.parent = parent;
 
             Lt = tower.GetComponent<LaserTower>();
@@ -59,13 +62,16 @@ public class Bullet : MonoBehaviour
         Speed = _Speed;
         Damage = _Damage;
         AttackSpecialization = _AttackSpecialization;
+
+        LaserTarget();
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(tower.TowerName == ETowerName.Laser)
         {
-            other.gameObject.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage 전달
+            other.gameObject.GetComponentInParent<Enemy>()?.TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage 전달
         }
         
     }
@@ -80,15 +86,7 @@ public class Bullet : MonoBehaviour
             DestroyBullet();
             return;
         }
-
-        if (target.activeSelf == false)
-        {
-            target = null;
-            DestroyBullet();
-            return;
-        }
-
-
+        
         float distanceThisFrame = Speed * Time.deltaTime;
 
         if (tower.TowerName == ETowerName.Laser)
@@ -97,14 +95,15 @@ public class Bullet : MonoBehaviour
             // 타겟 위치에서 생성(타워에서 관리)
             // 벡터 y축 고정하고 해당 방향으로 ability만큼 움직임(폭은 1타일크기만큼 변경해주기)
 
-            LaserTarget();
+            transform.position = Vector3.MoveTowards(transform.position, LaserDestination , distanceThisFrame); // 이게 아니다!!!!
 
-            transform.position = Vector3.Lerp(transform.position, LaserDestination.position, distanceThisFrame); // 이게 아니다!!!!
 
-            if(transform.position == LaserDestination.position) // 더 좋은 방법?
+
+            if(Vector3.Distance(transform.position, LaserDestination) <= 0.01f) // 더 좋은 방법?
             {
-                Debug.Log("Arrive");
+
                 DestroyBullet();
+       
                 Lt.StartCoroutine(Lt.IE_CoolTime());
             }
             
@@ -113,6 +112,14 @@ public class Bullet : MonoBehaviour
         }
         else
         {
+            if (target.activeSelf == false)
+            {
+                target = null;
+                DestroyBullet();
+                return;
+            }
+
+
             Vector3 dir = target.transform.position - transform.position;
             transform.LookAt(target.transform);
 
@@ -130,13 +137,13 @@ public class Bullet : MonoBehaviour
     {
         Transform temp = target.transform;
 
-        Vector3 dir = temp.position - tower.transform.position;
+        Vector3 dir = - temp.forward;
 
         dir.y = 0f; // y축 고정
 
         dir = dir.normalized * LaserLength;
 
-        LaserDestination.position = temp.position + dir;
+        LaserDestination = temp.position + dir ;
     }
 
 
@@ -156,17 +163,19 @@ public class Bullet : MonoBehaviour
 
         if (tower != null)
         {
+           
             switch (tower.TowerName)
             {
                 case ETowerName.Missile:
                     {
+ 
+
                         GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
                         for (int i = 0; i < Enemies.Length; i++)
                         {
                             float distanceToEnemy = Vector3.Distance(target.transform.position, Enemies[i].transform.position); // 적과의 거리 구하기
 
-                            // Debug.Log("DistanceEnemy" + distanceToEnemy);
 
                             if (distanceToEnemy <= MissileRange) // 사거리 안에 있는 타겟들
                             {
@@ -228,7 +237,6 @@ public class Bullet : MonoBehaviour
                         break;
 
                     }
-
 
             }
 

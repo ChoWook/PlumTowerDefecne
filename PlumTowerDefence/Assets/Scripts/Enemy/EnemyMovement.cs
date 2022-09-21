@@ -52,6 +52,14 @@ public class EnemyMovement : MonoBehaviour
         {
             GetNextWayPoint();
         }
+        if(GetComponent<Enemy>().IsAlive == false)
+        {
+            MoveSpeed = 0;
+        }
+        else
+        {
+            MoveSpeed = GetComponent<Enemy>().Speed;
+        }
     }
 
     void GetNextWayPoint()
@@ -62,6 +70,7 @@ public class EnemyMovement : MonoBehaviour
             
             GameManager.instance.currentEnemyNumber--;
             GameManager.instance.currentHp--;
+            Debug.Log("Current Enemy Num: " + GameManager.instance.currentEnemyNumber);
             ObjectPools.Instance.ReleaseObjectToPool(gameObject);
             return;
         }

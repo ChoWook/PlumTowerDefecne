@@ -266,7 +266,7 @@ public class GameManager : MonoBehaviour
     {
         _TowerCoupon = new Dictionary<ETowerName, int>();
         // TODO 타워 ENUM 생기면 바꿔야 함
-        for (ETowerName name = ETowerName.Arrow; name <= ETowerName.Cannon; name++)
+        for (ETowerName name = ETowerName.Arrow; name <= ETowerName.Bomb; name++)
         {
             _TowerCoupon.Add(name, 0);
         }
@@ -320,7 +320,10 @@ public class GameManager : MonoBehaviour
         isClickedTower = false;
         isPlayingGame = false;
         isSettingTarget = 0;
-        
+
         InitCoupon();
     }
+
+
+
 }

@@ -87,6 +87,7 @@ public class InGameButtonManager : MonoBehaviour
             GameManager.instance.level++;
             expandButton.SetActive(false);
             startButton.SetActive(true);
+
         }
         else
         {

@@ -29,6 +29,8 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
 
     private static bool CameraLoad = false;
 
+    bool TreasureOpening = false;
+
     private void Awake()
     {
         if (!CameraLoad)
@@ -41,7 +43,12 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        StartCoroutine(IE_CapOpenAnimation());
+        if(TreasureOpening == false)
+        {
+            TreasureOpening = true;
+
+            StartCoroutine(IE_CapOpenAnimation());
+        }
     }
 
     IEnumerator IE_CapOpenAnimation()
@@ -57,6 +64,8 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
 
         CloseCap.rotation = CloseRotation;
+
+        TreasureOpening = false;
     }
 
     void GetReward()

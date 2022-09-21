@@ -92,7 +92,7 @@ public class Tile : MonoBehaviour
         return null;
     }
 
-    bool CheckBuildAvailableTile()
+    bool CheckBuildAvailableLand()
     {
         if (_TileType == ETileType.Land && (_ObjectOnTile == null || !_ObjectOnTile.activeSelf))
         {
@@ -102,7 +102,7 @@ public class Tile : MonoBehaviour
         return false;
     }
 
-    bool CheckAroundTile(Pos TilePos)
+    bool CheckAroundLand(Pos TilePos)
     {
         var tile = Map.Instance.GetTileInMap(_MapPos.SumPos(TilePos));
 
@@ -111,10 +111,10 @@ public class Tile : MonoBehaviour
             return false;
         }
 
-        return tile.CheckBuildAvailableTile();
+        return tile.CheckBuildAvailableLand();
     }
 
-    public bool CheckObjectOnTileWithSize(int size = 1)
+    public bool CheckObjectOnLandWithSize(int size = 1)
     {
         /*
         if (size == 1)
@@ -124,22 +124,32 @@ public class Tile : MonoBehaviour
         */
         if (size > 1)
         {
-            if (CheckAroundTile(Map.Instance._Direction[EDirection.R]) == false) return false;
-            if (CheckAroundTile(Map.Instance._Direction[EDirection.D]) == false) return false;
-            if (CheckAroundTile(Map.Instance._Direction[EDirection.DR]) == false) return false;
+            if (CheckAroundLand(Map.Instance._Direction[EDirection.R]) == false) return false;
+            if (CheckAroundLand(Map.Instance._Direction[EDirection.D]) == false) return false;
+            if (CheckAroundLand(Map.Instance._Direction[EDirection.DR]) == false) return false;
 
             if (size == 3)
             {
-                if (CheckAroundTile(Map.Instance._Direction[EDirection.UL]) == false) return false;
-                if (CheckAroundTile(Map.Instance._Direction[EDirection.U]) == false) return false;
-                if (CheckAroundTile(Map.Instance._Direction[EDirection.UR]) == false) return false;
-                if (CheckAroundTile(Map.Instance._Direction[EDirection.L]) == false) return false;
-                if (CheckAroundTile(Map.Instance._Direction[EDirection.DL]) == false) return false;
+                if (CheckAroundLand(Map.Instance._Direction[EDirection.UL]) == false) return false;
+                if (CheckAroundLand(Map.Instance._Direction[EDirection.U]) == false) return false;
+                if (CheckAroundLand(Map.Instance._Direction[EDirection.UR]) == false) return false;
+                if (CheckAroundLand(Map.Instance._Direction[EDirection.L]) == false) return false;
+                if (CheckAroundLand(Map.Instance._Direction[EDirection.DL]) == false) return false;
             }
         }
         
         // 사이즈가 1보다 클 때도 마우스가 올라가 있는 타일을 검사해야 함
-        return CheckBuildAvailableTile();
+        return CheckBuildAvailableLand();
+    }
+
+    public bool CheckObjectOnAttackRoute()
+    {
+        if (_TileType == ETileType.AttackRoute && (_ObjectOnTile == null || !_ObjectOnTile.activeSelf))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     #endregion

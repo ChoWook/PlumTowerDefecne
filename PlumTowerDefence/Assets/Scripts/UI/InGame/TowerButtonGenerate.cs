@@ -165,16 +165,16 @@ public class TowerButtonGenerate : MonoBehaviour
                     }
 
                     // 타워를 짓지 못하는 곳은 오브젝트가 빨간색으로 변해야 함
-                    //if(true)
-                    if (tile.CheckObjectOnTileWithSize(TowerSize))
+                    // 공격로에 설치하는 애들
+                    if(TName == ETowerName.Bomb || TName == ETowerName.Wall)
                     {
-                        ChangeSelectedTowerMaterial(true);
+                        ChangeSelectedTowerMaterial(tile.CheckObjectOnAttackRoute());
                     }
+                    // 평지에 설치하는 애들
                     else
                     {
-                        ChangeSelectedTowerMaterial(false);
+                        ChangeSelectedTowerMaterial(tile.CheckObjectOnLandWithSize(TowerSize));
                     }
-
                     break;
                 }
                 else if (hit.collider.CompareTag("Ground"))
@@ -210,11 +210,16 @@ public class TowerButtonGenerate : MonoBehaviour
                     tile = hit.collider.transform.parent.GetComponent<Tile>();
 
                     //if (tile.CheckTileType(ETileType.Land) && tile.GetObjectOnTile() == null)
-                    if(tile.CheckObjectOnTileWithSize(TowerSize))
+                    // 공격로에 설치하는 애들이면
+                    if (SelectedTowerName == ETowerName.Bomb || SelectedTowerName == ETowerName.Wall)
                     {
-                        IsAvailableTile = true;
+                        IsAvailableTile = tile.CheckObjectOnAttackRoute();
                     }
-
+                    // 평지에 설치하는 애들이면
+                    else
+                    {
+                        IsAvailableTile = tile.CheckObjectOnLandWithSize(TowerSize);
+                    }
                     break;
                 }
             }
@@ -274,6 +279,21 @@ public class TowerButtonGenerate : MonoBehaviour
             tile.SetObjectOnTile(SelectedTower.gameObject, TowerSize);
 
             SelectedTower = null;
+        }
+
+        // 오른쪽 마우스 클릭 시 타워 설치 취소
+        if (Input.GetMouseButtonUp(1))
+        {
+            if(SelectedTower == null)
+            {
+                return;
+            }
+
+            Map.Instance.HideAllGridLine();
+
+            StopAllCoroutines();
+
+            ObjectPools.Instance.ReleaseObjectToPool(SelectedTower);
         }
     }
 

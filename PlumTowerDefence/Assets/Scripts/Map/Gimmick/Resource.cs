@@ -150,7 +150,18 @@ public class Resource : MonoBehaviour, IPointerClickHandler
             PTransfrom.DORotate(new Vector3(0, PTransfrom.rotation.eulerAngles.y, MiningAngle), AnimationTime)
                 .SetEase(AnimationEase);
 
+            // 확장 단계에서는 자원 캐지지 말아야 함
+            while (!GameManager.instance.isPlayingGame)
+            {
+                yield return null;
+            }
+
             yield return ws;
+
+            while (!GameManager.instance.isPlayingGame)
+            {
+                yield return null;
+            }
         }
     }
 
@@ -160,8 +171,19 @@ public class Resource : MonoBehaviour, IPointerClickHandler
 
         for(int i = 0; i < MiningCnt; i++)
         {
+            // 확장 단계에서는 자원 캐지지 말아야 함
+            while (!GameManager.instance.isPlayingGame)
+            {
+                yield return null;
+            }
 
             yield return ws;
+
+            while (!GameManager.instance.isPlayingGame)
+            {
+                yield return null;
+            }
+
             GameManager.instance.money += MiningMoney;
 
             // 증가된 돈 표시

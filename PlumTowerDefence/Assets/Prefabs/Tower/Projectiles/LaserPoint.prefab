@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8113649965724761595}
   - component: {fileID: 5600793655372102755}
   - component: {fileID: 5674185492823904033}
+  - component: {fileID: 6538799392090452757}
   m_Layer: 0
   m_Name: LaserPoint
   m_TagString: Untagged
@@ -111,9 +112,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 8864796818647730966, guid: b1aab19e01ea8e1409b6af42ea97a2da, type: 3}
+  Lt: {fileID: 0}
   Speed: 0
   MissileRange: 0
   ElectricRange: 0
   ElecRangeStat: 2
   LaserLength: 0
-  LaserDestination: {fileID: 0}
+  LaserDestination: {x: 0, y: 0, z: 0}
+--- !u!54 &6538799392090452757
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7312892870205596190}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
