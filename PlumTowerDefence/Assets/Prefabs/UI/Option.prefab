@@ -297,7 +297,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5323261825160392979}
+        m_TargetAssemblyTypeName: Option, Assembly-CSharp
+        m_MethodName: OnShowMonterUIToggleValueChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &7432890430214007105
 GameObject:
@@ -310,7 +322,7 @@ GameObject:
   - component: {fileID: 7432890430214007104}
   - component: {fileID: 7432890430214007107}
   m_Layer: 5
-  m_Name: Music
+  m_Name: MusicSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -384,7 +396,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5323261825160392979}
+        m_TargetAssemblyTypeName: Option, Assembly-CSharp
+        m_MethodName: OnMusicSoundToggleValueChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &7432890430257058300
 GameObject:
@@ -686,7 +710,7 @@ GameObject:
   - component: {fileID: 7432890430425824101}
   - component: {fileID: 7432890430425824100}
   m_Layer: 5
-  m_Name: Sound
+  m_Name: EffectSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -760,7 +784,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5323261825160392979}
+        m_TargetAssemblyTypeName: Option, Assembly-CSharp
+        m_MethodName: OnEffectSoundToggleValueChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &7432890430479017690
 GameObject:
@@ -853,6 +889,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf2522a30f19f841ac8e441623fc0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowMonsterUIToggle: {fileID: 7432890430020184662}
+  MusicSoundToggle: {fileID: 7432890430214007107}
+  EffectSoundToggle: {fileID: 7432890430425824100}
 --- !u!1 &7432890430479181541
 GameObject:
   m_ObjectHideFlags: 0
