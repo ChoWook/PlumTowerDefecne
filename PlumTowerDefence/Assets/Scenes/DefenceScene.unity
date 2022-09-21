@@ -555,6 +555,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8009656701906018694, guid: 3128bf1e77786d84196e831f936fcbd3,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8262927545527133608, guid: 3128bf1e77786d84196e831f936fcbd3,
         type: 3}
       propertyPath: minHeight
