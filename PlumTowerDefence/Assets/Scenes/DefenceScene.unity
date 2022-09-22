@@ -555,6 +555,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5263991364535386776, guid: 3128bf1e77786d84196e831f936fcbd3,
+        type: 3}
+      propertyPath: TreesLayer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8009656701906018694, guid: 3128bf1e77786d84196e831f936fcbd3,
         type: 3}
       propertyPath: Loop
