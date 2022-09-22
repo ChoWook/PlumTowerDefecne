@@ -75,4 +75,33 @@ public class UpdateTowerUI : MonoBehaviour
     {
         _tower?.IsSelected(false);
     }
+
+    public void OnUpgradeBtnClick()
+    {
+        if(_tower == null)
+        {
+            return;
+        }
+
+        _tower.UpgradeTower();
+
+        UpdateTowerInfo();
+    }
+
+    public void OnMoveBtnClick()
+    {
+
+    }
+
+    public void OnSellBtnClick()
+    {
+        if (_tower == null)
+        {
+            return;
+        }
+
+        _tower.SellTower();
+
+        gameObject.SetActive(false);
+    }
 }

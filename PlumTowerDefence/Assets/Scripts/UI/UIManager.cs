@@ -55,42 +55,42 @@ public class UIManager : MonoBehaviour
     {
         UIClear();
         GameManager.instance.isClickedTower = true;
-        TowerUI.SetTower(tower);
         TowerUI.gameObject.SetActive(true);
+        TowerUI.SetTower(tower);
     }
 
     public void ShowObstacleUI(Obstacle Sender)
     {
         UIClear();
-        ObstacleUI.GetComponent<ObstacleUI>().SetObstacle(Sender);
         ObstacleUI.SetActive(true);
+        ObstacleUI.GetComponent<ObstacleUI>().SetObstacle(Sender);
     }
 
     public void ShowGroundTowerUI(Tower tower)
     {
         UIClear();
-        GroundTowerUI.SetTower(tower);
         GroundTowerUI.gameObject.SetActive(true);
+        GroundTowerUI.SetTower(tower);
     }
 
     public void ShowAllTowerUI(Tower tower)
     {
         UIClear();
-        AllTowerUI.SetTower(tower);
         AllTowerUI.gameObject.SetActive(true);
+        AllTowerUI.SetTower(tower);
     }
 
     public void ShowMiningUI(Resource resource)
     {
         UIClear();
-        MiningUI.GetComponent<MiningUI>().SetResource(resource);
         MiningUI.SetActive(true);
+        MiningUI.GetComponent<MiningUI>().SetResource(resource);
     }
 
     public void ShowLaneBuffUI(LaneBuff laneBuff)
     {
         UIClear();
-        LaneBuffUI.GetComponent<LaneBuffUI>().SetLaneBuff(laneBuff);
         LaneBuffUI.SetActive(true);
+        LaneBuffUI.GetComponent<LaneBuffUI>().SetLaneBuff(laneBuff);
     }
 }

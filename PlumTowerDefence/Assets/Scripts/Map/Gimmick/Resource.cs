@@ -24,18 +24,18 @@ public class Resource : MonoBehaviour, IPointerClickHandler
 
     int MiningMoney;
 
-    float AnimationTime = 0.5f;
+    readonly float AnimationTime = 0.5f;
 
     float MiningTime = 5;
 
-    float MiningAngle = -100;
+    readonly float MiningAngle = -100;
 
     #region Unity Function
 #if UNITY_EDITOR
-    private void Update()
-    {
+    //private void Update()
+    //{
         //UpdateResourceType();
-    }
+    //}
 #endif
 
     private void OnEnable()
@@ -126,9 +126,9 @@ public class Resource : MonoBehaviour, IPointerClickHandler
 
     public void MiningResource()
     {
-        StartCoroutine(IE_MiningAnimation());
+        StartCoroutine(nameof(IE_MiningAnimation));
 
-        StartCoroutine(IE_Mining());
+        StartCoroutine(nameof(IE_Mining));
     }
 
     IEnumerator IE_MiningAnimation()

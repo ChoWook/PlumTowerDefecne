@@ -14,10 +14,11 @@ public class Obstacle : MonoBehaviour
 
 #if UNITY_EDITOR
 
-    private void Update()
-    {
+    //
+    //private void Update()
+    //{
         //UpdateObstacleType();
-    }
+    //}
 
 #endif
 
@@ -38,7 +39,7 @@ public class Obstacle : MonoBehaviour
         {
             if(ObstacleType == i + 1)
             {
-                Bodys[i].gameObject.SetActive(true);
+                Bodys[i].SetActive(true);
 
                 int RandomBody = Random.Range(0, Bodys[i].transform.childCount);
 
@@ -57,7 +58,7 @@ public class Obstacle : MonoBehaviour
 
             else
             {
-                Bodys[i].gameObject.SetActive(false);
+                Bodys[i].SetActive(false);
             }
         }
     }

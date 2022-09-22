@@ -474,12 +474,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8719500718554948397}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &195296397 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4000135244142728161, guid: 097427cfd674c3d48ae8c8a69c61dee1,
-    type: 3}
-  m_PrefabInstance: {fileID: 4000135243778620600}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &357485495
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -718,25 +712,13 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4000135243778620600}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &441724764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 195296397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99a71d68ed52cdf42a4838f0979f6360, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &441724765 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 441724766, guid: 097427cfd674c3d48ae8c8a69c61dee1,
     type: 3}
   m_PrefabInstance: {fileID: 4000135243778620600}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 195296397}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3272096960f7e441be03c5a89a16156, type: 3}
@@ -2709,10 +2691,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1709268313}
     m_Modifications:
-    - target: {fileID: 1267383022, guid: 097427cfd674c3d48ae8c8a69c61dee1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetTarget
-      objectReference: {fileID: 0}
     - target: {fileID: 4000135244142728161, guid: 097427cfd674c3d48ae8c8a69c61dee1,
         type: 3}
       propertyPath: m_Name
@@ -2826,11 +2804,6 @@ PrefabInstance:
     - target: {fileID: 4000135244142728162, guid: 097427cfd674c3d48ae8c8a69c61dee1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000135244142728164, guid: 097427cfd674c3d48ae8c8a69c61dee1,
-        type: 3}
-      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

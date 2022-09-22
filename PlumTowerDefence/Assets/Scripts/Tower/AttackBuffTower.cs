@@ -59,3 +59,17 @@ public class AttackBuffTower : Tower
     }
 
 }
+
+public class AttackBuffTowerComparer : IEqualityComparer<AttackBuffTower>
+{
+    public bool Equals(AttackBuffTower x, AttackBuffTower y)
+    {
+        return x.GetHashCode() == y.GetHashCode();
+    }
+
+    public int GetHashCode(AttackBuffTower pos)
+    {
+        return pos.GetHashCode() ^ pos.GetHashCode() << 2;
+    }
+
+}

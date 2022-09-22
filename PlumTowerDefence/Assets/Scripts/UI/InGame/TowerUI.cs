@@ -31,8 +31,15 @@ public class TowerUI : MonoBehaviour, IPointerClickHandler
     private void ShowTowerUI()
     {
         Debug.Log("ShowTowerUI");
-        
-        UIManager.instance.ShowTowerUI(GetComponent<Tower>());
+
+        Tower t = GetComponent<Tower>();
+
+        if( t == null)
+        {
+            t = GetComponentInParent<Tower>();
+        }
+
+        UIManager.instance.ShowTowerUI(t);
 
         clickTime = Time.realtimeSinceStartup;
 
@@ -42,8 +49,15 @@ public class TowerUI : MonoBehaviour, IPointerClickHandler
     private void ShowGroundTowerUI()
     {
         Debug.Log("ShowGroundTowerUI");
-        
-        UIManager.instance.ShowGroundTowerUI(GetComponent<Tower>());
+
+        Tower t = GetComponent<Tower>();
+
+        if (t == null)
+        {
+            t = GetComponentInParent<Tower>();
+        }
+
+        UIManager.instance.ShowGroundTowerUI(t);
 
         clickTime = Time.realtimeSinceStartup;
 
@@ -52,6 +66,13 @@ public class TowerUI : MonoBehaviour, IPointerClickHandler
 
     private void ShowAllTowerUI()
     {
-        UIManager.instance.ShowAllTowerUI(GetComponent<Tower>());
+        Tower t = GetComponent<Tower>();
+
+        if (t == null)
+        {
+            t = GetComponentInParent<Tower>();
+        }
+
+        UIManager.instance.ShowAllTowerUI(t);
     }
 }

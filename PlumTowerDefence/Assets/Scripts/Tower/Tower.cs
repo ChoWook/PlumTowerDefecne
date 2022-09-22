@@ -39,7 +39,7 @@ public class Tower : MonoBehaviour
     static List<float> AbilityPlusModifier = new List<float>();                        //AbilityStat 반영 리스트 (덧셈)
     static List<float> AbilityMultiModifier = new List<float>();                        //AbilityStat 반영 리스트 (곱셈)
 
-
+    
     // SpeedStat
     public float BaseSpeedStat;                                                              // 공격 속도 스텟(데이터테이블)
     // float SpeedStat;                                                                     // 최종 속도 스텟
@@ -397,8 +397,14 @@ public class Tower : MonoBehaviour
     // 상호작용 함수
 
     //Upgrade
-    void UpgradeTower() // 데이터 연동해서 수정하기
+    public void UpgradeTower() // 데이터 연동해서 수정하기
     {
+        if(UpgradePrice > GameManager.instance.money)
+        {
+            return;
+        }
+
+
         //Attackstat + 5 로 해놓기
 
         switch (UpgradeStat)
@@ -428,23 +434,19 @@ public class Tower : MonoBehaviour
 
         UpgradeCount++;
 
+        // 타워가 업그레이드됨에 따라 가격 변경
+        MovePrice = (int)((Price + UpgradeCount * UpgradePrice) * 0.5f);
+
+        SellPrice = (int)((Price + UpgradeCount * UpgradePrice) * 0.6f);
     }
 
     //Sell
-    void SellTower()
+    public void SellTower()
     {
         // 타워 반납하기
-        Destroy(gameObject); // 타워 풀에 추가한 뒤 바꾸기 ?  <- 맵에서 다룬다!
-
-
-        // 돈 받기 (타워 설치비용 + 업그레이드 비용 ) * 0.6
-        float _SellPrice = (Price + UpgradeCount * UpgradePrice) * 0.6f;
-
-        SellPrice = (int)_SellPrice;
-
+        ObjectPools.Instance.ReleaseObjectToPool(gameObject); // 타워 풀에 추가한 뒤 바꾸기 ?  <- 맵에서 다룬다!
 
         // 재화 연결 함수
-
         GameManager.instance.money += SellPrice;
 
         // 공격, 공속 버프 타워일 때  버프 삭제 효과 넣어주기
@@ -452,23 +454,18 @@ public class Tower : MonoBehaviour
     }
 
     //Move
-    void MoveTower()
+    public void MoveTower(Tile tile)
     {
         // 설치 상태로 돌아감
 
         // 중간에 취소 가능하게
 
-        // 돈 감소
-        float _MovePrice = (Price + UpgradeCount * UpgradePrice) * 0.5f;
-
-
-        MovePrice = (int)_MovePrice;
-
-
         // 재화 연결 함수
 
+        // 돈 감소
         GameManager.instance.money -= MovePrice;
 
+        transform.position = tile.transform.position;
     }
 
     public void Setstat(ETowerName _TowerName)
@@ -490,6 +487,10 @@ public class Tower : MonoBehaviour
         Range = tower._Range;
         Price = tower._Price;
 
+        // 자체 변수 수정
+        MovePrice = (int)((Price + UpgradeCount * UpgradePrice) * 0.5f);
+
+        SellPrice = (int)((Price + UpgradeCount * UpgradePrice) * 0.6f);
     }
 
 

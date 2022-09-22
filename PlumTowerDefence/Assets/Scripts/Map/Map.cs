@@ -152,7 +152,7 @@ public class Map : MonoBehaviour
     {
         if (MapInput.text != null)
         {
-            int tmp = 0;
+            int tmp;
 
             int.TryParse(MapInput.text, out tmp);
 
@@ -390,11 +390,11 @@ public class Map : MonoBehaviour
 
             FindNextAttackRouteTile(pos.SumPos(_Direction[NextDirs[0]]), NextDirs[0], Route);
 
-            FindNextAttackRouteTile(pos.SumPos(_Direction[NextDirs[1]]), NextDirs[1], MakeBranch(Route, CurTile));
+            FindNextAttackRouteTile(pos.SumPos(_Direction[NextDirs[1]]), NextDirs[1], MakeBranch(CurTile));
         }
     }
 
-    int MakeBranch(int Route, Tile CurTile)
+    int MakeBranch(Tile CurTile)
     {
         if (CurTile.WaypointRoute == -1 || CurTile.WaypointIndex == -1)
         {
