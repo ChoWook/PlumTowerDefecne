@@ -13,6 +13,37 @@ public class AttackBuffTower : Tower
         Setstat(ETowerName.AttackBuff);
     }
 
+    public override float AbilityStat
+    {
+        get
+        {
+            List<float> list = TowerUpgradeAmount.instance._AttackBuffTowerStat.AbilityPlusModifier;
+
+            float sum = 0f;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            float multi = 1f;
+
+            for (int i = 0; i < AbilityMultiModifier.Count; i++)
+            {
+                multi *= AbilityMultiModifier[i];
+            }
+
+
+            return (BaseAbilityStat + sum) * multi;
+        }
+    }
+
+    // attackrange, additionaldamage 
+
+
+
+
+
     protected override void UpdateTarget()
     {
         GameObject[] Towers = GameObject.FindGameObjectsWithTag(TowerTag); // Collider로 바꾸면 정말 좋을텐데ㅜㅜ

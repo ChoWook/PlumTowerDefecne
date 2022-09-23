@@ -30,21 +30,21 @@ public class Tower : MonoBehaviour
     // AttackStat
     public float BaseAttackStat;                                                     // 공격력 스텟(데이터테이블)
                                                                                      // public float AttackStat;                                                       // 최종 공격력 스텟
-    static List<float> AttackPlusModifier = new List<float>();                       // AttackStat 반영 리스트 (덧셈)
-    static List<float> AttackMultiModifier = new List<float>();                      // AttackStat 반영 리스트 (곱셈)
+    public List<float> AttackPlusModifier = new List<float>();                       // AttackStat 반영 리스트 (덧셈)
+    public List<float> AttackMultiModifier = new List<float>();                      // AttackStat 반영 리스트 (곱셈)
 
     // AbilityStat
     public float BaseAbilityStat;                                                       //어빌리티 스텟(데이터테이블)
     //float AbilityStat;                                                                //최종 어빌리티 스텟
-    static List<float> AbilityPlusModifier = new List<float>();                        //AbilityStat 반영 리스트 (덧셈)
-    static List<float> AbilityMultiModifier = new List<float>();                        //AbilityStat 반영 리스트 (곱셈)
+    public List<float> AbilityPlusModifier = new List<float>();                        //AbilityStat 반영 리스트 (덧셈)
+    public List<float> AbilityMultiModifier = new List<float>();                        //AbilityStat 반영 리스트 (곱셈)
 
     
     // SpeedStat
     public float BaseSpeedStat;                                                              // 공격 속도 스텟(데이터테이블)
     // float SpeedStat;                                                                     // 최종 속도 스텟
-    static List<float> SpeedPlusModifier = new List<float>();                              // SpeedStat 반영리스트(덧셈)
-    static List<float> SpeedMultiModifier = new List<float>();                             // SpeedStat 반영리스트(곱셈)
+    public List<float> SpeedPlusModifier = new List<float>();                              // SpeedStat 반영리스트(덧셈)
+    public List<float> SpeedMultiModifier = new List<float>();                             // SpeedStat 반영리스트(곱셈)
 
     private float FireCountdown = 0f;                                                       // 발사 카운트다운
 
@@ -99,7 +99,7 @@ public class Tower : MonoBehaviour
 
     //get 받아주기 <- class로 하나를 만들면 좋겠다!
 
-    public float AttackStat 
+    public virtual float AttackStat 
     {
         get
         {
@@ -118,10 +118,10 @@ public class Tower : MonoBehaviour
             }
 
             return (BaseAttackStat + sum + AttackBuffAmount) * multi;
-        } // 순서?
+        } 
     }
 
-    public float SpeedStat
+    public virtual float SpeedStat
     {
         get
         {
@@ -143,7 +143,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public float AbilityStat
+    public virtual float AbilityStat
     {
         get
         {
@@ -210,7 +210,7 @@ public class Tower : MonoBehaviour
         transform.parent = parent;
         */
 
-        StartCoroutine(IE_GetTargets());
+        StartCoroutine(nameof(IE_GetTargets));
 
     }
 
@@ -407,7 +407,7 @@ public class Tower : MonoBehaviour
 
         //Attackstat + 5 로 해놓기
 
-        switch (UpgradeStat)
+        switch (UpgradeStat) // 스택처럼 쌓이는 건지 값 자체가 바뀌는지 확인
         {
             case EUpgradeStat.Attack:
                 {

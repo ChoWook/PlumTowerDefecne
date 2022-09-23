@@ -9,11 +9,39 @@ public class BombTower : Tower
         Setstat(ETowerName.Bomb);
     }
 
+    public override float AttackStat
+    {
+        get
+        {
+            List<float> list = TowerUpgradeAmount.instance._BombStat.AttackPlusModifier;
+
+            float sum = 0f;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            float multi = 1f;
+
+            for (int i = 0; i < AttackMultiModifier.Count; i++)
+            {
+                multi *= AttackMultiModifier[i];
+            }
+
+            return (BaseAttackStat + sum + AttackBuffAmount) * multi;
+        }
+    }
+
+    
+
+
+
     protected override void OnEnable()
     {
         base.OnEnable();
 
-        StopCoroutine(IE_GetTargets());
+        StopCoroutine(nameof(IE_GetTargets));
     }
 
     // 적 감지 하고 어떻게 해야하나
@@ -23,7 +51,7 @@ public class BombTower : Tower
         // 하나 trigger 걸리면 trigger 닫기?
         if(other.gameObject.CompareTag(enemyTag))
         {
-            StartCoroutine(IE_Delay());
+            StartCoroutine(nameof(IE_Delay));
         }
     }
 
