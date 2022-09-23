@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class TowerUpgradeAmount : MonoBehaviour
@@ -24,18 +25,22 @@ public class TowerUpgradeAmount : MonoBehaviour
         public List<float> AttackPlusModifier = new List<float>();
         public List<float> SpeedPlusModifier = new List<float>();
 
-        public bool isPoison = false;
-        public float poisonDamageRate = 0f;
-        public float poisonDuration = 0f;
+        public List<float> PoisonAttackMultiModifier = new List<float>();
+        public List<float> PoisonDurationPlusModifier = new List<float>();
 
-        public bool isBurn = false;
-        public float burnDamageRate = 0f;
-        public float burnDuration = 0f;
+        public List<float> BurnAttackMultiModifier = new List<float>();
+        public List<float> BurnDurationPlusModifier = new List<float>();
 
         public void ResetList()
         {
             AttackPlusModifier = new List<float>();
             SpeedPlusModifier = new List<float>();
+            
+            PoisonAttackMultiModifier = new List<float>();
+            PoisonDurationPlusModifier = new List<float>();
+            
+            BurnAttackMultiModifier = new List<float>();
+            BurnDurationPlusModifier = new List<float>();
         }
     }
 
@@ -64,13 +69,14 @@ public class TowerUpgradeAmount : MonoBehaviour
     public class PoisonTowerStat
     {
         public List<float> AbilityPlusModifier = new List<float>();
-        
-        public float attackRange = 0f;
-        public float slowRate = 0f;
+        public List<float> RangePlusModifier = new List<float>();
+        public List<float> SlowMultiModifier = new List<float>();
 
         public void ResetList()
         {
             AbilityPlusModifier = new List<float>();
+            RangePlusModifier = new List<float>();
+            SlowMultiModifier = new List<float>();
         }
     }
 
@@ -84,15 +90,17 @@ public class TowerUpgradeAmount : MonoBehaviour
     {
         public List<float> AttackPlusModifier = new List<float>();
         public List<float> SpeedPlusModifier = new List<float>();
-        
-        public float attackRange = 0f;
-        public float slowRate = 0f;
-        public float centerAngle = 60f;
+        public List<float> RangePlusModifier = new List<float>();
+        public List<float> SlowMultiModifier = new List<float>();
+        public List<float> AngleplusModifier = new List<float>();
 
         public void ResetList()
         {
             AttackPlusModifier = new List<float>();
             SpeedPlusModifier = new List<float>();
+            RangePlusModifier = new List<float>();
+            SlowMultiModifier = new List<float>();
+            AngleplusModifier = new List<float>();
         }
     }
 
@@ -105,14 +113,12 @@ public class TowerUpgradeAmount : MonoBehaviour
     public class AttackBuffTowerStat
     {
         public List<float> AbilityPlusModifier = new List<float>();
-        
-        public float attackRange = 0f;
-
-        public float additionalAttackRange = 0f;
+        public List<float> RangePlusModifier = new List<float>();
 
         public void ResetList()
         {
             AbilityPlusModifier = new List<float>();
+            RangePlusModifier = new List<float>();
         }
     }
 
@@ -125,14 +131,12 @@ public class TowerUpgradeAmount : MonoBehaviour
     public class SpeedBuffTowerStat
     {
         public List<float> AbilityPlusModifier = new List<float>();
-        
-        public float attackRange = 0f;
-        
-        public float additionalAttackRange = 0f;
+        public List<float> RangePlusModifier = new List<float>();
 
         public void ResetList()
         {
             AbilityPlusModifier = new List<float>();
+            RangePlusModifier = new List<float>();
         }
     }
 
@@ -182,13 +186,13 @@ public class TowerUpgradeAmount : MonoBehaviour
     {
         public List<float> AttackPlusModifier = new List<float>();
         public List<float> AbilityPlusModifier = new List<float>();
-        
-        public float slowRate = 0f;
+        public List<float> SlowMultiModifier = new List<float>();
 
         public void ResetList()
         {
             AttackPlusModifier = new List<float>();
             AbilityPlusModifier = new List<float>();
+            SlowMultiModifier = new List<float>();
         }
     }
 
@@ -200,7 +204,12 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class WallStat
     {
-        public float hp = 0f;
+        public List<float> HpPlusModifier = new List<float>();
+
+        public void ResetList()
+        {
+            HpPlusModifier = new List<float>();
+        }
     }
 
     #endregion
@@ -212,11 +221,12 @@ public class TowerUpgradeAmount : MonoBehaviour
     public class BombStat
     {
         public List<float> AttackPlusModifier = new List<float>();
-        public int range = 3;
+        public List<float> RangePlusModifier = new List<float>();
 
         public void ResetList()
         {
             AttackPlusModifier = new List<float>();
+            RangePlusModifier = new List<float>();
         }
     }
 

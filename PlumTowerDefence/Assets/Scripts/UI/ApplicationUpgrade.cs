@@ -45,9 +45,8 @@ public class ApplicationUpgrade : MonoBehaviour
             #region ArrowTower
 
             case 10102:     //독화살 I
-                TowerUpgradeAmount.instance._ArrowTowerStat.isPoison = true;
-                TowerUpgradeAmount.instance._ArrowTowerStat.poisonDamageRate = 0.25f;
-                TowerUpgradeAmount.instance._ArrowTowerStat.poisonDamageRate = 5f;
+                TowerUpgradeAmount.instance._ArrowTowerStat.PoisonAttackMultiModifier.Add(0.25f);
+                TowerUpgradeAmount.instance._ArrowTowerStat.PoisonDurationPlusModifier.Add(5f);
                 JsonManager.instance.usingList.Add(10106);
                 JsonManager.instance.usingList.Add(10107);
                 break;
@@ -63,20 +62,19 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10105:     //불화살 I
-                TowerUpgradeAmount.instance._ArrowTowerStat.isBurn = true;
-                TowerUpgradeAmount.instance._ArrowTowerStat.burnDamageRate = 0.25f;
-                TowerUpgradeAmount.instance._ArrowTowerStat.burnDuration = 5f;
+                TowerUpgradeAmount.instance._ArrowTowerStat.BurnAttackMultiModifier.Add(0.25f);
+                TowerUpgradeAmount.instance._ArrowTowerStat.BurnDurationPlusModifier.Add(5f);
                 JsonManager.instance.usingList.Add(10110);
                 JsonManager.instance.usingList.Add(10111);
                 break;
             
             case 10106:     //맹독 화살 I
-                TowerUpgradeAmount.instance._ArrowTowerStat.poisonDuration = 6f;
+                TowerUpgradeAmount.instance._ArrowTowerStat.PoisonDurationPlusModifier.Add(1f);
                 JsonManager.instance.usingList.Add(10112);
                 break;
             
             case 10107:     //독화살 II
-                TowerUpgradeAmount.instance._ArrowTowerStat.poisonDamageRate = 0.5f;
+                TowerUpgradeAmount.instance._ArrowTowerStat.PoisonAttackMultiModifier.Add(0.25f);
                 JsonManager.instance.usingList.Add(10113);
                 break;
             
@@ -91,22 +89,22 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10110:     //불화살 II
-                TowerUpgradeAmount.instance._ArrowTowerStat.burnDamageRate = 0.5f;
+                TowerUpgradeAmount.instance._ArrowTowerStat.BurnAttackMultiModifier.Add(0.25f);
                 JsonManager.instance.usingList.Add(10116);
                 break;
             
             case 10111:     //맹렬한 화살 I
-                TowerUpgradeAmount.instance._ArrowTowerStat.burnDuration = 6;
+                TowerUpgradeAmount.instance._ArrowTowerStat.BurnDurationPlusModifier.Add(1f);
                 JsonManager.instance.usingList.Add(10117);
                 break;
             
             case 10112:     //맹독 화살 II
-                TowerUpgradeAmount.instance._ArrowTowerStat.poisonDuration = 7;
+                TowerUpgradeAmount.instance._ArrowTowerStat.PoisonDurationPlusModifier.Add(1f);
                 JsonManager.instance.usingList.Add(10118);
                 break;
             
             case 10113:     //독화살 III
-                TowerUpgradeAmount.instance._ArrowTowerStat.poisonDamageRate = 0.75f;
+                TowerUpgradeAmount.instance._ArrowTowerStat.PoisonAttackMultiModifier.Add(0.25f);
                 JsonManager.instance.usingList.Add(10119);
                 break;
             
@@ -121,21 +119,21 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10116:     //불화살 III
-                TowerUpgradeAmount.instance._ArrowTowerStat.burnDamageRate = 0.75f;
+                TowerUpgradeAmount.instance._ArrowTowerStat.BurnAttackMultiModifier.Add(0.25f);
                 JsonManager.instance.usingList.Add(10122);
                 break;
             
             case 10117:     //맹렬한 화살 II
-                TowerUpgradeAmount.instance._ArrowTowerStat.burnDuration = 7;
+                TowerUpgradeAmount.instance._ArrowTowerStat.BurnDurationPlusModifier.Add(1f);
                 JsonManager.instance.usingList.Add(10123);
                 break;
             
             case 10118:     //맹독 화살 III
-                TowerUpgradeAmount.instance._ArrowTowerStat.poisonDuration = 10;
+                TowerUpgradeAmount.instance._ArrowTowerStat.PoisonDurationPlusModifier.Add(3f);
                 break;
             
             case 10119:     //독화살 IV
-                TowerUpgradeAmount.instance._ArrowTowerStat.poisonDamageRate = 2;
+                TowerUpgradeAmount.instance._ArrowTowerStat.PoisonAttackMultiModifier.Add(1.25f);
                 break;
             
             case 10120:     //예리한 화살 IV
@@ -147,11 +145,11 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10122:     //불화살 IV
-                TowerUpgradeAmount.instance._ArrowTowerStat.burnDamageRate = 2;
+                TowerUpgradeAmount.instance._ArrowTowerStat.BurnAttackMultiModifier.Add(1.25f);
                 break;
             
             case 10123:     //맹렬한 화살 III
-                TowerUpgradeAmount.instance._ArrowTowerStat.burnDuration = 10;
+                TowerUpgradeAmount.instance._ArrowTowerStat.BurnDurationPlusModifier.Add(3f);
                 break;
 
             #endregion
@@ -182,7 +180,7 @@ public class ApplicationUpgrade : MonoBehaviour
             #region PoisonTower
 
             case 10302:     //유독성 구름 I
-                TowerUpgradeAmount.instance._PoisonTowerStat.attackRange = 1f;
+                TowerUpgradeAmount.instance._PoisonTowerStat.RangePlusModifier.Add(1f);
                 JsonManager.instance.usingList.Add(10305);
                 break;
             
@@ -192,12 +190,12 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10304:     //포이즌 브레스 I
-                TowerUpgradeAmount.instance._PoisonTowerStat.slowRate = 0.05f;
+                TowerUpgradeAmount.instance._PoisonTowerStat.SlowMultiModifier.Add(0.05f);
                 JsonManager.instance.usingList.Add(10307);
                 break;
             
             case 10305:     //유독성 구름 II
-                TowerUpgradeAmount.instance._PoisonTowerStat.attackRange = 2f;
+                TowerUpgradeAmount.instance._PoisonTowerStat.RangePlusModifier.Add(1f);
                 JsonManager.instance.usingList.Add(10308);
                 break;
             
@@ -207,12 +205,12 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10307:     //포이즌 브레스 II
-                TowerUpgradeAmount.instance._PoisonTowerStat.slowRate = 0.1f;
+                TowerUpgradeAmount.instance._PoisonTowerStat.SlowMultiModifier.Add(0.05f);
                 JsonManager.instance.usingList.Add(10310);
                 break;
             
             case 10308:     //유독성 구름 III
-                TowerUpgradeAmount.instance._PoisonTowerStat.attackRange = 3f;
+                TowerUpgradeAmount.instance._PoisonTowerStat.RangePlusModifier.Add(1f);
                 JsonManager.instance.usingList.Add(10311);
                 break;
             
@@ -222,12 +220,12 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10310:     //포이즌 브레스 III
-                TowerUpgradeAmount.instance._PoisonTowerStat.slowRate = 0.15f;
+                TowerUpgradeAmount.instance._PoisonTowerStat.SlowMultiModifier.Add(0.05f);
                 JsonManager.instance.usingList.Add(10313);
                 break;
             
             case 10311:     //유독성 구름 IV
-                TowerUpgradeAmount.instance._PoisonTowerStat.attackRange = 10f;
+                TowerUpgradeAmount.instance._PoisonTowerStat.RangePlusModifier.Add(6f);
                 break;
             
             case 10312:     //맹독 폭발 IV
@@ -235,7 +233,7 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10313:     //포이즌 브레스 IV
-                TowerUpgradeAmount.instance._PoisonTowerStat.slowRate = 0.3f;
+                TowerUpgradeAmount.instance._PoisonTowerStat.SlowMultiModifier.Add(0.15f);
                 TowerUpgradeAmount.instance._PoisonTowerStat.AbilityPlusModifier.Add(5f);
                 break;
 
@@ -244,7 +242,7 @@ public class ApplicationUpgrade : MonoBehaviour
             #region FlameTower
 
             case 10402:     //뜨거운 열기 I
-                TowerUpgradeAmount.instance._FlameTowerStat.slowRate = 0.05f;
+                TowerUpgradeAmount.instance._FlameTowerStat.SlowMultiModifier.Add(0.05f);
                 JsonManager.instance.usingList.Add(10405);
                 break;
             
@@ -254,12 +252,12 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10404:     //발화 I
-                TowerUpgradeAmount.instance._FlameTowerStat.attackRange = 0.5f;
+                TowerUpgradeAmount.instance._FlameTowerStat.RangePlusModifier.Add(0.5f);
                 JsonManager.instance.usingList.Add(10407);
                 break;
             
             case 10405:     //뜨거운 열기 II
-                TowerUpgradeAmount.instance._FlameTowerStat.slowRate = 0.1f;
+                TowerUpgradeAmount.instance._FlameTowerStat.SlowMultiModifier.Add(0.05f);
                 JsonManager.instance.usingList.Add(10408);
                 break;
             
@@ -269,12 +267,12 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10407:     //발화 II
-                TowerUpgradeAmount.instance._FlameTowerStat.attackRange = 1f;
+                TowerUpgradeAmount.instance._FlameTowerStat.RangePlusModifier.Add(0.5f);
                 JsonManager.instance.usingList.Add(10410);
                 break;
             
             case 10408:     //뜨거운 열기 III
-                TowerUpgradeAmount.instance._FlameTowerStat.slowRate = 0.15f;
+                TowerUpgradeAmount.instance._FlameTowerStat.SlowMultiModifier.Add(0.05f);
                 JsonManager.instance.usingList.Add(10411);
                 break;
             
@@ -284,22 +282,22 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10410:     //발화 III
-                TowerUpgradeAmount.instance._FlameTowerStat.attackRange = 2f;
+                TowerUpgradeAmount.instance._FlameTowerStat.RangePlusModifier.Add(1f);
                 JsonManager.instance.usingList.Add(10413);
                 break;
             
             case 10411:     //플레임 헤이즈
-                TowerUpgradeAmount.instance._FlameTowerStat.slowRate = 0.3f;
+                TowerUpgradeAmount.instance._FlameTowerStat.SlowMultiModifier.Add(0.15f);
                 TowerUpgradeAmount.instance._FlameTowerStat.SpeedPlusModifier.Add(2f);
                 break;
             
             case 10412:     //붕괴
-                TowerUpgradeAmount.instance._FlameTowerStat.centerAngle = 120f;
+                TowerUpgradeAmount.instance._FlameTowerStat.AngleplusModifier.Add(60f);
                 TowerUpgradeAmount.instance._FlameTowerStat.AttackPlusModifier.Add(75f);
                 break;
             
             case 10413:     //이퀄라이저
-                TowerUpgradeAmount.instance._FlameTowerStat.attackRange = 3f;
+                TowerUpgradeAmount.instance._FlameTowerStat.RangePlusModifier.Add(1f);
                 TowerUpgradeAmount.instance._FlameTowerStat.SpeedPlusModifier.Add(2f);
                 break;
 
@@ -308,7 +306,7 @@ public class ApplicationUpgrade : MonoBehaviour
             #region AttackBuffTower
 
             case 10502:     //공격력버프타워의 결의 I
-                TowerUpgradeAmount.instance._AttackBuffTowerStat.attackRange = 0.5f;
+                TowerUpgradeAmount.instance._AttackBuffTowerStat.RangePlusModifier.Add(0.5f);
                 JsonManager.instance.usingList.Add(10504);
                 break;
             
@@ -318,7 +316,7 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10504:     //공격력버프타워의 결의 II
-                TowerUpgradeAmount.instance._AttackBuffTowerStat.attackRange = 1f;
+                TowerUpgradeAmount.instance._AttackBuffTowerStat.RangePlusModifier.Add(0.5f);
                 JsonManager.instance.usingList.Add(10506);
                 break;
             
@@ -328,7 +326,7 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10506:     //공격력버프타워의 결의 III
-                TowerUpgradeAmount.instance._AttackBuffTowerStat.attackRange = 2f;
+                TowerUpgradeAmount.instance._AttackBuffTowerStat.RangePlusModifier.Add(1f);
                 JsonManager.instance.usingList.Add(10508);
                 break;
             
@@ -338,13 +336,13 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10508:     //공격력버프타워의 결의 IV
-                TowerUpgradeAmount.instance._AttackBuffTowerStat.attackRange = 5f;
+                TowerUpgradeAmount.instance._AttackBuffTowerStat.RangePlusModifier.Add(3f);
                 TowerUpgradeAmount.instance._AttackBuffTowerStat.AbilityPlusModifier.Add(30f);
                 break;
             
             case 10509:     //공격력버프타워의 열정 IV
                 TowerUpgradeAmount.instance._AttackBuffTowerStat.AbilityPlusModifier.Add(20f);
-                TowerUpgradeAmount.instance._AttackBuffTowerStat.additionalAttackRange += 2f;
+                TowerUpgradeAmount.instance._AttackBuffTowerStat.RangePlusModifier.Add(2f);
                 break;
 
             #endregion
@@ -352,7 +350,7 @@ public class ApplicationUpgrade : MonoBehaviour
             #region SpeedBuffTower
 
             case 10602:     //공격속도버프타워의 결의 I
-                TowerUpgradeAmount.instance._SpeedBuffTowerStat.attackRange = 0.5f;
+                TowerUpgradeAmount.instance._SpeedBuffTowerStat.RangePlusModifier.Add(0.5f);
                 JsonManager.instance.usingList.Add(10604);
                 break;
             
@@ -362,7 +360,7 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10604:     //공격속도버프타워의 결의 II
-                TowerUpgradeAmount.instance._SpeedBuffTowerStat.attackRange = 1f;
+                TowerUpgradeAmount.instance._SpeedBuffTowerStat.RangePlusModifier.Add(0.5f);
                 JsonManager.instance.usingList.Add(10606);
                 break;
             
@@ -372,7 +370,7 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10606:     //공격속도버프타워의 결의 III
-                TowerUpgradeAmount.instance._SpeedBuffTowerStat.attackRange = 2f;
+                TowerUpgradeAmount.instance._SpeedBuffTowerStat.RangePlusModifier.Add(1f);
                 JsonManager.instance.usingList.Add(10608);
                 break;
             
@@ -382,13 +380,13 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10608:     //공격속도버프타워의 결의 IV
-                TowerUpgradeAmount.instance._SpeedBuffTowerStat.attackRange = 5f;
+                TowerUpgradeAmount.instance._SpeedBuffTowerStat.RangePlusModifier.Add(3f);
                 TowerUpgradeAmount.instance._SpeedBuffTowerStat.AbilityPlusModifier.Add(0.5f);
                 break;
             
             case 10609:     //공격속도버프타워의 열정 IV
                 TowerUpgradeAmount.instance._SpeedBuffTowerStat.AbilityPlusModifier.Add(0.5f);
-                TowerUpgradeAmount.instance._SpeedBuffTowerStat.additionalAttackRange += 2f;
+                TowerUpgradeAmount.instance._SpeedBuffTowerStat.RangePlusModifier.Add(2f);
                 break;
 
             #endregion
@@ -482,7 +480,7 @@ public class ApplicationUpgrade : MonoBehaviour
             #region ElectricTower
 
             case 10902:     //전기장 I
-                TowerUpgradeAmount.instance._ElectricTowerStat.slowRate = 0.05f;
+                TowerUpgradeAmount.instance._ElectricTowerStat.SlowMultiModifier.Add(0.05f);
                 JsonManager.instance.usingList.Add(10905);
                 break;
             
@@ -497,7 +495,7 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
             
             case 10905:     //전기장 II
-                TowerUpgradeAmount.instance._ElectricTowerStat.slowRate = 0.1f;
+                TowerUpgradeAmount.instance._ElectricTowerStat.SlowMultiModifier.Add(0.05f);
                 JsonManager.instance.usingList.Add(10908);
                 break;
                 
@@ -512,7 +510,7 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
                 
             case 10908:     //전기장 III
-                TowerUpgradeAmount.instance._ElectricTowerStat.slowRate = 0.15f;
+                TowerUpgradeAmount.instance._ElectricTowerStat.SlowMultiModifier.Add(0.05f);
                 JsonManager.instance.usingList.Add(10911);
                 break;
                 
@@ -527,7 +525,7 @@ public class ApplicationUpgrade : MonoBehaviour
                 break;
                 
             case 10911:     //마법 전기장
-                TowerUpgradeAmount.instance._ElectricTowerStat.slowRate = 0.3f;
+                TowerUpgradeAmount.instance._ElectricTowerStat.SlowMultiModifier.Add(0.15f);
                 TowerUpgradeAmount.instance._ElectricTowerStat.AttackPlusModifier.Add(75f);
                 break;
                 
@@ -546,22 +544,22 @@ public class ApplicationUpgrade : MonoBehaviour
             #region Wall
 
             case 11002:     //단단한 벽 I
-                TowerUpgradeAmount.instance._WallStat.hp = 200f;
+                TowerUpgradeAmount.instance._WallStat.HpPlusModifier.Add(200f);
                 JsonManager.instance.usingList.Add(11003);
                 break;
             
             case 11003:     //단단한 벽 II
-                TowerUpgradeAmount.instance._WallStat.hp = 500f;
+                TowerUpgradeAmount.instance._WallStat.HpPlusModifier.Add(300f);
                 JsonManager.instance.usingList.Add(11004);
                 break;
             
             case 11004:     //단단한 벽 III
-                TowerUpgradeAmount.instance._WallStat.hp = 2000f;
+                TowerUpgradeAmount.instance._WallStat.HpPlusModifier.Add(1500f);
                 JsonManager.instance.usingList.Add(11005);
                 break;
             
             case 11005:     //단단한 벽 IV
-                TowerUpgradeAmount.instance._WallStat.hp = 10000f;
+                TowerUpgradeAmount.instance._WallStat.HpPlusModifier.Add(8000f);
                 break;
 
             #endregion
@@ -585,7 +583,7 @@ public class ApplicationUpgrade : MonoBehaviour
             
             case 11105:     //폭탄 성능 향상 IV
                 TowerUpgradeAmount.instance._BombStat.AttackPlusModifier.Add(8000f);
-                TowerUpgradeAmount.instance._BombStat.range = 5;
+                TowerUpgradeAmount.instance._BombStat.RangePlusModifier.Add(2f);
                 break;
 
             #endregion
@@ -774,43 +772,26 @@ public class ApplicationUpgrade : MonoBehaviour
     public void ResetInGameUpgrade()
     {
         TowerUpgradeAmount.instance._ArrowTowerStat.ResetList();
-        TowerUpgradeAmount.instance._ArrowTowerStat.isPoison = false;
-        TowerUpgradeAmount.instance._ArrowTowerStat.poisonDamageRate = 0f;
-        TowerUpgradeAmount.instance._ArrowTowerStat.poisonDuration = 0f;
-        TowerUpgradeAmount.instance._ArrowTowerStat.isBurn = false;
-        TowerUpgradeAmount.instance._ArrowTowerStat.burnDamageRate = 0f;
-        TowerUpgradeAmount.instance._ArrowTowerStat.burnDuration = 0f;
 
         TowerUpgradeAmount.instance._HourglassTowerStat.ResetList();
 
         TowerUpgradeAmount.instance._PoisonTowerStat.ResetList();
-        TowerUpgradeAmount.instance._PoisonTowerStat.attackRange = 0f;
-        TowerUpgradeAmount.instance._PoisonTowerStat.slowRate = 0f;
 
         TowerUpgradeAmount.instance._FlameTowerStat.ResetList();
-        TowerUpgradeAmount.instance._FlameTowerStat.slowRate = 0f;
-        TowerUpgradeAmount.instance._FlameTowerStat.attackRange = 0f;
-        TowerUpgradeAmount.instance._FlameTowerStat.centerAngle = 60f;
 
         TowerUpgradeAmount.instance._AttackBuffTowerStat.ResetList();
-        TowerUpgradeAmount.instance._AttackBuffTowerStat.attackRange = 0f;
-        TowerUpgradeAmount.instance._AttackBuffTowerStat.additionalAttackRange = 0f;
 
-        TowerUpgradeAmount.instance._AttackBuffTowerStat.ResetList();
-        TowerUpgradeAmount.instance._AttackBuffTowerStat.attackRange = 0f;
-        TowerUpgradeAmount.instance._AttackBuffTowerStat.additionalAttackRange = 0f;
+        TowerUpgradeAmount.instance._SpeedBuffTowerStat.ResetList();
 
         TowerUpgradeAmount.instance._LaserTowerStat.ResetList();
 
         TowerUpgradeAmount.instance._MissileTowerStat.ResetList();
 
         TowerUpgradeAmount.instance._ElectricTowerStat.ResetList();
-        TowerUpgradeAmount.instance._ElectricTowerStat.slowRate = 0f;
 
-        TowerUpgradeAmount.instance._WallStat.hp = 0f;
+        TowerUpgradeAmount.instance._WallStat.ResetList();
 
         TowerUpgradeAmount.instance._BombStat.ResetList();
-        TowerUpgradeAmount.instance._BombStat.range = 3;
 
         TowerUpgradeAmount.instance._GatlingTowerStat.ResetList();
 
