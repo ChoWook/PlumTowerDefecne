@@ -47,7 +47,7 @@ public class Treasure : MonoBehaviour, IPointerClickHandler
         {
             TreasureOpening = true;
 
-            StartCoroutine(IE_CapOpenAnimation());
+            StartCoroutine(nameof(IE_CapOpenAnimation));
         }
     }
 
