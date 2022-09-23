@@ -9,6 +9,7 @@ public class HourglassTower : Tower
         Setstat(ETowerName.Hourglass);
     }
 
+    /*
     public override float AbilityStat
     {
         get
@@ -35,7 +36,7 @@ public class HourglassTower : Tower
         }
     }
 
-
+    */
 
     protected override void UpdateTarget()
     {

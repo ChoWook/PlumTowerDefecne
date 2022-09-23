@@ -14,6 +14,7 @@ public class SpeedBuffTower : Tower
         Setstat(ETowerName.SpeedBuff);
     }
 
+    /*
     public override float AbilityStat
     {
         get
@@ -38,7 +39,7 @@ public class SpeedBuffTower : Tower
             return (BaseAbilityStat + sum) * multi;
         }
     }
-
+    */
     // attackRange, additionalAttackDamage;
 
 

@@ -9,11 +9,12 @@ public class GatilingTower : Tower
         Setstat(ETowerName.Gatling);
     }
 
+    /*
     public override float AttackStat
     {
         get
         {
-            List<float> plus = TowerUpgradeAmount.instance._GatlingTowerStat.AttackPlusModifier;
+            List <float> plus = TowerUpgradeAmount.instance._GatlingTowerStat.AttackPlusModifier;
 
             float sum = 0f;
 
@@ -32,7 +33,7 @@ public class GatilingTower : Tower
     {
         get
         {
-            List<float> plus = TowerUpgradeAmount.instance._GatlingTowerStat.SpeedPlusModifier;
+            List<float> plus = TowerUpgradeAmount.instance._GatlingTowerStat?.SpeedPlusModifier;
 
             float sum = 0f;
 
@@ -46,6 +47,6 @@ public class GatilingTower : Tower
         }
     }
 
-
+    */
 
 }

@@ -217,16 +217,32 @@ public class Tower : MonoBehaviour
     // 추적 알고리즘 코루틴
     protected virtual IEnumerator IE_GetTargets()
     {
-        WaitForSeconds ws = new WaitForSeconds(0.5f);
-
-        //사거리 안에 들어온 적들 EnemyList에 정리 + 사거리에서 나가면 지우기.
-
-        while (true)
+        if(SpeedStat != 0f)
         {
-            //SortAttackPriority();
-            UpdateTarget();
+            WaitForSeconds ws = new(0.5f);
 
-            yield return ws;
+            while (true)
+            {
+                UpdateTarget();
+
+                yield return ws;
+            }
+
+        }
+        else
+        {
+            
+
+
+            while (true)
+            {
+                //SortAttackPriority();
+                UpdateTarget();
+
+                float period = 1f / (SpeedStat * 2f);
+
+                yield return new WaitForSeconds(period);
+            }
         }
 
     }

@@ -11,14 +11,18 @@ public class ArrowTower : Tower
     {
         Setstat(ETowerName.Arrow);
     }
-
+    /*
     public override float AttackStat
     {
         get
         {
+            float sum = 0f;
+
+            
+
             List<float> plus = TowerUpgradeAmount.instance._ArrowTowerStat.AttackPlusModifier;
 
-            float sum = 0f;
+            
 
             for (int i = 0; i <plus.Count; i++)
             {
@@ -35,7 +39,7 @@ public class ArrowTower : Tower
     {
         get
         {
-            List<float> plus = TowerUpgradeAmount.instance._ArrowTowerStat.SpeedPlusModifier;
+            List<float> plus = TowerUpgradeAmount.instance._ArrowTowerStat?.SpeedPlusModifier;
 
             float sum = 0f;
 
@@ -48,6 +52,7 @@ public class ArrowTower : Tower
 
         }
     }
+    */
 
     // 스탯 리셋은 언제?
 

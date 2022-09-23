@@ -13,6 +13,7 @@ public class AttackBuffTower : Tower
         Setstat(ETowerName.AttackBuff);
     }
 
+    /*
     public override float AbilityStat
     {
         get
@@ -37,6 +38,7 @@ public class AttackBuffTower : Tower
             return (BaseAbilityStat + sum) * multi;
         }
     }
+    */
 
     // attackrange, additionaldamage 
 

@@ -33,6 +33,7 @@ public class BombTower : Tower
         }
     }
 
+    // Range
     
 
 
@@ -43,6 +44,8 @@ public class BombTower : Tower
 
         StopCoroutine(nameof(IE_GetTargets));
     }
+
+
 
     // 적 감지 하고 어떻게 해야하나
 

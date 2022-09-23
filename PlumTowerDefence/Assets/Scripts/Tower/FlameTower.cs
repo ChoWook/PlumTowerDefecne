@@ -11,6 +11,7 @@ public class FlameTower : Tower
         Setstat(ETowerName.Flame);
     }
 
+    /*
     public override float AttackStat
     {
         get
@@ -60,6 +61,9 @@ public class FlameTower : Tower
             return (BaseSpeedStat + sum + SpeedBuffAmount) * multi;
         }
     }
+
+    */
+
 
     // attackrange, slowrate, angle
 
