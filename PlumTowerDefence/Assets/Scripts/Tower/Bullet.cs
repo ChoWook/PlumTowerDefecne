@@ -104,7 +104,7 @@ public class Bullet : MonoBehaviour
 
                 DestroyBullet();
        
-                Lt.StartCoroutine(Lt.IE_CoolTime());
+                Lt.StartCoroutine(nameof(Lt.IE_CoolTime));
             }
             
             // 이동하는 동안 콜라이더 받아서 부딪히는 적들 데미지 입히기 -> Trigger로 받는 것

@@ -210,7 +210,7 @@ public class Tower : MonoBehaviour
         transform.parent = parent;
         */
 
-        StartCoroutine(IE_GetTargets());
+        StartCoroutine(nameof(IE_GetTargets));
 
     }
 

@@ -33,7 +33,7 @@ public class BombTower : Tower
         }
     }
 
-    // range -> 나중에 범위 늘어남
+    
 
 
 
@@ -41,7 +41,7 @@ public class BombTower : Tower
     {
         base.OnEnable();
 
-        StopCoroutine(IE_GetTargets());
+        StopCoroutine(nameof(IE_GetTargets));
     }
 
     // 적 감지 하고 어떻게 해야하나
@@ -51,7 +51,7 @@ public class BombTower : Tower
         // 하나 trigger 걸리면 trigger 닫기?
         if(other.gameObject.CompareTag(enemyTag))
         {
-            StartCoroutine(IE_Delay());
+            StartCoroutine(nameof(IE_Delay));
         }
     }
 
