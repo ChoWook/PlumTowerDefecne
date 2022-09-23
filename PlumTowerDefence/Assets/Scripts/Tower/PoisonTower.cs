@@ -10,6 +10,26 @@ public class PoisonTower : Tower
         Setstat(ETowerName.Poison);
     }
 
+    public override float AbilityStat
+    {
+        get 
+        {
+            List<float> plus = TowerUpgradeAmount.instance._PoisonTowerStat.AbilityPlusModifier;
+
+            float sum = 0f;
+
+            for (int i = 0; i < plus.Count; i++)
+            {
+                sum += plus[i];
+            }
+
+            return (BaseAbilityStat + sum);
+        }
+    }
+
+    // range, slowrate 연동 추가
+
+
     protected override void UpdateTarget()
     {
         EnemyList.Clear();

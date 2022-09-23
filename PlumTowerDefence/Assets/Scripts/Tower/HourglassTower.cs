@@ -9,6 +9,34 @@ public class HourglassTower : Tower
         Setstat(ETowerName.Hourglass);
     }
 
+    public override float AbilityStat
+    {
+        get
+        {
+
+            float sum = 0f;
+
+            for (int i = 0; i < AbilityPlusModifier.Count; i++)
+            {
+                sum += AbilityPlusModifier[i];
+            }
+
+            List<float> list = TowerUpgradeAmount.instance._HourglassTowerStat.AbilityMultiModifier;
+
+            float multi = 1f;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                multi *= list[i];
+            }
+
+
+            return (BaseAbilityStat + sum) * multi;
+        }
+    }
+
+
+
     protected override void UpdateTarget()
     {
         EnemyList.Clear();

@@ -9,6 +9,34 @@ public class BombTower : Tower
         Setstat(ETowerName.Bomb);
     }
 
+    public override float AttackStat
+    {
+        get
+        {
+            List<float> list = TowerUpgradeAmount.instance._BombStat.AttackPlusModifier;
+
+            float sum = 0f;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            float multi = 1f;
+
+            for (int i = 0; i < AttackMultiModifier.Count; i++)
+            {
+                multi *= AttackMultiModifier[i];
+            }
+
+            return (BaseAttackStat + sum + AttackBuffAmount) * multi;
+        }
+    }
+
+    // range -> 나중에 범위 늘어남
+
+
+
     protected override void OnEnable()
     {
         base.OnEnable();

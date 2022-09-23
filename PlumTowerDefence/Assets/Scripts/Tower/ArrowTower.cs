@@ -49,7 +49,10 @@ public class ArrowTower : Tower
         }
     }
 
+    // 스탯 리셋은 언제?
+
     // 독 뎀 넣어주기
+
 
     // 화상 데미지 넣어주기
 }
