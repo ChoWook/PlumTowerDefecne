@@ -45,16 +45,18 @@ public class Option : MonoBehaviour
 
     public void OnEffectSoundToggleValueChanged(bool Checked)
     {
-
+        
     }
 
     public void ShowOption()
     {
         gameObject.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void CloseOption()
     {
         gameObject.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

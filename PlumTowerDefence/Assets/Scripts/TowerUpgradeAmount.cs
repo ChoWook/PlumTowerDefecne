@@ -21,8 +21,8 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class ArrowTowerStat
     {
-        public float attackDamage = 0f;
-        public float attackSpeed = 0f;
+        public List<float> AttackPlusModifier = new List<float>();
+        public List<float> SpeedPlusModifier = new List<float>();
 
         public bool isPoison = false;
         public float poisonDamageRate = 0f;
@@ -32,52 +32,10 @@ public class TowerUpgradeAmount : MonoBehaviour
         public float burnDamageRate = 0f;
         public float burnDuration = 0f;
 
-        public float BurnDuration
+        public void ResetList()
         {
-            get => burnDuration;
-            set => burnDuration = value;
-        }
-
-        public float BurnDamageRate
-        {
-            get => burnDamageRate;
-            set => burnDamageRate = value;
-        }
-
-        public bool IsBurn
-        {
-            get => isBurn;
-            set => isBurn = value;
-        }
-
-        public float PoisonDuration
-        {
-            get => poisonDuration;
-            set => poisonDuration = value;
-        }
-
-        public float PoisonDamageRate
-        {
-            get => poisonDamageRate;
-            set => poisonDamageRate = value;
-        }
-
-        public bool IsPoison
-        {
-            get => isPoison;
-            set => isPoison = value;
-        }
-
-        public float AttackSpeed
-        {
-            get => attackSpeed;
-            set => attackSpeed = value;
-        }
-
-        public float AttackDamage
-        {
-            get => attackDamage;
-            set => attackDamage = value;
+            AttackPlusModifier = new List<float>();
+            SpeedPlusModifier = new List<float>();
         }
     }
 
@@ -89,7 +47,12 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class HourglassTowerStat
     {
-        public float slowRate = 0f;
+        public List<float> AbilityMultiModifier = new List<float>();
+
+        public void ResetList()
+        {
+            AbilityMultiModifier = new List<float>();
+        }
     }
 
     #endregion
@@ -100,11 +63,15 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class PoisonTowerStat
     {
+        public List<float> AbilityPlusModifier = new List<float>();
+        
         public float attackRange = 0f;
-        public float abilityDamage = 0f;
         public float slowRate = 0f;
 
-        public float additionalAbilityDamage = 0f;
+        public void ResetList()
+        {
+            AbilityPlusModifier = new List<float>();
+        }
     }
 
     #endregion
@@ -115,12 +82,18 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class FlameTowerStat
     {
-        public float attackDamage = 0f;
+        public List<float> AttackPlusModifier = new List<float>();
+        public List<float> SpeedPlusModifier = new List<float>();
+        
         public float attackRange = 0f;
         public float slowRate = 0f;
         public float centerAngle = 60f;
-        
-        public float additionalAttackSpeed = 0f;
+
+        public void ResetList()
+        {
+            AttackPlusModifier = new List<float>();
+            SpeedPlusModifier = new List<float>();
+        }
     }
 
     #endregion
@@ -131,11 +104,16 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class AttackBuffTowerStat
     {
+        public List<float> AbilityPlusModifier = new List<float>();
+        
         public float attackRange = 0f;
-        public float abilityDamage = 0f;
 
-        public float additionalAbilityDamage = 0f;
         public float additionalAttackRange = 0f;
+
+        public void ResetList()
+        {
+            AbilityPlusModifier = new List<float>();
+        }
     }
 
     #endregion
@@ -146,11 +124,16 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class SpeedBuffTowerStat
     {
-        public float attackRange = 0f;
-        public float abilityDamage = 0f;
+        public List<float> AbilityPlusModifier = new List<float>();
         
-        public float additionalAbilityDamage = 0f;
+        public float attackRange = 0f;
+        
         public float additionalAttackRange = 0f;
+
+        public void ResetList()
+        {
+            AbilityPlusModifier = new List<float>();
+        }
     }
 
     #endregion
@@ -161,8 +144,14 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class LaserTowerStat
     {
-        public float attackSpeed = 0f;
-        public float attackDamage = 0f;
+        public List<float> AttackPlusModifier = new List<float>();
+        public List<float> SpeedPlusModifier = new List<float>();
+
+        public void ResetList()
+        {
+            AttackPlusModifier = new List<float>();
+            SpeedPlusModifier = new List<float>();
+        }
     }
 
     #endregion
@@ -173,11 +162,14 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class MissileTowerStat
     {
-        public float attackDamage = 0f;
-        public float attackSpeed = 0f;
+        public List<float> AttackPlusModifier = new List<float>();
+        public List<float> SpeedPlusModifier = new List<float>();
 
-        public float additionalAttackSpeed = 0f;
-        public float additionalAttackDamage = 0f;
+        public void ResetList()
+        {
+            AttackPlusModifier = new List<float>();
+            SpeedPlusModifier = new List<float>();
+        }
     }
 
     #endregion
@@ -188,12 +180,16 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class ElectricTowerStat
     {
-        public float attackDamage = 0f;
-        public float abilityDamage = 0f;
+        public List<float> AttackPlusModifier = new List<float>();
+        public List<float> AbilityPlusModifier = new List<float>();
+        
         public float slowRate = 0f;
 
-        public float additionalAttackDmage = 0f;
-        public float additionalAbilityDamage = 0f;
+        public void ResetList()
+        {
+            AttackPlusModifier = new List<float>();
+            AbilityPlusModifier = new List<float>();
+        }
     }
 
     #endregion
@@ -215,8 +211,13 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class BombStat
     {
-        public float attackDamage = 0f;
+        public List<float> AttackPlusModifier = new List<float>();
         public int range = 3;
+
+        public void ResetList()
+        {
+            AttackPlusModifier = new List<float>();
+        }
     }
 
     #endregion
@@ -227,11 +228,14 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class GatlingTowerStat
     {
-        public float attackSpeed = 0f;
-        public float attackDamage = 0f;
+        public List<float> AttackPlusModifier = new List<float>();
+        public List<float> SpeedPlusModifier = new List<float>();
 
-        public float additionalAttackSpeed = 0f;
-        public float additionalAttackDamage = 0f;
+        public void ResetList()
+        {
+            AttackPlusModifier = new List<float>();
+            SpeedPlusModifier = new List<float>();
+        }
     }
 
     #endregion
@@ -242,11 +246,14 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public class CannonTowerStat
     {
-        public float attackDamage = 0f;
-        public float attackSpeed = 0f;
+        public List<float> AttackPlusModifier = new List<float>();
+        public List<float> SpeedPlusModifier = new List<float>();
 
-        public float additionalAttackDamage = 0f;
-        public float additionalAttackSpeed = 0f;
+        public void ResetList()
+        {
+            AttackPlusModifier = new List<float>();
+            SpeedPlusModifier = new List<float>();
+        }
     }
 
     #endregion
