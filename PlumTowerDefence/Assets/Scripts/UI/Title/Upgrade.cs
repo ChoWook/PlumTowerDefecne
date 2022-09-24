@@ -46,6 +46,7 @@ public class Upgrade : MonoBehaviour
         if (canBuy && GameManager.instance.remainxp >= Tables.UpgradeCard.Get(id)._XpCost)
         {
             GameManager.instance.remainxp -= Tables.UpgradeCard.Get(id)._XpCost;
+            JsonManager.instance.SaveData.remainXP = GameManager.instance.remainxp;
             JsonManager.instance.BuyUpgrade(id);
             button.SetActive(false);
             ChangeChildSprite();

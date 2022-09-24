@@ -211,7 +211,7 @@ public class Map : MonoBehaviour
         GameManager.instance.unitTileSize = GetTileInMap(new Pos { PosX = 1, PosY = 0 }).transform.position.x
             - GetTileInMap(new Pos { PosX = 0, PosY = 0 }).transform.position.x;
 
-        GameManager.instance.InitGame();
+        //GameManager.instance.InitGame();
     }
 
     void InitCameraLimit(int x, int y)
