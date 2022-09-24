@@ -68,7 +68,25 @@ public class Resource : IObjectOnTile, IPointerClickHandler
 
         SetResourceType(ChooseType());
 
-        MiningMoney = Tables.MapGimmickResource.Get(ResourceType)._MiningMoney;
+        float moneyRate = 1f;
+
+        switch (ResourceType)
+        {
+            case EResourceType.Magnetite:
+                moneyRate = 1 + TowerUpgradeAmount.instance._MagnetiteStat.moneyRate;
+                break;
+            case EResourceType.Crystal:
+                moneyRate = 1 + TowerUpgradeAmount.instance._CrystalStat.moneyRate;
+                break;
+            case EResourceType.Gold:
+                moneyRate = 1 + TowerUpgradeAmount.instance._GoldStat.moneyRate;
+                break;
+            case EResourceType.Diamond:
+                moneyRate = 1 + TowerUpgradeAmount.instance._DiamondStat.moneyRate;
+                break;
+        }
+
+        MiningMoney = (int)(Tables.MapGimmickResource.Get(ResourceType)._MiningMoney * moneyRate);
 
         IsMining = false;
     }

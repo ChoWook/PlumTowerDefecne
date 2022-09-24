@@ -32,6 +32,7 @@ public class UpgradeButton : MonoBehaviour
     {
         _panel.transform.DOLocalMoveX(0, 1).SetEase(Ease);
         JsonManager.instance.WriteJson();
+        DeleteCard();
     }
 
     public void ResetXP()
@@ -40,5 +41,19 @@ public class UpgradeButton : MonoBehaviour
         GameManager.instance.remainxp = GameManager.instance.totalxp;
         JsonManager.instance.SaveData.remainXP = GameManager.instance.remainxp;
         JsonManager.instance.SaveData.totalXP = GameManager.instance.totalxp;
+        DeleteCard();
+    }
+
+    public void DeleteCard()
+    {
+        Transform panel = transform.GetChild(0);
+        for (int i = 0; i < 5; i++)
+        {
+            int cnt = panel.GetChild(i).childCount;
+            for (int j = 0; j < cnt; j++)
+            {
+                ObjectPools.Instance.ReleaseObjectToPool(panel.GetChild(i).GetChild(0).gameObject);
+            }
+        }
     }
 }

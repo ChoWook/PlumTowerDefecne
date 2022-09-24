@@ -169,7 +169,6 @@ public class GameManager : MonoBehaviour
         set
         {
             _remainxp = value;
-            JsonManager.instance.SaveData.remainXP = _remainxp;
         }
     }
 
@@ -181,7 +180,7 @@ public class GameManager : MonoBehaviour
         set
         {
             _maxHp = value;
-            currentHp = maxHp;
+            _currentHp = maxHp;
         }
     }
 
@@ -359,6 +358,8 @@ public class GameManager : MonoBehaviour
         isClickedTower = false;
         isPlayingGame = false;
         isSettingTarget = 0;
+        
+        ApplicationUpgrade.instance.ResetInGameUpgrade();
 
         InitCoupon();
     }
