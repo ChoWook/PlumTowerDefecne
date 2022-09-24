@@ -276,7 +276,7 @@ public class TowerButtonGenerate : MonoBehaviour
             t.IsSelected(false);
 
             // 타워의 사이즈가 매개변수로 들어가야 함
-            tile.SetObjectOnTile(SelectedTower.gameObject, TowerSize);
+            tile.SetObjectOnTile(SelectedTower.GetComponent<IObjectOnTile>(), TowerSize);
 
             SelectedTower = null;
         }
@@ -294,6 +294,8 @@ public class TowerButtonGenerate : MonoBehaviour
             StopAllCoroutines();
 
             ObjectPools.Instance.ReleaseObjectToPool(SelectedTower);
+
+            SelectedTower = null;
         }
     }
 

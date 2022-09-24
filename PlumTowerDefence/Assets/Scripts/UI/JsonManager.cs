@@ -7,6 +7,8 @@ using UnityEngine;
 public class SaveData
 {
     public List<int> upgradedCard;
+    public int totalXP;
+    public int remainXP;
 }
 
 public class JsonManager : MonoBehaviour
@@ -45,6 +47,9 @@ public class JsonManager : MonoBehaviour
             string str = File.ReadAllText(Application.dataPath + "/UpgradeJson.json");
 
             SaveData = JsonUtility.FromJson<SaveData>(str);
+
+            GameManager.instance.totalxp = SaveData.totalXP;
+            GameManager.instance.remainxp = SaveData.remainXP;
         }
     }
 
@@ -76,5 +81,8 @@ public class JsonManager : MonoBehaviour
                 }
             }
         }
+
+        SaveData.totalXP = 0;
+        SaveData.remainXP = 0;
     }
 }

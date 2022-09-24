@@ -32,6 +32,11 @@ public class GameManager : MonoBehaviour
         _stageClearCallBack += stageClearCallBack;
     }
 
+    public void RemoveStageClearCallBack()
+    {
+        _stageClearCallBack = null;
+    }
+
     private CallBack _levelChangeCallBack;
 
     public void AddLevelChangeCallBack(CallBack levelChangeCallBack)
@@ -87,6 +92,11 @@ public class GameManager : MonoBehaviour
         _gameOverCallBack += gameOverCallBack;
     }
 
+    public void RemoveGameOverCallBack()
+    {
+        _gameOverCallBack = null;
+    }
+
     private CallBack _OnGetCouponCallBack;
 
     public void AddGetCouponCallBack(CallBack OnGetCouponCallBack)
@@ -94,12 +104,20 @@ public class GameManager : MonoBehaviour
         _OnGetCouponCallBack += OnGetCouponCallBack;
     }
 
+    public void RemoveGetCouponCallBack()
+    {
+        _OnGetCouponCallBack = null;
+    }
+
     public void CallBackClear()
     {
+        RemoveStageClearCallBack();
         RemoveLevelChangeCallBack();
         RemoveXpChangeCallBack();
         RemoveHpChangeCallBack();
         RemoveMoneyChangeCallBack();
+        RemoveGameOverCallBack();
+        RemoveGetCouponCallBack();
     }
 
     private int _level = 0;
@@ -126,12 +144,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private int _totalxp = 0;
+    private int _totalxp = 0;       //전체 xp 양
 
     public int totalxp
     {
-        get { return _totalxp; }
-        set { _totalxp = value; }
+        get
+        {
+            return _totalxp;
+        }
+        set
+        {
+            int tmp = _totalxp;
+            _totalxp = value;
+            remainxp += _totalxp - tmp;
+            JsonManager.instance.SaveData.totalXP = _totalxp;
+        }
+    }
+
+    private int _remainxp = 0;       //사용하고 남은 xp 양
+
+    public int remainxp
+    {
+        get { return _remainxp; }
+        set
+        {
+            _remainxp = value;
+            JsonManager.instance.SaveData.remainXP = _remainxp;
+        }
     }
 
     private int _maxHp = 10;

@@ -25,7 +25,7 @@ public class UpgradeButton : MonoBehaviour
 
     private void Update()
     {
-        xpText.text = String.Format(Tables.StringUI.Get(xp.name)._Korean, GameManager.instance.totalxp);
+        xpText.text = String.Format(Tables.StringUI.Get(xp.name)._Korean, GameManager.instance.remainxp);
     }
 
     public void MoveMainMenu()
@@ -36,6 +36,9 @@ public class UpgradeButton : MonoBehaviour
 
     public void ResetXP()
     {
-        Debug.Log("XP Reset");
+        JsonManager.instance.ClearUpgrade();
+        GameManager.instance.remainxp = GameManager.instance.totalxp;
+        JsonManager.instance.SaveData.remainXP = GameManager.instance.remainxp;
+        JsonManager.instance.SaveData.totalXP = GameManager.instance.totalxp;
     }
 }

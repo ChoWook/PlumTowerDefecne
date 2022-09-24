@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine.Rendering;
 using Random = UnityEngine.Random;
 
-public class Treasure : MonoBehaviour, IPointerClickHandler
+public class Treasure : IObjectOnTile, IPointerClickHandler
 {
     [SerializeField] Transform CloseCap;
 

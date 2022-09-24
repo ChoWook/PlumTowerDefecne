@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class LaneBuff : MonoBehaviour, IPointerClickHandler
+public class LaneBuff : IObjectOnTile, IPointerClickHandler
 {
     [SerializeField] GameObject BuffEffect;
 

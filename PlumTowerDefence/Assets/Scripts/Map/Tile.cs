@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
 
     [SerializeField] MeshRenderer PlaneMeshRenderer;            // 타일 마테리얼을 바꾸기 위한 매시 랜더러
 
-    [SerializeField] GameObject _ObjectOnTile;                  // 타일 위에 있는 오브젝트
+    [SerializeField] IObjectOnTile _ObjectOnTile;                  // 타일 위에 있는 오브젝트
     #endregion
 
     #region Public Field
@@ -84,9 +84,9 @@ public class Tile : MonoBehaviour
 
     public GameObject GetObjectOnTile()
     {
-        if (_ObjectOnTile != null && _ObjectOnTile.activeSelf)
+        if (_ObjectOnTile != null /*&& _ObjectOnTile.activeSelf*/)
         {
-            return _ObjectOnTile;
+            return _ObjectOnTile.gameObject;
         }
 
         return null;
@@ -94,7 +94,7 @@ public class Tile : MonoBehaviour
 
     bool CheckBuildAvailableLand()
     {
-        if (_TileType == ETileType.Land && (_ObjectOnTile == null || !_ObjectOnTile.activeSelf))
+        if (_TileType == ETileType.Land && (_ObjectOnTile == null/* || !_ObjectOnTile.activeSelf*/))
         {
             return true;
         }
@@ -144,7 +144,7 @@ public class Tile : MonoBehaviour
 
     public bool CheckObjectOnAttackRoute()
     {
-        if (_TileType == ETileType.AttackRoute && (_ObjectOnTile == null || !_ObjectOnTile.activeSelf))
+        if (_TileType == ETileType.AttackRoute && (_ObjectOnTile == null/* || !_ObjectOnTile.activeSelf*/))
         {
             return true;
         }
@@ -180,7 +180,7 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public void SetObjectOnTile(GameObject go, int size = 1)
+    public void SetObjectOnTile(IObjectOnTile go, int size = 1)
     {
         if(size < Tables.GlobalSystem.Get("Tower_Size_Min")._Value || size > Tables.GlobalSystem.Get("Tower_Size_Max")._Value)
         {
@@ -188,6 +188,8 @@ public class Tile : MonoBehaviour
         }
 
         _ObjectOnTile = go;
+        
+        go.SetBelowTile(this);
 
         //  TODO 사이즈만큼 주변 타일들도 이 오브젝트를 참조해야 함
         if(size != 1)
@@ -207,6 +209,11 @@ public class Tile : MonoBehaviour
                 Map.Instance.GetTileInMap(_MapPos.SumPos(Map.Instance._Direction[EDirection.DL])).SetObjectOnTile(go);
             }
         }
+    }
+
+    public void RemoveObjectOnTile()
+    {
+        _ObjectOnTile = null;
     }
     #endregion
 }

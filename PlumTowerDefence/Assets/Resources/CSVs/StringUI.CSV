@@ -26,7 +26,7 @@ int,StringUI,String
 24,Tower_Resource_Passive_Select,"타워, 자원, 패시브 선택"
 25,Upgrade_Title,강화 제목
 26,Upgrade_Contents,강화 설명
-27,Required_Xp,요구되는 Xp 
+27,Required_Xp,Xp : {0}
 28,Tower_UI_Name,타워의 이름
 29,Tower_Level,타워 레벨 : {0}
 30,Tower_Damage,타워 데미지 : {0}
@@ -48,4 +48,7 @@ int,StringUI,String
 46,Treasure_Money,+{0}
 47,Treasure_Low_Cost_Tower,+{0}
 48,Treasure_Second_Low_Cost_Tower,+{0}
-49,Monster_Intrusion,<color=red>몬스터가 침입했습니다!
+49,Monster_Intrusion,몬스터가 침입했습니다!
+50,Upgrade_Tower_Category,타워
+51,Upgrade_Resource_Category,자원
+52,Upgrade_Passive_Category,패시브

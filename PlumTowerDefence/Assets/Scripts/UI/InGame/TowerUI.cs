@@ -11,20 +11,24 @@ public class TowerUI : MonoBehaviour, IPointerClickHandler
     private bool doubleClicked = false;
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        bool checkTime = Time.realtimeSinceStartup - clickTime < checkDoubleClickTime;
-        if (doubleClicked && checkTime)
+        if (eventData.pointerId == -1)
         {
-            ShowAllTowerUI();
-            doubleClicked = false;
+            bool checkTime = Time.realtimeSinceStartup - clickTime < checkDoubleClickTime;
+            if (doubleClicked && checkTime)
+            {
+                ShowAllTowerUI();
+                doubleClicked = false;
+            }
+            else if (checkTime)
+            {
+                ShowGroundTowerUI();
+            }
+            else
+            {
+                ShowTowerUI();
+            }
         }
-        else if (checkTime)
-        {
-            ShowGroundTowerUI();
-        }
-        else
-        {
-            ShowTowerUI();
-        }
+        
             
     }
 

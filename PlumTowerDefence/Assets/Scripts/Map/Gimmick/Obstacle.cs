@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : IObjectOnTile
 {
     [SerializeField] GameObject[] Bodys;
 

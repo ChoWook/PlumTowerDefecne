@@ -19,12 +19,9 @@ public class BonusText : MonoBehaviour
     {
         text = GetComponent<TextMeshProUGUI>();
 
-        if (!CameraLoad)
-        {
-            mainCamera = Camera.main;
-            UICamera = GameObject.Find("UICam").GetComponent<Camera>();
-            CameraLoad = true;
-        }
+        mainCamera = Camera.main;
+        UICamera = GameObject.Find("UICam").GetComponent<Camera>();
+        CameraLoad = true;
     }
 
     private void OnEnable()

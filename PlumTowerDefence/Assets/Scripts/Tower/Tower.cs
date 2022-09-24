@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public class Tower : IObjectOnTile
 {
     // 타워 스텟 (임시로 화살타워 스텟 설정)
 

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 using TMPro;
 
-public class Resource : MonoBehaviour, IPointerClickHandler
+public class Resource : IObjectOnTile, IPointerClickHandler
 {
 
     [SerializeField] GameObject[] Resources;
@@ -29,6 +29,8 @@ public class Resource : MonoBehaviour, IPointerClickHandler
     float MiningTime = 5;
 
     readonly float MiningAngle = -100;
+
+    private bool IsMining = false;
 
     #region Unity Function
 #if UNITY_EDITOR
@@ -67,6 +69,8 @@ public class Resource : MonoBehaviour, IPointerClickHandler
         SetResourceType(ChooseType());
 
         MiningMoney = Tables.MapGimmickResource.Get(ResourceType)._MiningMoney;
+
+        IsMining = false;
     }
 
     void InitPickaxe()
@@ -126,6 +130,8 @@ public class Resource : MonoBehaviour, IPointerClickHandler
 
     public void MiningResource()
     {
+        IsMining = true;
+        
         StartCoroutine(nameof(IE_MiningAnimation));
 
         StartCoroutine(nameof(IE_Mining));
@@ -203,7 +209,10 @@ public class Resource : MonoBehaviour, IPointerClickHandler
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        UIManager.instance.ShowMiningUI(this);
+        if(!IsMining)
+        {
+            UIManager.instance.ShowMiningUI(this);
+        }
     }
 
     public void SetPickaxae(EPickaxeType Sender)

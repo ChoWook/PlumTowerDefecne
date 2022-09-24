@@ -17,7 +17,7 @@ public class MapGimmicSpawner : MonoBehaviour
 
     public void SpawnGimmick(EMapGimmickType GimmickType, int idx = -1)
     {
-        // dix == -1 ÀÌ¸é ¸Ê ÀüÃ¼ ¼ÒÈ¯
+        // dix == -1 ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½È¯
         if (idx == -1)
         {
             SpawnGimmickHoleMap(GimmickType);
@@ -44,12 +44,12 @@ public class MapGimmicSpawner : MonoBehaviour
 
             ChoosenSet = ChooseEmptySet(Tables.MapGimmick.Get(GimmickType)._Probability, EmptyTiles.Count);
 
-            // Àå¾Ö¹°Àº Æ¯¼öÇÑ ¾Ë°í¸®ÁòÀ¸·Î »ý¼º
+            // ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½Ë°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (GimmickType == EMapGimmickType.Obstacle)
             {
                 CreateObstacleInGround();
             }
-            // °ø°Ý·Î ¹öÇÁ´Â °ø°Ý·Î¿¡¸¸ »ý¼ºµÇ¾î¾ß ÇÔ
+            // ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ ï¿½ï¿½
             else
             {
                 SpawnGimmickInChoosenSet(GimmickType);
@@ -108,7 +108,7 @@ public class MapGimmicSpawner : MonoBehaviour
 
                 Obstacle NewObstacle = obj.GetComponent<Obstacle>();
 
-                EmptyTiles[ChoosenSet[i]].SetObjectOnTile(obj);
+                EmptyTiles[ChoosenSet[i]].SetObjectOnTile(NewObstacle);
 
                 EmptyTiles[ChoosenSet[i]].IsFixedObstacle = true;
 
@@ -117,16 +117,16 @@ public class MapGimmicSpawner : MonoBehaviour
                 obj.transform.localPosition = Vector3.zero;
 
 
-                // °¢ À§Ä¡ Å¸ÀÏÀÇ ÀÎµ¦½º¸¦ ÀúÀåÇÒ º¯¼öµé
+                // ï¿½ï¿½ ï¿½ï¿½Ä¡ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 r = -1;
                 d = -1;
                 rd = -1;
                 ld = -1;
 
-                // Àå¾Ö¹° À§Ä¡¿¡¼­ ÁÖº¯ ºÎºÐÀÌ ºñ¾îÀÖ´Â Áö È®ÀÎ
+                // ï¿½ï¿½Ö¹ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Öºï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ È®ï¿½ï¿½
                 for (int j = i + 1; j < ChoosenSet.Length; j++)
                 {
-                    // ´Ù¸¥ Àå¾Ö¹°¿¡ Æ÷ÇÔµÇ ÀÖ´Â Å¸ÀÏÀº ½ºÅµ
+                    // ï¿½Ù¸ï¿½ ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ôµï¿½ ï¿½Ö´ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµ
                     if (EmptyTiles[ChoosenSet[j]].IsFixedObstacle)
                     {
                         continue;
@@ -163,17 +163,17 @@ public class MapGimmicSpawner : MonoBehaviour
                     }
                 }
 
-                // ±âÈ¹¼­¿¡ ÀÖ´Â ÇÃ·Î¿ì Â÷Æ® ±â¹ÝÀ¸·Î Àå¾Ö¹° Å¸ÀÔ Àû¿ë
+                // ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ã·Î¿ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ö¹ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 int ObstacleType = 0;
                 if(r >= 0)
                 {
-                    IncludeObstacle(r, obj);
+                    IncludeObstacle(r, NewObstacle);
                     if (rd>= 0)
                     {
-                        IncludeObstacle(rd, obj);
+                        IncludeObstacle(rd, NewObstacle);
                         if (d >= 0)
                         {
-                            IncludeObstacle(d, obj);
+                            IncludeObstacle(d, NewObstacle);
                             ObstacleType = 8;
                         }
                         else
@@ -185,7 +185,7 @@ public class MapGimmicSpawner : MonoBehaviour
                     {
                         if(d >= 0)
                         {
-                            IncludeObstacle(d, obj);
+                            IncludeObstacle(d, NewObstacle);
                             ObstacleType = 4;
                         }
                         else
@@ -198,17 +198,17 @@ public class MapGimmicSpawner : MonoBehaviour
                 {
                     if(d >= 0)
                     {
-                        IncludeObstacle(d, obj);
+                        IncludeObstacle(d, NewObstacle);
                         if (rd >= 0)
                         {
-                            IncludeObstacle(rd, obj);
+                            IncludeObstacle(rd, NewObstacle);
                             ObstacleType = 7;
                         }
                         else
                         {
                             if(ld >= 0)
                             {
-                                IncludeObstacle(ld, obj);
+                                IncludeObstacle(ld, NewObstacle);
                                 ObstacleType = 6;
                             }
                             else
@@ -228,14 +228,14 @@ public class MapGimmicSpawner : MonoBehaviour
         }
     }
 
-    public void IncludeObstacle(int TileIdx, GameObject Sender)
+    public void IncludeObstacle(int TileIdx, Obstacle Sender)
     {
         EmptyTiles[ChoosenSet[TileIdx]].IsFixedObstacle = true;
         EmptyTiles[ChoosenSet[TileIdx]].SetObjectOnTile(Sender);
     }
     void SpawnGimmickHoleMap(EMapGimmickType GimmickType)
     {
-        // Àå¾Ö¹°°ú °ø°Ý·Î¹öÇÁ´Â ÀüÃ¼ ¸Ê¿¡¼­ »ý¼ºÇÒ ¼ö ¾øÀ½
+        // ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·Î¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if(GimmickType == EMapGimmickType.Obstacle || GimmickType == EMapGimmickType.LaneBuff)
         {
             Debug.LogWarning("Worng Spawn Obstacle");
@@ -272,7 +272,7 @@ public class MapGimmicSpawner : MonoBehaviour
         {
             GameObject obj = ObjectPools.Instance.GetPooledObject(GimmickType.ToString());
 
-            EmptyTiles[ChoosenSet[i]].SetObjectOnTile(obj);
+            EmptyTiles[ChoosenSet[i]].SetObjectOnTile(obj.GetComponent<IObjectOnTile>());
 
             obj.transform.parent = EmptyTiles[ChoosenSet[i]].transform;
 

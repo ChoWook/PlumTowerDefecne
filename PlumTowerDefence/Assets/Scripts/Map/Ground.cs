@@ -154,7 +154,7 @@ public class Ground : MonoBehaviour
 
         GameObject house = Instantiate(CastlePrefab, Tiles[HouseTileIndex].transform);
 
-        Tiles[HouseTileIndex].SetObjectOnTile(house, 3);
+        Tiles[HouseTileIndex].SetObjectOnTile(house.GetComponent<IObjectOnTile>(), 3);
 
         float YAngle = 0;
 

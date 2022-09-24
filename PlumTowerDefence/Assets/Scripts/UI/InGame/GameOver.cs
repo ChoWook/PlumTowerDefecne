@@ -20,6 +20,7 @@ public class GameOver : MonoBehaviour
     {
         transform.GetChild(0).gameObject.SetActive(true);
         Time.timeScale = 0;
+        JsonManager.instance.WriteJson();
     }
 
     public void MoveMainMenu()

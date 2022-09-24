@@ -11,7 +11,7 @@ public class ArrowTower : Tower
     {
         Setstat(ETowerName.Arrow);
     }
-    /*
+    
     public override float AttackStat
     {
         get
@@ -49,10 +49,10 @@ public class ArrowTower : Tower
             }
 
             return (BaseSpeedStat + sum + SpeedBuffAmount);
-
+            
         }
     }
-    */
+    
 
     // 스탯 리셋은 언제?
 

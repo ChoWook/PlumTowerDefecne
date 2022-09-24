@@ -22,12 +22,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void Awake()
     {
-        if (!CameraLoad)
-        {
-            mainCamera = Camera.main;
-            UICamera = GameObject.Find("UICam").GetComponent<Camera>();
-            CameraLoad = true;
-        }
+        mainCamera = Camera.main;
+        UICamera = GameObject.Find("UICam").GetComponent<Camera>();
+        CameraLoad = true;
     }
 
     public void InitSpeed(EMonsterType monsterType)
