@@ -89,7 +89,9 @@ public class Treasure : IObjectOnTile, IPointerClickHandler
         text.SetPosition(transform.position);
 
         text.AddText(string.Format(Tables.StringUI.Get("Treasure_Money")._Korean, RewardMoney));
-        
+
+        RewardSecondProb *= 1 + GameManager.instance.increaseTowerCoupon;
+        RewardThirdProb *= 1 + GameManager.instance.increaseTowerCoupon;
         
         if(Random.Range(0, 100) < RewardSecondProb)
         {
