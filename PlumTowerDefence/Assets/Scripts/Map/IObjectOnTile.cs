@@ -15,11 +15,16 @@ public class IObjectOnTile : MonoBehaviour
 
     void OnDisable()
     {
+        ClearObjectOnTile();
+    }
+
+    protected void ClearObjectOnTile()
+    {
         for (int i = 0; i < BelowTile.Count; i++)
         {
             BelowTile[i].RemoveObjectOnTile();
         }
-        
+
         BelowTile.Clear();
     }
 }

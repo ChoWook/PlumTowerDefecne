@@ -472,16 +472,25 @@ public class Tower : IObjectOnTile
     //Move
     public void MoveTower(Tile tile)
     {
-        // 설치 상태로 돌아감
+        ClearObjectOnTile();
 
-        // 중간에 취소 가능하게
+        // 타워 위치 변경
+        if (Size == 2)
+        {
+            float half = GameManager.instance.unitTileSize / 2;
 
-        // 재화 연결 함수
+            transform.position = new Vector3(tile.transform.position.x + half, tile.transform.position.y, tile.transform.position.z - half);
+        }
+        else
+        {
+            transform.position = tile.transform.position;
+        }
 
-        // 돈 감소
-        GameManager.instance.money -= MovePrice;
+        belowTile = tile;
 
-        transform.position = tile.transform.position;
+        tile.SetObjectOnTile(this, Size);
+
+        IsSelected(false);
     }
 
     public void Setstat(ETowerName _TowerName)

@@ -110,7 +110,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
         SelectedTowerName = TName;
 
-        StartCoroutine(IE_FallowingMouse(TName));
+        StartCoroutine(nameof(IE_FallowingMouse), TName);
     }
 
     IEnumerator IE_FallowingMouse(ETowerName TName)
@@ -299,7 +299,7 @@ public class TowerButtonGenerate : MonoBehaviour
         }
     }
 
-    public void ChangeSelectedTowerMaterial(bool Available)
+    void ChangeSelectedTowerMaterial(bool Available)
     {
         if (SelectedTower != null && SelectedTower.gameObject.activeSelf)
         {
