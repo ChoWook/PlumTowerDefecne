@@ -1,30 +1,30 @@
 ID,Type,Korean,None,Water,Ground,Fire,Electric,Time,Tower,StatType,Amount,IsBuff
 int,LaneBuffType,string,bool,bool,bool,bool,bool,int,int,MonsterStat,float,Bool
-101110,AllHealHp,이 타일을 지나면 모든 몬스터의 전체 체력 중 10%가 회복됨,,TRUE,TRUE,TRUE,TRUE,0,0,Hp,10,TRUE
-102110,AllDealHp,이 타일을 지나면 모든 몬스터의 전체 체력 중 7%가 감소함,,TRUE,TRUE,TRUE,TRUE,0,0,Hp,-7,FALSE
-103110,AllHealShield,이 타일을 지나면 모든 몬스터의 전체 방어구 중 5%가 회복됨,,TRUE,TRUE,TRUE,TRUE,0,0,Shield,5,TRUE
-104110,AllDealShield,이 타일을 지나면 모든 몬스터의 전체 방어구 중 5%가 감소함,,TRUE,TRUE,TRUE,TRUE,0,0,Shield,-5,FALSE
-105110,AllBuffArmor,이 타일을 지나면 8초간 몬스터의 방어력이 10% 증가함,,TRUE,TRUE,TRUE,TRUE,8,0,Armor,10,TRUE
-106110,AllNurfArmor,이 타일을 지나면 8초간 몬스터의 방어력이 10% 감소함,,TRUE,TRUE,TRUE,TRUE,8,0,Armor,-10,FALSE
-201111,WaterHealHp,이 타일을 지나면 물 속성 몬스터의 전체 체력 중 13%가 회복됨,,TRUE,FALSE,FALSE,FALSE,0,0,Hp,13,TRUE
-201121,GroundHealHp,이 타일을 지나면 흙 속성 몬스터의 전체 체력 중 13%가 회복됨,,FALSE,TRUE,FALSE,FALSE,0,0,Hp,13,TRUE
-201131,FireHealHp,이 타일을 지나면 불 속성 몬스터의 전체 체력 중 13%가 회복됨,,FALSE,FALSE,TRUE,FALSE,0,0,Hp,13,TRUE
-201141,ElectricHealHp,이 타일을 지나면 전기 속성 몬스터의 전체 체력 중 13%가 회복됨,,FALSE,FALSE,FALSE,TRUE,0,0,Hp,13,TRUE
-202111,WaterDealHp,이 타일을 지나면 물 속성 몬스터의 전체 체력 중 10%가 감소함,,TRUE,FALSE,FALSE,FALSE,0,0,Hp,-10,FALSE
-202121,GroundDealHp,이 타일을 지나면 흙 속성 몬스터의 전체 체력 중 10%가 감소함,,FALSE,TRUE,FALSE,FALSE,0,0,Hp,-10,FALSE
-202131,FireDealHp,이 타일을 지나면 불 속성 몬스터의 전체 체력 중 10%가 감소함,,FALSE,FALSE,TRUE,FALSE,0,0,Hp,-10,FALSE
-202141,ElectricDealHp,이 타일을 지나면 전기 속성 몬스터의 전체 체력 중 10%가 감소함,,FALSE,FALSE,FALSE,TRUE,0,0,Hp,-10,FALSE
-203111,WaterBuffArmor,이 타일을 지나면 15초간 물 속성 몬스터의 방어력이 7% 증가함,,TRUE,FALSE,FALSE,FALSE,15,0,Armor,7,TRUE
-203121,GroundBuffArmor,이 타일을 지나면 15초간 흙 속성 몬스터의 방어력이 7% 증가함,,FALSE,TRUE,FALSE,FALSE,15,0,Armor,7,TRUE
-203131,FireBuffArmor,이 타일을 지나면 15초간 불 속성 몬스터의 방어력이 7% 증가함,,FALSE,FALSE,TRUE,FALSE,15,0,Armor,7,TRUE
-203141,ElectricBuffArmor,이 타일을 지나면 15초간 전기 속성 몬스터의 방어력이 7% 증가함,,FALSE,FALSE,FALSE,TRUE,15,0,Armor,7,TRUE
-204111,WaterNurfArmor,이 타일을 지나면 15초간 물 속성 몬스터의 방어력이 7% 감소함,,TRUE,FALSE,FALSE,FALSE,15,0,Armor,-7,FALSE
-204121,GroundNurfArmor,이 타일을 지나면 15초간 흙 속성 몬스터의 방어력이 7% 감소함,,FALSE,TRUE,FALSE,FALSE,15,0,Armor,-7,FALSE
-204131,FireNurfArmor,이 타일을 지나면 15초간 불 속성 몬스터의 방어력이 7% 감소함,,FALSE,FALSE,TRUE,FALSE,15,0,Armor,-7,FALSE
-204141,ElectricNurfArmor,이 타일을 지나면 15초간 전기 속성 몬스터의 방어력이 7% 감소함,,FALSE,FALSE,FALSE,TRUE,15,0,Armor,-7,FALSE
-301011,ArrowBuff,이 타일을 지나면 3초간 화살타워에서 받는 데미지가 5% 증가함,,TRUE,TRUE,TRUE,TRUE,3,1,Damage,5,FALSE
-301021,SlowBuff,이 타일을 지나는 동안 이동속도가 5% 감소함,,TRUE,TRUE,TRUE,TRUE,0,2,Speed,-5,FALSE
-301031,PoisonBuff,이 타일을 지나면 3초간 초당 받는 데미지가 5% 증가함,,TRUE,TRUE,TRUE,TRUE,3,3,Damage,5,FALSE
-301041,FlameBuff,이 타일을 지나면 3초간 화염방사타워에서 받는 데미지가 5% 증가함,,TRUE,TRUE,TRUE,TRUE,3,4,Damage,5,FALSE
-301051,LazerBuff,이 타일을 지나면 3초간 레이저타워에서 받는 데미지가 5% 증가함,,TRUE,TRUE,TRUE,TRUE,3,7,Damage,5,FALSE
-301061,MissileBuff,이 타일을 지나면 3초간 미사일타워에서 받는 데미지가 5% 증가함,,TRUE,TRUE,TRUE,TRUE,3,8,Damage,5,FALSE
+101110,AllHealHp,이 타일을 지나면 모든 몬스터의 전체 체력 중 10%가 회복됨,TRUE,TRUE,TRUE,TRUE,TRUE,0,0,Hp,10,TRUE
+102110,AllDealHp,이 타일을 지나면 모든 몬스터의 전체 체력 중 7%가 감소함,TRUE,TRUE,TRUE,TRUE,TRUE,0,0,Hp,-7,FALSE
+103110,AllHealShield,이 타일을 지나면 모든 몬스터의 전체 방어구 중 5%가 회복됨,TRUE,TRUE,TRUE,TRUE,TRUE,0,0,Shield,5,TRUE
+104110,AllDealShield,이 타일을 지나면 모든 몬스터의 전체 방어구 중 5%가 감소함,TRUE,TRUE,TRUE,TRUE,TRUE,0,0,Shield,-5,FALSE
+105110,AllBuffArmor,이 타일을 지나면 8초간 몬스터의 방어력이 10% 증가함,TRUE,TRUE,TRUE,TRUE,TRUE,8,0,Armor,10,TRUE
+106110,AllNurfArmor,이 타일을 지나면 8초간 몬스터의 방어력이 10% 감소함,TRUE,TRUE,TRUE,TRUE,TRUE,8,0,Armor,-10,FALSE
+201111,WaterHealHp,이 타일을 지나면 물 속성 몬스터의 전체 체력 중 13%가 회복됨,FALSE,TRUE,FALSE,FALSE,FALSE,0,0,Hp,13,TRUE
+201121,GroundHealHp,이 타일을 지나면 흙 속성 몬스터의 전체 체력 중 13%가 회복됨,FALSE,FALSE,TRUE,FALSE,FALSE,0,0,Hp,13,TRUE
+201131,FireHealHp,이 타일을 지나면 불 속성 몬스터의 전체 체력 중 13%가 회복됨,FALSE,FALSE,FALSE,TRUE,FALSE,0,0,Hp,13,TRUE
+201141,ElectricHealHp,이 타일을 지나면 전기 속성 몬스터의 전체 체력 중 13%가 회복됨,FALSE,FALSE,FALSE,FALSE,TRUE,0,0,Hp,13,TRUE
+202111,WaterDealHp,이 타일을 지나면 물 속성 몬스터의 전체 체력 중 10%가 감소함,FALSE,TRUE,FALSE,FALSE,FALSE,0,0,Hp,-10,FALSE
+202121,GroundDealHp,이 타일을 지나면 흙 속성 몬스터의 전체 체력 중 10%가 감소함,FALSE,FALSE,TRUE,FALSE,FALSE,0,0,Hp,-10,FALSE
+202131,FireDealHp,이 타일을 지나면 불 속성 몬스터의 전체 체력 중 10%가 감소함,FALSE,FALSE,FALSE,TRUE,FALSE,0,0,Hp,-10,FALSE
+202141,ElectricDealHp,이 타일을 지나면 전기 속성 몬스터의 전체 체력 중 10%가 감소함,FALSE,FALSE,FALSE,FALSE,TRUE,0,0,Hp,-10,FALSE
+203111,WaterBuffArmor,이 타일을 지나면 15초간 물 속성 몬스터의 방어력이 7% 증가함,FALSE,TRUE,FALSE,FALSE,FALSE,15,0,Armor,7,TRUE
+203121,GroundBuffArmor,이 타일을 지나면 15초간 흙 속성 몬스터의 방어력이 7% 증가함,FALSE,FALSE,TRUE,FALSE,FALSE,15,0,Armor,7,TRUE
+203131,FireBuffArmor,이 타일을 지나면 15초간 불 속성 몬스터의 방어력이 7% 증가함,FALSE,FALSE,FALSE,TRUE,FALSE,15,0,Armor,7,TRUE
+203141,ElectricBuffArmor,이 타일을 지나면 15초간 전기 속성 몬스터의 방어력이 7% 증가함,FALSE,FALSE,FALSE,FALSE,TRUE,15,0,Armor,7,TRUE
+204111,WaterNurfArmor,이 타일을 지나면 15초간 물 속성 몬스터의 방어력이 7% 감소함,FALSE,TRUE,FALSE,FALSE,FALSE,15,0,Armor,-7,FALSE
+204121,GroundNurfArmor,이 타일을 지나면 15초간 흙 속성 몬스터의 방어력이 7% 감소함,FALSE,FALSE,TRUE,FALSE,FALSE,15,0,Armor,-7,FALSE
+204131,FireNurfArmor,이 타일을 지나면 15초간 불 속성 몬스터의 방어력이 7% 감소함,FALSE,FALSE,FALSE,TRUE,FALSE,15,0,Armor,-7,FALSE
+204141,ElectricNurfArmor,이 타일을 지나면 15초간 전기 속성 몬스터의 방어력이 7% 감소함,FALSE,FALSE,FALSE,FALSE,TRUE,15,0,Armor,-7,FALSE
+301011,ArrowBuff,이 타일을 지나면 3초간 화살타워에서 받는 데미지가 5% 증가함,TRUE,TRUE,TRUE,TRUE,TRUE,3,1,Damage,5,FALSE
+301021,SlowBuff,이 타일을 지나는 동안 이동속도가 5% 감소함,TRUE,TRUE,TRUE,TRUE,TRUE,0,2,Speed,-5,FALSE
+301031,PoisonBuff,이 타일을 지나면 3초간 초당 받는 데미지가 5% 증가함,TRUE,TRUE,TRUE,TRUE,TRUE,3,3,Damage,5,FALSE
+301041,FlameBuff,이 타일을 지나면 3초간 화염방사타워에서 받는 데미지가 5% 증가함,TRUE,TRUE,TRUE,TRUE,TRUE,3,4,Damage,5,FALSE
+301051,LazerBuff,이 타일을 지나면 3초간 레이저타워에서 받는 데미지가 5% 증가함,TRUE,TRUE,TRUE,TRUE,TRUE,3,7,Damage,5,FALSE
+301061,MissileBuff,이 타일을 지나면 3초간 미사일타워에서 받는 데미지가 5% 증가함,TRUE,TRUE,TRUE,TRUE,TRUE,3,8,Damage,5,FALSE
