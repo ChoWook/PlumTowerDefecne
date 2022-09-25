@@ -62,7 +62,7 @@ public class Tower : IObjectOnTile
 
     public Tile belowTile;
 
-    public bool Selected = false;                                                           // 타워 선택 여부
+    public bool Selected = false;                                                          // 타워 선택 여부
     public bool Fixed = false;                                                             // 타워 설치 여부 < -  필요한가?
 
     public int AttackPriorityID = 0;                                                       // 우선 공격 속성 ID
@@ -76,12 +76,17 @@ public class Tower : IObjectOnTile
     public int SellPrice;                                                                  // 판매 가격
     public int MovePrice;                                                                  // 이동 가격
 
-    public bool CheckAttackBuff;                                                          //버프 받고 있는지 확인
-    public bool CheckSpeedBuff;                                                           //버프 받고 있는지 확인
+
+    public Dictionary<Tower, float> AttackBuffTowers;                                 // 공격력 버프 타워들(버프량)
+    public Dictionary<Tower, bool> CheckAttackBuffTowers;                             // 공격력 버프 타워들(버프 여부)
+
+
+    public Dictionary<Tower, float> SpeedBuffTowers;                                  // 공격속도 버프 타워들
+    public Dictionary<Tower, bool> CheckSpeedBuffTowers;                             // 공격속도 버프 타워들
 
     public GameObject BulletPrefab;
     public Transform FirePoint;
-    public float ProjectileSpeed;                                                         //투사체 속도
+    public float ProjectileSpeed;                                                          // 투사체 속도
 
 
 
@@ -413,7 +418,7 @@ public class Tower : IObjectOnTile
     // 상호작용 함수
 
     //Upgrade
-    public void UpgradeTower() // 데이터 연동해서 수정하기
+    public virtual void UpgradeTower() // 데이터 연동해서 수정하기
     {
         if(UpgradePrice > GameManager.instance.Money)
         {
@@ -457,7 +462,7 @@ public class Tower : IObjectOnTile
     }
 
     //Sell
-    public void SellTower()
+    public virtual void SellTower()
     {
         // 타워 반납하기
         ObjectPools.Instance.ReleaseObjectToPool(gameObject); // 타워 풀에 추가한 뒤 바꾸기 ?  <- 맵에서 다룬다!
@@ -470,7 +475,7 @@ public class Tower : IObjectOnTile
     }
 
     //Move
-    public void MoveTower(Tile tile)
+    public virtual void MoveTower(Tile tile)
     {
         ClearObjectOnTile();
 

@@ -12,7 +12,7 @@ public class LaserTower : Tower
         Setstat(ETowerName.Laser); // onenable에서 변수 값 정리하기
     }
 
-    /*
+    
     public override float AttackStat
     {
         get
@@ -63,7 +63,7 @@ public class LaserTower : Tower
     }
 
 
-    */
+    
 
 
 

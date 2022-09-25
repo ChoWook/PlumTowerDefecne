@@ -9,7 +9,7 @@ public class MissileTower : Tower
         Setstat(ETowerName.Missile);
     }
 
-    /*
+    
     public override float AttackStat
     {
         get
@@ -59,6 +59,6 @@ public class MissileTower : Tower
         }
     }
 
-    */
+    
 
 }

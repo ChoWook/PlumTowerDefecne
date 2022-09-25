@@ -10,7 +10,7 @@ public class PoisonTower : Tower
         Setstat(ETowerName.Poison);
     }
 
-    /*
+    
     public override float AbilityStat
     {
         get 
@@ -27,7 +27,7 @@ public class PoisonTower : Tower
             return (BaseAbilityStat + sum);
         }
     }
-    */
+    
 
     // range, slowrate 연동 추가
 

@@ -14,7 +14,7 @@ public class SpeedBuffTower : Tower
         Setstat(ETowerName.SpeedBuff);
     }
 
-    /*
+    
     public override float AbilityStat
     {
         get
@@ -39,7 +39,7 @@ public class SpeedBuffTower : Tower
             return (BaseAbilityStat + sum) * multi;
         }
     }
-    */
+    
     // attackRange, additionalAttackDamage;
 
 
@@ -48,6 +48,8 @@ public class SpeedBuffTower : Tower
 
     protected override void UpdateTarget()
     {
+        TowerList.Clear();
+
         GameObject[] Towers = GameObject.FindGameObjectsWithTag(TowerTag); // Collider로 바꾸면 정말 좋을텐데ㅜㅜ
 
         foreach (GameObject tower in Towers)
@@ -68,26 +70,95 @@ public class SpeedBuffTower : Tower
         {
             return;
         }
-           
+        /*
 
         for (int i = 0; i < TowerList.Count; i++)
         {
+
             Tower t = TowerList[i].GetComponent<Tower>();
-            if (!(t.CheckSpeedBuff))
+
+            if (!(t.CheckSpeedBuffTowers.ContainsKey(this))) // 추후 변경
             {
 
-                t.GetSpeedBuff(AbilityStat);
-                t.CheckSpeedBuff = true ;
+                t.SpeedBuffTowers.Add(this, AbilityStat);
+                t.CheckSpeedBuffTowers.Add(this, true);
 
             }
         }
+        */
     }
-
-
-
 
     public override void Shoot()
     {
         
     }
+
+    public override void UpgradeTower()
+    {
+        base.UpgradeTower();
+        /*
+        for (int i = 0; i < TowerList.Count; i++)
+        {
+
+            Tower t = TowerList[i].GetComponent<Tower>();
+
+            if ((t.CheckSpeedBuffTowers.ContainsKey(this))) // 추후 변경
+            {
+
+                t.SpeedBuffTowers[this] = AbilityStat;
+
+            }
+        }
+        */
+    }
+
+
+    public override void SellTower()
+    {
+        base.SellTower();
+
+        // 공격, 공속 버프 타워일 때  버프 삭제 효과 넣어주기
+
+        /*
+        for (int i = 0; i < TowerList.Count; i++)
+        {
+
+            Tower t = TowerList[i].GetComponent<Tower>();
+
+            if ((t.CheckSpeedBuffTowers.ContainsKey(this))) // 추후 변경
+            {
+
+                t.SpeedBuffTowers[this] = AbilityStat;
+                t.CheckSpeedBuffTowers[this] = false;
+
+            }
+        }
+        */
+    }
+
+    public override void MoveTower(Tile tile)
+    {
+        base.MoveTower(tile);
+
+        // 새로 체크해서 바꿔줘야 하나?
+
+    }
+
+
+
+}
+
+
+public class SpeedBuffTowerComparer : IEqualityComparer<SpeedBuffTower>
+{
+    public bool Equals(SpeedBuffTower x, SpeedBuffTower y)
+    {
+        return x.GetHashCode() == y.GetHashCode();
+    }
+
+    public int GetHashCode(SpeedBuffTower pos)
+    {
+        return pos.GetHashCode() ^ pos.GetHashCode() << 2;
+    }
+
 }
