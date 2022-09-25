@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using RTS_Cam;
 using TMPro;
@@ -63,6 +64,8 @@ public class Map : MonoBehaviour
     [SerializeField] GameObject EnemySpawnerPrefab;
 
     [SerializeField] GameObject Waypoint;
+
+    [SerializeField] GameObject TreeEnvironment;
 
     [SerializeField] int TreesLayer = 2;
 
@@ -613,6 +616,10 @@ public class Map : MonoBehaviour
 
                 TreesWithPos.TryAdd(TreesPos, Trees);
 
+                if (!Option.EnvironmentChecked)
+                {
+                    Trees.SetActive(false);
+                }
             }
         }
     }
@@ -726,6 +733,18 @@ public class Map : MonoBehaviour
         Trees.SetParent(transform);
 
         Trees.transform.localPosition = new Vector3(Sender.PosX * GroundSize, 0, Sender.PosY * GroundSize);
+
+        Trees.SetParent(TreeEnvironment.transform);
+    }
+
+    public void ShowTreeEnvironmnet()
+    {
+        TreeEnvironment.SetActive(true);
+    }
+
+    public void HideTreeEnvironmnet()
+    {
+        TreeEnvironment.SetActive(false);
     }
 
     #endregion

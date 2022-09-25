@@ -465,6 +465,7 @@ Transform:
   - {fileID: 6826042292649473820}
   - {fileID: 10347990530753445}
   - {fileID: 958381494}
+  - {fileID: 3713864398446123258}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -487,6 +488,7 @@ MonoBehaviour:
     type: 3}
   Waypoint: {fileID: 2120333552706596562, guid: 1b57c9adc4270a64e8f3a27e656e338e,
     type: 3}
+  TreeEnvironment: {fileID: 5939414539011571795}
   TreesLayer: 2
   MaxCameraHeight: 20
   OpenGroundCnt: 0
@@ -495,6 +497,37 @@ MonoBehaviour:
   HoleEmptyLandCnt: 0
   Grounds: []
   MapInput: {fileID: 0}
+--- !u!1 &5939414539011571795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3713864398446123258}
+  m_Layer: 0
+  m_Name: TreeEnvironment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3713864398446123258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5939414539011571795}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5263991364535386759}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6051654916856160087
 GameObject:
   m_ObjectHideFlags: 0
