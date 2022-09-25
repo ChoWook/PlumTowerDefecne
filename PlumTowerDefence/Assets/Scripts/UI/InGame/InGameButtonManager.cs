@@ -12,12 +12,10 @@ public class InGameButtonManager : MonoBehaviour
     /// 확장하기버튼, 게임시작버튼의 함수를 관리하고 있음
     /// 현재는 test목적의 게임 진행을 나타내는 코루틴 함수를 포함하고 있음
     /// </summary>
-    
-    [SerializeField] private GameObject[] Texts;    //UI의 텍스트를 담을 배열, 이름 지정용 
-    private TextMeshProUGUI levelText;
-    private TextMeshProUGUI xpText;
-    private TextMeshProUGUI hpText;
-    private TextMeshProUGUI moneyText;
+    [SerializeField]  private TextMeshProUGUI levelText;
+    [SerializeField]  private TextMeshProUGUI xpText;
+    [SerializeField]  private TextMeshProUGUI hpText;
+    [SerializeField]  private TextMeshProUGUI moneyText;
     
     [SerializeField] private GameObject expandButton;
     [SerializeField] private GameObject startButton;
@@ -28,13 +26,11 @@ public class InGameButtonManager : MonoBehaviour
     
     private void Awake()
     {
-        levelText = Texts[0].GetComponent<TextMeshProUGUI>();
-        xpText = Texts[1].GetComponent<TextMeshProUGUI>();
-        hpText = Texts[2].GetComponent<TextMeshProUGUI>();
-        moneyText = Texts[3].GetComponent<TextMeshProUGUI>();
-        
         InGameUpgradePanel = GameObject.Find("InGameUpgradePanel");
-        
+    }
+
+    public void SetValueChangeCallback()
+    {
         GameManager.instance.AddStageClearCallBack(StageClear);
         GameManager.instance.AddLevelChangeCallBack(ChangeLevelText);
         GameManager.instance.AddXpChangeCallBack(ChangeXpText);

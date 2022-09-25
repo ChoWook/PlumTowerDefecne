@@ -389,13 +389,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f32185b5d830de4d8676eee1dfe3872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Texts:
-  - {fileID: 9157829016690275939}
-  - {fileID: 9157829016955203574}
-  - {fileID: 9157829015201764264}
-  - {fileID: 9157829016524726877}
-  - {fileID: 9157829016093711398}
-  - {fileID: 9157829016266694363}
+  levelText: {fileID: 9157829016690275937}
+  xpText: {fileID: 9157829016955203572}
+  hpText: {fileID: 9157829015201764262}
+  moneyText: {fileID: 9157829016524726875}
   expandButton: {fileID: 9157829016717009263}
   startButton: {fileID: 9157829015345964664}
 --- !u!114 &1619318877

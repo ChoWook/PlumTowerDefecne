@@ -30,10 +30,14 @@ public class LaneBuffUI : MonoBehaviour
         if (buff._IsBuff)
         {
             LaneBuffNameText.text = "몬스터 버프";
+
+            LaneBuffEffectText.color = Color.red;
         }
         else
         {
             LaneBuffNameText.text = "몬스터 디버프";
+
+            LaneBuffEffectText.color = Color.green;
         }
         
 
@@ -41,11 +45,11 @@ public class LaneBuffUI : MonoBehaviour
 
         if(buff._Amount > 0)
         {
-            LaneBuffEffectText.text = $"{buff._StatType.ToString()} +{buff._Amount}";
+            LaneBuffEffectText.text = $"{buff._StatType.ToString()} +{buff._Amount}%";
         }
         else
         {
-            LaneBuffEffectText.text = $"{buff._StatType.ToString()} {buff._Amount}";
+            LaneBuffEffectText.text = $"{buff._StatType.ToString()} {buff._Amount}%";
         }
         
     }

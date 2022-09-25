@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
@@ -345,6 +346,14 @@ public class GameManager : MonoBehaviour
 
     public void InitGame()
     {
+        JsonManager.instance.usingList = JsonManager.instance.SaveData.upgradedCard.ToList();
+
+        // 콜백 클리어
+        CallBackClear();
+
+        // 콜백 재설정
+        FindObjectOfType<InGameButtonManager>()?.SetValueChangeCallback();
+
         money = Tables.GlobalSystem.Get("User_Money")._Value;
         maxHp = Tables.GlobalSystem.Get("User_Hp")._Value;
         currentHp = maxHp;
@@ -362,6 +371,8 @@ public class GameManager : MonoBehaviour
         ApplicationUpgrade.instance.ResetInGameUpgrade();
 
         InitCoupon();
+
+        MainMenuButtonManager.SelectApplicationUpgrade();
     }
 
 

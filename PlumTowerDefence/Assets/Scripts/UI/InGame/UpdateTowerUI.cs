@@ -192,18 +192,6 @@ public class UpdateTowerUI : MonoBehaviour
             return;
         }
 
-        /*
-        // 이미 선택한 타워가 있다면 바꿔야 함
-        if (SelectedTower != null)
-        {
-            ObjectPools.Instance.ReleaseObjectToPool(SelectedTower);
-
-            SelectedTower = null;
-        }
-
-        UIManager.instance?.UIClear();
-        */
-
         StartCoroutine(nameof(IE_FallowingMouse), _tower.TowerName);
     }
 
