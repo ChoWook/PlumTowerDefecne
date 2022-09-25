@@ -7,10 +7,10 @@ public class Enemy : MonoBehaviour
     // 기본 Enemy 스탯, 속성, 특성 Class만들기
 
     protected float BaseHP;               
-    float MaxHP;
+    public float MaxHP;
     public float CurrentHP;
     protected float BaseShield;           
-    float MaxShield;
+    public float MaxShield;
 
     public float CurrentShield;
     bool ShieldOn = true;
@@ -38,6 +38,8 @@ public class Enemy : MonoBehaviour
     public EPropertyType propertyType;
     public ELaneBuffType currentBuffType;
 
+    public GameObject bar;
+
     Animator animator;
     float SlowedAbilty;
 
@@ -62,6 +64,15 @@ public class Enemy : MonoBehaviour
         IsAlive = true;
         GetComponent<BaseAniContoller>().Isrevived = false;
         GetComponent<BaseAniContoller>().Isdivided = false;
+    }
+    private void Update()
+    {
+        if (CurrentHP <= 0)
+        {
+            bar.SetActive(false);
+        }
+        else
+            bar.SetActive(true);
     }
 
     public void GetStat()
