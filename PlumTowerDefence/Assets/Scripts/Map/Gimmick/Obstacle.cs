@@ -28,7 +28,7 @@ public class Obstacle : IObjectOnTile
         ObstacleType = Sender;
 
         DeletePrice = (int)(Tables.MapGimmickObstacle.Get(ObstacleType)._Removal *
-                            (1 - GameManager.instance.discountObstacle));
+                            (1 - GameManager.instance.DiscountObstacle));
 
         UpdateObstacleType();
     }
@@ -73,9 +73,9 @@ public class Obstacle : IObjectOnTile
 
     public void DeleteObstacle()
     {
-        if(GameManager.instance.money >= DeletePrice){
+        if(GameManager.instance.Money >= DeletePrice){
 
-            GameManager.instance.money -= DeletePrice;
+            GameManager.instance.Money -= DeletePrice;
 
             ObjectPools.Instance.ReleaseObjectToPool(gameObject);
         }

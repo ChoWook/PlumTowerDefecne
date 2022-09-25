@@ -19,7 +19,7 @@ public class InGameUpgrade : MonoBehaviour
     public void ShowInGameUpgrade()
     {
         
-        for (int i = 0; i < GameManager.instance.number_Of_Upgrade; i++)
+        for (int i = 0; i < GameManager.instance.NumberOfUpgrade; i++)
         {
             GameObject obj = ObjectPools.Instance.GetPooledObject("InGameUpgrade"); //증강체 생성
             
@@ -50,5 +50,6 @@ public class InGameUpgrade : MonoBehaviour
             ObjectPools.Instance.ReleaseObjectToPool(transform.GetChild(0).gameObject);
         }
         
+        FindObjectOfType<InGameButtonManager>()?.ShowExpandButton();
     }
 }

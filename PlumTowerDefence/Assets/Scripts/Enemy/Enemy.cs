@@ -286,7 +286,7 @@ public class Enemy : MonoBehaviour
         if(IsAlive == true)
         {
             IsAlive = false;
-            GameManager.instance.currentEnemyNumber--;
+            GameManager.instance.CurrentEnemyNumber--;
 
         }
 
@@ -319,7 +319,7 @@ public class Enemy : MonoBehaviour
         getComponent.MaxShield = MaxShield;
         getComponent.SetStat();
 
-        GameManager.instance.currentEnemyNumber++;
+        GameManager.instance.CurrentEnemyNumber++;
 
         float currentSize = enemy.transform.localScale.x;
         scaleChange = new Vector3(currentSize, currentSize, currentSize);
@@ -333,9 +333,9 @@ public class Enemy : MonoBehaviour
 
     public void IncreaseMoney()
     {
-        int waveNum = GameManager.instance.level;
+        int waveNum = GameManager.instance.Level;
         int MoneyAdd = Tables.MonsterMoneyAmount.Get(waveNum)._Money;
-        GameManager.instance.money += MoneyAdd;
+        GameManager.instance.Money += MoneyAdd;
 
     }
 
@@ -610,7 +610,7 @@ public class Enemy : MonoBehaviour
 
     public void AddElementType()
     {
-        int waveNum = GameManager.instance.level;                         // 커밋할때 바꾸기
+        int waveNum = GameManager.instance.Level;                         // 커밋할때 바꾸기
         //int waveNum = GetComponent<EnemySpawner>().WaveNumber;              //
   
 
@@ -696,7 +696,7 @@ public class Enemy : MonoBehaviour
 
     public void AddProperty()
     {
-        int waveNum = GameManager.instance.level;
+        int waveNum = GameManager.instance.Level;
 
         /*if(waveNum <= 6)
         {

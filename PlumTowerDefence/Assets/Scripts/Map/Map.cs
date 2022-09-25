@@ -208,7 +208,7 @@ public class Map : MonoBehaviour
     void InitGameManager()
     {
         // 유닛 타일 사이즈 계산
-        GameManager.instance.unitTileSize = GetTileInMap(new Pos { PosX = 1, PosY = 0 }).transform.position.x
+        GameManager.instance.UnitTileSize = GetTileInMap(new Pos { PosX = 1, PosY = 0 }).transform.position.x
             - GetTileInMap(new Pos { PosX = 0, PosY = 0 }).transform.position.x;
 
         GameManager.instance.InitGame();

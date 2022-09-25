@@ -18,7 +18,7 @@ public class Pause : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameManager.instance.isPausing)
+            if (GameManager.instance.IsPausing)
             {
                 resume();   //일시정지 해제
             }
@@ -32,7 +32,7 @@ public class Pause : MonoBehaviour
     public void pause()
     {
         Time.timeScale = 0;
-        GameManager.instance.isPausing = true;
+        GameManager.instance.IsPausing = true;
         pauseUI.SetActive(true);
         pauseBackGround.SetActive(true);
     }
@@ -40,7 +40,7 @@ public class Pause : MonoBehaviour
     public void resume()
     {
         Time.timeScale = 1;
-        GameManager.instance.isPausing = false;
+        GameManager.instance.IsPausing = false;
         pauseUI.SetActive(false);
         pauseBackGround.SetActive(false);
     }

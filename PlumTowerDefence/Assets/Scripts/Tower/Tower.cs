@@ -194,9 +194,9 @@ public class Tower : IObjectOnTile
 
         UpgradeCount = 0;
 
-        RealRange = Range * GameManager.instance.unitTileSize;
+        RealRange = Range * GameManager.instance.UnitTileSize;
 
-        RealSize = Size * GameManager.instance.unitTileSize;
+        RealSize = Size * GameManager.instance.UnitTileSize;
 
 
         // 사거리, 타워 사이즈 설정하기 <- 안 되나!
@@ -415,7 +415,7 @@ public class Tower : IObjectOnTile
     //Upgrade
     public void UpgradeTower() // 데이터 연동해서 수정하기
     {
-        if(UpgradePrice > GameManager.instance.money)
+        if(UpgradePrice > GameManager.instance.Money)
         {
             return;
         }
@@ -446,7 +446,7 @@ public class Tower : IObjectOnTile
 
         //돈 40 잃기
 
-        GameManager.instance.money -= UpgradePrice;
+        GameManager.instance.Money -= UpgradePrice;
 
         UpgradeCount++;
 
@@ -463,7 +463,7 @@ public class Tower : IObjectOnTile
         ObjectPools.Instance.ReleaseObjectToPool(gameObject); // 타워 풀에 추가한 뒤 바꾸기 ?  <- 맵에서 다룬다!
 
         // 재화 연결 함수
-        GameManager.instance.money += SellPrice;
+        GameManager.instance.Money += SellPrice;
 
         // 공격, 공속 버프 타워일 때  버프 삭제 효과 넣어주기
 
@@ -477,7 +477,7 @@ public class Tower : IObjectOnTile
         // 타워 위치 변경
         if (Size == 2)
         {
-            float half = GameManager.instance.unitTileSize / 2;
+            float half = GameManager.instance.UnitTileSize / 2;
 
             transform.position = new Vector3(tile.transform.position.x + half, tile.transform.position.y, tile.transform.position.z - half);
         }

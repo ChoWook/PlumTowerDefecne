@@ -48,8 +48,8 @@ public class JsonManager : MonoBehaviour
 
             SaveData = JsonUtility.FromJson<SaveData>(str);
 
-            GameManager.instance.totalxp = SaveData.totalXP;
-            GameManager.instance.remainxp = SaveData.remainXP;
+            GameManager.instance.TotalXP = SaveData.totalXP;
+            GameManager.instance.RemainXP = SaveData.remainXP;
         }
     }
 

@@ -6,7 +6,7 @@ public class IncreaseLevel : MonoBehaviour
 {
     public void IncreaseLevel1()
     {
-        GameManager.instance.level++;
+        GameManager.instance.Level++;
     }
 
 }

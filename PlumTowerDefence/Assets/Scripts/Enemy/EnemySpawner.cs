@@ -72,13 +72,13 @@ public class EnemySpawner : MonoBehaviour
     {
         WaitForSeconds ws = new WaitForSeconds(0.5f);
 
-        WaveNumber = GameManager.instance.level;                              // Ä¿¹ÔÇÒ¶§ ¹Ù²ãÁÖ±â
+        WaveNumber = GameManager.instance.Level;                              // Ä¿¹ÔÇÒ¶§ ¹Ù²ãÁÖ±â
         Debug.Log("WaveNumber: " + WaveNumber);
 
 
         EnemyNumber = Tables.MonsterAmount.Get(WaveNumber)._TotalAmount;
         Debug.Log("Total Enemy Number: " + EnemyNumber);
-        GameManager.instance.currentEnemyNumber = EnemyNumber;
+        GameManager.instance.CurrentEnemyNumber = EnemyNumber;
         EnemyTypeNum = Tables.MonsterAmount.Get(WaveNumber)._Monster.Count;
         EnemyArr = new float[EnemyTypeNum];
 
@@ -132,7 +132,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void UpdateEnemySpawnCounts()
     {
-        WaveNumber = GameManager.instance.level;
+        WaveNumber = GameManager.instance.Level;
         EnemyTypeNum = Tables.MonsterAmount.Get(WaveNumber)._Monster.Count;
 
         for (int i = 0; i < EnemyTypeNum; i++)

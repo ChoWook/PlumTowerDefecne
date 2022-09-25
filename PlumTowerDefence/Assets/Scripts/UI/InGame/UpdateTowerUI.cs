@@ -32,7 +32,7 @@ public class UpdateTowerUI : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.isClickedTower && Input.GetKeyDown(KeyCode.A))
+        if (GameManager.instance.IsClickedTower && Input.GetKeyDown(KeyCode.A))
         {
             SetTarget();
         }
@@ -76,13 +76,13 @@ public class UpdateTowerUI : MonoBehaviour
             }
 
             // 돈도 부족하고 쿠폰도 없으면 리턴
-            if (_tower.MovePrice > GameManager.instance.money)
+            if (_tower.MovePrice > GameManager.instance.Money)
             {
                 return;
             }
 
 
-            GameManager.instance.money -= _tower.MovePrice;
+            GameManager.instance.Money -= _tower.MovePrice;
 
             ResetMoveTower();
 
@@ -144,7 +144,7 @@ public class UpdateTowerUI : MonoBehaviour
 
         ChangeMouseCursor();
 
-        GameManager.instance.isSettingTarget = 1;
+        GameManager.instance.IsSettingTarget = 1;
     }
 
     private void ChangeMouseCursor()
@@ -156,7 +156,7 @@ public class UpdateTowerUI : MonoBehaviour
     {
         _tower.SetTarget(obj);
         
-        GameManager.instance.isSettingTarget = 0;
+        GameManager.instance.IsSettingTarget = 0;
     }
 
     public void ClearTower()
@@ -198,7 +198,7 @@ public class UpdateTowerUI : MonoBehaviour
     public void OnMoveBtnClick()
     {
         // 돈이 부족하면 리턴
-        if (_tower.MovePrice > GameManager.instance.money)
+        if (_tower.MovePrice > GameManager.instance.Money)
         {
             return;
         }
@@ -249,7 +249,7 @@ public class UpdateTowerUI : MonoBehaviour
                     // 마우스 따라다니는 오브젝트 위치 고정
                     if (TowerSize == 2)
                     {
-                        float half = GameManager.instance.unitTileSize / 2;
+                        float half = GameManager.instance.UnitTileSize / 2;
                         DisabledTower.transform.position = new Vector3(tile.transform.position.x + half, tile.transform.position.y, tile.transform.position.z - half);
                     }
                     else

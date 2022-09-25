@@ -42,7 +42,7 @@ public class UpdateGroundTowerUI : MonoBehaviour
     public void SetTarget()
     {
         ChangeMouseCursor();
-        GameManager.instance.isSettingTarget = 2;
+        GameManager.instance.IsSettingTarget = 2;
     }
     private void ChangeMouseCursor()
     {
@@ -56,7 +56,7 @@ public class UpdateGroundTowerUI : MonoBehaviour
             tower.SetTarget(obj);
         }
 
-        GameManager.instance.isSettingTarget = 0;
+        GameManager.instance.IsSettingTarget = 0;
     }
 
     public void ClearTowers()

@@ -76,11 +76,11 @@ public class Treasure : IObjectOnTile, IPointerClickHandler
             return;
         }
 
-        RewardMoney = (int)(GameManager.instance.level
+        RewardMoney = (int)(GameManager.instance.Level
             * Tables.MapGimmickResource.Get(EResourceType.Magnetite)._MiningMoney
             * 0.8f);
 
-        GameManager.instance.money += RewardMoney;
+        GameManager.instance.Money += RewardMoney;
         
         GameObject obj = ObjectPools.Instance.GetPooledObject("BonusText");
 
@@ -90,8 +90,8 @@ public class Treasure : IObjectOnTile, IPointerClickHandler
 
         text.AddText(string.Format(Tables.StringUI.Get("Treasure_Money")._Korean, RewardMoney));
 
-        RewardSecondProb *= 1 + GameManager.instance.increaseTowerCoupon;
-        RewardThirdProb *= 1 + GameManager.instance.increaseTowerCoupon;
+        RewardSecondProb *= 1 + GameManager.instance.IncreaseTowerCoupon;
+        RewardThirdProb *= 1 + GameManager.instance.IncreaseTowerCoupon;
         
         if(Random.Range(0, 100) < RewardSecondProb)
         {

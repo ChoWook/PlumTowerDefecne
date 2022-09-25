@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
 
     private int _level = 0;
 
-    public int level
+    public int Level
     {
         get { return _level; }
         set
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
 
     private int _xp = 0; //현재 xp
 
-    public int xp
+    public int XP
     {
         get { return _xp; }
         set
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
 
     private int _totalxp = 0;       //전체 xp 양
 
-    public int totalxp
+    public int TotalXP
     {
         get
         {
@@ -157,14 +157,14 @@ public class GameManager : MonoBehaviour
         {
             int tmp = _totalxp;
             _totalxp = value;
-            remainxp += _totalxp - tmp;
+            RemainXP += _totalxp - tmp;
             JsonManager.instance.SaveData.totalXP = _totalxp;
         }
     }
 
     private int _remainxp = 0;       //사용하고 남은 xp 양
 
-    public int remainxp
+    public int RemainXP
     {
         get { return _remainxp; }
         set
@@ -175,36 +175,36 @@ public class GameManager : MonoBehaviour
 
     private int _maxHp = 10;
 
-    public int maxHp
+    public int MaxHp
     {
         get { return _maxHp; }
         set
         {
             _maxHp = value;
-            _currentHp = maxHp;
+            CurrentHp = MaxHp;
         }
     }
 
     private int _currentHp = 10;
 
-    public int currentHp
+    public int CurrentHp
     {
         get { return _currentHp; }
         set
         {
             _currentHp = value;
             _hpChangeCallBack?.Invoke();
-            if (currentHp <= 0)
+            if (CurrentHp <= 0)
             {
                 _gameOverCallBack?.Invoke();
-                totalxp += xp;
+                TotalXP += XP;
             }
         }
     }
 
     private int _money;
 
-    public int money
+    public int Money
     {
         get { return _money; }
         set
@@ -216,7 +216,7 @@ public class GameManager : MonoBehaviour
 
     private int _number_Of_Upgrade;
 
-    public int number_Of_Upgrade
+    public int NumberOfUpgrade
     {
         get { return _number_Of_Upgrade; }
         set { _number_Of_Upgrade = value; }
@@ -224,7 +224,7 @@ public class GameManager : MonoBehaviour
 
     private bool _isPlayingGame = false;
 
-    public bool isPlayingGame
+    public bool IsPlayingGame
     {
         get { return _isPlayingGame; }
         set { _isPlayingGame = value; }
@@ -232,7 +232,7 @@ public class GameManager : MonoBehaviour
 
     private bool _isPausing = false;
 
-    public bool isPausing
+    public bool IsPausing
     {
         get { return _isPausing; }
         set { _isPausing = value; }
@@ -240,7 +240,7 @@ public class GameManager : MonoBehaviour
 
     private int _currentEnemyNumber;
 
-    public int currentEnemyNumber
+    public int CurrentEnemyNumber
     {
         get { return _currentEnemyNumber; }
         set
@@ -248,8 +248,8 @@ public class GameManager : MonoBehaviour
             _currentEnemyNumber = value;
             if (_currentEnemyNumber == 0)
             {
-                isPlayingGame = false; //Bool flase 만들어서 게임 끝을 알림
-                xp += level; //level만큼 xp를 얻음
+                IsPlayingGame = false; //Bool flase 만들어서 게임 끝을 알림
+                XP += Level; //level만큼 xp를 얻음
                 _stageClearCallBack?.Invoke();
             }
         }
@@ -257,7 +257,7 @@ public class GameManager : MonoBehaviour
 
     private int _isSettingTarget = 0; //타겟팅을 정하는 중인가,  0=X, 1=updateTowerUI, 2=GroundTower, 3=AllTower
 
-    public int isSettingTarget
+    public int IsSettingTarget
     {
         get { return _isSettingTarget; }
         set { _isSettingTarget = value; }
@@ -265,7 +265,7 @@ public class GameManager : MonoBehaviour
 
     private bool _isClickedTower = false; //tower를 누른 상태(타워ui가 활성화된 상태)인가
 
-    public bool isClickedTower
+    public bool IsClickedTower
     {
         get { return _isClickedTower; }
         set { _isClickedTower = value; }
@@ -275,7 +275,7 @@ public class GameManager : MonoBehaviour
 
     private float _unitTileSize;
 
-    public float unitTileSize
+    public float UnitTileSize
     {
         get { return _unitTileSize; }
         set { _unitTileSize = value; }
@@ -283,7 +283,7 @@ public class GameManager : MonoBehaviour
 
     //장애물 파괴 할인율
     private float _discountObstacle = 0f;
-    public float discountObstacle
+    public float DiscountObstacle
     {
         get { return _discountObstacle; }
         set { _discountObstacle = value; }
@@ -291,7 +291,7 @@ public class GameManager : MonoBehaviour
 
     private float _increaseTowerCoupon = 0f;
 
-    public float increaseTowerCoupon
+    public float IncreaseTowerCoupon
     {
         get { return _increaseTowerCoupon; }
         set { _increaseTowerCoupon = value; }
@@ -357,22 +357,22 @@ public class GameManager : MonoBehaviour
         // 타워 설치 버튼 생성
         FindObjectOfType<TowerButtonGenerate>()?.CreateBtn();
 
-        money = Tables.GlobalSystem.Get("User_Money")._Value;
-        maxHp = Tables.GlobalSystem.Get("User_Hp")._Value;
-        currentHp = maxHp;
-        xp = 0;
-        level = 0;
-        discountObstacle = 0f;
-        increaseTowerCoupon = 0f;
-        number_Of_Upgrade = Tables.GlobalSystem.Get("Number_Of_Upgrade")._Value;
+        Money = Tables.GlobalSystem.Get("User_Money")._Value;
+        MaxHp = Tables.GlobalSystem.Get("User_Hp")._Value;
+        CurrentHp = MaxHp;
+        XP = 0;
+        Level = 0;
+        DiscountObstacle = 0f;
+        IncreaseTowerCoupon = 0f;
+        NumberOfUpgrade = Tables.GlobalSystem.Get("Number_Of_Upgrade")._Value;
         
-        isPausing = false;
-        isClickedTower = false;
-        isPlayingGame = false;
-        isSettingTarget = 0;
+        IsPausing = false;
+        IsClickedTower = false;
+        IsPlayingGame = false;
+        IsSettingTarget = 0;
         
         ApplicationUpgrade.instance.ResetInGameUpgrade();
-
+         
         InitCoupon();
 
         MainMenuButtonManager.SelectApplicationUpgrade();

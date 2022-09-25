@@ -37,9 +37,9 @@ public class Bullet : MonoBehaviour
     {
         this.tower = tower;
 
-        MissileRange = tower.AbilityStat * GameManager.instance.unitTileSize;
-        ElectricRange = ElecRangeStat * GameManager.instance.unitTileSize;              // 타일 2개
-        LaserLength = tower.AbilityStat * GameManager.instance.unitTileSize;            // 레이저 길이
+        MissileRange = tower.AbilityStat * GameManager.instance.UnitTileSize;
+        ElectricRange = ElecRangeStat * GameManager.instance.UnitTileSize;              // 타일 2개
+        LaserLength = tower.AbilityStat * GameManager.instance.UnitTileSize;            // 레이저 길이
 
 
         if (tower.TowerName == ETowerName.Laser)
@@ -48,7 +48,7 @@ public class Bullet : MonoBehaviour
             // 불릿 크기 지정
             Transform parent = transform.parent;
             transform.parent = null;
-            transform.localScale = new Vector3(GameManager.instance.unitTileSize, 1, GameManager.instance.unitTileSize); // 높이 추후 수정
+            transform.localScale = new Vector3(GameManager.instance.UnitTileSize, 1, GameManager.instance.UnitTileSize); // 높이 추후 수정
             transform.parent = parent;
 
             Lt = tower.GetComponent<LaserTower>();

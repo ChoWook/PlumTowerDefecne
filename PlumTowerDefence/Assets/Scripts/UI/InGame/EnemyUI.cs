@@ -7,7 +7,7 @@ public class EnemyUI : MonoBehaviour, IPointerClickHandler
 {
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        switch (GameManager.instance.isSettingTarget)
+        switch (GameManager.instance.IsSettingTarget)
         {
             case 3:
                 UIManager.instance.AllTowerUI.GetComponent<UpdateAllTowerUI>().AttackEnemy(transform.parent.gameObject);

@@ -45,8 +45,8 @@ public class UIManager : MonoBehaviour
         LaneBuffUI.SetActive(false);
 
 
-        GameManager.instance.isClickedTower = false;
-        GameManager.instance.isSettingTarget = 0;
+        GameManager.instance.IsClickedTower = false;
+        GameManager.instance.IsSettingTarget = 0;
         
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
     public void ShowTowerUI(Tower tower)
     {
         UIClear();
-        GameManager.instance.isClickedTower = true;
+        GameManager.instance.IsClickedTower = true;
         TowerUI.gameObject.SetActive(true);
         TowerUI.SetTower(tower);
     }
