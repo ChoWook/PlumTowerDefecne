@@ -11,7 +11,7 @@ public class FlameTower : Tower
         Setstat(ETowerName.Flame);
     }
 
-    /*
+    
     public override float AttackStat
     {
         get
@@ -62,7 +62,7 @@ public class FlameTower : Tower
         }
     }
 
-    */
+    
 
 
     // attackrange, slowrate, angle

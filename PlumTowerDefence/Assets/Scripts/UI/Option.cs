@@ -11,6 +11,7 @@ public class Option : MonoBehaviour
     /// option창을 담당하는 스크립트
     /// </summary>
     /// 
+    [SerializeField] Toggle ShowEnvironmentToggle;
 
     [SerializeField] Toggle ShowMonsterUIToggle;
 
@@ -18,12 +19,27 @@ public class Option : MonoBehaviour
 
     [SerializeField] Toggle EffectSoundToggle;
 
-
     AudioSource BGMSource;
+
+    public static bool EnvironmentChecked = true;
 
     private void Awake()
     {
         BGMSource = Camera.main.GetComponent<AudioSource>();
+    }
+
+    public void OnShowEnvironmentToggleValueChanged(bool Checked)
+    {
+        EnvironmentChecked = Checked;
+
+        if (Checked)
+        {
+            Map.Instance?.ShowTreeEnvironmnet();
+        }
+        else
+        {
+            Map.Instance?.HideTreeEnvironmnet();
+        }
     }
 
     public void OnShowMonterUIToggleValueChanged(bool Checked)
@@ -35,11 +51,11 @@ public class Option : MonoBehaviour
     {
         if (Checked)
         {
-            BGMSource.Play();
+            BGMSource?.Play();
         }
         else
         {
-            BGMSource.Pause();
+            BGMSource?.Pause();
         }
     }
 

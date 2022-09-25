@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class BombTower : Tower
 {
+    bool isTriggered = false;
+
+
     private void Awake()
     {
         Setstat(ETowerName.Bomb);
     }
 
+    
     public override float AttackStat
     {
         get
@@ -32,7 +36,7 @@ public class BombTower : Tower
             return (BaseAttackStat + sum + AttackBuffAmount) * multi;
         }
     }
-
+    
     // Range
     
 
@@ -40,22 +44,37 @@ public class BombTower : Tower
 
     protected override void OnEnable()
     {
-        base.OnEnable();
+        AttackBuffAmount = 0f;
+        SpeedBuffAmount = 0f;
 
-        StopCoroutine(nameof(IE_GetTargets));
+        UpgradeCount = 0;
+
+        RealRange = Range * GameManager.instance.UnitTileSize;
+
+        RealSize = Size * GameManager.instance.UnitTileSize;
     }
 
+    protected override void Update()
+    {
+
+    }
 
 
     // 적 감지 하고 어떻게 해야하나
 
     private void OnTriggerEnter(Collider other)
     {
-        // 하나 trigger 걸리면 trigger 닫기?
-        if(other.gameObject.CompareTag(enemyTag))
+        if(!(isTriggered))
         {
-            StartCoroutine(nameof(IE_Delay));
+            if (other.transform.parent.CompareTag(enemyTag)) // 왜 거꾸로 되지?
+            {
+                StartCoroutine(nameof(IE_Delay));
+                
+                isTriggered = true;
+            }
         }
+        // 하나 trigger 걸리면 trigger 닫기?
+            
     }
 
 
@@ -63,10 +82,10 @@ public class BombTower : Tower
 
     IEnumerator IE_Delay()
     {
-        WaitForSeconds delay = new WaitForSeconds(3f);
+        WaitForSeconds delay = new (3f);
         
         yield return delay;
-
+        
         Explosion();
 
     }
@@ -74,19 +93,22 @@ public class BombTower : Tower
     // 반경 안의 몬스터 피해주기
 
     void Explosion()
-    {
+    { 
+        
         GameObject[] Enemies = GameObject.FindGameObjectsWithTag(enemyTag);
 
         for (int i = 0; i < Enemies.Length; i++)
         {
-            float distanceToEnemy = Vector3.Distance(Target.transform.position, Enemies[i].transform.position); // 적과의 거리 구하기
-
+            float distanceToEnemy = Vector3.Distance(transform.position, Enemies[i].transform.position); // 적과의 거리 구하기
 
             if (distanceToEnemy <= RealRange) // 사거리 안에 있는 타겟들
             {
                 Enemies[i].GetComponent<Enemy>().TakeDamage(AbilityStat, AttackSpecialization, TowerName);
             }
         }
+
+        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+        isTriggered=false;
     }
 
 }

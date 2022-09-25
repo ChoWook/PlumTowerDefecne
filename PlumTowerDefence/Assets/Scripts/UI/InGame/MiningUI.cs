@@ -38,12 +38,12 @@ public class MiningUI : MonoBehaviour
 
     public void OnPickaxeSelectBtnClicK(EPickaxeType Type)
     {
-        if(Tables.Pickaxe.Get(Type)._Price > GameManager.instance.money)
+        if(Tables.Pickaxe.Get(Type)._Price > GameManager.instance.Money)
         {
             return;
         }
 
-        GameManager.instance.money -= Tables.Pickaxe.Get(Type)._Price;
+        GameManager.instance.Money -= Tables.Pickaxe.Get(Type)._Price;
 
         _Resource.SetPickaxae(Type);
 

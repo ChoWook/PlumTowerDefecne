@@ -62,7 +62,7 @@ public class Tower : IObjectOnTile
 
     public Tile belowTile;
 
-    public bool Selected = false;                                                           // 타워 선택 여부
+    public bool Selected = false;                                                          // 타워 선택 여부
     public bool Fixed = false;                                                             // 타워 설치 여부 < -  필요한가?
 
     public int AttackPriorityID = 0;                                                       // 우선 공격 속성 ID
@@ -76,12 +76,17 @@ public class Tower : IObjectOnTile
     public int SellPrice;                                                                  // 판매 가격
     public int MovePrice;                                                                  // 이동 가격
 
-    public bool CheckAttackBuff;                                                          //버프 받고 있는지 확인
-    public bool CheckSpeedBuff;                                                           //버프 받고 있는지 확인
+
+    public Dictionary<Tower, float> AttackBuffTowers;                                 // 공격력 버프 타워들(버프량)
+    public Dictionary<Tower, bool> CheckAttackBuffTowers;                             // 공격력 버프 타워들(버프 여부)
+
+
+    public Dictionary<Tower, float> SpeedBuffTowers;                                  // 공격속도 버프 타워들
+    public Dictionary<Tower, bool> CheckSpeedBuffTowers;                             // 공격속도 버프 타워들
 
     public GameObject BulletPrefab;
     public Transform FirePoint;
-    public float ProjectileSpeed;                                                         //투사체 속도
+    public float ProjectileSpeed;                                                          // 투사체 속도
 
 
 
@@ -194,9 +199,9 @@ public class Tower : IObjectOnTile
 
         UpgradeCount = 0;
 
-        RealRange = Range * GameManager.instance.unitTileSize;
+        RealRange = Range * GameManager.instance.UnitTileSize;
 
-        RealSize = Size * GameManager.instance.unitTileSize;
+        RealSize = Size * GameManager.instance.UnitTileSize;
 
 
         // 사거리, 타워 사이즈 설정하기 <- 안 되나!
@@ -413,9 +418,9 @@ public class Tower : IObjectOnTile
     // 상호작용 함수
 
     //Upgrade
-    public void UpgradeTower() // 데이터 연동해서 수정하기
+    public virtual void UpgradeTower() // 데이터 연동해서 수정하기
     {
-        if(UpgradePrice > GameManager.instance.money)
+        if(UpgradePrice > GameManager.instance.Money)
         {
             return;
         }
@@ -446,7 +451,7 @@ public class Tower : IObjectOnTile
 
         //돈 40 잃기
 
-        GameManager.instance.money -= UpgradePrice;
+        GameManager.instance.Money -= UpgradePrice;
 
         UpgradeCount++;
 
@@ -457,27 +462,27 @@ public class Tower : IObjectOnTile
     }
 
     //Sell
-    public void SellTower()
+    public virtual void SellTower()
     {
         // 타워 반납하기
         ObjectPools.Instance.ReleaseObjectToPool(gameObject); // 타워 풀에 추가한 뒤 바꾸기 ?  <- 맵에서 다룬다!
 
         // 재화 연결 함수
-        GameManager.instance.money += SellPrice;
+        GameManager.instance.Money += SellPrice;
 
         // 공격, 공속 버프 타워일 때  버프 삭제 효과 넣어주기
 
     }
 
     //Move
-    public void MoveTower(Tile tile)
+    public virtual void MoveTower(Tile tile)
     {
         ClearObjectOnTile();
 
         // 타워 위치 변경
         if (Size == 2)
         {
-            float half = GameManager.instance.unitTileSize / 2;
+            float half = GameManager.instance.UnitTileSize / 2;
 
             transform.position = new Vector3(tile.transform.position.x + half, tile.transform.position.y, tile.transform.position.z - half);
         }

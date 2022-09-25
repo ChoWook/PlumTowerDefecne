@@ -19,23 +19,23 @@ public class ApplicationUpgrade : MonoBehaviour
     {
         if (id / 100 == 301)    //HP증가
         {
-            GameManager.instance.maxHp += (int)Tables.UpgradePassiveStat.Get(30101)._Increase_Passive_Value;
+            GameManager.instance.MaxHp += (int)Tables.UpgradePassiveStat.Get(30101)._Increase_Passive_Value;
             Debug.Log("hp증가");
         }
 
         if (id / 100 == 302)    //증강체 갯수 증가
         {
-            GameManager.instance.number_Of_Upgrade += (int)Tables.UpgradePassiveStat.Get(30201)._Increase_Passive_Value;
+            GameManager.instance.NumberOfUpgrade += (int)Tables.UpgradePassiveStat.Get(30201)._Increase_Passive_Value;
         }
 
         if (id / 100 == 303)    //장애물제거 비용 감소
         {
-            GameManager.instance.discountObstacle += Tables.UpgradePassiveStat.Get(30301)._Increase_Passive_Value;
+            GameManager.instance.DiscountObstacle += Tables.UpgradePassiveStat.Get(30301)._Increase_Passive_Value;
         }
 
         if (id / 100 == 304)    //타워 출현 확률 증가
         {
-            GameManager.instance.increaseTowerCoupon += Tables.UpgradePassiveStat.Get(30401)._Increase_Passive_Value;
+            GameManager.instance.IncreaseTowerCoupon += Tables.UpgradePassiveStat.Get(30401)._Increase_Passive_Value;
         }
     }
 

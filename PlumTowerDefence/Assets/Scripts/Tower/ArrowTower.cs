@@ -18,11 +18,8 @@ public class ArrowTower : Tower
         {
             float sum = 0f;
 
-            
-
             List<float> plus = TowerUpgradeAmount.instance._ArrowTowerStat.AttackPlusModifier;
 
-            
 
             for (int i = 0; i <plus.Count; i++)
             {

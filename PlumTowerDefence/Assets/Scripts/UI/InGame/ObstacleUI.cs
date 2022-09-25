@@ -31,12 +31,12 @@ public class ObstacleUI : MonoBehaviour
 
     public void OnAcceptBtnClicK()
     {
-        if (_Obstacle.DeletePrice > GameManager.instance.money)
+        if (_Obstacle.DeletePrice > GameManager.instance.Money)
         {
             return;
         }
 
-        GameManager.instance.money -= _Obstacle.DeletePrice;
+        GameManager.instance.Money -= _Obstacle.DeletePrice;
 
         _Obstacle.DeleteObstacle();
 

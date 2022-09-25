@@ -24,13 +24,11 @@ public class MainMenuButtonManager : MonoBehaviour
 
     public void OnClickGameStart()   //게임시작 버튼을 눌렀을 때 호출 할 함수
     {
-        JsonManager.instance.usingList = JsonManager.instance.SaveData.upgradedCard.ToList();
+        //JsonManager.instance.usingList = JsonManager.instance.SaveData.upgradedCard.ToList();
         
-        GameManager.instance.CallBackClear();
+        //GameManager.instance.InitGame();
         
-        GameManager.instance.InitGame();
-        
-        SelectApplicationUpgrade();
+        //SelectApplicationUpgrade();
         
         MoveScene.MoveDefenceScene();
         Debug.Log("게임시작");
@@ -59,8 +57,10 @@ public class MainMenuButtonManager : MonoBehaviour
         }
     }
 
-    private void SelectApplicationUpgrade()
+    public static void SelectApplicationUpgrade()
     {
+        Debug.Log(JsonManager.instance.usingList.Count);
+
         foreach (var card in JsonManager.instance.SaveData.upgradedCard)
         {
             if (card / 10000 == 3)      //패시브
@@ -84,5 +84,7 @@ public class MainMenuButtonManager : MonoBehaviour
                 JsonManager.instance.usingList.Remove(card);
             }
         }
+
+        Debug.Log(JsonManager.instance.usingList.Count);
     }
 }

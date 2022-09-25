@@ -9,7 +9,7 @@ public class ElectricTower : Tower
         Setstat(ETowerName.Electric);
     }
 
-    /*
+    
     public override float AttackStat
     {
         get
@@ -57,7 +57,7 @@ public class ElectricTower : Tower
             return (BaseAbilityStat + sum) * multi;
         }
     }
-    */
+    
 
     // slowrate
 

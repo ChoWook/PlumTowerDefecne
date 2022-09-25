@@ -9,7 +9,7 @@ public class GatilingTower : Tower
         Setstat(ETowerName.Gatling);
     }
 
-    /*
+    
     public override float AttackStat
     {
         get
@@ -47,6 +47,6 @@ public class GatilingTower : Tower
         }
     }
 
-    */
+    
 
 }

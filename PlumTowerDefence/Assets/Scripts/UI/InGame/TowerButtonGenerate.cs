@@ -29,12 +29,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
     ETowerName SelectedTowerName = ETowerName.Arrow;
 
-    private void Awake()
-    {
-        CreateBtn();
-    }
-
-    void CreateBtn()
+    public void CreateBtn()
     {
         for (ETowerName TName = ETowerName.Arrow; TName <= ETowerName.Bomb; TName++)
         {
@@ -77,7 +72,7 @@ public class TowerButtonGenerate : MonoBehaviour
             GameManager.instance.AddMoneyChangeCallBack(() =>
             {
                 // 구매할 수 없는 버튼일 때
-                if (Tables.Tower.Get(item._Name)._Price > GameManager.instance.money && !GameManager.instance.HasCoupon(tmp))
+                if (Tables.Tower.Get(item._Name)._Price > GameManager.instance.Money && !GameManager.instance.HasCoupon(tmp))
                 {
                     btn.interactable = false;
                 }
@@ -92,7 +87,7 @@ public class TowerButtonGenerate : MonoBehaviour
     public void OnBuildTowerBtnClick(ETowerName TName)
     {
         // 해당 버튼의 타워 가격보다 돈이 적고 쿠폰도 없으면 리턴
-        if(Tables.Tower.Get(TName)._Price > GameManager.instance.money && !GameManager.instance.HasCoupon(TName))
+        if(Tables.Tower.Get(TName)._Price > GameManager.instance.Money && !GameManager.instance.HasCoupon(TName))
         {
             return;
         }
@@ -156,7 +151,7 @@ public class TowerButtonGenerate : MonoBehaviour
                     // 마우스 따라다니는 오브젝트 위치 고정
                     if (TowerSize == 2)
                     {
-                        float half = GameManager.instance.unitTileSize / 2;
+                        float half = GameManager.instance.UnitTileSize / 2;
                         SelectedTower.transform.position = new Vector3(tile.transform.position.x + half, tile.transform.position.y, tile.transform.position.z - half);
                     }
                     else
@@ -231,7 +226,7 @@ public class TowerButtonGenerate : MonoBehaviour
             }
 
             // 돈도 부족하고 쿠폰도 없으면 리턴
-            if(Tables.Tower.Get(SelectedTowerName)._Price > GameManager.instance.money && !GameManager.instance.HasCoupon(SelectedTowerName))
+            if(Tables.Tower.Get(SelectedTowerName)._Price > GameManager.instance.Money && !GameManager.instance.HasCoupon(SelectedTowerName))
             {
                 return;
             }
@@ -244,7 +239,7 @@ public class TowerButtonGenerate : MonoBehaviour
             }
             else
             {
-                GameManager.instance.money -= Tables.Tower.Get(SelectedTowerName)._Price;
+                GameManager.instance.Money -= Tables.Tower.Get(SelectedTowerName)._Price;
             }
 
             Map.Instance.HideAllGridLine();
@@ -258,7 +253,7 @@ public class TowerButtonGenerate : MonoBehaviour
             // 크기가 2일때는 우하향쪽으로 생성되어야 함
             if (TowerSize == 2)
             {
-                float half = GameManager.instance.unitTileSize / 2;
+                float half = GameManager.instance.UnitTileSize / 2;
                 SelectedTower.transform.position = new Vector3(tile.transform.position.x + half, tile.transform.position.y, tile.transform.position.z - half);
             }
             else

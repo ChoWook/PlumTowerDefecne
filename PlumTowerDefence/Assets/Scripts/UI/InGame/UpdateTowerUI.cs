@@ -32,7 +32,7 @@ public class UpdateTowerUI : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.isClickedTower && Input.GetKeyDown(KeyCode.A))
+        if (GameManager.instance.IsClickedTower && Input.GetKeyDown(KeyCode.A))
         {
             SetTarget();
         }
@@ -76,13 +76,13 @@ public class UpdateTowerUI : MonoBehaviour
             }
 
             // 돈도 부족하고 쿠폰도 없으면 리턴
-            if (_tower.MovePrice > GameManager.instance.money)
+            if (_tower.MovePrice > GameManager.instance.Money)
             {
                 return;
             }
 
 
-            GameManager.instance.money -= _tower.MovePrice;
+            GameManager.instance.Money -= _tower.MovePrice;
 
             ResetMoveTower();
 
@@ -112,7 +112,7 @@ public class UpdateTowerUI : MonoBehaviour
 
     private void UpdateTowerInfo()
     {
-        TowerName.text = _tower.TowerName.ToString();
+        TowerName.text = Tables.Tower.Get(_tower.TowerName)._Korean;
 
         TowerLevel.text = string.Format(Tables.StringUI.Get(TowerLevel.gameObject.name)._Korean, _tower.UpgradeCount);
         TowerDamage.text = string.Format(Tables.StringUI.Get(TowerDamage.gameObject.name)._Korean, _tower.AttackStat);
@@ -120,8 +120,18 @@ public class UpdateTowerUI : MonoBehaviour
             string.Format(Tables.StringUI.Get(TowerFireRate.gameObject.name)._Korean, _tower.SpeedStat);
         TowerPriority.text =
             string.Format(Tables.StringUI.Get(TowerPriority.gameObject.name)._Korean, _tower.AttackPriorityID);
-        TowerUpgrade.text =
-            string.Format(Tables.StringUI.Get(TowerUpgrade.gameObject.name)._Korean, _tower.UpgradePrice);
+
+        // TODO 최대 업글했을 때 String 추가 필요
+        if(_tower.UpgradeCount >= 5)
+        {
+            TowerUpgrade.text =
+                string.Format(Tables.StringUI.Get(TowerUpgrade.gameObject.name)._Korean, "MAX");
+        }
+        else
+        {
+            TowerUpgrade.text =
+                string.Format(Tables.StringUI.Get(TowerUpgrade.gameObject.name)._Korean, _tower.UpgradePrice);
+        }
         TowerMove.text = string.Format(Tables.StringUI.Get(TowerMove.gameObject.name)._Korean, _tower.MovePrice);
         TowerDemolish.text =
             string.Format(Tables.StringUI.Get(TowerDemolish.gameObject.name)._Korean, _tower.SellPrice);
@@ -134,7 +144,7 @@ public class UpdateTowerUI : MonoBehaviour
 
         ChangeMouseCursor();
 
-        GameManager.instance.isSettingTarget = 1;
+        GameManager.instance.IsSettingTarget = 1;
     }
 
     private void ChangeMouseCursor()
@@ -146,7 +156,7 @@ public class UpdateTowerUI : MonoBehaviour
     {
         _tower.SetTarget(obj);
         
-        GameManager.instance.isSettingTarget = 0;
+        GameManager.instance.IsSettingTarget = 0;
     }
 
     public void ClearTower()
@@ -158,7 +168,8 @@ public class UpdateTowerUI : MonoBehaviour
 
     public void OnUpgradeBtnClick()
     {
-        if(_tower == null)
+        // TODO 타워 최대 업그레이드 횟수는 GlobalSystem에 쓰여야 함
+        if(_tower == null || _tower.UpgradeCount >= 5)
         {
             return;
         }
@@ -187,22 +198,10 @@ public class UpdateTowerUI : MonoBehaviour
     public void OnMoveBtnClick()
     {
         // 돈이 부족하면 리턴
-        if (_tower.MovePrice > GameManager.instance.money)
+        if (_tower.MovePrice > GameManager.instance.Money)
         {
             return;
         }
-
-        /*
-        // 이미 선택한 타워가 있다면 바꿔야 함
-        if (SelectedTower != null)
-        {
-            ObjectPools.Instance.ReleaseObjectToPool(SelectedTower);
-
-            SelectedTower = null;
-        }
-
-        UIManager.instance?.UIClear();
-        */
 
         StartCoroutine(nameof(IE_FallowingMouse), _tower.TowerName);
     }
@@ -250,7 +249,7 @@ public class UpdateTowerUI : MonoBehaviour
                     // 마우스 따라다니는 오브젝트 위치 고정
                     if (TowerSize == 2)
                     {
-                        float half = GameManager.instance.unitTileSize / 2;
+                        float half = GameManager.instance.UnitTileSize / 2;
                         DisabledTower.transform.position = new Vector3(tile.transform.position.x + half, tile.transform.position.y, tile.transform.position.z - half);
                     }
                     else

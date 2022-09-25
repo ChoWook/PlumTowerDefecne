@@ -65,9 +65,9 @@ public class EnemyMovement : MonoBehaviour
         {
             SendDamagedText();
             
-            GameManager.instance.currentEnemyNumber--;
-            GameManager.instance.currentHp--;
-            Debug.Log("Current Enemy Num: " + GameManager.instance.currentEnemyNumber);
+            GameManager.instance.CurrentEnemyNumber--;
+            GameManager.instance.CurrentHp--;
+            Debug.Log("Current Enemy Num: " + GameManager.instance.CurrentEnemyNumber);
             ObjectPools.Instance.ReleaseObjectToPool(gameObject);
             return;
         }

@@ -20,7 +20,7 @@ public class TowerBtnItem : MonoBehaviour
     [HideInInspector]
     public ETowerName _Name;
 
-    private void Awake()
+    private void Start()
     {
         GameManager.instance.AddGetCouponCallBack(ChangeCouponImage);
     }

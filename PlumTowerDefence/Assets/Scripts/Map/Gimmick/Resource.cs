@@ -175,14 +175,14 @@ public class Resource : IObjectOnTile, IPointerClickHandler
                 .SetEase(AnimationEase);
 
             // 확장 단계에서는 자원 캐지지 말아야 함
-            while (!GameManager.instance.isPlayingGame)
+            while (!GameManager.instance.IsPlayingGame)
             {
                 yield return null;
             }
 
             yield return ws;
 
-            while (!GameManager.instance.isPlayingGame)
+            while (!GameManager.instance.IsPlayingGame)
             {
                 yield return null;
             }
@@ -196,19 +196,19 @@ public class Resource : IObjectOnTile, IPointerClickHandler
         for(int i = 0; i < MiningCnt; i++)
         {
             // 확장 단계에서는 자원 캐지지 말아야 함
-            while (!GameManager.instance.isPlayingGame)
+            while (!GameManager.instance.IsPlayingGame)
             {
                 yield return null;
             }
 
             yield return ws;
 
-            while (!GameManager.instance.isPlayingGame)
+            while (!GameManager.instance.IsPlayingGame)
             {
                 yield return null;
             }
 
-            GameManager.instance.money += MiningMoney;
+            GameManager.instance.Money += MiningMoney;
 
             // 증가된 돈 표시
             GameObject obj = ObjectPools.Instance.GetPooledObject("BonusText");

@@ -23,11 +23,11 @@ public class TowerSizeController : MonoBehaviour
 
     private void OnEnable()
     {
-        float RealRange = Range * 5 * GameManager.instance.unitTileSize / Size * 2 ;
+        float RealRange = Range * 5 * GameManager.instance.UnitTileSize / Size * 2 ;
 
        // Debug.Log("Range :" + Range + " / Real")
 
-        float RealSize = 5 * GameManager.instance.unitTileSize;
+        float RealSize = 5 * GameManager.instance.UnitTileSize;
 
 
         if(MarkRangePrefab != null)
