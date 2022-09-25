@@ -59,6 +59,8 @@ public class MainMenuButtonManager : MonoBehaviour
 
     public static void SelectApplicationUpgrade()
     {
+        Debug.Log(JsonManager.instance.usingList.Count);
+
         foreach (var card in JsonManager.instance.SaveData.upgradedCard)
         {
             if (card / 10000 == 3)      //패시브
@@ -82,5 +84,7 @@ public class MainMenuButtonManager : MonoBehaviour
                 JsonManager.instance.usingList.Remove(card);
             }
         }
+
+        Debug.Log(JsonManager.instance.usingList.Count);
     }
 }

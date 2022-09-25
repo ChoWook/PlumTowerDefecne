@@ -29,12 +29,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
     ETowerName SelectedTowerName = ETowerName.Arrow;
 
-    private void Awake()
-    {
-        CreateBtn();
-    }
-
-    void CreateBtn()
+    public void CreateBtn()
     {
         for (ETowerName TName = ETowerName.Arrow; TName <= ETowerName.Bomb; TName++)
         {

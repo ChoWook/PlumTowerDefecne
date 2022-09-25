@@ -112,7 +112,7 @@ public class UpdateTowerUI : MonoBehaviour
 
     private void UpdateTowerInfo()
     {
-        TowerName.text = _tower.TowerName.ToString();
+        TowerName.text = Tables.Tower.Get(_tower.TowerName)._Korean;
 
         TowerLevel.text = string.Format(Tables.StringUI.Get(TowerLevel.gameObject.name)._Korean, _tower.UpgradeCount);
         TowerDamage.text = string.Format(Tables.StringUI.Get(TowerDamage.gameObject.name)._Korean, _tower.AttackStat);
@@ -120,8 +120,18 @@ public class UpdateTowerUI : MonoBehaviour
             string.Format(Tables.StringUI.Get(TowerFireRate.gameObject.name)._Korean, _tower.SpeedStat);
         TowerPriority.text =
             string.Format(Tables.StringUI.Get(TowerPriority.gameObject.name)._Korean, _tower.AttackPriorityID);
-        TowerUpgrade.text =
-            string.Format(Tables.StringUI.Get(TowerUpgrade.gameObject.name)._Korean, _tower.UpgradePrice);
+
+        // TODO 최대 업글했을 때 String 추가 필요
+        if(_tower.UpgradeCount >= 5)
+        {
+            TowerUpgrade.text =
+                string.Format(Tables.StringUI.Get(TowerUpgrade.gameObject.name)._Korean, "MAX");
+        }
+        else
+        {
+            TowerUpgrade.text =
+                string.Format(Tables.StringUI.Get(TowerUpgrade.gameObject.name)._Korean, _tower.UpgradePrice);
+        }
         TowerMove.text = string.Format(Tables.StringUI.Get(TowerMove.gameObject.name)._Korean, _tower.MovePrice);
         TowerDemolish.text =
             string.Format(Tables.StringUI.Get(TowerDemolish.gameObject.name)._Korean, _tower.SellPrice);
@@ -158,7 +168,8 @@ public class UpdateTowerUI : MonoBehaviour
 
     public void OnUpgradeBtnClick()
     {
-        if(_tower == null)
+        // TODO 타워 최대 업그레이드 횟수는 GlobalSystem에 쓰여야 함
+        if(_tower == null || _tower.UpgradeCount >= 5)
         {
             return;
         }

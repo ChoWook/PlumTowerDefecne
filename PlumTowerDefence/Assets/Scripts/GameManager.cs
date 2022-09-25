@@ -354,6 +354,9 @@ public class GameManager : MonoBehaviour
         // 콜백 재설정
         FindObjectOfType<InGameButtonManager>()?.SetValueChangeCallback();
 
+        // 타워 설치 버튼 생성
+        FindObjectOfType<TowerButtonGenerate>()?.CreateBtn();
+
         money = Tables.GlobalSystem.Get("User_Money")._Value;
         maxHp = Tables.GlobalSystem.Get("User_Hp")._Value;
         currentHp = maxHp;
