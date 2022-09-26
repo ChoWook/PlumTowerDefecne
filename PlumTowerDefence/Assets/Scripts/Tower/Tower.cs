@@ -402,22 +402,6 @@ public class Tower : IObjectOnTile
 
     }
 
-    //버프타워 없어지면 List에서 어떻게 빼지?
-
-    //공격력 버프
-    public void GetAttackBuff(float _BuffAmount)
-    {
-        AttackBuffAmount += _BuffAmount;
-    }
-
-
-    // 공격속도 버프
-    public void GetSpeedBuff(float _BuffAmount)
-    {
-        SpeedBuffAmount += _BuffAmount;
-    }
-
-    // 사라졌을 때 buff amount 감소 함수 추가
 
     // 상호작용 함수
 
