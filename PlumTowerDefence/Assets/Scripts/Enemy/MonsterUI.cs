@@ -14,23 +14,21 @@ public class MonsterUI : MonoBehaviour
 
     private Enemy enemy;
 
-    private void OnEnable()
+    private void Awake()
     {
         enemy = transform.parent.GetComponent<Enemy>();
+        transform.position = transform.parent.position;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        HandleHp();
-    }
-
-    void HandleHp()
-    {
-        Transform parent = transform.parent;
-        transform.position = parent.position;
         transform.eulerAngles = new Vector3(-90.0f, 0.0f, transform.rotation.z);
+
+    }
+
+    public void HandleHp()
+    {
         HpBar.value = (float)enemy.CurrentHP / (float)enemy.MaxHP;
         ShieldBar.value = (float)enemy.CurrentShield / (float)enemy.MaxShield;
-        
     }
 }

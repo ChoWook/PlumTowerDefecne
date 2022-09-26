@@ -8,11 +8,32 @@ public class Enemy : MonoBehaviour
 
     protected float BaseHP;               
     public float MaxHP;
-    public float CurrentHP;
+    float _CurrentHP;
+    public float CurrentHP
+    {
+        get { return _CurrentHP; }
+        set { 
+            _CurrentHP = value;
+            monsterUI?.HandleHp();
+        }
+
+
+    }
+
     protected float BaseShield;           
     public float MaxShield;
 
-    public float CurrentShield;
+    float _CurrentShield;
+    public float CurrentShield
+    {
+        get { return _CurrentShield; }
+        set { 
+            _CurrentShield = value;
+            monsterUI?.HandleHp();
+        }
+
+    }
+
     bool ShieldOn = true;
     public float Armor;
     protected float BaseArmor;            
@@ -38,7 +59,7 @@ public class Enemy : MonoBehaviour
     public EPropertyType propertyType;
     public ELaneBuffType currentBuffType;
 
-    public GameObject bar;
+    MonsterUI monsterUI;
 
     Animator animator;
     float SlowedAbilty;
@@ -49,8 +70,9 @@ public class Enemy : MonoBehaviour
         {
             currentLevel[i] = 1;
         }
-        IsSlowed = false;
-        IsPoisoned = false;
+        
+        monsterUI = transform.Find("Canvas").GetComponent<MonsterUI>();
+
     }
     private void OnEnable()
     {
@@ -62,17 +84,20 @@ public class Enemy : MonoBehaviour
         IsBoss = false;
         IsSubBoss = false;
         IsAlive = true;
+        IsSlowed = false;
+        IsPoisoned = false;
         GetComponent<BaseAniContoller>().Isrevived = false;
         GetComponent<BaseAniContoller>().Isdivided = false;
+        monsterUI.gameObject.SetActive(true);
     }
     private void Update()
     {
-        if (CurrentHP <= 0)
+       /* if (CurrentHP <= 0)
         {
             bar.SetActive(false);
         }
         else
-            bar.SetActive(true);
+            bar.SetActive(true);*/
     }
 
     public void GetStat()
@@ -266,14 +291,17 @@ public class Enemy : MonoBehaviour
 
         if (CurrentHP <= 0)
         {
+            monsterUI.gameObject.SetActive(false);
 
             if (propertyType == EPropertyType.Resurrect)
             {
                 Resurrect(); 
+                monsterUI.gameObject.SetActive(true);
             }
            else if(propertyType == EPropertyType.Divisive)
             {
                 Resurrect();
+                monsterUI.gameObject.SetActive(true);
                                 
                 MaxHP *= 0.3f;
                 MaxShield *= 0.2f;
