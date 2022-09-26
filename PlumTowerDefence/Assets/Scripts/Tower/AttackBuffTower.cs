@@ -31,7 +31,7 @@ public class AttackBuffTower : Tower
 
             for (int i = 0; i < AbilityMultiModifier.Count; i++)
             {
-                multi *= AbilityMultiModifier[i];
+                multi += AbilityMultiModifier[i];
             }
 
 
@@ -51,7 +51,7 @@ public class AttackBuffTower : Tower
         TowerList.Clear();
 
 
-        GameObject[] Towers = GameObject.FindGameObjectsWithTag(TowerTag); // Collider로 바꾸면 정말 좋을텐데ㅜㅜ
+        GameObject[] Towers = GameObject.FindGameObjectsWithTag(TowerTag); 
 
         foreach(GameObject tower in Towers)
         {
@@ -78,14 +78,12 @@ public class AttackBuffTower : Tower
 
             Tower t = TowerList[i].GetComponent<Tower>();
 
-            if (!(t.CheckAttackBuffTowers.ContainsKey(this))) // 추후 변경
+            if (!(t.CheckAttackBuffTowers.ContainsKey(this)) && t.AttackStat != 0f ) // 추후 변경
             {
                 
-                bool isAdd = t.AttackBuffTowers.TryAdd(this, AbilityStat);
+                t.AttackBuffTowers.TryAdd(this, AbilityStat);
                 t.CheckAttackBuffTowers.TryAdd(this, true);
 
-                Debug.Log("AttackBuffTowers : " + isAdd );
-                Debug.Log("AttackBuffTowers Count :  " + AttackBuffTowers.Count);
             }
         }
         
@@ -109,9 +107,7 @@ public class AttackBuffTower : Tower
 
             if ((t.CheckAttackBuffTowers.ContainsKey(this))) // 추후 변경
             {
-
                 t.AttackBuffTowers[this] = AbilityStat;
-
             }
         }
         
@@ -139,9 +135,6 @@ public class AttackBuffTower : Tower
 
         StartCoroutine(nameof(IE_GetTargets));
 
-
-
-        // 새로 체크해서 바꿔줘야 하나?
     }
 
     public void RemoveBuff()
@@ -151,7 +144,7 @@ public class AttackBuffTower : Tower
 
             Tower t = TowerList[i].GetComponent<Tower>();
 
-            if ((t.CheckAttackBuffTowers.ContainsKey(this))) // 추후 변경
+            if ((t.CheckAttackBuffTowers.ContainsKey(this)))
             {
 
                 t.AttackBuffTowers[this] = AbilityStat;

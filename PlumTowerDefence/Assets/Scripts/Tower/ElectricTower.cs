@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ElectricTower : Tower
 {
@@ -27,11 +28,17 @@ public class ElectricTower : Tower
 
             for (int i = 0; i < AttackMultiModifier.Count; i++)
             {
-                multi *= AttackMultiModifier[i];
+                multi += AttackMultiModifier[i];
             }
 
-            return (BaseAttackStat + sum + AttackBuffAmount) * multi;
-        } // ¼ø¼­?
+            for (int i = 0; i < AttackBuffTowers.Count; i++)
+            {
+                sum += AttackBuffTowers.ElementAt(i).Value;
+            }
+
+
+            return (BaseAttackStat + sum) * multi;
+        } 
     }
     public override float AbilityStat
     {
@@ -50,7 +57,7 @@ public class ElectricTower : Tower
 
             for (int i = 0; i < AbilityMultiModifier.Count; i++)
             {
-                multi *= AbilityMultiModifier[i];
+                multi += AbilityMultiModifier[i];
             }
 
 

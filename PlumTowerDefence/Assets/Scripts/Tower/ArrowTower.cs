@@ -27,12 +27,9 @@ public class ArrowTower : Tower
                 sum += plus[i];
             }
 
-            Debug.Log("AttackBuffTowers Count :  " + AttackBuffTowers.Count);
-
             for (int i = 0; i < AttackBuffTowers.Count; i++)
             {
                 sum += AttackBuffTowers.ElementAt(i).Value;
-
             }
 
             return (BaseAttackStat + sum);

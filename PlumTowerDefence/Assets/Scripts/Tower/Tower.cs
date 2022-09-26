@@ -228,7 +228,7 @@ public class Tower : IObjectOnTile
     // 추적 알고리즘 코루틴
     protected virtual IEnumerator IE_GetTargets()
     {
-        if(SpeedStat != 0f)
+        if(SpeedStat == 0f)
         {
             WaitForSeconds ws = new(0.5f);
 
@@ -242,8 +242,6 @@ public class Tower : IObjectOnTile
         }
         else
         {
-            
-
 
             while (true)
             {
