@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class IObjectOnTile : MonoBehaviour
 {
-    private List<Tile> BelowTile = new();
+    protected List<Tile> BelowTile = new();
 
     public void SetBelowTile(Tile Sender)
     {

@@ -221,6 +221,11 @@ public class Resource : IObjectOnTile, IPointerClickHandler
 
         }
 
+        for(int i = 0; i < BelowTile.Count; i++)
+        {
+            BelowTile[i].ParentGround.ResourceTileCount--;
+        }
+
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
     }
 
