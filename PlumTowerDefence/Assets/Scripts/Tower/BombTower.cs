@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BombTower : Tower
 {
@@ -30,10 +31,16 @@ public class BombTower : Tower
 
             for (int i = 0; i < AttackMultiModifier.Count; i++)
             {
-                multi *= AttackMultiModifier[i];
+                multi += AttackMultiModifier[i];
             }
 
-            return (BaseAttackStat + sum + AttackBuffAmount) * multi;
+            for(int i=0; i < AttackBuffTowers.Count; i++)
+            {
+                sum += AttackBuffTowers.ElementAt(i).Value;
+            }
+
+
+            return (BaseAttackStat + sum) * multi;
         }
     }
     

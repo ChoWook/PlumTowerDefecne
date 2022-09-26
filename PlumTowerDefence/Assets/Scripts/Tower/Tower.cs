@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Tower : IObjectOnTile
 {
@@ -77,12 +78,12 @@ public class Tower : IObjectOnTile
     public int MovePrice;                                                                  // 이동 가격
 
 
-    public Dictionary<Tower, float> AttackBuffTowers;                                 // 공격력 버프 타워들(버프량)
-    public Dictionary<Tower, bool> CheckAttackBuffTowers;                             // 공격력 버프 타워들(버프 여부)
+    public Dictionary<AttackBuffTower, float> AttackBuffTowers = new (new AttackBuffTowerComparer());                                 // 공격력 버프 타워들(버프량)
+    public Dictionary<AttackBuffTower, bool> CheckAttackBuffTowers  = new (new AttackBuffTowerComparer());                             // 공격력 버프 타워들(버프 여부)
 
 
-    public Dictionary<Tower, float> SpeedBuffTowers;                                  // 공격속도 버프 타워들
-    public Dictionary<Tower, bool> CheckSpeedBuffTowers;                             // 공격속도 버프 타워들
+    public Dictionary<SpeedBuffTower, float> SpeedBuffTowers = new (new SpeedBuffTowerComparer());                                  // 공격속도 버프 타워들
+    public Dictionary<SpeedBuffTower, bool> CheckSpeedBuffTowers = new (new SpeedBuffTowerComparer());                             // 공격속도 버프 타워들
 
     public GameObject BulletPrefab;
     public Transform FirePoint;
@@ -119,10 +120,11 @@ public class Tower : IObjectOnTile
 
             for (int i = 0; i < AttackMultiModifier.Count; i++)
             {
-                multi *= AttackMultiModifier[i];
+                multi += AttackMultiModifier[i];
             }
 
-            return (BaseAttackStat + sum + AttackBuffAmount) * multi;
+
+            return (BaseAttackStat + sum) * multi;
         } 
     }
 
@@ -141,10 +143,15 @@ public class Tower : IObjectOnTile
 
             for (int i = 0; i < SpeedMultiModifier.Count; i++)
             {
-                multi *= SpeedMultiModifier[i];
+                multi += SpeedMultiModifier[i];
             }
 
-            return (BaseSpeedStat + sum + SpeedBuffAmount) * multi;
+            for (int i = 0; i < SpeedBuffTowers.Count; i++)
+            {
+                sum += SpeedBuffTowers.ElementAt(i).Value;
+            }
+
+            return (BaseSpeedStat + sum) * multi;
         }
     }
 
@@ -164,9 +171,8 @@ public class Tower : IObjectOnTile
 
             for (int i = 0; i < AbilityMultiModifier.Count; i++)
             {
-                multi *= AbilityMultiModifier[i];
+                multi += AbilityMultiModifier[i];
             }
-
 
             return (BaseAbilityStat + sum) * multi;
         }
@@ -222,7 +228,7 @@ public class Tower : IObjectOnTile
     // 추적 알고리즘 코루틴
     protected virtual IEnumerator IE_GetTargets()
     {
-        if(SpeedStat != 0f)
+        if(SpeedStat == 0f)
         {
             WaitForSeconds ws = new(0.5f);
 
@@ -236,8 +242,6 @@ public class Tower : IObjectOnTile
         }
         else
         {
-            
-
 
             while (true)
             {
@@ -398,22 +402,6 @@ public class Tower : IObjectOnTile
 
     }
 
-    //버프타워 없어지면 List에서 어떻게 빼지?
-
-    //공격력 버프
-    public void GetAttackBuff(float _BuffAmount)
-    {
-        AttackBuffAmount += _BuffAmount;
-    }
-
-
-    // 공격속도 버프
-    public void GetSpeedBuff(float _BuffAmount)
-    {
-        SpeedBuffAmount += _BuffAmount;
-    }
-
-    // 사라졌을 때 buff amount 감소 함수 추가
 
     // 상호작용 함수
 
@@ -423,10 +411,13 @@ public class Tower : IObjectOnTile
         if(UpgradePrice > GameManager.instance.Money)
         {
             return;
+        }else if(UpgradeCount >= 5) // Table 연동
+        {
+            return;
         }
 
 
-        //Attackstat + 5 로 해놓기
+        // Attackstat + 5 로 해놓기
 
         switch (UpgradeStat) // 스택처럼 쌓이는 건지 값 자체가 바뀌는지 확인
         {
@@ -496,6 +487,7 @@ public class Tower : IObjectOnTile
         tile.SetObjectOnTile(this, Size);
 
         IsSelected(false);
+
     }
 
     public void Setstat(ETowerName _TowerName)

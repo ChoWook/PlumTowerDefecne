@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ArrowTower : Tower
 {
@@ -26,7 +27,12 @@ public class ArrowTower : Tower
                 sum += plus[i];
             }
 
-            return (BaseAttackStat + sum + AttackBuffAmount);
+            for (int i = 0; i < AttackBuffTowers.Count; i++)
+            {
+                sum += AttackBuffTowers.ElementAt(i).Value;
+            }
+
+            return (BaseAttackStat + sum);
 
         }
         
@@ -45,7 +51,12 @@ public class ArrowTower : Tower
                 sum += plus[i];
             }
 
-            return (BaseSpeedStat + sum + SpeedBuffAmount);
+            for (int i = 0; i < SpeedBuffTowers.Count; i++)
+            {
+                sum += SpeedBuffTowers.ElementAt(i).Value;
+            }
+
+            return (BaseSpeedStat + sum);
             
         }
     }

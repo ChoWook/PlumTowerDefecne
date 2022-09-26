@@ -36,8 +36,6 @@ public class ObstacleUI : MonoBehaviour
             return;
         }
 
-        GameManager.instance.Money -= _Obstacle.DeletePrice;
-
         _Obstacle.DeleteObstacle();
 
         gameObject.SetActive(false);

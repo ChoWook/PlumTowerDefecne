@@ -31,7 +31,7 @@ public class AttackBuffTower : Tower
 
             for (int i = 0; i < AbilityMultiModifier.Count; i++)
             {
-                multi *= AbilityMultiModifier[i];
+                multi += AbilityMultiModifier[i];
             }
 
 
@@ -51,7 +51,7 @@ public class AttackBuffTower : Tower
         TowerList.Clear();
 
 
-        GameObject[] Towers = GameObject.FindGameObjectsWithTag(TowerTag); // Collider로 바꾸면 정말 좋을텐데ㅜㅜ
+        GameObject[] Towers = GameObject.FindGameObjectsWithTag(TowerTag); 
 
         foreach(GameObject tower in Towers)
         {
@@ -72,13 +72,13 @@ public class AttackBuffTower : Tower
             return;
         }
            
-        /*
+        
         for(int i = 0; i < TowerList.Count; i++)
         {
 
             Tower t = TowerList[i].GetComponent<Tower>();
 
-            if (!(t.CheckAttackBuffTowers.ContainsKey(this))) // 추후 변경
+            if (!(t.CheckAttackBuffTowers.ContainsKey(this)) && t.AttackStat != 0f ) // 추후 변경
             {
                 
                 t.AttackBuffTowers.TryAdd(this, AbilityStat);
@@ -86,7 +86,7 @@ public class AttackBuffTower : Tower
 
             }
         }
-        */
+        
     }
 
 
@@ -97,9 +97,9 @@ public class AttackBuffTower : Tower
 
     public override void UpgradeTower()
     {
-        base.UpgradeTower();
+        base.UpgradeTower();    
         
-        /*
+        
         for (int i = 0; i < TowerList.Count; i++)
         {
 
@@ -107,12 +107,10 @@ public class AttackBuffTower : Tower
 
             if ((t.CheckAttackBuffTowers.ContainsKey(this))) // 추후 변경
             {
-
                 t.AttackBuffTowers[this] = AbilityStat;
-
             }
         }
-        */
+        
     }
 
 
@@ -121,13 +119,32 @@ public class AttackBuffTower : Tower
         base.SellTower();
 
         // 공격, 공속 버프 타워일 때  버프 삭제 효과 넣어주기
-        /*
+
+
+        RemoveBuff();
+        
+    }
+
+    public override void MoveTower(Tile tile)
+    {
+        StopCoroutine(nameof(IE_GetTargets));
+
+        RemoveBuff();
+
+        base.MoveTower(tile);
+
+        StartCoroutine(nameof(IE_GetTargets));
+
+    }
+
+    public void RemoveBuff()
+    {
         for (int i = 0; i < TowerList.Count; i++)
         {
 
             Tower t = TowerList[i].GetComponent<Tower>();
 
-            if ((t.CheckAttackBuffTowers.ContainsKey(this))) // 추후 변경
+            if ((t.CheckAttackBuffTowers.ContainsKey(this)))
             {
 
                 t.AttackBuffTowers[this] = AbilityStat;
@@ -135,14 +152,6 @@ public class AttackBuffTower : Tower
 
             }
         }
-        */
-    }
-
-    public override void MoveTower(Tile tile)
-    {
-        base.MoveTower(tile);
-
-        // 새로 체크해서 바꿔줘야 하나?
     }
 
 

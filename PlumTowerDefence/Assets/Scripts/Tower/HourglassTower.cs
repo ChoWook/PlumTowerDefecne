@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class HourglassTower : Tower
 {
@@ -28,7 +29,7 @@ public class HourglassTower : Tower
 
             for (int i = 0; i < list.Count; i++)
             {
-                multi *= list[i];
+                multi += list[i];
             }
 
 

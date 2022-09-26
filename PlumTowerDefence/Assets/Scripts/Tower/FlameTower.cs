@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class FlameTower : Tower
 {
@@ -29,10 +30,15 @@ public class FlameTower : Tower
 
             for (int i = 0; i < AttackMultiModifier.Count; i++)
             {
-                multi *= AttackMultiModifier[i];
+                multi += AttackMultiModifier[i];
             }
 
-            return (BaseAttackStat + sum + AttackBuffAmount) * multi;
+            for (int i = 0; i < AttackBuffTowers.Count; i++)
+            {
+                sum += AttackBuffTowers.ElementAt(i).Value;
+            }
+
+            return (BaseAttackStat + sum) * multi;
         }
          
     }
@@ -55,10 +61,15 @@ public class FlameTower : Tower
 
             for (int i = 0; i < SpeedMultiModifier.Count; i++)
             {
-                multi *= SpeedMultiModifier[i];
+                multi += SpeedMultiModifier[i];
             }
 
-            return (BaseSpeedStat + sum + SpeedBuffAmount) * multi;
+            for (int i = 0; i < SpeedBuffTowers.Count; i++)
+            {
+                sum += SpeedBuffTowers.ElementAt(i).Value;
+            }
+
+            return (BaseSpeedStat + sum) * multi;
         }
     }
 
