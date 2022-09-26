@@ -72,7 +72,7 @@ public class AttackBuffTower : Tower
             return;
         }
            
-        /*
+        
         for(int i = 0; i < TowerList.Count; i++)
         {
 
@@ -81,12 +81,14 @@ public class AttackBuffTower : Tower
             if (!(t.CheckAttackBuffTowers.ContainsKey(this))) // 추후 변경
             {
                 
-                t.AttackBuffTowers.TryAdd(this, AbilityStat);
+                bool isAdd = t.AttackBuffTowers.TryAdd(this, AbilityStat);
                 t.CheckAttackBuffTowers.TryAdd(this, true);
 
+                Debug.Log("AttackBuffTowers : " + isAdd );
+                Debug.Log("AttackBuffTowers Count :  " + AttackBuffTowers.Count);
             }
         }
-        */
+        
     }
 
 
@@ -97,9 +99,9 @@ public class AttackBuffTower : Tower
 
     public override void UpgradeTower()
     {
-        base.UpgradeTower();
+        base.UpgradeTower();    
         
-        /*
+        
         for (int i = 0; i < TowerList.Count; i++)
         {
 
@@ -112,7 +114,7 @@ public class AttackBuffTower : Tower
 
             }
         }
-        */
+        
     }
 
 
@@ -121,7 +123,29 @@ public class AttackBuffTower : Tower
         base.SellTower();
 
         // 공격, 공속 버프 타워일 때  버프 삭제 효과 넣어주기
-        /*
+
+
+        RemoveBuff();
+        
+    }
+
+    public override void MoveTower(Tile tile)
+    {
+        StopCoroutine(nameof(IE_GetTargets));
+
+        RemoveBuff();
+
+        base.MoveTower(tile);
+
+        StartCoroutine(nameof(IE_GetTargets));
+
+
+
+        // 새로 체크해서 바꿔줘야 하나?
+    }
+
+    public void RemoveBuff()
+    {
         for (int i = 0; i < TowerList.Count; i++)
         {
 
@@ -135,14 +159,6 @@ public class AttackBuffTower : Tower
 
             }
         }
-        */
-    }
-
-    public override void MoveTower(Tile tile)
-    {
-        base.MoveTower(tile);
-
-        // 새로 체크해서 바꿔줘야 하나?
     }
 
 
