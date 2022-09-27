@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -64,15 +64,27 @@ public class ElectricTower : Tower
             return (BaseAbilityStat + sum) * multi;
         }
     }
-    
+
 
     // slowrate
 
-
-    /*
-    public override void Shoot()
+    public override void Shoot() // ìˆ˜ì •
     {
-        // bulletprefab Á¤ÇÏ¸é »ý¼º
 
-    }*/
+        if (BulletPrefab != null)
+        {
+            GameObject bulletGO = ObjectPools.Instance.GetPooledObject(BulletPrefab.name);
+            bulletGO.transform.position = FirePoint.position;
+
+            Bullet b = bulletGO.GetComponent<Bullet>();
+
+            b?.SetTower(this);
+            b?.Seek(Target, 100f, AttackStat, AttackSpecialization); // TODO speed change
+        }
+
+    }
+
+
+
+
 }

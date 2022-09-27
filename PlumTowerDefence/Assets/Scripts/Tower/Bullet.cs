@@ -125,6 +125,8 @@ public class Bullet : MonoBehaviour
             Vector3 dir = target.transform.position - transform.position;
             transform.LookAt(target.transform);
 
+            
+
             if (dir.magnitude <= distanceThisFrame)
             {
                 HitTarget();
