@@ -2,18 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DigitalRuby.LightningBolt;
 
 public class LaserTower : Tower
 {
 
     public bool IsCoolTime = false ;
 
+    public GameObject Laser;
+
+    public GameObject LaserStart;
+
     private void Awake()
     {
-        Setstat(ETowerName.Laser); // onenable¿¡¼­ º¯¼ö °ª Á¤¸®ÇÏ±â
+        Setstat(ETowerName.Laser); // onenableï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
     }
 
-    
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        Laser.SetActive(false);
+    }
+
     public override float AttackStat
     {
         get
@@ -40,7 +51,7 @@ public class LaserTower : Tower
             }
 
             return (BaseAttackStat + sum) * multi;
-        } // ¼ø¼­?
+        } // ï¿½ï¿½ï¿½ï¿½?
     }
 
     public override float SpeedStat
@@ -78,11 +89,11 @@ public class LaserTower : Tower
 
 
 
-    // Å¸°Ù ÀâÀ¸¸é
-    // °ø°ÝÇÏ°í -> ºÒ¸´¿¡¼­ Ã³¸®
-    // ºÒ¸´ÀÌ ÁøÇà¹æÇâÀ¸·Î ¿òÁ÷ÀÓ
-    // ºÒ¸´ »ç¶óÁö¸é ·¹ÀÌÀúÅ¸¿öÀÇ ÄÚ·çÆ¾? µô·¹ÀÌ È£Ãâ
-    // ±× ÈÄ ¶Ç °ø°Ý
+    // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ -> ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+    // ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
+    // ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
     protected override void Update()
@@ -117,6 +128,13 @@ public class LaserTower : Tower
 
             Bullet b = bulletGO.GetComponent<Bullet>();
 
+            LightningBoltScript l = Laser.GetComponent<LightningBoltScript>();
+
+            l.StartObject = LaserStart;
+            l.EndObject = bulletGO;
+
+            Laser.SetActive(true);
+            
             b?.SetTower(this);
             b?.Seek(Target, ProjectileSpeed, AttackStat, AttackSpecialization);
       

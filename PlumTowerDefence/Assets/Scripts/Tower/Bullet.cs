@@ -103,6 +103,8 @@ public class Bullet : MonoBehaviour
             {
 
                 DestroyBullet();
+
+                Lt.Laser.SetActive(false);
        
                 Lt.StartCoroutine(nameof(Lt.IE_CoolTime));
             }
