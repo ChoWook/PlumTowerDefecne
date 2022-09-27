@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -15,7 +15,7 @@ public class LaserTower : Tower
 
     private void Awake()
     {
-        Setstat(ETowerName.Laser); // onenable���� ���� �� �����ϱ�
+        Setstat(ETowerName.Laser); // onenable에서 변수 값 정리하기
     }
 
     protected override void OnEnable()
@@ -51,7 +51,7 @@ public class LaserTower : Tower
             }
 
             return (BaseAttackStat + sum) * multi;
-        } // ����?
+        }
     }
 
     public override float SpeedStat
@@ -80,20 +80,11 @@ public class LaserTower : Tower
                 sum += SpeedBuffTowers.ElementAt(i).Value;
             }
 
-            return (BaseSpeedStat + sum + SpeedBuffAmount) * multi;
+            return (BaseSpeedStat + sum) * multi;
         }
     }
 
 
-    
-
-
-
-    // Ÿ�� ������
-    // �����ϰ� -> �Ҹ����� ó��
-    // �Ҹ��� ����������� ������
-    // �Ҹ� ������� ������Ÿ���� �ڷ�ƾ? ������ ȣ��
-    // �� �� �� ����
 
 
     protected override void Update()

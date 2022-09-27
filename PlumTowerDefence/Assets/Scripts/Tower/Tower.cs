@@ -1,60 +1,60 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
 public class Tower : IObjectOnTile
 {
-    // Å¸¿ö ½ºÅİ (ÀÓ½Ã·Î È­»ìÅ¸¿ö ½ºÅİ ¼³Á¤)
+    // íƒ€ì›Œ ìŠ¤í…Ÿ (ì„ì‹œë¡œ í™”ì‚´íƒ€ì›Œ ìŠ¤í…Ÿ ì„¤ì •)
 
     [SerializeField]
-    public int TowerID;                                       // Å¸¿ö ID (µ¥ÀÌÅÍ Å×ÀÌºí)
+    public int TowerID;                                       // íƒ€ì›Œ ID (ë°ì´í„° í…Œì´ë¸”)
 
 
     [Header("Attributes")]
 
-    //public GameObject MarkSizePrefab;                                               // Size Ç¥½Ã ¿ÀºêÁ§Æ®
-    //public GameObject MarkRangePrefab;                                              // Range Ç¥½Ã ¿ÀºêÁ§Æ®
+    //public GameObject MarkSizePrefab;                                               // Size í‘œì‹œ ì˜¤ë¸Œì íŠ¸
+    //public GameObject MarkRangePrefab;                                              // Range í‘œì‹œ ì˜¤ë¸Œì íŠ¸
 
 
-    public float Range;                                                              // °ø°İ »ç°Å¸®
-    public float RealRange;                                                          // ½ÇÁ¦ »ç°Å¸®
+    public float Range;                                                              // ê³µê²© ì‚¬ê±°ë¦¬
+    public float RealRange;                                                          // ì‹¤ì œ ì‚¬ê±°ë¦¬
 
 
-    public ETowerName TowerName;                                                     // Å¸¿ö ÀÌ¸§
-    protected EAttackSpecialization AttackSpecialization;                            // °ø°İ ¼Ó¼º(µ¥ÀÌÅÍÅ×ÀÌºí)
-    protected ETowerType TypeID;                                                     // ¼Ó¼º ID (µ¥ÀÌÅÍÅ×ÀÌºí)
+    public ETowerName TowerName;                                                     // íƒ€ì›Œ ì´ë¦„
+    protected EAttackSpecialization AttackSpecialization;                            // ê³µê²© ì†ì„±(ë°ì´í„°í…Œì´ë¸”)
+    protected ETowerType TypeID;                                                     // ì†ì„± ID (ë°ì´í„°í…Œì´ë¸”)
 
-    public int Size;                                                                 // Å¸¿ö Å©±â (µ¥ÀÌÅÍÅ×ÀÌºí)
-    public float RealSize;                                                             // ½ÇÁ¦ Å¸¿ö Å©±â
+    public int Size;                                                                 // íƒ€ì›Œ í¬ê¸° (ë°ì´í„°í…Œì´ë¸”)
+    public float RealSize;                                                             // ì‹¤ì œ íƒ€ì›Œ í¬ê¸°
 
     // AttackStat
-    public float BaseAttackStat;                                                     // °ø°İ·Â ½ºÅİ(µ¥ÀÌÅÍÅ×ÀÌºí)
-                                                                                     // public float AttackStat;                                                       // ÃÖÁ¾ °ø°İ·Â ½ºÅİ
-    public List<float> AttackPlusModifier = new List<float>();                       // AttackStat ¹İ¿µ ¸®½ºÆ® (µ¡¼À)
-    public List<float> AttackMultiModifier = new List<float>();                      // AttackStat ¹İ¿µ ¸®½ºÆ® (°ö¼À)
+    public float BaseAttackStat;                                                     // ê³µê²©ë ¥ ìŠ¤í…Ÿ(ë°ì´í„°í…Œì´ë¸”)
+                                                                                     // public float AttackStat;                                                       // ìµœì¢… ê³µê²©ë ¥ ìŠ¤í…Ÿ
+    public List<float> AttackPlusModifier = new List<float>();                       // AttackStat ë°˜ì˜ ë¦¬ìŠ¤íŠ¸ (ë§ì…ˆ)
+    public List<float> AttackMultiModifier = new List<float>();                      // AttackStat ë°˜ì˜ ë¦¬ìŠ¤íŠ¸ (ê³±ì…ˆ)
 
     // AbilityStat
-    public float BaseAbilityStat;                                                       //¾îºô¸®Æ¼ ½ºÅİ(µ¥ÀÌÅÍÅ×ÀÌºí)
-    //float AbilityStat;                                                                //ÃÖÁ¾ ¾îºô¸®Æ¼ ½ºÅİ
-    public List<float> AbilityPlusModifier = new List<float>();                        //AbilityStat ¹İ¿µ ¸®½ºÆ® (µ¡¼À)
-    public List<float> AbilityMultiModifier = new List<float>();                        //AbilityStat ¹İ¿µ ¸®½ºÆ® (°ö¼À)
+    public float BaseAbilityStat;                                                       //ì–´ë¹Œë¦¬í‹° ìŠ¤í…Ÿ(ë°ì´í„°í…Œì´ë¸”)
+    //float AbilityStat;                                                                //ìµœì¢… ì–´ë¹Œë¦¬í‹° ìŠ¤í…Ÿ
+    public List<float> AbilityPlusModifier = new List<float>();                        //AbilityStat ë°˜ì˜ ë¦¬ìŠ¤íŠ¸ (ë§ì…ˆ)
+    public List<float> AbilityMultiModifier = new List<float>();                        //AbilityStat ë°˜ì˜ ë¦¬ìŠ¤íŠ¸ (ê³±ì…ˆ)
 
-    
+
     // SpeedStat
-    public float BaseSpeedStat;                                                              // °ø°İ ¼Óµµ ½ºÅİ(µ¥ÀÌÅÍÅ×ÀÌºí)
-    // float SpeedStat;                                                                     // ÃÖÁ¾ ¼Óµµ ½ºÅİ
-    public List<float> SpeedPlusModifier = new List<float>();                              // SpeedStat ¹İ¿µ¸®½ºÆ®(µ¡¼À)
-    public List<float> SpeedMultiModifier = new List<float>();                             // SpeedStat ¹İ¿µ¸®½ºÆ®(°ö¼À)
+    public float BaseSpeedStat;                                                              // ê³µê²© ì†ë„ ìŠ¤í…Ÿ(ë°ì´í„°í…Œì´ë¸”)
+    // float SpeedStat;                                                                     // ìµœì¢… ì†ë„ ìŠ¤í…Ÿ
+    public List<float> SpeedPlusModifier = new List<float>();                              // SpeedStat ë°˜ì˜ë¦¬ìŠ¤íŠ¸(ë§ì…ˆ)
+    public List<float> SpeedMultiModifier = new List<float>();                             // SpeedStat ë°˜ì˜ë¦¬ìŠ¤íŠ¸(ê³±ì…ˆ)
 
-    private float FireCountdown = 0f;                                                       // ¹ß»ç Ä«¿îÆ®´Ù¿î
+    private float FireCountdown = 0f;                                                       // ë°œì‚¬ ì¹´ìš´íŠ¸ë‹¤ìš´
 
-    // Buff·®
+    // BuffëŸ‰
     public float AttackBuffAmount;
     public float SpeedBuffAmount;
 
-    public Transform PartToRotate;                                                          //È¸Àü ¿ÀºêÁ§Æ®
-    public float TurnSpeed = 10f;                                                           //È¸Àü ¼Óµµ
+    public Transform PartToRotate;                                                          //íšŒì „ ì˜¤ë¸Œì íŠ¸
+    public float TurnSpeed = 10f;                                                           //íšŒì „ ì†ë„
 
 
 
@@ -63,36 +63,36 @@ public class Tower : IObjectOnTile
 
     public Tile belowTile;
 
-    public bool Selected = false;                                                          // Å¸¿ö ¼±ÅÃ ¿©ºÎ
-    public bool Fixed = false;                                                             // Å¸¿ö ¼³Ä¡ ¿©ºÎ < -  ÇÊ¿äÇÑ°¡?
+    public bool Selected = false;                                                          // íƒ€ì›Œ ì„ íƒ ì—¬ë¶€
+    public bool Fixed = false;                                                             // íƒ€ì›Œ ì„¤ì¹˜ ì—¬ë¶€ < -  í•„ìš”í•œê°€?
 
-    public int AttackPriorityID = 0;                                                       // ¿ì¼± °ø°İ ¼Ó¼º ID
+    public int AttackPriorityID = 0;                                                       // ìš°ì„  ê³µê²© ì†ì„± ID
 
-    public EUpgradeStat UpgradeStat;                                                       // ¾÷±×·¹ÀÌµå ´ë»ó
-    public int UpgradePrice;                                                               // ¾÷±×·¹ÀÌµå °¡°İ(µ¥ÀÌÅÍÅ×ÀÌºí)
-    public int UpgradeCount;                                                               // ¾÷±×·¹ÀÌµå È½¼ö
-    public float UpgradeAmount;                                                            // ¾÷±×·¹ÀÌµå °­È­·®
+    public EUpgradeStat UpgradeStat;                                                       // ì—…ê·¸ë ˆì´ë“œ ëŒ€ìƒ
+    public int UpgradePrice;                                                               // ì—…ê·¸ë ˆì´ë“œ ê°€ê²©(ë°ì´í„°í…Œì´ë¸”)
+    public int UpgradeCount;                                                               // ì—…ê·¸ë ˆì´ë“œ íšŸìˆ˜
+    public float UpgradeAmount;                                                            // ì—…ê·¸ë ˆì´ë“œ ê°•í™”ëŸ‰
 
-    protected int Price;                                                                   // ±¸¸Å °¡°İ(µ¥ÀÌÅÍÅ×ÀÌºí)
-    public int SellPrice;                                                                  // ÆÇ¸Å °¡°İ
-    public int MovePrice;                                                                  // ÀÌµ¿ °¡°İ
-
-
-    public Dictionary<AttackBuffTower, float> AttackBuffTowers = new (new AttackBuffTowerComparer());                                 // °ø°İ·Â ¹öÇÁ Å¸¿öµé(¹öÇÁ·®)
-    public Dictionary<AttackBuffTower, bool> CheckAttackBuffTowers  = new (new AttackBuffTowerComparer());                             // °ø°İ·Â ¹öÇÁ Å¸¿öµé(¹öÇÁ ¿©ºÎ)
+    protected int Price;                                                                   // êµ¬ë§¤ ê°€ê²©(ë°ì´í„°í…Œì´ë¸”)
+    public int SellPrice;                                                                  // íŒë§¤ ê°€ê²©
+    public int MovePrice;                                                                  // ì´ë™ ê°€ê²©
 
 
-    public Dictionary<SpeedBuffTower, float> SpeedBuffTowers = new (new SpeedBuffTowerComparer());                                  // °ø°İ¼Óµµ ¹öÇÁ Å¸¿öµé
-    public Dictionary<SpeedBuffTower, bool> CheckSpeedBuffTowers = new (new SpeedBuffTowerComparer());                             // °ø°İ¼Óµµ ¹öÇÁ Å¸¿öµé
+    public Dictionary<AttackBuffTower, float> AttackBuffTowers = new(new AttackBuffTowerComparer());                                 // ê³µê²©ë ¥ ë²„í”„ íƒ€ì›Œë“¤(ë²„í”„ëŸ‰)
+    public Dictionary<AttackBuffTower, bool> CheckAttackBuffTowers = new(new AttackBuffTowerComparer());                             // ê³µê²©ë ¥ ë²„í”„ íƒ€ì›Œë“¤(ë²„í”„ ì—¬ë¶€)
+
+
+    public Dictionary<SpeedBuffTower, float> SpeedBuffTowers = new(new SpeedBuffTowerComparer());                                  // ê³µê²©ì†ë„ ë²„í”„ íƒ€ì›Œë“¤
+    public Dictionary<SpeedBuffTower, bool> CheckSpeedBuffTowers = new(new SpeedBuffTowerComparer());                             // ê³µê²©ì†ë„ ë²„í”„ íƒ€ì›Œë“¤
 
     public GameObject BulletPrefab;
     public Transform FirePoint;
-    public float ProjectileSpeed;                                                          // Åõ»çÃ¼ ¼Óµµ
+    public float ProjectileSpeed;                                                          // íˆ¬ì‚¬ì²´ ì†ë„
 
 
 
 
-    // Àû ½ºÅİ (Å¸°Ù ÁöÁ¤)
+    // ì  ìŠ¤í…Ÿ (íƒ€ê²Ÿ ì§€ì •)
 
     [Header("Enemy")]
 
@@ -103,9 +103,9 @@ public class Tower : IObjectOnTile
     public const string enemyTag = "Enemy";
 
 
-    //get ¹Ş¾ÆÁÖ±â <- class·Î ÇÏ³ª¸¦ ¸¸µé¸é ÁÁ°Ú´Ù!
+    //get ë°›ì•„ì£¼ê¸° <- classë¡œ í•˜ë‚˜ë¥¼ ë§Œë“¤ë©´ ì¢‹ê² ë‹¤!
 
-    public virtual float AttackStat 
+    public virtual float AttackStat
     {
         get
         {
@@ -125,7 +125,7 @@ public class Tower : IObjectOnTile
 
 
             return (BaseAttackStat + sum) * multi;
-        } 
+        }
     }
 
     public virtual float SpeedStat
@@ -181,13 +181,13 @@ public class Tower : IObjectOnTile
 
 
 
-    // SelectÀÏ ¶§ »ç°Å¸® Ç¥½Ã
+    // Selectì¼ ë•Œ ì‚¬ê±°ë¦¬ í‘œì‹œ
 
     public void IsSelected(bool sender)
     {
         Selected = sender;
 
-        //»ç°Å¸®, Å¸¿ö »çÀÌÁî Ç¥½Ã È°¼ºÈ­
+        //ì‚¬ê±°ë¦¬, íƒ€ì›Œ ì‚¬ì´ì¦ˆ í‘œì‹œ í™œì„±í™”
 
         //MarkSizePrefab.SetActive(sender);
         //MarkRangePrefab.SetActive(sender);
@@ -199,7 +199,7 @@ public class Tower : IObjectOnTile
 
     protected virtual void OnEnable()
     {
-        //½ºÅÈ ÃÊ±âÈ­
+        //ìŠ¤íƒ¯ ì´ˆê¸°í™”
         AttackBuffAmount = 0f;
         SpeedBuffAmount = 0f;
 
@@ -210,11 +210,11 @@ public class Tower : IObjectOnTile
         RealSize = Size * GameManager.instance.UnitTileSize;
 
 
-        // »ç°Å¸®, Å¸¿ö »çÀÌÁî ¼³Á¤ÇÏ±â <- ¾È µÇ³ª!
+        // ì‚¬ê±°ë¦¬, íƒ€ì›Œ ì‚¬ì´ì¦ˆ ì„¤ì •í•˜ê¸° <- ì•ˆ ë˜ë‚˜!
 
 
         /*
-        //»ç°Å¸® ÁöÁ¤ Range °ª ³Ö±â
+        //ì‚¬ê±°ë¦¬ ì§€ì • Range ê°’ ë„£ê¸°
         Transform parent = transform.parent;
         transform.parent = null;
         //Boundary.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
@@ -225,10 +225,10 @@ public class Tower : IObjectOnTile
 
     }
 
-    // ÃßÀû ¾Ë°í¸®Áò ÄÚ·çÆ¾
+    // ì¶”ì  ì•Œê³ ë¦¬ì¦˜ ì½”ë£¨í‹´
     protected virtual IEnumerator IE_GetTargets()
     {
-        if(SpeedStat == 0f)
+        if (SpeedStat == 0f)
         {
             WaitForSeconds ws = new(0.5f);
 
@@ -257,7 +257,7 @@ public class Tower : IObjectOnTile
     }
 
 
-    // Å¸°Ù ¾÷µ¥ÀÌÆ® ( Ã¼·Â ¿ì¼±, ¹æ¾î±¸ ¿ì¼±, ¹æ¾î·Â ³ôÀº Àû ¿ì¼± Ãß°¡ÇÏ±â)
+    // íƒ€ê²Ÿ ì—…ë°ì´íŠ¸ ( ì²´ë ¥ ìš°ì„ , ë°©ì–´êµ¬ ìš°ì„ , ë°©ì–´ë ¥ ë†’ì€ ì  ìš°ì„  ì¶”ê°€í•˜ê¸°)
     protected virtual void UpdateTarget()
     {
 
@@ -265,22 +265,22 @@ public class Tower : IObjectOnTile
         {
             EnemyList.Clear();
 
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  ÅÂ±×·Î Àû Ã£±â
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag); // Enemy  íƒœê·¸ë¡œ ì  ì°¾ê¸°
             float shortestDistance = Mathf.Infinity;
             GameObject nearestEnemy = null;
 
             foreach (GameObject enemy in enemies)
             {
 
-                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // Àû°úÀÇ °Å¸® ±¸ÇÏ±â
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // ì ê³¼ì˜ ê±°ë¦¬ êµ¬í•˜ê¸°
 
 
-                if (distanceToEnemy <= RealRange) // »ç°Å¸® ¾È¿¡ ÀÖ´Â Å¸°Ùµé
+                if (distanceToEnemy <= RealRange) // ì‚¬ê±°ë¦¬ ì•ˆì— ìˆëŠ” íƒ€ê²Ÿë“¤
                 {
                     EnemyList.Add(enemy);
                 }
 
-                if (distanceToEnemy < shortestDistance)  // ¿ì¼±¼øÀ§ Ã£±â SortAttackPriority();
+                if (distanceToEnemy < shortestDistance)  // ìš°ì„ ìˆœìœ„ ì°¾ê¸° SortAttackPriority();
                 {
                     shortestDistance = distanceToEnemy;
                     nearestEnemy = enemy;
@@ -321,7 +321,7 @@ public class Tower : IObjectOnTile
 
         if (PartToRotate != null)
         {
-            // Å¸¿ö È¸Àü
+            // íƒ€ì›Œ íšŒì „
             Vector3 dir = Target.transform.position - transform.position;
             Quaternion lookRotation = Quaternion.LookRotation(dir);
             Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation, lookRotation, Time.deltaTime * TurnSpeed).eulerAngles;
@@ -329,7 +329,7 @@ public class Tower : IObjectOnTile
         }
 
 
-        // ¹ß»ç
+        // ë°œì‚¬
         if (FireCountdown <= 0f)
         {
             Shoot();
@@ -353,13 +353,13 @@ public class Tower : IObjectOnTile
     }
 
 
-    // °ø°İ ¿ì¼±¼øÀ§ Á¤ÇÏ´Â ÇÔ¼ö
+    // ê³µê²© ìš°ì„ ìˆœìœ„ ì •í•˜ëŠ” í•¨ìˆ˜
     private void SortAttackPriority()
     {
         switch (AttackPriorityID)
         {
             case 0:
-                // ¸ÕÀú µé¾î¿Â ¸ó½ºÅÍ
+                // ë¨¼ì € ë“¤ì–´ì˜¨ ëª¬ìŠ¤í„°
                 if (EnemyList.Count != 0)
                 {
                     Target = EnemyList[0];
@@ -368,25 +368,25 @@ public class Tower : IObjectOnTile
                 break;
 
             case 1:
-                // Ã¼·Â ¿ì¼± °ø°İ -> ¹æ¾î±¸ ¾ø´Â Àû ¸ÕÀú Å¸°ÙÆÃÇÏ°í ´Ù °°À¸¸é Ã³À½ µé¾î¿Â ¸ó½ºÅÍ
+                // ì²´ë ¥ ìš°ì„  ê³µê²© -> ë°©ì–´êµ¬ ì—†ëŠ” ì  ë¨¼ì € íƒ€ê²ŸíŒ…í•˜ê³  ë‹¤ ê°™ìœ¼ë©´ ì²˜ìŒ ë“¤ì–´ì˜¨ ëª¬ìŠ¤í„°
 
                 break;
 
             case 2:
-                // ¹æ¾î±¸ °¡Áø ¸ó½ºÅÍ ¿ì¼± °ø°İ Enemy.CurrentShield
+                // ë°©ì–´êµ¬ ê°€ì§„ ëª¬ìŠ¤í„° ìš°ì„  ê³µê²© Enemy.CurrentShield
 
                 break;
 
             case 3:
-                // ¹æ¾î·Â ³ôÀº Àû ¿ì¼± °ø°İ
-                //EnemyList.Sort(gameObject.GetComponent<Enemy>().) <- Àû º¯¼ö publicÀ¸·Î ¹Ù²ãÁÖ¼¼¿ä~
+                // ë°©ì–´ë ¥ ë†’ì€ ì  ìš°ì„  ê³µê²©
+                //EnemyList.Sort(gameObject.GetComponent<Enemy>().) <- ì  ë³€ìˆ˜ publicìœ¼ë¡œ ë°”ê¿”ì£¼ì„¸ìš”~
 
                 break;
         }
     }
 
 
-    public virtual void Shoot() // ¼öÁ¤
+    public virtual void Shoot() // ìˆ˜ì •
     {
 
         if (BulletPrefab != null)
@@ -403,23 +403,24 @@ public class Tower : IObjectOnTile
     }
 
 
-    // »óÈ£ÀÛ¿ë ÇÔ¼ö
+    // ìƒí˜¸ì‘ìš© í•¨ìˆ˜
 
     //Upgrade
-    public virtual void UpgradeTower() // µ¥ÀÌÅÍ ¿¬µ¿ÇØ¼­ ¼öÁ¤ÇÏ±â
+    public virtual void UpgradeTower() // ë°ì´í„° ì—°ë™í•´ì„œ ìˆ˜ì •í•˜ê¸°
     {
-        if(UpgradePrice > GameManager.instance.Money)
+        if (UpgradePrice > GameManager.instance.Money)
         {
             return;
-        }else if(UpgradeCount >= 5) // Table ¿¬µ¿
+        }
+        else if (UpgradeCount >= 5) // Table ì—°ë™
         {
             return;
         }
 
 
-        // Attackstat + 5 ·Î ÇØ³õ±â
+        // Attackstat + 5 ë¡œ í•´ë†“ê¸°
 
-        switch (UpgradeStat) // ½ºÅÃÃ³·³ ½×ÀÌ´Â °ÇÁö °ª ÀÚÃ¼°¡ ¹Ù²î´ÂÁö È®ÀÎ
+        switch (UpgradeStat) // ìŠ¤íƒì²˜ëŸ¼ ìŒ“ì´ëŠ” ê±´ì§€ ê°’ ìì²´ê°€ ë°”ë€ŒëŠ”ì§€ í™•ì¸
         {
             case EUpgradeStat.Attack:
                 {
@@ -440,13 +441,13 @@ public class Tower : IObjectOnTile
                 }
         }
 
-        //µ· 40 ÀÒ±â
+        //ëˆ 40 ìƒê¸°
 
         GameManager.instance.Money -= UpgradePrice;
 
         UpgradeCount++;
 
-        // Å¸¿ö°¡ ¾÷±×·¹ÀÌµåµÊ¿¡ µû¶ó °¡°İ º¯°æ
+        // íƒ€ì›Œê°€ ì—…ê·¸ë ˆì´ë“œë¨ì— ë”°ë¼ ê°€ê²© ë³€ê²½
         MovePrice = (int)((Price + UpgradeCount * UpgradePrice) * 0.5f);
 
         SellPrice = (int)((Price + UpgradeCount * UpgradePrice) * 0.6f);
@@ -455,13 +456,13 @@ public class Tower : IObjectOnTile
     //Sell
     public virtual void SellTower()
     {
-        // Å¸¿ö ¹İ³³ÇÏ±â
-        ObjectPools.Instance.ReleaseObjectToPool(gameObject); // Å¸¿ö Ç®¿¡ Ãß°¡ÇÑ µÚ ¹Ù²Ù±â ?  <- ¸Ê¿¡¼­ ´Ù·é´Ù!
+        // íƒ€ì›Œ ë°˜ë‚©í•˜ê¸°
+        ObjectPools.Instance.ReleaseObjectToPool(gameObject); // íƒ€ì›Œ í’€ì— ì¶”ê°€í•œ ë’¤ ë°”ê¾¸ê¸° ?  <- ë§µì—ì„œ ë‹¤ë£¬ë‹¤!
 
-        // ÀçÈ­ ¿¬°á ÇÔ¼ö
+        // ì¬í™” ì—°ê²° í•¨ìˆ˜
         GameManager.instance.Money += SellPrice;
 
-        // °ø°İ, °ø¼Ó ¹öÇÁ Å¸¿öÀÏ ¶§  ¹öÇÁ »èÁ¦ È¿°ú ³Ö¾îÁÖ±â
+        // ê³µê²©, ê³µì† ë²„í”„ íƒ€ì›Œì¼ ë•Œ  ë²„í”„ ì‚­ì œ íš¨ê³¼ ë„£ì–´ì£¼ê¸°
 
     }
 
@@ -470,7 +471,7 @@ public class Tower : IObjectOnTile
     {
         ClearObjectOnTile();
 
-        // Å¸¿ö À§Ä¡ º¯°æ
+        // íƒ€ì›Œ ìœ„ì¹˜ ë³€ê²½
         if (Size == 2)
         {
             float half = GameManager.instance.UnitTileSize / 2;
@@ -509,7 +510,7 @@ public class Tower : IObjectOnTile
         Range = tower._Range;
         Price = tower._Price;
 
-        // ÀÚÃ¼ º¯¼ö ¼öÁ¤
+        // ìì²´ ë³€ìˆ˜ ìˆ˜ì •
         MovePrice = (int)((Price + UpgradeCount * UpgradePrice) * 0.5f);
 
         SellPrice = (int)((Price + UpgradeCount * UpgradePrice) * 0.6f);

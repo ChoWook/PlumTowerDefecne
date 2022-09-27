@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -6,13 +6,13 @@ using System.Linq;
 public class ArrowTower : Tower
 {
 
-    
+
 
     private void Awake()
     {
         Setstat(ETowerName.Arrow);
     }
-    
+
     public override float AttackStat
     {
         get
@@ -22,7 +22,7 @@ public class ArrowTower : Tower
             List<float> plus = TowerUpgradeAmount.instance._ArrowTowerStat.AttackPlusModifier;
 
 
-            for (int i = 0; i <plus.Count; i++)
+            for (int i = 0; i < plus.Count; i++)
             {
                 sum += plus[i];
             }
@@ -35,7 +35,7 @@ public class ArrowTower : Tower
             return (BaseAttackStat + sum);
 
         }
-        
+
     }
 
     public override float SpeedStat
@@ -57,15 +57,13 @@ public class ArrowTower : Tower
             }
 
             return (BaseSpeedStat + sum);
-            
+
         }
     }
-    
-
-    // ½ºÅÈ ¸®¼ÂÀº ¾ðÁ¦?
-
-    // µ¶ µ© ³Ö¾îÁÖ±â
 
 
-    // È­»ó µ¥¹ÌÁö ³Ö¾îÁÖ±â
+    // ë… ëŽ€ ë„£ì–´ì£¼ê¸°
+
+
+    // í™”ìƒ ë°ë¯¸ì§€ ë„£ì–´ì£¼ê¸°
 }

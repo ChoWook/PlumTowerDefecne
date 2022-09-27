@@ -1,4 +1,4 @@
-using System.Collections;
+癤퓎sing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,7 +50,7 @@ public class SpeedBuffTower : Tower
     {
         TowerList.Clear();
 
-        GameObject[] Towers = GameObject.FindGameObjectsWithTag(TowerTag); // Collider로 바꾸면 정말 좋을텐데ㅜㅜ
+        GameObject[] Towers = GameObject.FindGameObjectsWithTag(TowerTag);
 
         foreach (GameObject tower in Towers)
         {
@@ -77,7 +77,7 @@ public class SpeedBuffTower : Tower
 
             Tower t = TowerList[i].GetComponent<Tower>();
 
-            if (!(t.CheckSpeedBuffTowers.ContainsKey(this)) && t.SpeedStat != 0f) // 추후 변경
+            if (!(t.CheckSpeedBuffTowers.ContainsKey(this)) && t.SpeedStat != 0f) 
             {
 
                 t.SpeedBuffTowers.TryAdd(this, AbilityStat);
@@ -102,7 +102,7 @@ public class SpeedBuffTower : Tower
 
             Tower t = TowerList[i].GetComponent<Tower>();
 
-            if ((t.CheckSpeedBuffTowers.ContainsKey(this))) // 추후 변경
+            if ((t.CheckSpeedBuffTowers.ContainsKey(this)))
             {
                 t.SpeedBuffTowers[this] = AbilityStat;
             }
@@ -115,7 +115,6 @@ public class SpeedBuffTower : Tower
     {
         base.SellTower();
 
-        // 공격, 공속 버프 타워일 때  버프 삭제 효과 넣어주기
 
         RemoveBuff();
     }

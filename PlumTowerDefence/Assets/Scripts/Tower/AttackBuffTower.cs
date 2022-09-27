@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +7,13 @@ public class AttackBuffTower : Tower
     public const string TowerTag = "Tower";
 
     public List<GameObject> TowerList = new List<GameObject>();
-    
+
     private void Awake()
     {
         Setstat(ETowerName.AttackBuff);
     }
 
-    
+
     public override float AbilityStat
     {
         get
@@ -38,7 +38,7 @@ public class AttackBuffTower : Tower
             return (BaseAbilityStat + sum) * multi;
         }
     }
-    
+
 
     // attackrange, additionaldamage 
 
@@ -51,9 +51,9 @@ public class AttackBuffTower : Tower
         TowerList.Clear();
 
 
-        GameObject[] Towers = GameObject.FindGameObjectsWithTag(TowerTag); 
+        GameObject[] Towers = GameObject.FindGameObjectsWithTag(TowerTag);
 
-        foreach(GameObject tower in Towers)
+        foreach (GameObject tower in Towers)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, tower.transform.position);
 
@@ -71,46 +71,46 @@ public class AttackBuffTower : Tower
         {
             return;
         }
-           
-        
-        for(int i = 0; i < TowerList.Count; i++)
-        {
-
-            Tower t = TowerList[i].GetComponent<Tower>();
-
-            if (!(t.CheckAttackBuffTowers.ContainsKey(this)) && t.AttackStat != 0f ) // √ﬂ»ƒ ∫Ø∞Ê
-            {
-                
-                t.AttackBuffTowers.TryAdd(this, AbilityStat);
-                t.CheckAttackBuffTowers.TryAdd(this, true);
-
-            }
-        }
-        
-    }
 
 
-    public override void Shoot()
-    {
-        
-    }
-
-    public override void UpgradeTower()
-    {
-        base.UpgradeTower();    
-        
-        
         for (int i = 0; i < TowerList.Count; i++)
         {
 
             Tower t = TowerList[i].GetComponent<Tower>();
 
-            if ((t.CheckAttackBuffTowers.ContainsKey(this))) // √ﬂ»ƒ ∫Ø∞Ê
+            if (!(t.CheckAttackBuffTowers.ContainsKey(this)) && t.AttackStat != 0f) // Ï∂îÌõÑ Î≥ÄÍ≤Ω
+            {
+
+                t.AttackBuffTowers.TryAdd(this, AbilityStat);
+                t.CheckAttackBuffTowers.TryAdd(this, true);
+
+            }
+        }
+
+    }
+
+
+    public override void Shoot()
+    {
+
+    }
+
+    public override void UpgradeTower()
+    {
+        base.UpgradeTower();
+
+
+        for (int i = 0; i < TowerList.Count; i++)
+        {
+
+            Tower t = TowerList[i].GetComponent<Tower>();
+
+            if ((t.CheckAttackBuffTowers.ContainsKey(this))) // Ï∂îÌõÑ Î≥ÄÍ≤Ω
             {
                 t.AttackBuffTowers[this] = AbilityStat;
             }
         }
-        
+
     }
 
 
@@ -118,11 +118,11 @@ public class AttackBuffTower : Tower
     {
         base.SellTower();
 
-        // ∞¯∞›, ∞¯º” πˆ«¡ ≈∏øˆ¿œ ∂ß  πˆ«¡ ªË¡¶ »ø∞˙ ≥÷æÓ¡÷±‚
+        // Í≥µÍ≤©, Í≥µÏÜç Î≤ÑÌîÑ ÌÉÄÏõåÏùº Îïå  Î≤ÑÌîÑ ÏÇ≠Ï†ú Ìö®Í≥º ÎÑ£Ïñ¥Ï£ºÍ∏∞
 
 
         RemoveBuff();
-        
+
     }
 
     public override void MoveTower(Tile tile)

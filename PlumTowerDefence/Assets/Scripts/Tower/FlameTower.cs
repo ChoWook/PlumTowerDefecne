@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -12,7 +12,7 @@ public class FlameTower : Tower
         Setstat(ETowerName.Flame);
     }
 
-    
+
     public override float AttackStat
     {
         get
@@ -40,7 +40,7 @@ public class FlameTower : Tower
 
             return (BaseAttackStat + sum) * multi;
         }
-         
+
     }
 
     public override float SpeedStat
@@ -73,7 +73,7 @@ public class FlameTower : Tower
         }
     }
 
-    
+
 
 
     // attackrange, slowrate, angle
@@ -82,13 +82,13 @@ public class FlameTower : Tower
 
     public override void Shoot()
     {
-        // Å¸±ê°úÀÇ °¢µµ ¹Ş¾Æ¼­ ±× °ø°£ ¾È¿¡ ÀÖ´Â Àûµé °ø°İÇÏ±â.
+        // íƒ€ê¹ƒê³¼ì˜ ê°ë„ ë°›ì•„ì„œ ê·¸ ê³µê°„ ì•ˆì— ìˆëŠ” ì ë“¤ ê³µê²©í•˜ê¸°.
 
         Vector3 basic = Target.transform.position - transform.position;
 
         for (int i = 0; i < EnemyList.Count; i++)
         {
-            //EnemyList(»ç°Å¸® ¾È)¿¡ ÀÖ´Â ¸ó½ºÅÍ ÇÏ³ª¾¿ ¹Ş¾Æ¿À±â
+            //EnemyList(ì‚¬ê±°ë¦¬ ì•ˆ)ì— ìˆëŠ” ëª¬ìŠ¤í„° í•˜ë‚˜ì”© ë°›ì•„ì˜¤ê¸°
             Transform target = EnemyList[i].transform;
             Vector3 dirToTarget = (target.position - transform.position).normalized;
 
@@ -98,7 +98,7 @@ public class FlameTower : Tower
 
             if (EachAngle < Angle / 2)
             {
-                target.GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization , TowerName);
+                target.GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization, TowerName);
             }
 
         }

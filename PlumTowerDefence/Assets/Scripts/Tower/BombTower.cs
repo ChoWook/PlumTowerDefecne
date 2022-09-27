@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -13,7 +13,7 @@ public class BombTower : Tower
         Setstat(ETowerName.Bomb);
     }
 
-    
+
     public override float AttackStat
     {
         get
@@ -34,7 +34,7 @@ public class BombTower : Tower
                 multi += AttackMultiModifier[i];
             }
 
-            for(int i=0; i < AttackBuffTowers.Count; i++)
+            for (int i = 0; i < AttackBuffTowers.Count; i++)
             {
                 sum += AttackBuffTowers.ElementAt(i).Value;
             }
@@ -43,9 +43,9 @@ public class BombTower : Tower
             return (BaseAttackStat + sum) * multi;
         }
     }
-    
+
     // Range
-    
+
 
 
 
@@ -67,55 +67,55 @@ public class BombTower : Tower
     }
 
 
-    // Àû °¨Áö ÇÏ°í ¾î¶»°Ô ÇØ¾ßÇÏ³ª
+    // ì  ê°ì§€ í•˜ê³  ì–´ë–»ê²Œ í•´ì•¼í•˜ë‚˜
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!(isTriggered))
+        if (!(isTriggered))
         {
-            if (other.transform.parent.CompareTag(enemyTag)) // ¿Ö °Å²Ù·Î µÇÁö?
+            if (other.transform.parent.CompareTag(enemyTag)) // ì™œ ê±°ê¾¸ë¡œ ë˜ì§€?
             {
                 StartCoroutine(nameof(IE_Delay));
-                
+
                 isTriggered = true;
             }
         }
-        // ÇÏ³ª trigger °É¸®¸é trigger ´Ý±â?
-            
+        // í•˜ë‚˜ trigger ê±¸ë¦¬ë©´ trigger ë‹«ê¸°?
+
     }
 
 
-    // 3ÃÊ µÚ¿¡
+    // 3ì´ˆ ë’¤ì—
 
     IEnumerator IE_Delay()
     {
-        WaitForSeconds delay = new (3f);
-        
+        WaitForSeconds delay = new(3f);
+
         yield return delay;
-        
+
         Explosion();
 
     }
 
-    // ¹Ý°æ ¾ÈÀÇ ¸ó½ºÅÍ ÇÇÇØÁÖ±â
+    // ë°˜ê²½ ì•ˆì˜ ëª¬ìŠ¤í„° í”¼í•´ì£¼ê¸°
 
     void Explosion()
-    { 
-        
+    {
+
         GameObject[] Enemies = GameObject.FindGameObjectsWithTag(enemyTag);
 
         for (int i = 0; i < Enemies.Length; i++)
         {
-            float distanceToEnemy = Vector3.Distance(transform.position, Enemies[i].transform.position); // Àû°úÀÇ °Å¸® ±¸ÇÏ±â
+            float distanceToEnemy = Vector3.Distance(transform.position, Enemies[i].transform.position); // ì ê³¼ì˜ ê±°ë¦¬ êµ¬í•˜ê¸°
 
-            if (distanceToEnemy <= RealRange) // »ç°Å¸® ¾È¿¡ ÀÖ´Â Å¸°Ùµé
+            if (distanceToEnemy <= RealRange) // ì‚¬ê±°ë¦¬ ì•ˆì— ìžˆëŠ” íƒ€ê²Ÿë“¤
             {
                 Enemies[i].GetComponent<Enemy>().TakeDamage(AbilityStat, AttackSpecialization, TowerName);
             }
         }
 
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
-        isTriggered=false;
+        isTriggered = false;
     }
 
 }

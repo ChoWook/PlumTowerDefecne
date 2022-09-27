@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class Bullet : MonoBehaviour
 {
-    private GameObject target;            // Å¸°Ù
+    private GameObject target;            // íƒ€ê²Ÿ
 
     public Tower tower;
 
@@ -13,11 +13,11 @@ public class Bullet : MonoBehaviour
 
     //public GameObject ObjectPool;
 
-    private float Damage;               // Å¸°Ù¿¡°Ô °¡ÇÒ µ¥¹ÌÁö
+    private float Damage;               // íƒ€ê²Ÿì—ê²Œ ê°€í•  ë°ë¯¸ì§€
 
-    //private int AttackPropertyID;        // ¼Ó¼º ¾ÆÀÌµğ
+    //private int AttackPropertyID;        // ì†ì„± ì•„ì´ë””
 
-    private EAttackSpecialization AttackSpecialization; // °ø°İ Á¾·ù
+    private EAttackSpecialization AttackSpecialization; // ê³µê²© ì¢…ë¥˜
 
     public float Speed;
 
@@ -38,17 +38,17 @@ public class Bullet : MonoBehaviour
         this.tower = tower;
 
         MissileRange = tower.AbilityStat * GameManager.instance.UnitTileSize;
-        ElectricRange = ElecRangeStat * GameManager.instance.UnitTileSize;              // Å¸ÀÏ 2°³
-        LaserLength = tower.AbilityStat * GameManager.instance.UnitTileSize;            // ·¹ÀÌÀú ±æÀÌ
+        ElectricRange = ElecRangeStat * GameManager.instance.UnitTileSize;              // íƒ€ì¼ 2ê°œ
+        LaserLength = tower.AbilityStat * GameManager.instance.UnitTileSize;            // ë ˆì´ì € ê¸¸ì´
 
 
         if (tower.TowerName == ETowerName.Laser)
         {
 
-            // ºÒ¸´ Å©±â ÁöÁ¤
+            // ë¶ˆë¦¿ í¬ê¸° ì§€ì •
             Transform parent = transform.parent;
             transform.parent = null;
-            transform.localScale = new Vector3(GameManager.instance.UnitTileSize, 1, GameManager.instance.UnitTileSize); // ³ôÀÌ ÃßÈÄ ¼öÁ¤
+            transform.localScale = new Vector3(GameManager.instance.UnitTileSize, 1, GameManager.instance.UnitTileSize); // ë†’ì´ ì¶”í›„ ìˆ˜ì •
             transform.parent = parent;
 
             Lt = tower.GetComponent<LaserTower>();
@@ -69,11 +69,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(tower.TowerName == ETowerName.Laser)
+        if (tower.TowerName == ETowerName.Laser)
         {
-            other.gameObject.GetComponentInParent<Enemy>()?.TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage Àü´Ş
+            other.gameObject.GetComponentInParent<Enemy>()?.TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage ì „ë‹¬
         }
-        
+
     }
 
 
@@ -86,31 +86,31 @@ public class Bullet : MonoBehaviour
             DestroyBullet();
             return;
         }
-        
+
         float distanceThisFrame = Speed * Time.deltaTime;
 
         if (tower.TowerName == ETowerName.Laser)
         {
-            // º¤ÅÍ °ª ¹Ş°í
-            // Å¸°Ù À§Ä¡¿¡¼­ »ı¼º(Å¸¿ö¿¡¼­ °ü¸®)
-            // º¤ÅÍ yÃà °íÁ¤ÇÏ°í ÇØ´ç ¹æÇâÀ¸·Î ability¸¸Å­ ¿òÁ÷ÀÓ(ÆøÀº 1Å¸ÀÏÅ©±â¸¸Å­ º¯°æÇØÁÖ±â)
+            // ë²¡í„° ê°’ ë°›ê³ 
+            // íƒ€ê²Ÿ ìœ„ì¹˜ì—ì„œ ìƒì„±(íƒ€ì›Œì—ì„œ ê´€ë¦¬)
+            // ë²¡í„° yì¶• ê³ ì •í•˜ê³  í•´ë‹¹ ë°©í–¥ìœ¼ë¡œ abilityë§Œí¼ ì›€ì§ì„(í­ì€ 1íƒ€ì¼í¬ê¸°ë§Œí¼ ë³€ê²½í•´ì£¼ê¸°)
 
-            transform.position = Vector3.MoveTowards(transform.position, LaserDestination , distanceThisFrame); // ÀÌ°Ô ¾Æ´Ï´Ù!!!!
+            transform.position = Vector3.MoveTowards(transform.position, LaserDestination, distanceThisFrame); // ì´ê²Œ ì•„ë‹ˆë‹¤!!!!
 
 
 
-            if(Vector3.Distance(transform.position, LaserDestination) <= 0.01f) // ´õ ÁÁÀº ¹æ¹ı?
+            if (Vector3.Distance(transform.position, LaserDestination) <= 0.01f) // ë” ì¢‹ì€ ë°©ë²•?
             {
 
                 DestroyBullet();
 
                 Lt.Laser.SetActive(false);
-       
+
                 Lt.StartCoroutine(nameof(Lt.IE_CoolTime));
             }
-            
-            // ÀÌµ¿ÇÏ´Â µ¿¾È Äİ¶óÀÌ´õ ¹Ş¾Æ¼­ ºÎµúÈ÷´Â Àûµé µ¥¹ÌÁö ÀÔÈ÷±â -> Trigger·Î ¹Ş´Â °Í
-            // ´Ù µ¹¸é µô·¹ÀÌ ³Ö¾îÁÖ±â
+
+            // ì´ë™í•˜ëŠ” ë™ì•ˆ ì½œë¼ì´ë” ë°›ì•„ì„œ ë¶€ë”ªíˆëŠ” ì ë“¤ ë°ë¯¸ì§€ ì…íˆê¸° -> Triggerë¡œ ë°›ëŠ” ê²ƒ
+            // ë‹¤ ëŒë©´ ë”œë ˆì´ ë„£ì–´ì£¼ê¸°
         }
         else
         {
@@ -129,7 +129,7 @@ public class Bullet : MonoBehaviour
             {
                 HitTarget();
                 return;
-            }   
+            }
 
             transform.Translate(dir.normalized * distanceThisFrame, Space.World);
         }
@@ -139,13 +139,13 @@ public class Bullet : MonoBehaviour
     {
         Transform temp = target.transform;
 
-        Vector3 dir = - temp.forward;
+        Vector3 dir = -temp.forward;
 
-        dir.y = 0f; // yÃà °íÁ¤
+        dir.y = 0f; // yì¶• ê³ ì •
 
         dir = dir.normalized * LaserLength;
 
-        LaserDestination = temp.position + dir ;
+        LaserDestination = temp.position + dir;
     }
 
 
@@ -157,29 +157,29 @@ public class Bullet : MonoBehaviour
 
     void HitTarget()
     {
-        // µ¥¹ÌÁö Àü´ŞÇÔ¼ö Ãß°¡
+        // ë°ë¯¸ì§€ ì „ë‹¬í•¨ìˆ˜ ì¶”ê°€
 
-        target.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage Àü´Ş
+        target.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage ì „ë‹¬
 
         DestroyBullet();
 
         if (tower != null)
         {
-           
+
             switch (tower.TowerName)
             {
                 case ETowerName.Missile:
                     {
- 
+
 
                         GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
                         for (int i = 0; i < Enemies.Length; i++)
                         {
-                            float distanceToEnemy = Vector3.Distance(target.transform.position, Enemies[i].transform.position); // Àû°úÀÇ °Å¸® ±¸ÇÏ±â
+                            float distanceToEnemy = Vector3.Distance(target.transform.position, Enemies[i].transform.position); // ì ê³¼ì˜ ê±°ë¦¬ êµ¬í•˜ê¸°
 
 
-                            if (distanceToEnemy <= MissileRange) // »ç°Å¸® ¾È¿¡ ÀÖ´Â Å¸°Ùµé
+                            if (distanceToEnemy <= MissileRange) // ì‚¬ê±°ë¦¬ ì•ˆì— ìˆëŠ” íƒ€ê²Ÿë“¤
                             {
                                 Enemies[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
                             }
@@ -189,18 +189,18 @@ public class Bullet : MonoBehaviour
                     }
                 case ETowerName.Electric:
                     {
-                        // Å¸ÀÏ 2 ±îÁö Ability ¼ö¸¸Å­ Ã£±â
+                        // íƒ€ì¼ 2 ê¹Œì§€ Ability ìˆ˜ë§Œí¼ ì°¾ê¸°
 
 
-                        List<GameObject> EnemiesInRange = new List<GameObject>(); // ¹üÀ§ ¾ÈÀÇ ¸ó½ºÅÍ
-                        List<float> DistanceInrange = new List<float>(); // °ª ºñ±³¿ë list
+                        List<GameObject> EnemiesInRange = new List<GameObject>(); // ë²”ìœ„ ì•ˆì˜ ëª¬ìŠ¤í„°
+                        List<float> DistanceInrange = new List<float>(); // ê°’ ë¹„êµìš© list
 
                         GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
 
                         for (int i = 0; i < Enemies.Length; i++)
                         {
-                            float distanceToEnemy = Vector3.Distance(target.transform.position, Enemies[i].transform.position); // Àû°úÀÇ °Å¸® ±¸ÇÏ±â
+                            float distanceToEnemy = Vector3.Distance(target.transform.position, Enemies[i].transform.position); // ì ê³¼ì˜ ê±°ë¦¬ êµ¬í•˜ê¸°
 
                             if (distanceToEnemy <= ElectricRange)
                             {
@@ -211,27 +211,27 @@ public class Bullet : MonoBehaviour
                                     continue;
                                 }
 
-                                // ±æÀÌ ºñ±³ ÇÔ¼ö
+                                // ê¸¸ì´ ë¹„êµ í•¨ìˆ˜
 
                                 int idx = 0;
 
                                 for (int j = 0; j < EnemiesInRange.Count; j++)
                                 {
-                                    if(distanceToEnemy > DistanceInrange[j])
+                                    if (distanceToEnemy > DistanceInrange[j])
                                     {
                                         idx = j;
                                         break;
-                                    }    
+                                    }
                                 }
-                                
-                                EnemiesInRange.Insert(idx,Enemies[i]);
+
+                                EnemiesInRange.Insert(idx, Enemies[i]);
                                 DistanceInrange.Insert(idx, distanceToEnemy);
                             }
 
                         }
 
-                        // AbilityStat¸¸Å­ °ø°İÇÏ±â
-                        for(int i=0; i < tower.AbilityStat; i++)
+                        // AbilityStatë§Œí¼ ê³µê²©í•˜ê¸°
+                        for (int i = 0; i < tower.AbilityStat; i++)
                         {
                             EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
                         }
