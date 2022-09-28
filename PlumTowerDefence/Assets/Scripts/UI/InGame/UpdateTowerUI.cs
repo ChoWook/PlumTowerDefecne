@@ -122,7 +122,7 @@ public class UpdateTowerUI : MonoBehaviour
             string.Format(Tables.StringUI.Get(TowerPriority.gameObject.name)._Korean, _tower.AttackPriorityID);
 
         // TODO 최대 업글했을 때 String 추가 필요
-        if(_tower.UpgradeCount >= 5)
+        if(_tower.UpgradeCount >= Tables.GlobalSystem.Get("Tower_Upgrade_Max")._Value)
         {
             TowerUpgrade.text =
                 string.Format(Tables.StringUI.Get(TowerUpgrade.gameObject.name)._Korean, "MAX");
@@ -169,7 +169,7 @@ public class UpdateTowerUI : MonoBehaviour
     public void OnUpgradeBtnClick()
     {
         // TODO 타워 최대 업그레이드 횟수는 GlobalSystem에 쓰여야 함
-        if(_tower == null || _tower.UpgradeCount >= 5)
+        if(_tower == null || _tower.UpgradeCount >= Tables.GlobalSystem.Get("Tower_Upgrade_Max")._Value)
         {
             return;
         }
