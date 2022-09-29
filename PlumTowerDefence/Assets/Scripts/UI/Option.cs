@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using RTS_Cam;
 
 public class Option : MonoBehaviour
 {
@@ -11,21 +12,35 @@ public class Option : MonoBehaviour
     /// option창을 담당하는 스크립트
     /// </summary>
     /// 
-    [SerializeField] Toggle ShowEnvironmentToggle;
 
-    [SerializeField] Toggle ShowMonsterUIToggle;
+    [SerializeField] Toggle EnvironmentToggle;
 
-    [SerializeField] Toggle MusicSoundToggle;
+    [SerializeField] Toggle MoveScreenMouseToggle;
 
-    [SerializeField] Toggle EffectSoundToggle;
+    [SerializeField] Toggle MoveScreenKeyboardToggle;
 
     AudioSource BGMSource;
 
+    RTS_Camera Cam;
+
     public static bool EnvironmentChecked = true;
+
+    public static bool MoveScreenMouseChecked = true;
+
+    public static bool MoveScreenKeyboardChecked = false;
 
     private void Awake()
     {
-        BGMSource = Camera.main.GetComponent<AudioSource>();
+        InitToggle();
+    }
+
+    void InitToggle()
+    {
+        EnvironmentToggle.isOn = EnvironmentChecked;
+
+        MoveScreenMouseToggle.isOn = MoveScreenMouseChecked;
+
+        MoveScreenKeyboardToggle.isOn = MoveScreenKeyboardChecked;
     }
 
     public void OnShowEnvironmentToggleValueChanged(bool Checked)
@@ -49,6 +64,8 @@ public class Option : MonoBehaviour
 
     public void OnMusicSoundToggleValueChanged(bool Checked)
     {
+        BGMSource = Camera.main.GetComponent<AudioSource>();
+
         if (Checked)
         {
             BGMSource?.Play();
@@ -62,6 +79,30 @@ public class Option : MonoBehaviour
     public void OnEffectSoundToggleValueChanged(bool Checked)
     {
         
+    }
+
+    public void OnMoveScreenMouseToggleValueChanged(bool Checked)
+    {
+        MoveScreenMouseChecked = Checked;
+
+        Cam = Camera.main.GetComponent<RTS_Camera>();
+
+        if (Cam != null)
+        {
+            Cam.useScreenEdgeInput = Checked;
+        }
+    }
+
+    public void OnMoveScreenKeyboardToggleValueChanged(bool Checked)
+    {
+        MoveScreenKeyboardChecked = Checked;
+
+        Cam = Camera.main.GetComponent<RTS_Camera>();
+
+        if (Cam != null)
+        {
+            Cam.useKeyboardInput = Checked;
+        }
     }
 
     public void ShowOption()
