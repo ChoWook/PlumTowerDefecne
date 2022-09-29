@@ -10,10 +10,16 @@ public class GameOver : MonoBehaviour
     /// 게임오버 UI를 관리하는 스크립트
     /// </summary>
 
-    private void Awake()
+    private void Start()
     {
-        Debug.LogWarning("GameOverAwake");
+        StartCoroutine(nameof(IE_AddCallBack));
+    }
+
+    IEnumerator IE_AddCallBack()
+    {
+        yield return new WaitForEndOfFrame();
         GameManager.instance.AddGameOverCallBack(ShowGameOverUI);
+        Debug.Log("ADDCALLBACK GAMEOVER");
     }
 
     public void ShowGameOverUI()

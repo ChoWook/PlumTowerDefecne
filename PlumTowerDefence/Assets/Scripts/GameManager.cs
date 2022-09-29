@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
 
     public void CallBackClear()
     {
+        Debug.Log("CALLBACKCLEAR");
         RemoveStageClearCallBack();
         RemoveLevelChangeCallBack();
         RemoveXpChangeCallBack();
