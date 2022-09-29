@@ -179,6 +179,14 @@ public class Tower : IObjectOnTile
         }
     }
 
+    public virtual float CurrentRange // 증강체 추가
+    {
+        get
+        {
+            return Range;
+        }
+    }
+
 
 
 
@@ -206,7 +214,7 @@ public class Tower : IObjectOnTile
 
         UpgradeCount = 0;
 
-        RealRange = Range * GameManager.instance.UnitTileSize;
+        RealRange = CurrentRange * GameManager.instance.UnitTileSize;
 
         RealSize = Size * GameManager.instance.UnitTileSize;
 

@@ -41,7 +41,7 @@ public class BombTower : Tower
 
     // Range
 
-    public float Range
+    public override float CurrentRange
     {
         get
         {
@@ -53,6 +53,7 @@ public class BombTower : Tower
             {
                 sum += list[i];
             }
+
             return Range + sum;
         }
     }
@@ -70,12 +71,6 @@ public class BombTower : Tower
 
         RealSize = Size * GameManager.instance.UnitTileSize;
     }
-
-    protected override void Update()
-    {
-
-    }
-
 
     // 적 감지 하고 어떻게 해야하나
 
