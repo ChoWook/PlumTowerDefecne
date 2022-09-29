@@ -38,19 +38,12 @@ public class LaserTower : Tower
                 sum += list[i];
             }
 
-            float multi = 1f;
-
-            for (int i = 0; i < AttackMultiModifier.Count; i++)
-            {
-                multi += AttackMultiModifier[i];
-            }
-
             for (int i = 0; i < AttackBuffTowers.Count; i++)
             {
                 sum += AttackBuffTowers.ElementAt(i).Value;
             }
 
-            return (BaseAttackStat + sum) * multi;
+            return (BaseAttackStat + sum);
         }
     }
 
@@ -68,19 +61,12 @@ public class LaserTower : Tower
                 sum += list[i];
             }
 
-            float multi = 1f;
-
-            for (int i = 0; i < SpeedMultiModifier.Count; i++)
-            {
-                multi += SpeedMultiModifier[i];
-            }
-
             for (int i = 0; i < SpeedBuffTowers.Count; i++)
             {
                 sum += SpeedBuffTowers.ElementAt(i).Value;
             }
 
-            return (BaseSpeedStat + sum) * multi;
+            return (BaseSpeedStat + sum);
         }
     }
 

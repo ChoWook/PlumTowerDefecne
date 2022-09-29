@@ -68,6 +68,7 @@ public class Tower : IObjectOnTile
 
     public int AttackPriorityID = 0;                                                       // 우선 공격 속성 ID
 
+    public int MaxUpgrade;
     public EUpgradeStat UpgradeStat;                                                       // 업그레이드 대상
     public int UpgradePrice;                                                               // 업그레이드 가격(데이터테이블)
     public int UpgradeCount;                                                               // 업그레이드 횟수
@@ -408,11 +409,13 @@ public class Tower : IObjectOnTile
     //Upgrade
     public virtual void UpgradeTower() // 데이터 연동해서 수정하기
     {
+
+        Debug.Log("MaxUpgrade : " + MaxUpgrade);
         if (UpgradePrice > GameManager.instance.Money)
         {
             return;
         }
-        else if (UpgradeCount >= 5) // Table 연동
+        else if (UpgradeCount >= Tables.GlobalSystem.Get("Tower_Upgrade_Max")._Value) // Table 연동
         {
             return;
         }

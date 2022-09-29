@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public class Bullet : MonoBehaviour
@@ -10,6 +8,8 @@ public class Bullet : MonoBehaviour
     public Tower tower;
 
     public LaserTower Lt;
+
+    public ElectricTower Et;
 
     //public GameObject ObjectPool;
 
@@ -23,10 +23,6 @@ public class Bullet : MonoBehaviour
 
     public float MissileRange;
 
-    public float ElectricRange;
-
-    public float ElecRangeStat = 2f;
-
     public float LaserLength;
 
     public Vector3 LaserDestination = new Vector3();
@@ -38,7 +34,7 @@ public class Bullet : MonoBehaviour
         this.tower = tower;
 
         MissileRange = tower.AbilityStat * GameManager.instance.UnitTileSize;
-        ElectricRange = ElecRangeStat * GameManager.instance.UnitTileSize;              // 타일 2개
+
         LaserLength = tower.AbilityStat * GameManager.instance.UnitTileSize;            // 레이저 길이
 
 
@@ -125,7 +121,7 @@ public class Bullet : MonoBehaviour
             Vector3 dir = target.transform.position - transform.position;
             transform.LookAt(target.transform);
 
-            
+
 
             if (dir.magnitude <= distanceThisFrame)
             {
@@ -167,91 +163,21 @@ public class Bullet : MonoBehaviour
 
         if (tower != null)
         {
-
-            switch (tower.TowerName)
+            if (tower.TowerName == ETowerName.Missile)
             {
-                case ETowerName.Missile:
+
+                GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+                for (int i = 0; i < Enemies.Length; i++)
+                {
+                    float distanceToEnemy = Vector3.Distance(target.transform.position, Enemies[i].transform.position); // 적과의 거리 구하기
+
+
+                    if (distanceToEnemy <= MissileRange) // 사거리 안에 있는 타겟들
                     {
-
-
-                        GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-                        for (int i = 0; i < Enemies.Length; i++)
-                        {
-                            float distanceToEnemy = Vector3.Distance(target.transform.position, Enemies[i].transform.position); // 적과의 거리 구하기
-
-
-                            if (distanceToEnemy <= MissileRange) // 사거리 안에 있는 타겟들
-                            {
-                                Enemies[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
-                            }
-                        }
-
-                        break;
+                        Enemies[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
                     }
-                case ETowerName.Electric:
-                    {
-                        // 타일 2 까지 Ability 수만큼 찾기
-
-
-                        List<GameObject> EnemiesInRange = new List<GameObject>(); // 범위 안의 몬스터
-                        List<float> DistanceInrange = new List<float>(); // 값 비교용 list
-
-                        GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-
-                        for (int i = 0; i < Enemies.Length; i++)
-                        {
-                            float distanceToEnemy = Vector3.Distance(target.transform.position, Enemies[i].transform.position); // 적과의 거리 구하기
-
-                            if (distanceToEnemy <= ElectricRange)
-                            {
-                                if (EnemiesInRange.Count == 0)
-                                {
-                                    EnemiesInRange.Add(Enemies[i]);
-                                    DistanceInrange.Add(distanceToEnemy);
-                                    continue;
-                                }
-
-                                // 길이 비교 함수
-
-                                int idx = 0;
-
-                                for (int j = 0; j < EnemiesInRange.Count; j++)
-                                {
-                                    if (distanceToEnemy > DistanceInrange[j])
-                                    {
-                                        idx = j;
-                                        break;
-                                    }
-                                }
-
-                                EnemiesInRange.Insert(idx, Enemies[i]);
-                                DistanceInrange.Insert(idx, distanceToEnemy);
-                            }
-
-                        }
-
-                        // AbilityStat만큼 공격하기
-                        if(EnemiesInRange.Count >= tower.AbilityStat)
-                        {
-                            for (int i = 0; i < tower.AbilityStat; i++)
-                            {
-                                EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
-                            }
-                        }
-                        else
-                        {
-                            for (int i = 0; i < EnemiesInRange.Count; i++)
-                            {
-                                EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
-                            }
-                        }
-                        
-
-                        break;
-
-                    }
+                }
 
             }
 
