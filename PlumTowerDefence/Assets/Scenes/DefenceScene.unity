@@ -582,7 +582,7 @@ PrefabInstance:
     - target: {fileID: 8262927545527133608, guid: 3128bf1e77786d84196e831f936fcbd3,
         type: 3}
       propertyPath: useKeyboardInput
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8262927545527133608, guid: 3128bf1e77786d84196e831f936fcbd3,
         type: 3}

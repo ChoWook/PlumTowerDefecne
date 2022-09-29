@@ -29,7 +29,7 @@ public class Option : MonoBehaviour
 
     public static bool MoveScreenKeyboardChecked = false;
 
-    private void Awake()
+    private void AWake()
     {
         InitToggle();
     }
