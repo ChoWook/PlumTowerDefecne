@@ -571,8 +571,23 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 7f94816a8527e5e46a5043bfc653ee41, type: 3}
     - target: {fileID: 8262927545527133608, guid: 3128bf1e77786d84196e831f936fcbd3,
         type: 3}
+      propertyPath: lastTab
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262927545527133608, guid: 3128bf1e77786d84196e831f936fcbd3,
+        type: 3}
       propertyPath: minHeight
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262927545527133608, guid: 3128bf1e77786d84196e831f936fcbd3,
+        type: 3}
+      propertyPath: useKeyboardInput
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262927545527133608, guid: 3128bf1e77786d84196e831f936fcbd3,
+        type: 3}
+      propertyPath: keyboardMovementSpeed
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3128bf1e77786d84196e831f936fcbd3, type: 3}
@@ -1259,7 +1274,7 @@ PrefabInstance:
     - target: {fileID: 7432890430479017693, guid: ad77979ca83c54945b965e2bf4c8c16a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 500
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 7432890430479017693, guid: ad77979ca83c54945b965e2bf4c8c16a,
         type: 3}
