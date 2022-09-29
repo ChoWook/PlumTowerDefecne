@@ -151,7 +151,7 @@ public class ElectricTower : Tower
         {
             for (int i = 0; i < AbilityStat; i++)
             {
-                EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(AbilityStat, AttackSpecialization, TowerName);
+                EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization, TowerName);
 
                 // TODO : set bolt between target and enemiesInRange
                 LightningChain(EnemiesInRange[i]);
@@ -162,7 +162,7 @@ public class ElectricTower : Tower
         {
             for (int i = 0; i < EnemiesInRange.Count; i++)
             {
-                EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(AbilityStat, AttackSpecialization, TowerName);
+                EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization, TowerName);
                 
                 LightningChain(EnemiesInRange[i]);
             }
