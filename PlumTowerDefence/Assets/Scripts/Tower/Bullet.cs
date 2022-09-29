@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 
 public class Bullet : MonoBehaviour
@@ -26,6 +27,8 @@ public class Bullet : MonoBehaviour
     public float LaserLength;
 
     public Vector3 LaserDestination = new Vector3();
+
+    public GameObject Explosion;
 
 
 
@@ -159,7 +162,7 @@ public class Bullet : MonoBehaviour
 
         target.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage 전달
 
-        DestroyBullet();
+
 
         if (tower != null)
         {
@@ -179,10 +182,30 @@ public class Bullet : MonoBehaviour
                     }
                 }
 
+                GameObject ex = ObjectPools.Instance.GetPooledObject(Explosion.name);
+                ex.transform.position = transform.position;
+                ex.transform.localScale = new Vector3(MissileRange, MissileRange, MissileRange) / 4;
+                ParticleSystem parts = ex.GetComponent<ParticleSystem>();
+
+
+                StartCoroutine(IE_psDelay(1.4f, ex));
             }
 
         }
 
+        DestroyBullet();
+
     }
+
+    IEnumerator IE_psDelay(float time, GameObject ps)
+    {
+        WaitForSeconds ws = new(time);
+
+        yield return ws;
+
+        ObjectPools.Instance.ReleaseObjectToPool(ps);
+    }
+
+
 
 }
