@@ -233,10 +233,21 @@ public class Bullet : MonoBehaviour
                         }
 
                         // AbilityStat만큼 공격하기
-                        for (int i = 0; i < tower.AbilityStat; i++)
+                        if(EnemiesInRange.Count >= tower.AbilityStat)
                         {
-                            EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
+                            for (int i = 0; i < tower.AbilityStat; i++)
+                            {
+                                EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
+                            }
                         }
+                        else
+                        {
+                            for (int i = 0; i < EnemiesInRange.Count; i++)
+                            {
+                                EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
+                            }
+                        }
+                        
 
                         break;
 

@@ -9,3 +9,4 @@ int,string,int,string
 7,Branch_Number_Max,2,공격로 분기점 최대 개수
 8,User_Hp,10,인게임 사용자의 체력
 9,User_Money,1000,인게임 사용자의 돈
+10,Tower_Upgrade_Max,5,타워 최대 업그레이드 횟수
