@@ -49,13 +49,17 @@ public class FlameTower : Tower
         {
             List<float> list = TowerUpgradeAmount.instance._FlameTowerStat.SpeedPlusModifier;
 
-
             float sum = 0f;
 
             for (int i = 0; i < list.Count; i++)
             {
                 sum += list[i];
             }
+
+            for(int i = 0; i < SpeedPlusModifier.Count; i++)
+            {
+                sum += SpeedPlusModifier[i];
+            }    
 
             float multi = 1f;
 

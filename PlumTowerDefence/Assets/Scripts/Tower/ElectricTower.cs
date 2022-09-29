@@ -64,6 +64,11 @@ public class ElectricTower : Tower
                 sum += list[i];
             }
 
+            for (int i = 0; i<AbilityPlusModifier.Count; i++ )
+            {
+                sum += AbilityPlusModifier[i];
+            }
+
 
             return (BaseAbilityStat + sum);
         }
@@ -153,7 +158,6 @@ public class ElectricTower : Tower
             {
                 EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization, TowerName);
 
-                // TODO : set bolt between target and enemiesInRange
                 LightningChain(EnemiesInRange[i]);
 
             }

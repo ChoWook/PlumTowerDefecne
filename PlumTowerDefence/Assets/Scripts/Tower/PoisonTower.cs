@@ -24,12 +24,18 @@ public class PoisonTower : Tower
                 sum += plus[i];
             }
 
+            for (int i = 0; i < AbilityPlusModifier.Count; i++)
+            {
+                sum += AbilityPlusModifier[i];
+            }
+
+
             return (BaseAbilityStat + sum);
         }
     }
     
 
-    // range, slowrate 연동 추가
+    // range, slowrate TODO + else?
 
 
     protected override void UpdateTarget()

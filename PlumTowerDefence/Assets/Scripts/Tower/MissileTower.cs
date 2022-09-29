@@ -47,6 +47,11 @@ public class MissileTower : Tower
                 sum += list[i];
             }
 
+            for(int i = 0; i< SpeedPlusModifier.Count; i++)
+            {
+                sum += SpeedPlusModifier[i];
+            }
+
             for (int i = 0; i < SpeedBuffTowers.Count; i++)
             {
                 sum += SpeedBuffTowers.ElementAt(i).Value;

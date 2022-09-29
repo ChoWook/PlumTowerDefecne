@@ -27,6 +27,11 @@ public class AttackBuffTower : Tower
                 sum += list[i];
             }
 
+            for (int i = 0; i < AbilityPlusModifier.Count; i++)
+            {
+                sum += AbilityPlusModifier[i];
+            }
+
             float multi = 1f;
 
             for (int i = 0; i < AbilityMultiModifier.Count; i++)

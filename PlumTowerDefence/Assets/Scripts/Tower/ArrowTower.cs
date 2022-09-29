@@ -26,6 +26,11 @@ public class ArrowTower : Tower
             {
                 sum += plus[i];
             }
+            
+            for(int i=0; i<AttackPlusModifier.Count; i++)
+            {
+                sum += AttackPlusModifier[i];
+            }
 
             for (int i = 0; i < AttackBuffTowers.Count; i++)
             {
