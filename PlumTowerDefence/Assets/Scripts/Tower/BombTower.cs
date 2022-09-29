@@ -7,6 +7,8 @@ public class BombTower : Tower
 {
     bool isTriggered = false;
 
+    public GameObject PS_Explosion;
+
 
     private void Awake()
     {
@@ -114,8 +116,25 @@ public class BombTower : Tower
             }
         }
 
+        GameObject ex = ObjectPools.Instance.GetPooledObject(PS_Explosion.name);
+        ex.transform.position = transform.position;
+        ex.transform.localScale = new Vector3(RealRange, RealRange, RealRange) / 4;
+        ParticleSystem parts = ex.GetComponent<ParticleSystem>();
+        float totalDuration = parts.main.duration;
+
+        StartCoroutine(IE_psDelay(totalDuration, ex));
+
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
         isTriggered = false;
+    }
+
+    IEnumerator IE_psDelay(float time, GameObject ps)
+    {
+        WaitForSeconds ws = new(time);
+
+        yield return ws;
+
+        ObjectPools.Instance.ReleaseObjectToPool(ps);
     }
 
 }
