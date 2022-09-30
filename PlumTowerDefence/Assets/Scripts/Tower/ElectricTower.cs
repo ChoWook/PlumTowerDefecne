@@ -67,7 +67,6 @@ public class ElectricTower : Tower
                 sum += AbilityPlusModifier[i];
             }
 
-
             return (BaseAbilityStat + sum);
         }
     }
@@ -76,16 +75,16 @@ public class ElectricTower : Tower
     {
         get
         {
-            float multi = 1f;
+            float plus = 0f;
 
-            List<float> list = TowerUpgradeAmount.instance._PoisonTowerStat.SlowMultiModifier;
+            List<float> list = TowerUpgradeAmount.instance._ElectricTowerStat.SlowMultiModifier;
 
             for (int i = 0; i < list.Count; i++)
             {
-                multi -= list[i];
+                plus += list[i];
             }
 
-            return multi;
+            return plus;
         }
     }
 
@@ -98,13 +97,14 @@ public class ElectricTower : Tower
         l.StartObject = LightningStart;
         l.EndObject = Target;
 
-        Target.GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization, TowerName);
+        AttackEnemy(Target);
 
         StartCoroutine(nameof(IE_ShowLightning), L);
 
         ShockWave();
 
     }
+
 
     public void ShockWave() // calculate distance
     {
@@ -152,7 +152,7 @@ public class ElectricTower : Tower
         {
             for (int i = 0; i < AbilityStat; i++)
             {
-                EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization, TowerName);
+                AttackEnemy(EnemiesInRange[i]);
 
                 LightningChain(EnemiesInRange[i]);
 
@@ -162,7 +162,7 @@ public class ElectricTower : Tower
         {
             for (int i = 0; i < EnemiesInRange.Count; i++)
             {
-                EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization, TowerName);
+                AttackEnemy(EnemiesInRange[i]);
 
                 LightningChain(EnemiesInRange[i]);
             }
@@ -179,13 +179,19 @@ public class ElectricTower : Tower
         l.StartObject = Target;
         l.EndObject = enemy;
 
-
-        Target.GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization, TowerName);
-
+        AttackEnemy(Target);
 
         StartCoroutine(nameof(IE_ShowLightning), L);
     }
 
+
+    public void AttackEnemy(GameObject other)
+    {
+        Enemy enemy = other.GetComponent<Enemy>();
+
+        enemy.TakeDamage(AttackStat, AttackSpecialization, TowerName);
+        enemy.TakeTowerDebuff(ETowerDebuffType.Slow, SlowAmount);
+    }
 
 
     IEnumerator IE_ShowLightning(GameObject Effect) // release effect

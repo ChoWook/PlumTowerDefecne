@@ -357,7 +357,7 @@ public class Tower : IObjectOnTile
 
     }
 
-
+    /*
     // 공격 우선순위 정하는 함수
     private void SortAttackPriority()
     {
@@ -389,7 +389,7 @@ public class Tower : IObjectOnTile
                 break;
         }
     }
-
+    */
 
     public virtual void Shoot() // 수정
     {
@@ -403,6 +403,7 @@ public class Tower : IObjectOnTile
 
             b?.SetTower(this);
             b?.Seek(Target, ProjectileSpeed, AttackStat, AttackSpecialization);
+
         }
 
     }
@@ -528,7 +529,5 @@ public class Tower : IObjectOnTile
 
         SellPrice = (int)((Price + UpgradeCount * UpgradePrice) * 0.6f);
     }
-
-
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // ±âº» Enemy ½ºÅÈ, ¼Ó¼º, Æ¯¼º Class¸¸µé±â
+    // ï¿½âº» Enemy ï¿½ï¿½ï¿½ï¿½, ï¿½Ó¼ï¿½, Æ¯ï¿½ï¿½ Classï¿½ï¿½ï¿½ï¿½ï¿½
 
     protected float BaseHP;
     public float MaxHP;
@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour
     private int[] currentLevel = new int[8];
     float[] ElementArr = new float[5];
         
-    float Enforced = 1.0f;          // °­È­Æ¯¼º
+    float Enforced = 1.0f;          // ï¿½ï¿½È­Æ¯ï¿½ï¿½
 
     public EMonsterType monsterType;
     public EPropertyType propertyType;
@@ -311,20 +311,20 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
-        if (ShieldOn == true)                                      // ½Çµå°¡ ÀÖ´Â °æ¿ì
+        if (ShieldOn == true)                                      // ï¿½Çµå°¡ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
         {
             float DamageProtect = CurrentShield;
-            CurrentShield -= damage * 0.01f * (100 - Armor * penetrationOn) * 0.9f * shieldSpecial; // ÇöÀç ½Çµå¸¦ ±ñ´Ù
+            CurrentShield -= damage * 0.01f * (100 - Armor * penetrationOn) * 0.9f * shieldSpecial; // ï¿½ï¿½ï¿½ï¿½ ï¿½Çµå¸¦ ï¿½ï¿½ï¿½
 
-            if (CurrentShield <= 0)                               // ¹æ¾î±¸°¡ ´Ù ±îÁö¸é 
+            if (CurrentShield <= 0)                               // ï¿½ï¿½î±¸ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
             {
-                ShieldOn = false;                                 // ¹æ¾î±¸ Á¦°Å
-                damage -= DamageProtect;                          // µ¥¹ÌÁö °æ°¨
+                ShieldOn = false;                                 // ï¿½ï¿½î±¸ ï¿½ï¿½ï¿½ï¿½
+                damage -= DamageProtect;                          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æ°¨
                 CurrentHP -= damage * 0.01f * (100 - Armor * penetrationOn) * hpSpecial;
                 CurrentShield = 0;
             }
         }
-        else                                                      // ½Çµå°¡ ¾ø´Â °æ¿ì
+        else                                                      // ï¿½Çµå°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         {
             CurrentHP -= damage * 0.01f * (100 - Armor * penetrationOn) * hpSpecial;
         }
@@ -366,20 +366,20 @@ public class Enemy : MonoBehaviour
 
     void TakeDamage(float damage)
     {
-        if (ShieldOn == true)                                      // ½Çµå°¡ ÀÖ´Â °æ¿ì
+        if (ShieldOn == true)                                      // ï¿½Çµå°¡ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
         {
             float DamageProtect = CurrentShield;
-            CurrentShield -= damage; // ÇöÀç ½Çµå¸¦ ±ñ´Ù
+            CurrentShield -= damage; // ï¿½ï¿½ï¿½ï¿½ ï¿½Çµå¸¦ ï¿½ï¿½ï¿½
 
-            if (CurrentShield <= 0)                               // ¹æ¾î±¸°¡ ´Ù ±îÁö¸é 
+            if (CurrentShield <= 0)                               // ï¿½ï¿½î±¸ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
             {
-                ShieldOn = false;                                 // ¹æ¾î±¸ Á¦°Å
-                damage -= DamageProtect;                          // µ¥¹ÌÁö °æ°¨
+                ShieldOn = false;                                 // ï¿½ï¿½î±¸ ï¿½ï¿½ï¿½ï¿½
+                damage -= DamageProtect;                          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æ°¨
                 CurrentHP -= damage;
                 CurrentShield = 0;
             }
         }
-        else                                                      // ½Çµå°¡ ¾ø´Â °æ¿ì
+        else                                                      // ï¿½Çµå°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         {
             CurrentHP -= damage;
         }
@@ -669,7 +669,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void TakeTowerDebuff(ETowerDebuffType eTowerDebuffType, float amount, float time = -1)
+    public void TakeTowerDebuff(ETowerDebuffType eTowerDebuffType, float amount, float time = -1)
     {
         switch (eTowerDebuffType)
         {
@@ -751,7 +751,7 @@ public class Enemy : MonoBehaviour
     IEnumerator IE_SlowTime()
     {
         float slowtime = 5f;
-        yield return new WaitForSeconds(slowtime);              // ½Ã°£ÃÊ±âÈ­ ±¸Çö x
+        yield return new WaitForSeconds(slowtime);              // ï¿½Ã°ï¿½ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ x
         IsSlowed = false;
         //GetComponent<EnemyMovement>().MoveSpeed = Speed;
         Speed /= SlowedAbilty;
@@ -808,7 +808,7 @@ public class Enemy : MonoBehaviour
 
     public void AddElementType()
     {
-        int waveNum = GameManager.instance.Level;                         // Ä¿¹ÔÇÒ¶§ ¹Ù²Ù±â
+        int waveNum = GameManager.instance.Level;                         // Ä¿ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½Ù²Ù±ï¿½
         //int waveNum = GetComponent<EnemySpawner>().WaveNumber;              //
   
 
@@ -866,24 +866,24 @@ public class Enemy : MonoBehaviour
             case 0:
                 break;
             case 1:
-                // ±âÁ¸º¸´Ù Ã¼·ÂÀÌ 50% ¸¹À¸¸ç, ¹æ¾î¸·ÀÌ 35% Àû´Ù
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½ 50% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½î¸·ï¿½ï¿½ 35% ï¿½ï¿½ï¿½ï¿½
                 MaxHP += BaseHP * 0.50f;
                 MaxShield -= BaseShield * 0.35f;
                 break;
             case 2:
-                // ±âÁ¸º¸´Ù Ã¼·Â°ú ¹æ¾î¸·ÀÌ 25%¾¿ Áõ°¡ÇÏ¸ç, ¼Óµµ°¡ 40% °¨¼ÒÇÑ´Ù.
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½Â°ï¿½ ï¿½ï¿½î¸·ï¿½ï¿½ 25%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½, ï¿½Óµï¿½ï¿½ï¿½ 40% ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
                 MaxHP += BaseHP * 0.25f;
                 MaxShield += BaseShield * 0.25f;
                 Speed -= BaseSpeed * 0.40f;
                 break;
             case 3:
-                // ±âÁ¸º¸´Ù Ã¼·ÂÀÌ 50% ÀûÀ¸¸ç, ¹æ¾î¸·ÀÌ 40% ¸¹À¸¸ç, ¼Óµµ°¡ 10% Áõ°¡ÇÑ´Ù.
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½ 50% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½î¸·ï¿½ï¿½ 40% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Óµï¿½ï¿½ï¿½ 10% ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
                 MaxHP -= BaseHP * 0.50f;
                 MaxShield += BaseShield * 0.40f;
                 Speed += BaseSpeed * 0.10f;
                 break;
             case 4:
-                // Ã¼·Â°ú ¹æ¾î¸·ÀÌ 25%¾¿ °¨¼ÒÇÏ¸ç, ¼Óµµ°¡ 40% Áõ°¡ÇÑ´Ù.
+                // Ã¼ï¿½Â°ï¿½ ï¿½ï¿½î¸·ï¿½ï¿½ 25%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½, ï¿½Óµï¿½ï¿½ï¿½ 40% ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
                 MaxHP -= BaseHP * 0.25f;
                 MaxShield -= BaseShield * 0.25f;
                 Speed += BaseSpeed * 0.40f;

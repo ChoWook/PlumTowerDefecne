@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -29,6 +30,76 @@ public class Bullet : MonoBehaviour
     public Vector3 LaserDestination = new Vector3();
 
     public GameObject Explosion;
+
+    public float PoisonAttackStat
+    {
+        get
+        {
+            float sum = 0f;
+
+            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.PoisonAttackMultiModifier;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return sum;
+        }
+    }
+
+    public float PoisonDurationStat
+    {
+        get
+        {
+            float sum = 0f;
+
+            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.PoisonDurationPlusModifier;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return sum;
+        }
+    }
+
+    //TODO connect burndamage
+    public float BurnAttackStat
+    {
+        get
+        {
+            float sum = 0f;
+
+            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.BurnAttackMultiModifier;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return sum;
+        }
+    }
+
+    public float BurnDurationStat
+    {
+        get
+        {
+            float sum = 0f;
+
+            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.BurnDurationPlusModifier;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return sum;
+        }
+    }
+
 
 
 
@@ -66,11 +137,38 @@ public class Bullet : MonoBehaviour
 
     }
 
+    public void AttackEnemy(GameObject other)
+    {
+        Enemy enemy = other.GetComponentInParent<Enemy>();
+        
+        if(enemy == null)
+        {
+            return;
+        }
+
+        enemy.TakeDamage(Damage, AttackSpecialization, tower.TowerName);
+
+        if (tower.TowerName == ETowerName.Arrow)
+        {
+            if(PoisonAttackStat != 0f)
+            {
+                enemy.TakeTowerDebuff(ETowerDebuffType.Poison, PoisonAttackStat, PoisonDurationStat);
+            }
+
+            if(BurnAttackStat != 0f)
+            {
+                enemy.TakeTowerDebuff(ETowerDebuffType.Burn, BurnAttackStat, BurnDurationStat);
+            }
+        }
+
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (tower.TowerName == ETowerName.Laser)
         {
-            other.gameObject.GetComponentInParent<Enemy>()?.TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage 전달
+            AttackEnemy(other.gameObject);
         }
 
     }
@@ -160,7 +258,7 @@ public class Bullet : MonoBehaviour
     {
         // 데미지 전달함수 추가
 
-        target.GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName); //Damage 전달
+        AttackEnemy(target);
 
 
 
@@ -178,7 +276,7 @@ public class Bullet : MonoBehaviour
 
                     if (distanceToEnemy <= MissileRange) // 사거리 안에 있는 타겟들
                     {
-                        Enemies[i].GetComponent<Enemy>().TakeDamage(Damage, AttackSpecialization, tower.TowerName);
+                        AttackEnemy(Enemies[i]);
                     }
                 }
 
