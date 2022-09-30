@@ -152,6 +152,13 @@ public enum ELaneBuffType
     MissileBuff = 28,
 }
 
+public enum ETowerDebuffType
+{
+    Poison = 1,
+    Burn = 2,
+    Slow = 3,
+}
+
 #endregion
 
 #region Tower

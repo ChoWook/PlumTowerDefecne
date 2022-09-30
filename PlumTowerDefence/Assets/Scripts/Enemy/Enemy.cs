@@ -50,6 +50,12 @@ public class Enemy : MonoBehaviour
     public bool IsPoisoned = false;
     private int dividedEnemyNum = 0;
     public int specialityType;
+    private float PoisonTime;
+    private float PoisonRunTime;
+    private float PoisonDamage;
+    private float BurnTime;
+    private float BurnRunTime;
+    private float BurnDamage;
 
 
     private int[] currentLevel = new int[8];
@@ -90,6 +96,7 @@ public class Enemy : MonoBehaviour
         IsAlive = true;
         IsSlowed = false;
         IsPoisoned = false;
+
         GetComponent<BaseAniContoller>().Isrevived = false;
         GetComponent<BaseAniContoller>().Isdivided = false;
         monsterUI.gameObject.SetActive(true);
@@ -596,6 +603,29 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void TakeTowerDebuff(ETowerDebuffType eTowerDebuffType, float amount, float time)
+    {
+        switch (eTowerDebuffType)
+        {
+            case ETowerDebuffType.Poison:
+                PoisonTime = time;
+                PoisonRunTime = 0;
+                
+                break;
+            case ETowerDebuffType.Burn:
+
+                break;
+            case ETowerDebuffType.Slow:
+
+                break;
+        }
+    }
+
+    /*IEnumerator IE_TakePoisonDamage(float amount, float time)
+    {
+
+    }*/
+
     IEnumerator IE_BuffTimeLast(System.Action onEnd)
     {
         int bufftime = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Time;
@@ -795,12 +825,13 @@ public class Enemy : MonoBehaviour
         {
             currentLevel[id - 1] = 5;
         }
-        else if(countLevel >= 6)
+        else
+            currentLevel[id - 1] = countLevel;
+
+        if(GameManager.instance.Level >= 45 && monsterType != EMonsterType.Bear)
         {
             currentLevel[id - 1] = 10;
         }
-        else
-            currentLevel[id - 1] = countLevel;
 
 
         //Debug.Log(monsterType + " CurrentLevel: " + currentLevel[id - 1]);
