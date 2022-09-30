@@ -129,6 +129,8 @@ public class TowerButtonGenerate : MonoBehaviour
 
         SelectedTower.transform.localScale = new Vector3(0.2f * TowerSize, 0.2f * TowerSize, 0.2f * TowerSize);
 
+        SelectedTower.transform.localEulerAngles = Vector3.zero;
+
         SelectedTowerAvailable = SelectedTower.transform.Find("Available").gameObject;
 
         SelectedTowerDisabled = SelectedTower.transform.Find("Disabled").gameObject;
