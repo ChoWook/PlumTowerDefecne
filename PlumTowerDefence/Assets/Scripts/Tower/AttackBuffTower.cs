@@ -45,9 +45,25 @@ public class AttackBuffTower : Tower
     }
 
 
-    // attackrange, additionaldamage 
+    // attackrange
 
+    public override float CurrentRange
+    {
+        get
+        {
+            List<float> list = TowerUpgradeAmount.instance._SpeedBuffTowerStat.RangePlusModifier;
 
+            float sum = 0f;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return Range + sum;
+        }
+
+    }
 
 
 

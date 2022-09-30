@@ -28,7 +28,7 @@ public class SpeedBuffTower : Tower
                 sum += list[i];
             }
 
-            for(int i = 0; i<AbilityPlusModifier.Count; i++)
+            for(int i = 0; i < AbilityPlusModifier.Count; i++)
             {
                 sum += AbilityPlusModifier[i];
             }
@@ -43,9 +43,27 @@ public class SpeedBuffTower : Tower
             return (BaseAbilityStat + sum) * multi;
         }
     }
-    
+
     // attackRange, additionalAttackDamage;
 
+    public override float CurrentRange
+    {
+        get
+        {
+            List<float> list = TowerUpgradeAmount.instance._SpeedBuffTowerStat.RangePlusModifier;
+
+            float sum = 0f;
+
+            for(int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return Range + sum;
+        }
+        
+    }
+    
 
 
 

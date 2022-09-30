@@ -33,9 +33,44 @@ public class PoisonTower : Tower
             return (BaseAbilityStat + sum);
         }
     }
-    
+
 
     // range, slowrate TODO + else?
+    public override float CurrentRange
+    {
+        get
+        {
+            List<float> list = TowerUpgradeAmount.instance._PoisonTowerStat.RangePlusModifier;
+
+            float sum = 0f;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return Range + sum;
+        }
+    }
+
+    public float SlowAmount
+    {
+        get
+        {
+            float multi = 1f;
+
+            List<float> list = TowerUpgradeAmount.instance._PoisonTowerStat.SlowMultiModifier;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                multi -= list[i];
+            }
+
+            return multi;
+        }
+    }
+
+
 
 
     protected override void UpdateTarget()

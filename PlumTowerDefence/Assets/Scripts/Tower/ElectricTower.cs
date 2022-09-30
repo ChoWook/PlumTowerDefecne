@@ -1,14 +1,12 @@
-﻿using System.Collections;
+﻿using DigitalRuby.LightningBolt;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-using DigitalRuby.LightningBolt;
+using UnityEngine;
 
 public class ElectricTower : Tower
 {
     public GameObject LightningStart;
-
-    public List<float> SlowMultiModifier = new List<float>();
 
     public float ElectricRange;
 
@@ -49,7 +47,7 @@ public class ElectricTower : Tower
 
 
             return (BaseAttackStat + sum);
-        } 
+        }
     }
     public override float AbilityStat
     {
@@ -64,7 +62,7 @@ public class ElectricTower : Tower
                 sum += list[i];
             }
 
-            for (int i = 0; i<AbilityPlusModifier.Count; i++ )
+            for (int i = 0; i < AbilityPlusModifier.Count; i++)
             {
                 sum += AbilityPlusModifier[i];
             }
@@ -74,26 +72,24 @@ public class ElectricTower : Tower
         }
     }
 
-    // SlowMulti TODO discuss with Enemy part : how to slow the target
     public float SlowAmount
     {
         get
         {
             float multi = 1f;
 
-            for(int i = 0; i < SlowMultiModifier.Count; i++)
+            List<float> list = TowerUpgradeAmount.instance._PoisonTowerStat.SlowMultiModifier;
+
+            for (int i = 0; i < list.Count; i++)
             {
-                multi -= SlowMultiModifier[i];
+                multi -= list[i];
             }
 
             return multi;
         }
     }
 
-
-
-
-    public override void Shoot() // 수정
+    public override void Shoot()
     {
         GameObject L = ObjectPools.Instance.GetPooledObject(BulletPrefab.name);
 
@@ -107,7 +103,7 @@ public class ElectricTower : Tower
         StartCoroutine(nameof(IE_ShowLightning), L);
 
         ShockWave();
-        
+
     }
 
     public void ShockWave() // calculate distance
@@ -167,7 +163,7 @@ public class ElectricTower : Tower
             for (int i = 0; i < EnemiesInRange.Count; i++)
             {
                 EnemiesInRange[i].GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization, TowerName);
-                
+
                 LightningChain(EnemiesInRange[i]);
             }
         }
@@ -176,7 +172,7 @@ public class ElectricTower : Tower
 
     public void LightningChain(GameObject enemy) // attack other enemies.
     {
-        GameObject L = ObjectPools.Instance.GetPooledObject(BulletPrefab.name); 
+        GameObject L = ObjectPools.Instance.GetPooledObject(BulletPrefab.name);
 
         LightningBoltScript l = L.GetComponent<LightningBoltScript>();
 
@@ -191,7 +187,7 @@ public class ElectricTower : Tower
     }
 
 
-    
+
     IEnumerator IE_ShowLightning(GameObject Effect) // release effect
     {
         WaitForSeconds time = new(0.5f);
