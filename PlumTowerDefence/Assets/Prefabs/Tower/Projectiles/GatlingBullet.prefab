@@ -19,6 +19,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1690699654951601478, guid: 602201e8a1fd3be4785ab6da2d3768d2,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690699654951601478, guid: 602201e8a1fd3be4785ab6da2d3768d2,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690699654951601478, guid: 602201e8a1fd3be4785ab6da2d3768d2,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690699654951601478, guid: 602201e8a1fd3be4785ab6da2d3768d2,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.330591
       objectReference: {fileID: 0}
@@ -67,6 +82,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1690699654951601478, guid: 602201e8a1fd3be4785ab6da2d3768d2,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5503437274965125958, guid: 602201e8a1fd3be4785ab6da2d3768d2,
         type: 3}
       propertyPath: m_Enabled
@@ -97,7 +117,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 6512687076063829636, guid: 1f46868ce8c1d174296af8b0d063d4f0, type: 3}
+  Lt: {fileID: 0}
+  Et: {fileID: 0}
   Speed: 0
   MissileRange: 0
-  ElectricRange: 0
-  ElecRangeStat: 2
+  LaserLength: 0
+  LaserDestination: {x: 0, y: 0, z: 0}
+  Explosion: {fileID: 0}
