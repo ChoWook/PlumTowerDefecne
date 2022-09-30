@@ -85,7 +85,7 @@ public class GatilingTower : Tower
         GameObject ex = ObjectPools.Instance.GetPooledObject(PS_FireBullet.name);
         ex.transform.position = PS_Particlepoint.transform.position;
         ParticleSystem parts = ex.GetComponent<ParticleSystem>();
-        Vector3 dir = Target.transform.position - transform.position;
+        //Vector3 dir = Target.transform.position - transform.position;
         float totalDuration = parts.main.duration;
 
         StartCoroutine(IE_psDelay(totalDuration, ex));
