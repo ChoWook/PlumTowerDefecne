@@ -107,10 +107,7 @@ public class CannonTower : Tower
         StartCoroutine(IE_psDelay(totalDuration, ex));
         Debug.Log("Shoot");
         base.Shoot();
-
-        
-        
-        
+       
     }
 
     IEnumerator IE_psDelay(float time, GameObject ps)
