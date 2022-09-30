@@ -20,10 +20,13 @@ public class EnemyMovement : MonoBehaviour
     
     private static bool CameraLoad = false;
 
+    Enemy enemy;
+
     private void Awake()
     {
         mainCamera = Camera.main;
         UICamera = GameObject.Find("UICam").GetComponent<Camera>();
+        enemy = GetComponent<Enemy>();
         CameraLoad = true;
     }
 
@@ -34,7 +37,7 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        MoveSpeed = GetComponent<Enemy>().Speed;
+        MoveSpeed = enemy.CurSpeed;
         Target = Waypoints.points[Route][WaypointIndex];
     }
     void FixedUpdate()
@@ -49,13 +52,13 @@ public class EnemyMovement : MonoBehaviour
         {
             GetNextWayPoint();
         }
-        if(GetComponent<Enemy>().IsAlive == false)
+        if(enemy.IsAlive == false)
         {
             MoveSpeed = 0;
         }
         else
         {
-            MoveSpeed = GetComponent<Enemy>().Speed;
+            MoveSpeed = enemy.CurSpeed;
         }
     }
 

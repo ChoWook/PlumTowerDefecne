@@ -38,7 +38,14 @@ public class Enemy : MonoBehaviour
     public float Armor;
     protected float BaseArmor;            
     public float BaseSpeed;               
-    public float Speed;                     
+    public float Speed;
+    public float CurSpeed
+    {
+        get
+        {
+            return Speed * SlowAmount / 100;
+        }
+    }
     public bool IsAlive = true;
     public bool hasSpecial;
     public int CurrentElement;
@@ -56,6 +63,7 @@ public class Enemy : MonoBehaviour
     private float BurnTime;
     private float BurnRunTime;
     private float BurnDamage;
+    private float SlowAmount;
 
 
     private int[] currentLevel = new int[8];
@@ -86,8 +94,13 @@ public class Enemy : MonoBehaviour
     }
     private void OnEnable()
     {
+        Init();
+    }
+
+    void Init()
+    {
         IsBuffed = new bool[6];
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
         {
             IsBuffed[i] = false;
         }
@@ -97,11 +110,19 @@ public class Enemy : MonoBehaviour
         IsSlowed = false;
         IsPoisoned = false;
 
+        PoisonTime = 0f;
+        PoisonRunTime = 0f;
+        PoisonDamage = 0f;
+        BurnTime = 0f;
+        BurnRunTime = 0f;
+        BurnDamage = 0f;
+        SlowAmount = 0f;
+
         GetComponent<BaseAniContoller>().Isrevived = false;
         GetComponent<BaseAniContoller>().Isdivided = false;
         monsterUI.gameObject.SetActive(true);
-
     }
+
     private void Update()
     {
        /* if (CurrentHP <= 0)
@@ -283,6 +304,7 @@ public class Enemy : MonoBehaviour
                 penetrationOn = 0;
                 break;
         }
+
         if (ShieldOn == true)                                      // 실드가 있는 경우
         {
             float DamageProtect = CurrentShield;
@@ -300,6 +322,8 @@ public class Enemy : MonoBehaviour
         {
             CurrentHP -= damage * 0.01f * (100 - Armor * penetrationOn) * hpSpecial;
         }
+
+
         //Debug.Log("Shield: " + CurrentShield + "HP: " + CurrentHP);
 
 
@@ -333,6 +357,29 @@ public class Enemy : MonoBehaviour
 
         }
     }
+
+    void TakeDamage(float damage)
+    {
+        if (ShieldOn == true)                                      // 실드가 있는 경우
+        {
+            float DamageProtect = CurrentShield;
+            CurrentShield -= damage; // 현재 실드를 깐다
+
+            if (CurrentShield <= 0)                               // 방어구가 다 까지면 
+            {
+                ShieldOn = false;                                 // 방어구 제거
+                damage -= DamageProtect;                          // 데미지 경감
+                CurrentHP -= damage;
+                CurrentShield = 0;
+            }
+        }
+        else                                                      // 실드가 없는 경우
+        {
+            CurrentHP -= damage;
+        }
+    }
+
+
     void KillEnemy()
     {
         transform.tag = "Untagged";
@@ -603,28 +650,77 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void TakeTowerDebuff(ETowerDebuffType eTowerDebuffType, float amount, float time)
+    void TakeTowerDebuff(ETowerDebuffType eTowerDebuffType, float amount, float time = -1)
     {
         switch (eTowerDebuffType)
         {
             case ETowerDebuffType.Poison:
-                PoisonTime = time;
-                PoisonRunTime = 0;
+
+                if(PoisonRunTime >= PoisonTime || amount >= PoisonDamage)
+                {
+                    PoisonTime = time;
+                    PoisonRunTime = 0;
+
+                    StopCoroutine(nameof(IE_TakePoisonDamage));
+
+                    StartCoroutine(nameof(IE_TakePoisonDamage), amount);
+                }
                 
                 break;
             case ETowerDebuffType.Burn:
 
+                if (BurnRunTime >= BurnTime || amount >= BurnDamage)
+                {
+                    BurnTime = time;
+                    BurnRunTime = 0;
+
+                    StopCoroutine(nameof(IE_TakeBurnDamage));
+
+                    StartCoroutine(nameof(IE_TakeBurnDamage), amount);
+                }
+
                 break;
             case ETowerDebuffType.Slow:
+                if(amount > SlowAmount)
+                {
+                    SlowAmount = amount;
+                }
 
                 break;
         }
     }
 
-    /*IEnumerator IE_TakePoisonDamage(float amount, float time)
+    IEnumerator IE_TakePoisonDamage(float amount)
     {
+        WaitForSeconds ws = new WaitForSeconds(1f);
 
-    }*/
+        PoisonDamage = amount;
+
+        while (PoisonRunTime < PoisonTime) 
+        {
+            TakeDamage(PoisonDamage);
+
+            yield return ws;
+
+            PoisonRunTime += Time.deltaTime;
+        }
+    }
+
+    IEnumerator IE_TakeBurnDamage(float amount)
+    {
+        WaitForSeconds ws = new WaitForSeconds(1f);
+
+        BurnDamage = amount;
+
+        while (BurnRunTime < BurnTime)
+        {
+            TakeDamage(BurnDamage);
+
+            yield return ws;
+
+            BurnRunTime += Time.deltaTime;
+        }
+    }
 
     IEnumerator IE_BuffTimeLast(System.Action onEnd)
     {
