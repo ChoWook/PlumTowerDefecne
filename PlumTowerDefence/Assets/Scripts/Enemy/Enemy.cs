@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     // 기본 Enemy 스탯, 속성, 특성 Class만들기
 
-    protected float BaseHP;               
+    protected float BaseHP;
     public float MaxHP;
     float _CurrentHP;
     public float CurrentHP
@@ -49,6 +49,8 @@ public class Enemy : MonoBehaviour
     public bool IsSlowed = false;
     public bool IsPoisoned = false;
     private int dividedEnemyNum = 0;
+    public int specialityType;
+
 
     private int[] currentLevel = new int[8];
     float[] ElementArr = new float[5];
@@ -60,6 +62,7 @@ public class Enemy : MonoBehaviour
     public ELaneBuffType currentBuffType;
 
     MonsterUI monsterUI;
+    public GameObject EnemyName;
 
     Animator animator;
     float SlowedAbilty;
@@ -89,6 +92,7 @@ public class Enemy : MonoBehaviour
         GetComponent<BaseAniContoller>().Isrevived = false;
         GetComponent<BaseAniContoller>().Isdivided = false;
         monsterUI.gameObject.SetActive(true);
+
     }
     private void Update()
     {
@@ -128,11 +132,15 @@ public class Enemy : MonoBehaviour
         if(propertyType == EPropertyType.Resurrect)
         {
             propertyType = EPropertyType.Resurrected;
+            EnemyName.SetActive(true);
+            EnemyName.GetComponent<EnemyName>().ShowName();
 
         }
         else if(propertyType == EPropertyType.Divisive)
         {
             propertyType = EPropertyType.Divided;
+            EnemyName.SetActive(true);
+            EnemyName.GetComponent<EnemyName>().ShowName();
         }
         else
         {
@@ -177,7 +185,7 @@ public class Enemy : MonoBehaviour
     {
         StartCoroutine(IE_Resurrection());
     }
-    
+
     public void TakeDamage(float damage, EAttackSpecialization type, ETowerName towerName)
     {
         
@@ -328,7 +336,7 @@ public class Enemy : MonoBehaviour
             GameManager.instance.CurrentEnemyNumber--;
 
         }
-
+        EnemyName.SetActive(false);
         //GetComponent<EnemyMovement>().MoveSpeed = 0;
         //Debug.Log("Killed Enemy" + "Current Enemy Num: " + GameManager.instance.currentEnemyNumber);
         StartCoroutine(IE_PlayDeadAnimation());
@@ -356,6 +364,8 @@ public class Enemy : MonoBehaviour
         getComponent.propertyType = EPropertyType.Divided;
         getComponent.MaxHP = MaxHP;
         getComponent.MaxShield = MaxShield;
+        EnemyName.SetActive(true);
+        getComponent.EnemyName.GetComponent<EnemyName>().ShowName();
         getComponent.SetStat();
 
         GameManager.instance.CurrentEnemyNumber++;
@@ -619,7 +629,6 @@ public class Enemy : MonoBehaviour
     public void AddSpeciality()
     {
         int id = Tables.Monster.Get((int)monsterType)._ID;
-        int specialityType;
         if(Random.Range(0, 2) == 0)
         {
             specialityType = Tables.Monster.Get(id)._Speciality_1;
@@ -828,7 +837,11 @@ public class Enemy : MonoBehaviour
         InitSize();
         EnemyLevelUp();
         AddElementType();
-        if(hasSpecial == true)
+        if(propertyType == EPropertyType.Divided)
+        {
+            propertyType = EPropertyType.None;
+        }
+        if (hasSpecial == true)
         {
             AddSpeciality();
             //Debug.Log("SpecialMonsterSpawned");
@@ -838,8 +851,11 @@ public class Enemy : MonoBehaviour
             AddBossStat();
             AddProperty();
         }
+        
         transform.tag = "Enemy";
         IsAlive = true;
+        EnemyName.SetActive(true);
+        EnemyName.GetComponent<EnemyName>().ShowName();
         SetStat();
        
     }

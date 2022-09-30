@@ -1,12 +1,12 @@
-ID,Type,Korean,Class,
-int,PropertyType,string,int,
-1,None,¾øÀ½,1,
-2,Reinforced,°­È­µÈ,1,
-3,Divisive,ºĞ¿­ÀÇ,2,
-4,Divided,ºĞ¿­ÇÑ,2,
-5,Private,Àº¹ĞÇÑ,2,
-6,Resurrect,ºÎÈ°ÀÇ,3,
-7,Resurrected,ºÎÈ°ÇÑ,3,
-8,Generative,»ı¼ºÀÇ,3,
-9,Leading,ÀÌ²ô´Â,3,
-10,Cursing,ÀúÁÖÇÏ´Â,3,
+ï»¿ID,Type,Korean,Class
+int,PropertyType,string,int
+1,None,ì—†ìŒ,1
+2,Reinforced,ê°•í™”ëœ,1
+3,Divisive,ë¶„ì—´ì˜,2
+4,Divided,ë¶„ì—´í•œ,2
+5,Private,ì€ë°€í•œ,2
+6,Resurrect,ë¶€í™œì˜,3
+7,Resurrected,ë¶€í™œí•œ,3
+8,Generative,ìƒì„±ì˜,3
+9,Leading,ì´ë„ëŠ”,3
+10,Cursing,ì €ì£¼í•˜ëŠ”,3

@@ -1,10 +1,10 @@
-ID,Type,Korean,ChangedStat,Amount
+ï»¿ID,Type,Korean,ChangedStat,Amount
 int,SpecialityType,string,MonsterStat,float
-1,None,¾øÀ½,NULL,0
-2,Big,Å«,Hp,5
-3,Hug,°Å´ëÇÑ,Hp,10
-4,Sturdy,Æ°Æ°ÇÑ,Armor,5
-5,Hard,´Ü´ÜÇÑ,Armor,10
-6,Abudant,Ç³ºÎÇÑ,Shield,5
-7,Fast,½Å¼ÓÇÑ,Speed,10
-8,Rapid,Äè¼ÓÀÇ,Speed,20
+1,None,ì—†ìŒ,NULL,0
+2,Big,í°,Hp,5
+3,Hug,ê±°ëŒ€í•œ,Hp,10
+4,Sturdy,íŠ¼íŠ¼í•œ,Armor,5
+5,Hard,ë‹¨ë‹¨í•œ,Armor,10
+6,Abudant,í’ë¶€í•œ,Shield,5
+7,Fast,ì‹ ì†í•œ,Speed,10
+8,Rapid,ì¾Œì†ì˜,Speed,20

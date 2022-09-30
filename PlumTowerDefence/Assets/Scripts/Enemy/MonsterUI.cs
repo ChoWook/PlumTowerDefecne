@@ -12,15 +12,16 @@ public class MonsterUI : MonoBehaviour
     [SerializeField]
     private GameObject bar;
 
+
     private Enemy enemy;
 
     private void Awake()
     {
         enemy = transform.parent.GetComponent<Enemy>();
-        transform.position = transform.parent.position;
+        //transform.position = transform.parent.position;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         transform.eulerAngles = new Vector3(-90.0f, 0.0f, transform.rotation.z);
 
