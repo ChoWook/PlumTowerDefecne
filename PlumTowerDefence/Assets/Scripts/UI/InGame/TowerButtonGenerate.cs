@@ -277,6 +277,14 @@ public class TowerButtonGenerate : MonoBehaviour
             // 타워의 사이즈가 매개변수로 들어가야 함
             tile.SetObjectOnTile(SelectedTower.GetComponent<IObjectOnTile>(), TowerSize);
 
+            // 타워 각도 설정
+            SelectedTower.transform.localEulerAngles = Vector3.zero;
+
+            if (SelectedTowerName == ETowerName.Flame)
+            {
+                SelectedTower.transform.Rotate(new Vector3(0, 90 * FlameTowerRotationCnt, 0));
+            }
+
             SelectedTower = null;
         }
 
