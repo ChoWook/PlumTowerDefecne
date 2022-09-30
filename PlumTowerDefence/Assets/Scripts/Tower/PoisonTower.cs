@@ -57,16 +57,16 @@ public class PoisonTower : Tower
     {
         get
         {
-            float multi = 1f;
+            float plus = 0f;
 
             List<float> list = TowerUpgradeAmount.instance._PoisonTowerStat.SlowMultiModifier;
 
             for (int i = 0; i < list.Count; i++)
             {
-                multi -= list[i];
+                plus += list[i];
             }
 
-            return multi;
+            return plus;
         }
     }
 
@@ -108,7 +108,11 @@ public class PoisonTower : Tower
     {
         for (int i = 0; i < EnemyList.Count; i++)
         {
-            EnemyList[i].GetComponent<Enemy>().PoisonEnemy(AbilityStat);
+            Enemy enemy = EnemyList[i].GetComponent<Enemy>();
+
+            enemy.PoisonEnemy(AbilityStat);
+            enemy.TakeTowerDebuff(ETowerDebuffType.Slow, SlowAmount);
+
         }
     }
 }

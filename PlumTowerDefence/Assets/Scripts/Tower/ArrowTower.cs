@@ -74,80 +74,14 @@ public class ArrowTower : Tower
 
     // TODO connect poisondamage
 
-    public float PoisonAttackStat
-    {
-        get
-        {
-            float sum = 0f;
-
-            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.PoisonAttackMultiModifier;
-
-            for(int i = 0; i < list.Count; i++)
-            {
-                sum += list[i];
-            }
-
-            return sum;
-        }
-    }
-
-    public float PoisonDurationStat
-    {
-        get
-        {
-            float sum = 0f;
-
-            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.PoisonDurationPlusModifier;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                sum += list[i];
-            }
-
-            return sum;
-        }
-    }
-
-    //TODO connect burndamage
-    public float BurnAttackStat
-    {
-        get
-        {
-            float sum = 0f;
-
-            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.BurnAttackMultiModifier;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                sum += list[i];
-            }
-
-            return sum;
-        }
-    }
-
-    public float BurnDurationStat
-    {
-        get
-        {
-            float sum = 0f;
-
-            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.BurnDurationPlusModifier;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                sum += list[i];
-            }
-
-            return sum;
-        }
-    }
+    
 
     // 시위 당기기
     public override void Shoot()
     {
         AnimatorExists(controller, true);
         base.Shoot();
+
     }
 
     protected override void Update()

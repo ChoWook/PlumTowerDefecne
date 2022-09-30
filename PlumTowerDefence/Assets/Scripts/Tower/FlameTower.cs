@@ -110,16 +110,16 @@ public class FlameTower : Tower
     {
         get
         {
-            float multi = 1f;
+            float plus = 0f;
 
             List<float> list = TowerUpgradeAmount.instance._FlameTowerStat.SlowMultiModifier;
 
             for (int i = 0; i < list.Count; i++)
             {
-                multi -= list[i];
+                plus += list[i];
             }
 
-            return multi;
+            return plus * 100f;
         }
     }
 
@@ -188,7 +188,11 @@ public class FlameTower : Tower
                 
             if (EachAngle < RealAngle / 2 )
             {
-                target.GetComponent<Enemy>().TakeDamage(AttackStat, AttackSpecialization, TowerName);
+                Enemy enemy = target.GetComponent<Enemy>();
+
+                enemy.TakeDamage(AttackStat, AttackSpecialization, TowerName);
+                enemy.TakeTowerDebuff(ETowerDebuffType.Slow, SlowAmount);
+
             }
 
         }
