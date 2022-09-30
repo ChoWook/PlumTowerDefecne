@@ -59,11 +59,11 @@ public class Enemy : MonoBehaviour
 
     public EMonsterType monsterType;
     public EPropertyType propertyType;
+    public ESpecialityType SpecialityType;
     public ELaneBuffType currentBuffType;
 
     MonsterUI monsterUI;
-    public GameObject EnemyName;
-
+    EnemyName enemyName;
     Animator animator;
     float SlowedAbilty;
 
@@ -75,6 +75,7 @@ public class Enemy : MonoBehaviour
         }
         
         monsterUI = transform.Find("Canvas").GetComponent<MonsterUI>();
+        enemyName = transform.Find("Canvas").Find("HP bar").Find("Name").GetComponent<EnemyName>();
 
     }
     private void OnEnable()
@@ -132,15 +133,13 @@ public class Enemy : MonoBehaviour
         if(propertyType == EPropertyType.Resurrect)
         {
             propertyType = EPropertyType.Resurrected;
-            EnemyName.SetActive(true);
-            EnemyName.GetComponent<EnemyName>().ShowName();
+            enemyName.ShowName();
 
         }
         else if(propertyType == EPropertyType.Divisive)
         {
             propertyType = EPropertyType.Divided;
-            EnemyName.SetActive(true);
-            EnemyName.GetComponent<EnemyName>().ShowName();
+            enemyName.ShowName();
         }
         else
         {
@@ -336,7 +335,7 @@ public class Enemy : MonoBehaviour
             GameManager.instance.CurrentEnemyNumber--;
 
         }
-        EnemyName.SetActive(false);
+        enemyName.HideName();
         //GetComponent<EnemyMovement>().MoveSpeed = 0;
         //Debug.Log("Killed Enemy" + "Current Enemy Num: " + GameManager.instance.currentEnemyNumber);
         StartCoroutine(IE_PlayDeadAnimation());
@@ -364,8 +363,7 @@ public class Enemy : MonoBehaviour
         getComponent.propertyType = EPropertyType.Divided;
         getComponent.MaxHP = MaxHP;
         getComponent.MaxShield = MaxShield;
-        EnemyName.SetActive(true);
-        getComponent.EnemyName.GetComponent<EnemyName>().ShowName();
+        getComponent.enemyName.ShowName();
         getComponent.SetStat();
 
         GameManager.instance.CurrentEnemyNumber++;
@@ -638,6 +636,7 @@ public class Enemy : MonoBehaviour
 
         var changeStat = Tables.MonsterSpeciality.Get(specialityType)._Amount/100;
         var monsterStat = Tables.MonsterSpeciality.Get(specialityType)._ChangeStat;
+        SpecialityType = Tables.MonsterSpeciality.Get(specialityType)._SpecialityType;
 
         switch (monsterStat)
         {
@@ -846,16 +845,23 @@ public class Enemy : MonoBehaviour
             AddSpeciality();
             //Debug.Log("SpecialMonsterSpawned");
         }
+        else
+        {
+            SpecialityType = ESpecialityType.None;
+        }
         if(IsSubBoss == true || IsBoss == true)
         {
             AddBossStat();
             AddProperty();
         }
+        else
+        {
+            propertyType = EPropertyType.None;
+        }
         
         transform.tag = "Enemy";
         IsAlive = true;
-        EnemyName.SetActive(true);
-        EnemyName.GetComponent<EnemyName>().ShowName();
+        enemyName?.ShowName();
         SetStat();
        
     }
