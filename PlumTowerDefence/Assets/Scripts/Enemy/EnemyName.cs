@@ -20,6 +20,11 @@ public class EnemyName : MonoBehaviour
         enemyName = transform.GetComponent<TextMeshProUGUI>();
         //transform.position = new Vector3(shieldbar.transform.position.x, shieldbar.transform.position.y + 0.8f, shieldbar.transform.position.z);
     }
+    private void OnEnable()
+    {
+        if(enemy.propertyType == EPropertyType.None && enemy.SpecialityType == ESpecialityType.None)
+        enemyName.text = "";
+    }
 
     private void FixedUpdate()
     {

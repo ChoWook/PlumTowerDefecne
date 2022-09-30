@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
     {
         get
         {
-            return Speed * SlowAmount / 100;
+            return Speed *(100 - SlowAmount) / 100;
         }
     }
     public bool IsAlive = true;
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
     public bool[] IsBuffed;
     public bool IsSlowed = false;
     public bool IsPoisoned = false;
-    private int dividedEnemyNum = 0;
+   // private int dividedEnemyNum = 0;
     public int specialityType;
     private float PoisonTime;
     private float PoisonRunTime;
@@ -78,6 +78,7 @@ public class Enemy : MonoBehaviour
 
     MonsterUI monsterUI;
     EnemyName enemyName;
+    EnemySound enemySound;
     Animator animator;
     float SlowedAbilty;
 
@@ -90,7 +91,7 @@ public class Enemy : MonoBehaviour
         
         monsterUI = transform.Find("Canvas").GetComponent<MonsterUI>();
         enemyName = transform.Find("Canvas").Find("HP bar").Find("Name").GetComponent<EnemyName>();
-
+        enemySound = GameObject.Find("EnemySound").GetComponent<EnemySound>();
     }
     private void OnEnable()
     {
@@ -118,6 +119,8 @@ public class Enemy : MonoBehaviour
         BurnDamage = 0f;
         SlowAmount = 0f;
 
+        propertyType = EPropertyType.None;
+        SpecialityType = ESpecialityType.None;
         GetComponent<BaseAniContoller>().Isrevived = false;
         GetComponent<BaseAniContoller>().Isdivided = false;
         monsterUI.gameObject.SetActive(true);
@@ -188,6 +191,7 @@ public class Enemy : MonoBehaviour
         {
             GetComponent<BaseAniContoller>().Isrevived = true;
             yield return new WaitForSeconds(1f);
+            enemyName.ShowName();
             transform.tag = "Enemy";
             //GetComponent<EnemyMovement>().MoveSpeed = Speed;
             IsAlive = true;
@@ -196,6 +200,7 @@ public class Enemy : MonoBehaviour
         }
         else if(propertyType == EPropertyType.Divided)
         {
+            enemyName.ShowName();
             yield return null;
             GetComponent<BaseAniContoller>().Isdivided = true;
             IsAlive = true;
@@ -233,7 +238,8 @@ public class Enemy : MonoBehaviour
             case ETowerName.Hourglass:
                 if (IsBuffed[1])
                 {
-                    //GetComponent<EnemyMovement>().MoveSpeed += GetComponent<EnemyMovement>().MoveSpeed * buffedBonus / 100;
+                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+                    Speed += Speed * buffedBonus / 100;
                     
                 }
                 break;
@@ -392,6 +398,7 @@ public class Enemy : MonoBehaviour
         enemyName.HideName();
         //GetComponent<EnemyMovement>().MoveSpeed = 0;
         //Debug.Log("Killed Enemy" + "Current Enemy Num: " + GameManager.instance.currentEnemyNumber);
+        enemySound.DeadEnemySound();
         StartCoroutine(IE_PlayDeadAnimation());
     }
 
@@ -411,23 +418,35 @@ public class Enemy : MonoBehaviour
         getComponent.EnemyLevelUp();
         getComponent.transform.tag = "Enemy";
         getComponent.IsAlive = true;
+        if(propertyType == EPropertyType.Generative)
+        {
+            getComponent.AddElementType();
+            getComponent.SpecialityType = ESpecialityType.None;
+            getComponent.propertyType = EPropertyType.None;
+        }
         getComponent.CurrentElement = CurrentElement;
         enemy.GetComponent<BaseAniContoller>().InitAnimation();
         emove.InitSpeed(monsterType);
-        getComponent.propertyType = EPropertyType.Divided;
+        if(propertyType == EPropertyType.Divided){
+            getComponent.propertyType = EPropertyType.Divided;
+            getComponent.enemyName.ShowName();
+            Debug.Log("Divided");
+        }
         getComponent.MaxHP = MaxHP;
         getComponent.MaxShield = MaxShield;
-        getComponent.enemyName.ShowName();
         getComponent.SetStat();
 
         GameManager.instance.CurrentEnemyNumber++;
 
-        float currentSize = enemy.transform.localScale.x;
-        scaleChange = new Vector3(currentSize, currentSize, currentSize);
-        transform.localScale = scaleChange;
-
-        GetComponent<EnemyMovement>().MoveSpeed *= 0.9f;
-        dividedEnemyNum++;
+        if(propertyType == EPropertyType.Divided)
+        {
+            float currentSize = enemy.transform.localScale.x;
+            scaleChange = new Vector3(currentSize, currentSize, currentSize);
+            transform.localScale = scaleChange;
+        }
+        
+        Speed *= 0.9f;
+        //dividedEnemyNum++;
         //Debug.Log("Divided Enemy Spawned: " + dividedEnemyNum);
         //Debug.Log("Current Enemy Number" + GameManager.instance.currentEnemyNumber);
     }
@@ -764,21 +783,27 @@ public class Enemy : MonoBehaviour
         var monsterStat = Tables.MonsterSpeciality.Get(specialityType)._ChangeStat;
         SpecialityType = Tables.MonsterSpeciality.Get(specialityType)._SpecialityType;
 
+        if(propertyType == EPropertyType.Reinforced)
+        {
+            Enforced += 0.2f;
+        }
+
         switch (monsterStat)
         {
             case EMonsterStat.Hp:
-                MaxHP +=  BaseHP * changeStat;
+                MaxHP +=  BaseHP * changeStat * Enforced;
                 break;
             case EMonsterStat.Armor:
-                Armor += BaseArmor * changeStat;
+                Armor += BaseArmor * changeStat * Enforced;
                 break;
             case EMonsterStat.Shield:
-                MaxShield += BaseShield * changeStat;
+                MaxShield += BaseShield * changeStat * Enforced;
                 break;
             case EMonsterStat.Speed:
-                Speed += BaseSpeed * changeStat;
+                Speed += BaseSpeed * changeStat * Enforced;
                 break;
         }
+        Enforced = 1f;
     }
 
     public void AddElementType()
@@ -875,20 +900,60 @@ public class Enemy : MonoBehaviour
         {
             return;
         }*/
+        int rand;
         if (IsBoss == true)
         {
-            propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
+            rand = Random.Range(0, 3);
+            if(rand == 0)
+            {
+                propertyType = Tables.MonsterProperty.Get(2)._PropertyType;
+            }
+            else if(rand == 1)
+            {
+                propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
+            }
+            else
+            {
+                propertyType = Tables.MonsterProperty.Get(8)._PropertyType;
+
+            }
         }
         else if (IsSubBoss == true)
         {
-            propertyType = Tables.MonsterProperty.Get(3)._PropertyType;
+            rand = Random.Range(0, 2);
+
+            if(rand == 0)
+            {
+                propertyType = Tables.MonsterProperty.Get(2)._PropertyType;
+            }
+            else if(rand == 1)
+            {
+                propertyType = Tables.MonsterProperty.Get(3)._PropertyType;
+            }
         }
         else
             propertyType = Tables.MonsterProperty.Get(1)._PropertyType;
 
+        if(propertyType == EPropertyType.Reinforced)
+        {
+            AddSpeciality();
+        }
+        if(propertyType == EPropertyType.Generative)
+        {
+            StartCoroutine(IE_GenerateEnemy());
+        }
+    }
+    IEnumerator IE_GenerateEnemy()
+    {
+        WaitForSeconds ws = new WaitForSeconds(3f);
+        while (true)
+        {
+            yield return ws;
+            SpawnDivided();
+
+        }
     }
 
-    
     public void AddBossStat()
     {
         int id;

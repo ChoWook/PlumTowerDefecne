@@ -67,6 +67,7 @@ MonoBehaviour:
   specialityType: 0
   monsterType: 0
   propertyType: 0
+  SpecialityType: 0
   currentBuffType: 0
 --- !u!114 &1305066624040367895
 MonoBehaviour:
