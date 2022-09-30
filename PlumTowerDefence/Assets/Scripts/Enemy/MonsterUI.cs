@@ -21,10 +21,9 @@ public class MonsterUI : MonoBehaviour
         //transform.position = transform.parent.position;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         transform.eulerAngles = new Vector3(-90.0f, 0.0f, transform.rotation.z);
-
     }
 
     public void HandleHp()
