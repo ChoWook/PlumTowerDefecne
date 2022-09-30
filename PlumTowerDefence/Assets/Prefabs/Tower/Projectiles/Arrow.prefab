@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8512218874839391579}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 6.73, z: 3.23}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6268244278111299079}
@@ -77,10 +77,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 5927456175834943569, guid: 420841f344d022e4fbe669c57287451b, type: 3}
+  Lt: {fileID: 0}
+  Et: {fileID: 0}
   Speed: 70
   MissileRange: 0
-  ElectricRange: 0
-  ElecRangeStat: 2
+  LaserLength: 0
+  LaserDestination: {x: 0, y: 0, z: 0}
+  Explosion: {fileID: 0}
 --- !u!1001 &5870441601642234348
 PrefabInstance:
   m_ObjectHideFlags: 0

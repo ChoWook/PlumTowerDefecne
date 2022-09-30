@@ -5,13 +5,19 @@ using System.Linq;
 
 public class ArrowTower : Tower
 {
-
-
-
     private void Awake()
     {
         Setstat(ETowerName.Arrow);
+
+        controller = AnimatorObject.GetComponent<Animator>();
     }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        controller.speed = SpeedStat;
+    }
+
 
     public override float AttackStat
     {
@@ -66,9 +72,92 @@ public class ArrowTower : Tower
         }
     }
 
+    // TODO connect poisondamage
 
-    // 독 뎀 넣어주기
+    public float PoisonAttackStat
+    {
+        get
+        {
+            float sum = 0f;
+
+            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.PoisonAttackMultiModifier;
+
+            for(int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return sum;
+        }
+    }
+
+    public float PoisonDurationStat
+    {
+        get
+        {
+            float sum = 0f;
+
+            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.PoisonDurationPlusModifier;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return sum;
+        }
+    }
+
+    //TODO connect burndamage
+    public float BurnAttackStat
+    {
+        get
+        {
+            float sum = 0f;
+
+            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.BurnAttackMultiModifier;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return sum;
+        }
+    }
+
+    public float BurnDurationStat
+    {
+        get
+        {
+            float sum = 0f;
+
+            List<float> list = TowerUpgradeAmount.instance._ArrowTowerStat.BurnDurationPlusModifier;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return sum;
+        }
+    }
+
+    // 시위 당기기
+    public override void Shoot()
+    {
+        AnimatorExists(controller, true);
+        base.Shoot();
+    }
+
+    protected override void Update()
+    {
+        AnimatorExists(controller, false);
+        base.Update();
+    }
+
+    // 화살 소환하기
 
 
-    // 화상 데미지 넣어주기
+
 }

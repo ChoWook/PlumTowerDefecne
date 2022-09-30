@@ -17,6 +17,10 @@ public class Tower : IObjectOnTile
     //public GameObject MarkRangePrefab;                                              // Range 표시 오브젝트
 
 
+    public GameObject AnimatorObject;                                                // 애니메이션 스크립트 있는 오브젝트
+    public Animator controller;                                                      // towerhead 애니메이션 controller
+
+
     public float Range;                                                              // 공격 사거리
     public float RealRange;                                                          // 실제 사거리
 
@@ -221,15 +225,6 @@ public class Tower : IObjectOnTile
 
         // 사거리, 타워 사이즈 설정하기 <- 안 되나!
 
-
-        /*
-        //사거리 지정 Range 값 넣기
-        Transform parent = transform.parent;
-        transform.parent = null;
-        //Boundary.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
-        transform.parent = parent;
-        */
-
         StartCoroutine(nameof(IE_GetTargets));
 
     }
@@ -409,6 +404,12 @@ public class Tower : IObjectOnTile
             b?.Seek(Target, ProjectileSpeed, AttackStat, AttackSpecialization);
         }
 
+    }
+
+    public void AnimatorExists(Animator controller, bool isShooting)
+    {
+        if (controller != null)
+            controller.SetBool("isShooting", isShooting);
     }
 
 
