@@ -29,6 +29,8 @@ public class TowerButtonGenerate : MonoBehaviour
 
     ETowerName SelectedTowerName = ETowerName.Arrow;
 
+    int FlameTowerRotationCnt = 0;
+
     public void CreateBtn()
     {
         for (ETowerName TName = ETowerName.Arrow; TName <= ETowerName.Bomb; TName++)
@@ -104,6 +106,8 @@ public class TowerButtonGenerate : MonoBehaviour
         UIManager.instance?.UIClear();
 
         SelectedTowerName = TName;
+
+        FlameTowerRotationCnt = 0;
 
         StartCoroutine(nameof(IE_FallowingMouse), TName);
     }
@@ -281,6 +285,14 @@ public class TowerButtonGenerate : MonoBehaviour
         {
             if(SelectedTower == null)
             {
+                return;
+            }
+
+            // 플레임 타워는 오른쪽 마우스 누르면 방향이 바뀌어야 함 (4번 누르면 삭제)/
+            if(SelectedTowerName == ETowerName.Flame && ++FlameTowerRotationCnt != 4)
+            {
+                SelectedTower.transform.Rotate(new Vector3(0, 90, 0));
+
                 return;
             }
 
