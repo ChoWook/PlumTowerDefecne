@@ -104,8 +104,11 @@ public class CannonTower : Tower
         ParticleSystem parts = ex.GetComponent<ParticleSystem>();
         float totalDuration = parts.main.duration /2 ;
 
-        StartCoroutine(IE_psDelay(totalDuration, ex));
-        Debug.Log("Shoot");
+        if(!gameObject.activeSelf)
+        {
+            StartCoroutine(IE_psDelay(totalDuration, ex));
+        }
+        
         base.Shoot();
        
     }

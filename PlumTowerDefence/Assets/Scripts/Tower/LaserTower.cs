@@ -115,8 +115,11 @@ public class LaserTower : Tower
             b?.SetTower(this);
             b?.Seek(Target, ProjectileSpeed, AttackStat, AttackSpecialization);
       
-
-            StopCoroutine(nameof(IE_GetTargets));
+            if(!gameObject.activeSelf)
+            {
+                StopCoroutine(nameof(IE_GetTargets));
+            }
+            
         }
     }
 
@@ -127,7 +130,11 @@ public class LaserTower : Tower
         yield return cooltime;
         IsCoolTime=false;
 
-        StartCoroutine(nameof(IE_GetTargets));
+        if(!gameObject.activeSelf)
+        {
+            StartCoroutine(nameof(IE_GetTargets));
+        }
+        
     }
 
 }

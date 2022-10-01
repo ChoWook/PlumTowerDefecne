@@ -63,10 +63,6 @@ public class SpeedBuffTower : Tower
         }
         
     }
-    
-
-
-
 
     protected override void UpdateTarget()
     {
@@ -143,13 +139,21 @@ public class SpeedBuffTower : Tower
 
     public override void MoveTower(Tile tile)
     {
-        StopCoroutine(nameof(IE_GetTargets));
+        if(!gameObject.activeSelf)
+        {
+            StopCoroutine(nameof(IE_GetTargets));
+        }
+        
 
         RemoveBuff();
 
         base.MoveTower(tile);
 
-        StartCoroutine(nameof(IE_GetTargets));
+        if(!gameObject.activeSelf)
+        {
+            StartCoroutine(nameof(IE_GetTargets));
+        }
+        
 
     }
 

@@ -8,7 +8,7 @@ public class Tower : IObjectOnTile
     // 타워 스텟 (임시로 화살타워 스텟 설정)
 
     [SerializeField]
-    public int TowerID;                                       // 타워 ID (데이터 테이블)
+    public int TowerID;                                                               // 타워 ID (데이터 테이블)
 
 
     [Header("Attributes")]
@@ -222,6 +222,7 @@ public class Tower : IObjectOnTile
 
         RealSize = Size * GameManager.instance.UnitTileSize;
 
+        MaxUpgrade = Tables.GlobalSystem.Get("Tower_Upgrade_Max")._Value;
 
         // 사거리, 타워 사이즈 설정하기 <- 안 되나!
 
@@ -426,7 +427,7 @@ public class Tower : IObjectOnTile
         {
             return;
         }
-        else if (UpgradeCount >= Tables.GlobalSystem.Get("Tower_Upgrade_Max")._Value) // Table 연동
+        else if (UpgradeCount >= MaxUpgrade) // Table 연동
         {
             return;
         }

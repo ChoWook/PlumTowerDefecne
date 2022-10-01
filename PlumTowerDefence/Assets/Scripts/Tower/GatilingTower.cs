@@ -88,7 +88,11 @@ public class GatilingTower : Tower
         //Vector3 dir = Target.transform.position - transform.position;
         float totalDuration = parts.main.duration;
 
-        StartCoroutine(IE_psDelay(totalDuration, ex));
+        if(gameObject.activeSelf)
+        {
+            StartCoroutine(IE_psDelay(totalDuration, ex));
+        }
+        
 
     }
 

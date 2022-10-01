@@ -99,7 +99,11 @@ public class ElectricTower : Tower
 
         AttackEnemy(Target);
 
-        StartCoroutine(nameof(IE_ShowLightning), L);
+        if(!gameObject.activeSelf)
+        {
+            StartCoroutine(nameof(IE_ShowLightning), L);
+        }
+            
 
         ShockWave();
 
@@ -181,7 +185,11 @@ public class ElectricTower : Tower
 
         AttackEnemy(Target);
 
-        StartCoroutine(nameof(IE_ShowLightning), L);
+        if(!gameObject.activeSelf)
+        {
+            StartCoroutine(nameof(IE_ShowLightning), L);
+        }
+        
     }
 
 
