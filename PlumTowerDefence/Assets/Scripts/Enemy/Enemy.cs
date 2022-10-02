@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
 
     protected float BaseHP;
     public float MaxHP;
+    [SerializeField]
     float _CurrentHP;
     public float CurrentHP
     {
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
     protected float BaseShield;           
     public float MaxShield;
 
+    [SerializeField]
     float _CurrentShield;
     public float CurrentShield
     {
@@ -43,6 +45,11 @@ public class Enemy : MonoBehaviour
     {
         get
         {
+            float MinSpeed = Speed * (100 - SlowAmount) / 100;
+            if(MinSpeed <= 0)
+            {
+                return Speed;
+            }
             return Speed *(100 - SlowAmount) / 100;
         }
     }
@@ -53,6 +60,7 @@ public class Enemy : MonoBehaviour
     public bool IsSubBoss;
     private Vector3 scaleChange;
     public bool[] IsBuffed;
+    public bool hasGenerated;
     public bool IsSlowed = false;
     public bool IsPoisoned = false;
    // private int dividedEnemyNum = 0;
@@ -110,6 +118,7 @@ public class Enemy : MonoBehaviour
         IsAlive = true;
         IsSlowed = false;
         IsPoisoned = false;
+        hasGenerated = false;
 
         PoisonTime = 0f;
         PoisonRunTime = 0f;
@@ -239,7 +248,7 @@ public class Enemy : MonoBehaviour
                 if (IsBuffed[1])
                 {
                     float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
-                    Speed += Speed * buffedBonus / 100;
+                    Speed *= (100+buffedBonus) / 100;
                     
                 }
                 break;
@@ -443,9 +452,14 @@ public class Enemy : MonoBehaviour
             float currentSize = enemy.transform.localScale.x;
             scaleChange = new Vector3(currentSize, currentSize, currentSize);
             transform.localScale = scaleChange;
+            Speed *= 0.9f;
         }
-        
-        Speed *= 0.9f;
+        if(hasGenerated == false)
+        {
+            hasGenerated = true;
+            Speed *= 0.9f;
+        }
+
         //dividedEnemyNum++;
         //Debug.Log("Divided Enemy Spawned: " + dividedEnemyNum);
         //Debug.Log("Current Enemy Number" + GameManager.instance.currentEnemyNumber);
@@ -483,6 +497,8 @@ public class Enemy : MonoBehaviour
 
     public void TakeBuff(ELaneBuffType laneBufftype)
     {
+        Debug.Log(laneBufftype);
+
         currentBuffType = laneBufftype;
         float statChange =Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
 
