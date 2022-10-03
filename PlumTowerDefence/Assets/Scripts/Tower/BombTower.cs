@@ -78,7 +78,11 @@ public class BombTower : Tower
         {
             if (other.transform.parent.CompareTag(enemyTag)) // 왜 거꾸로 되지?
             {
-                StartCoroutine(nameof(IE_Delay));
+                if(gameObject.activeSelf)
+                {
+                    StartCoroutine(nameof(IE_Delay));
+                }
+                
 
                 isTriggered = true;
             }
@@ -123,7 +127,11 @@ public class BombTower : Tower
         ParticleSystem parts = ex.GetComponent<ParticleSystem>();
         float totalDuration = parts.main.duration;
 
-        StartCoroutine(IE_psDelay(totalDuration, ex));
+        if(gameObject.activeSelf)
+        {
+            StartCoroutine(IE_psDelay(totalDuration, ex));
+        }
+        
 
         ObjectPools.Instance.ReleaseObjectToPool(gameObject);
         isTriggered = false;

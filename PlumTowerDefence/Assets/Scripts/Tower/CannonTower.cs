@@ -104,7 +104,7 @@ public class CannonTower : Tower
         ParticleSystem parts = ex.GetComponent<ParticleSystem>();
         float totalDuration = parts.main.duration /2 ;
 
-        if(!gameObject.activeSelf)
+        if(gameObject.activeSelf)
         {
             StartCoroutine(IE_psDelay(totalDuration, ex));
         }

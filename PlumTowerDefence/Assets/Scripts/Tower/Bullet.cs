@@ -203,7 +203,7 @@ public class Bullet : MonoBehaviour
 
                 Lt.Laser.SetActive(false);
 
-                if(!gameObject.activeSelf)
+                if(gameObject.activeSelf)
                 {
                     Lt.StartCoroutine(nameof(Lt.IE_CoolTime));
                 }
@@ -289,7 +289,7 @@ public class Bullet : MonoBehaviour
                 ex.transform.localScale = new Vector3(MissileRange, MissileRange, MissileRange) / 4;
                 ParticleSystem parts = ex.GetComponent<ParticleSystem>();
 
-                if (!gameObject.activeSelf)
+                if (gameObject.activeSelf)
                 {
                     StartCoroutine(IE_psDelay(1.4f, ex));
                 }

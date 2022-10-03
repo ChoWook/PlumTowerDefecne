@@ -156,7 +156,7 @@ public class SpeedBuffTower : Tower
 
     public override void MoveTower(Tile tile)
     {
-        if(!gameObject.activeSelf)
+        if(gameObject.activeSelf)
         {
             StopCoroutine(nameof(IE_GetTargets));
         }
@@ -166,7 +166,7 @@ public class SpeedBuffTower : Tower
 
         base.MoveTower(tile);
 
-        if(!gameObject.activeSelf)
+        if(gameObject.activeSelf)
         {
             StartCoroutine(nameof(IE_GetTargets));
         }
