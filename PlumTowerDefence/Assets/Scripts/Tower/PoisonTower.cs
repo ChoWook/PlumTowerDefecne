@@ -69,6 +69,22 @@ public class PoisonTower : Tower
             return plus;
         }
     }
+    public static float UpgradeRange
+    {
+        get
+        {
+            List<float> list = TowerUpgradeAmount.instance._PoisonTowerStat.RangePlusModifier;
+
+            float sum = 0f;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return sum;
+        }
+    }
 
 
 

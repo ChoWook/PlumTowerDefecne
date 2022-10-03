@@ -51,7 +51,7 @@ public class AttackBuffTower : Tower
     {
         get
         {
-            List<float> list = TowerUpgradeAmount.instance._SpeedBuffTowerStat.RangePlusModifier;
+            List<float> list = TowerUpgradeAmount.instance._AttackBuffTowerStat.RangePlusModifier;
 
             float sum = 0f;
 
@@ -63,6 +63,23 @@ public class AttackBuffTower : Tower
             return Range + sum;
         }
 
+    }
+
+    public static float UpgradeRange
+    {
+        get
+        {
+            List<float> list = TowerUpgradeAmount.instance._AttackBuffTowerStat.RangePlusModifier;
+
+            float sum = 0f;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return sum;
+        }
     }
 
 

@@ -86,6 +86,7 @@ public class TowerUpgradeAmount : MonoBehaviour
 
     public FlameTowerStat _FlameTowerStat = new FlameTowerStat();
 
+    [System.Serializable]
     public class FlameTowerStat
     {
         public List<float> AttackPlusModifier = new List<float>();

@@ -67,8 +67,6 @@ public class BombTower : Tower
 
         UpgradeCount = 0;
 
-        RealRange = Range * GameManager.instance.UnitTileSize;
-
         RealSize = Size * GameManager.instance.UnitTileSize;
     }
 

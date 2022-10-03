@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Tables;
 
 public class TowerSizeController : MonoBehaviour
 {
-    [SerializeField] GameObject MarkSizePrefab;                                               // Size Ç¥½Ã ¿ÀºêÁ§Æ®
+    [SerializeField] GameObject MarkSizePrefab;                                               // Size Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     [SerializeField] GameObject MarkRangePrefab;
     [SerializeField] GameObject MarkSelectedPrefab;
 
@@ -23,36 +24,64 @@ public class TowerSizeController : MonoBehaviour
 
     private void OnEnable()
     {
-        float RealRange = Range * 5 * GameManager.instance.UnitTileSize / Size * 2 ;
-
-       // Debug.Log("Range :" + Range + " / Real")
-
-        float RealSize = 5 * GameManager.instance.UnitTileSize;
-
-
-        if(MarkRangePrefab != null)
-        {
-            MarkRangePrefab.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
-        }
+        UpdateRange();
         
-        if(MarkSelectedPrefab != null)
-        {
-            MarkSelectedPrefab.transform.localScale = new Vector3(RealSize, 0.05f, RealSize);
-        }
-
-        if(MarkSizePrefab != null)
-        {
-            MarkSizePrefab.transform.localScale = new Vector3(RealSize, 0.05f, RealSize);
-        }
     }
 
     public void IsSelected(bool sender)
     {
 
-        //»ç°Å¸®, Å¸¿ö »çÀÌÁî Ç¥½Ã È°¼ºÈ­
+        //ï¿½ï¿½Å¸ï¿½, Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ È°ï¿½ï¿½È­
+        if (sender)
+        {
+            UpdateRange();
+        }
 
         MarkSelectedPrefab?.SetActive(sender);
         MarkRangePrefab?.SetActive(sender);
 
+    }
+
+    private void UpdateRange()
+    {
+        Range = Tables.Tower.Get(Name)._Range;
+
+        switch (Name)
+        {
+            case ETowerName.Poison:
+                Range += PoisonTower.UpgradeRange;
+                break;
+            case ETowerName.Flame:
+                Range += FlameTower.UpgradeRange;
+                break;
+            case ETowerName.AttackBuff:
+                Range += AttackBuffTower.UpgradeRange;
+                break;
+            case ETowerName.SpeedBuff:
+                Range += SpeedBuffTower.UpgradeRange;
+                break;
+        }
+
+        float RealRange = Range * 5 * GameManager.instance.UnitTileSize / Size * 2;
+
+        // Debug.Log("Range :" + Range + " / Real")
+
+        float RealSize = 5 * GameManager.instance.UnitTileSize;
+
+
+        if (MarkRangePrefab != null)
+        {
+            MarkRangePrefab.transform.localScale = new Vector3(RealRange, 0.05f, RealRange);
+        }
+
+        if (MarkSelectedPrefab != null)
+        {
+            MarkSelectedPrefab.transform.localScale = new Vector3(RealSize, 0.05f, RealSize);
+        }
+
+        if (MarkSizePrefab != null)
+        {
+            MarkSizePrefab.transform.localScale = new Vector3(RealSize, 0.05f, RealSize);
+        }
     }
 }

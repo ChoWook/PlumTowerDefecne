@@ -22,7 +22,13 @@ public class Tower : IObjectOnTile
 
 
     public float Range;                                                              // 공격 사거리
-    public float RealRange;                                                          // 실제 사거리
+    public virtual float RealRange
+    {
+        get
+        {
+           return CurrentRange * GameManager.instance.UnitTileSize;
+        }
+    }                                                         // 실제 사거리
 
 
     public ETowerName TowerName;                                                     // 타워 이름
@@ -217,8 +223,6 @@ public class Tower : IObjectOnTile
         SpeedBuffAmount = 0f;
 
         UpgradeCount = 0;
-
-        RealRange = CurrentRange * GameManager.instance.UnitTileSize;
 
         RealSize = Size * GameManager.instance.UnitTileSize;
 

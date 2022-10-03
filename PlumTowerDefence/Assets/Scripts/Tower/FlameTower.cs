@@ -11,6 +11,8 @@ public class FlameTower : Tower
 
     public GameObject forVector;
 
+    public ParticleSystem Pt_Flame;
+
     private void Awake()
     {
         Setstat(ETowerName.Flame);
@@ -20,6 +22,8 @@ public class FlameTower : Tower
     {
         base.OnEnable();
         PS_Fire.SetActive(false);
+
+        Pt_Flame = PS_Fire.GetComponent<ParticleSystem>();
     }
 
     public override float AttackStat
@@ -102,6 +106,9 @@ public class FlameTower : Tower
                 sum += list[i];
             }
 
+            var main = Pt_Flame.main;
+            main.startLifetime = (Range + sum) * 0.5f / Range ;
+
             return Range + sum;
         }
     }
@@ -137,6 +144,23 @@ public class FlameTower : Tower
             }
 
             return Angle + sum;
+        }
+    }
+
+    public static float UpgradeRange
+    {
+        get
+        {
+            List<float> list = TowerUpgradeAmount.instance._FlameTowerStat.RangePlusModifier;
+
+            float sum = 0f;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+
+            return sum;
         }
     }
 
