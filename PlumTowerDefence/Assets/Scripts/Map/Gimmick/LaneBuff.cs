@@ -24,7 +24,7 @@ public class LaneBuff : IObjectOnTile, IPointerClickHandler
 
     private void OnTriggerEnter(Collider other)
     {
-        Enemy enemy = other.GetComponent<Enemy>();
+        Enemy enemy = other.GetComponentInParent<Enemy>();
 
         if (enemy == null)
         {

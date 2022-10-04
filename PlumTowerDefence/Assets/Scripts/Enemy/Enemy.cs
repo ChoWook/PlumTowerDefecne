@@ -500,7 +500,7 @@ public class Enemy : MonoBehaviour
         Debug.Log(laneBufftype);
 
         currentBuffType = laneBufftype;
-        float statChange =Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+        float statChange =Tables.MonsterLaneBuff.Get(currentBuffType)._Amount;
 
         switch (currentBuffType)
         {
