@@ -42,6 +42,21 @@ public class MapGimmicSpawner : MonoBehaviour
         {
             EmptyTiles = Map.Instance.Grounds[GroundIdx].GetEmptyLandTilesInGround();
 
+            // 자원은 열리는 그라운드 사방에서도 생겨야 함
+            if (GimmickType == EMapGimmickType.Resource)
+            {
+                Pos CurPos = Map.Instance.Grounds[GroundIdx]._Pos;
+
+                // 사방에 있는 그라운드 검사
+                for (EDirection direction = EDirection.R; direction <= EDirection.U; direction++)
+                {
+                    if (Map.Instance.GroundsWithPos.TryGetValue(CurPos.SumPos(Map.Instance._Direction[direction]), out Ground NearGround) == true)
+                    {
+                        EmptyTiles.AddRange(NearGround.GetEmptyLandTilesInGround());
+                    }
+                }
+            }
+
             ChoosenSet = ChooseEmptySet(Tables.MapGimmick.Get(GimmickType)._Probability, EmptyTiles.Count);
 
             // ��ֹ��� Ư���� �˰������� ����
@@ -54,6 +69,7 @@ public class MapGimmicSpawner : MonoBehaviour
             {
                 SpawnGimmickInChoosenSet(GimmickType);
             }
+
         }
     }
 
@@ -243,6 +259,7 @@ public class MapGimmicSpawner : MonoBehaviour
         }
         else if(GimmickType == EMapGimmickType.Resource)
         {
+            // (구)맵 전체에서 ResourceTileCount가 0이면 생성
             for (int i = 0; i < Map.Instance.OpenGroundCnt; i++)
             {
                 if (Map.Instance.Grounds[i].ResourceTileCount == 0)
