@@ -18,6 +18,7 @@ public class InGameUpgrade : MonoBehaviour
     
     public void ShowInGameUpgrade()
     {
+        List<int> list = new List<int>();
         
         for (int i = 0; i < GameManager.instance.NumberOfUpgrade; i++)
         {
@@ -30,7 +31,13 @@ public class InGameUpgrade : MonoBehaviour
             obj.transform.Find("Select")?.GetComponent<Button>().onClick.AddListener(()=>SelectInGameUpgrade(idx));//온 버튼 적용
 
             int Rnd = Random.Range(0, JsonManager.instance.usingList.Count);
+
+            while(list.IndexOf(JsonManager.instance.usingList[Rnd]) != -1)
+            {
+                Rnd = Random.Range(0, JsonManager.instance.usingList.Count);
+            }
             obj.GetComponent<InGameUpgradeSetting>().SettingUpgrade(JsonManager.instance.usingList[Rnd]);
+            list.Add(JsonManager.instance.usingList[Rnd]);
         }
     }
 
