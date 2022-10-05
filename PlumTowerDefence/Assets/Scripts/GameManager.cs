@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool isCursed = false;
+
     public delegate void CallBack();
 
     private CallBack _stageClearCallBack;
@@ -144,6 +146,10 @@ public class GameManager : MonoBehaviour
         {
             _level = value;
             _levelChangeCallBack?.Invoke();
+            if(_level % 5 == 2)
+            {
+                isCursed = false;
+            }
         }
     }
 
@@ -223,7 +229,12 @@ public class GameManager : MonoBehaviour
         get { return _money; }
         set
         {
+            int prev = _money;
             _money = value;
+            if(prev < _money && isCursed == true)
+            {
+                _money -= (value-prev)/2;
+            }
             _moneyChangeCallBack?.Invoke();
         }
     }

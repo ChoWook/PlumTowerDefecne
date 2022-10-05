@@ -17,8 +17,6 @@ public class Enemy : MonoBehaviour
             _CurrentHP = value;
             monsterUI?.HandleHp();
         }
-
-
     }
 
     protected float BaseShield;           
@@ -37,7 +35,13 @@ public class Enemy : MonoBehaviour
     }
 
     bool ShieldOn = true;
-    public float Armor;
+    float _Armor;
+    public float Armor
+    {
+        get { return _Armor; }
+        set { _Armor = value;}
+    }
+
     protected float BaseArmor;            
     public float BaseSpeed;               
     public float Speed;
@@ -676,11 +680,13 @@ public class Enemy : MonoBehaviour
             case ELaneBuffType.PoisonBuff:
                 IsBuffed[2] = true;
                 break;
+            case ELaneBuffType.FlameBuff:
+                break;
             case ELaneBuffType.LazerBuff:
-                IsBuffed[3] = true;
+                IsBuffed[4] = true;
                 break;
             case ELaneBuffType.MissileBuff:
-                IsBuffed[4] = true;
+                IsBuffed[5] = true;
                 break;
         }
     }
@@ -931,7 +937,6 @@ public class Enemy : MonoBehaviour
             else
             {
                 propertyType = Tables.MonsterProperty.Get(8)._PropertyType;
-
             }
         }
         else if (IsSubBoss == true)
@@ -957,6 +962,10 @@ public class Enemy : MonoBehaviour
         if(propertyType == EPropertyType.Generative)
         {
             StartCoroutine(IE_GenerateEnemy());
+        }
+        if(propertyType == EPropertyType.Cursing)
+        {
+
         }
     }
     IEnumerator IE_GenerateEnemy()

@@ -40,14 +40,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.Space))     // if(맵 확장 버튼이 눌리면)으로 대체
-        {
-            SpawnWave();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1)){
-            WaveNumber++;
-        }
 
     }
     

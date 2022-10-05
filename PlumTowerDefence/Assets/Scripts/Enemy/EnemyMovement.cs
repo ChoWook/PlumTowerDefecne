@@ -71,6 +71,10 @@ public class EnemyMovement : MonoBehaviour
             SendDamagedText();
             enemySound.AttackEnemySound();
             GameManager.instance.CurrentEnemyNumber--;
+            if(enemy.propertyType == EPropertyType.Cursing)
+            {
+                Curse();
+            }
             GameManager.instance.CurrentHp--;
             Debug.Log("Current Enemy Num: " + GameManager.instance.CurrentEnemyNumber);
             ObjectPools.Instance.ReleaseObjectToPool(gameObject);
@@ -80,6 +84,11 @@ public class EnemyMovement : MonoBehaviour
         WaypointIndex--;                 // ���� �ε��� -1
 
         Target = Waypoints.points[Route][WaypointIndex];   // Ÿ���� ����
+    }
+
+    void Curse()
+    {
+        GameManager.instance.isCursed = true;
     }
 
     void SendDamagedText()
