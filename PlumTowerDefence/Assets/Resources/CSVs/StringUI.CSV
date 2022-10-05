@@ -55,3 +55,4 @@ int,StringUI,String
 53,Show_Vegetation,식생 보기
 54,Move_Mouse_Screen,마우스 화면 이동
 55,Move_Keyboard_Screen,키보드 화면 이동
+56,Game_Clear,게임 승리!

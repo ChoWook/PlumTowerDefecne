@@ -110,6 +110,18 @@ public class GameManager : MonoBehaviour
         _OnGetCouponCallBack = null;
     }
 
+    private CallBack _gameClearCallBack;
+
+    public void AddGameClearCallBack(CallBack gameClearCallBack)
+    {
+        _gameClearCallBack += gameClearCallBack;
+    }
+
+    public void RemoveGameClearCallBack()
+    {
+        _gameClearCallBack = null;
+    }
+
     public void CallBackClear()
     {
         Debug.Log("CALLBACKCLEAR");
@@ -120,6 +132,7 @@ public class GameManager : MonoBehaviour
         RemoveMoneyChangeCallBack();
         RemoveGameOverCallBack();
         RemoveGetCouponCallBack();
+        RemoveGameClearCallBack();
     }
 
     private int _level = 0;
@@ -252,6 +265,10 @@ public class GameManager : MonoBehaviour
                 IsPlayingGame = false; //Bool flase 만들어서 게임 끝을 알림
                 XP += Level; //level만큼 xp를 얻음
                 _stageClearCallBack?.Invoke();
+                if (Level == 50)    //클리어했는데 50레벨이었으면 게임종료
+                {
+                    _gameClearCallBack?.Invoke();
+                }
             }
         }
     }
