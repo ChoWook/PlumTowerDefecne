@@ -116,13 +116,22 @@ public class AttackBuffTower : Tower
 
             Tower t = TowerList[i].GetComponent<Tower>();
 
-            if (!(t.CheckAttackBuffTowers.ContainsKey(this)) && t.AttackStat != 0f) // 추후 변경
+            if(t.AttackStat != 0f)
             {
+                if (!(t.CheckAttackBuffTowers.ContainsKey(this)))
+                {
 
-                t.AttackBuffTowers.TryAdd(this, AbilityStat);
-                t.CheckAttackBuffTowers.TryAdd(this, true);
+                    t.AttackBuffTowers.TryAdd(this, AbilityStat);
+                    t.CheckAttackBuffTowers.TryAdd(this, true);
 
+                }
+                else
+                {
+                    t.AttackBuffTowers[this] = AbilityStat;
+                    t.CheckAttackBuffTowers[this] = true;
+                }
             }
+            
         }
 
     }
@@ -143,7 +152,7 @@ public class AttackBuffTower : Tower
 
             Tower t = TowerList[i].GetComponent<Tower>();
 
-            if ((t.CheckAttackBuffTowers.ContainsKey(this))) // 추후 변경
+            if ((t.CheckAttackBuffTowers.ContainsKey(this)))
             {
                 t.AttackBuffTowers[this] = AbilityStat;
             }
@@ -193,7 +202,7 @@ public class AttackBuffTower : Tower
             if ((t.CheckAttackBuffTowers.ContainsKey(this)))
             {
 
-                t.AttackBuffTowers[this] = AbilityStat;
+                t.AttackBuffTowers[this] = 0f;
                 t.CheckAttackBuffTowers[this] = false;
 
             }

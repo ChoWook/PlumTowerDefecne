@@ -111,14 +111,22 @@ public class SpeedBuffTower : Tower
         {
 
             Tower t = TowerList[i].GetComponent<Tower>();
-
-            if (!(t.CheckSpeedBuffTowers.ContainsKey(this)) && t.SpeedStat != 0f) 
+            if(t.SpeedStat != 0f)
             {
+                if (!(t.CheckSpeedBuffTowers.ContainsKey(this)))
+                {
 
-                t.SpeedBuffTowers.TryAdd(this, AbilityStat);
-                t.CheckSpeedBuffTowers.TryAdd(this, true);
+                    t.SpeedBuffTowers.TryAdd(this, AbilityStat);
+                    t.CheckSpeedBuffTowers.TryAdd(this, true);
 
+                }
+                else
+                {
+                    t.SpeedBuffTowers[this] = AbilityStat;
+                    t.CheckSpeedBuffTowers[this] = true;
+                }
             }
+            
         }
         
     }
@@ -185,7 +193,7 @@ public class SpeedBuffTower : Tower
             if ((t.CheckSpeedBuffTowers.ContainsKey(this)))
             {
 
-                t.SpeedBuffTowers[this] = AbilityStat;
+                t.SpeedBuffTowers[this] = 0f;
                 t.CheckSpeedBuffTowers[this] = false;
 
             }
