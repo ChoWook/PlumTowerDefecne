@@ -17,6 +17,8 @@ public class SoundPlay : MonoBehaviour
 
         Source.loop = false;
 
+        Source.spatialBlend = 1;
+
         BaseVolume = Source.volume;
     }
 
