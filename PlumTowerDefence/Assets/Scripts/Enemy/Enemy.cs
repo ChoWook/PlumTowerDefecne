@@ -681,6 +681,7 @@ public class Enemy : MonoBehaviour
                 IsBuffed[2] = true;
                 break;
             case ELaneBuffType.FlameBuff:
+                IsBuffed[3] = true;
                 break;
             case ELaneBuffType.LazerBuff:
                 IsBuffed[4] = true;
@@ -965,7 +966,11 @@ public class Enemy : MonoBehaviour
         }
         if(propertyType == EPropertyType.Cursing)
         {
-
+            GetComponent<EnemyMovement>().Curse();
+        }
+        if(propertyType == EPropertyType.Leading)
+        {
+           // StartCoroutine()
         }
     }
     IEnumerator IE_GenerateEnemy()

@@ -86,7 +86,7 @@ public class EnemyMovement : MonoBehaviour
         Target = Waypoints.points[Route][WaypointIndex];   // Ÿ���� ����
     }
 
-    void Curse()
+    public void Curse()
     {
         GameManager.instance.isCursed = true;
     }
