@@ -17,6 +17,8 @@ public class TowerButtonGenerate : MonoBehaviour
 
     GameObject SelectedTowerDisabled;
 
+    RectTransform rectTransform;
+
     private int tower_num = 13; //데이터베이스에서 받아야 함
 
     public int fontSize = 16;
@@ -31,8 +33,17 @@ public class TowerButtonGenerate : MonoBehaviour
 
     int FlameTowerRotationCnt = 0;
 
+    private void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
+
     public void CreateBtn()
     {
+        int BtnCnt = 0;
+
+        float BtnSize = 0;
+
         for (ETowerName TName = ETowerName.Arrow; TName <= ETowerName.Bomb; TName++)
         {
             // enum에는 있고 csv에 없는 타워는 버튼 생성 X
@@ -83,7 +94,23 @@ public class TowerButtonGenerate : MonoBehaviour
                     btn.interactable = true;
                 }
             });
+
+            BtnCnt++;
+
+            if(BtnCnt == 1)
+            {
+                BtnSize = btn.GetComponent<RectTransform>().sizeDelta.x;
+            }
         }
+
+        // 테두리 사이즈 조정
+        var grid = GetComponentInChildren<HorizontalLayoutGroup>();
+
+        float padding = grid.padding.left * 2;
+
+        float spacing = grid.spacing;
+
+        rectTransform.sizeDelta = new Vector2(padding + BtnCnt * BtnSize + (BtnCnt - 1) * spacing, rectTransform.sizeDelta.y);
     }
 
     public void OnBuildTowerBtnClick(ETowerName TName)
