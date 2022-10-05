@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
     }
 
     bool ShieldOn = true;
+    [SerializeField]
     float _Armor;
     public float Armor
     {
@@ -239,7 +240,7 @@ public class Enemy : MonoBehaviour
             case ETowerName.Arrow:
                 if (IsBuffed[0])
                 {
-                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+                    float buffedBonus = Tables.MonsterLaneBuff.Get(currentBuffType)._Amount;
 
                     damage += damage * buffedBonus / 100;
                     StartCoroutine(IE_BuffTimeLast(() =>
@@ -251,7 +252,7 @@ public class Enemy : MonoBehaviour
             case ETowerName.Hourglass:
                 if (IsBuffed[1])
                 {
-                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+                    float buffedBonus = Tables.MonsterLaneBuff.Get(currentBuffType)._Amount;
                     Speed *= (100+buffedBonus) / 100;
                     
                 }
@@ -260,7 +261,7 @@ public class Enemy : MonoBehaviour
                 if (IsBuffed[2])
                 {
 
-                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+                    float buffedBonus = Tables.MonsterLaneBuff.Get(currentBuffType)._Amount;
 
                     damage += damage * buffedBonus / 100;
                     StartCoroutine(IE_BuffTimeLast(() =>
@@ -272,7 +273,7 @@ public class Enemy : MonoBehaviour
             case ETowerName.Flame:
                 if (IsBuffed[3])
                 {
-                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+                    float buffedBonus = Tables.MonsterLaneBuff.Get(currentBuffType)._Amount;
 
                     damage += damage * buffedBonus / 100;
                     StartCoroutine(IE_BuffTimeLast(() =>
@@ -284,7 +285,7 @@ public class Enemy : MonoBehaviour
             case ETowerName.Laser:
                 if (IsBuffed[4])
                 {
-                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+                    float buffedBonus = Tables.MonsterLaneBuff.Get(currentBuffType)._Amount;
 
                     damage += damage * buffedBonus / 100;
                     StartCoroutine(IE_BuffTimeLast(() =>
@@ -296,7 +297,7 @@ public class Enemy : MonoBehaviour
             case ETowerName.Missile:
                 if (IsBuffed[5])
                 {
-                    float buffedBonus = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Amount;
+                    float buffedBonus = Tables.MonsterLaneBuff.Get(currentBuffType)._Amount;
 
                     damage += damage * buffedBonus / 100;
                     StartCoroutine(IE_BuffTimeLast(() =>
@@ -766,7 +767,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator IE_BuffTimeLast(System.Action onEnd)
     {
-        int bufftime = Tables.MonsterLaneBuff.Get((int)currentBuffType)._Time;
+        int bufftime = Tables.MonsterLaneBuff.Get(currentBuffType)._Time;
         yield return new WaitForSeconds(bufftime);
         onEnd();
     }
