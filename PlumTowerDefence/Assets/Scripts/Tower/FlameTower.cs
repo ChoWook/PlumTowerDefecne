@@ -174,10 +174,42 @@ public class FlameTower : Tower
         {
             PS_Fire.SetActive(false);
         }
-        
 
-        base.Update();
+        if (EnemyList.Count == 0)
+        {
+            return;
+        }
+
+
+        // 발사
+        if (FireCountdown <= 0f)
+        {
+            Shoot();
+            FireCountdown = 1f / SpeedStat;
+        }
+
+        FireCountdown -= Time.deltaTime;
     }
+
+    protected override void UpdateTarget()
+    {
+        EnemyList.Clear();
+
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+
+        foreach (GameObject enemy in enemies)
+        {
+            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+
+            if (distanceToEnemy <= RealRange)
+            {
+                EnemyList.Add(enemy);
+            }
+        }
+    }
+
+
 
     protected override IEnumerator IE_GetTargets()
     {
@@ -199,6 +231,8 @@ public class FlameTower : Tower
         Vector3 basic = forVector.transform.position - transform.position;
         basic = basic.normalized;
 
+        Debug.Log("count : " + EnemyList.Count);
+
         for (int i = 0; i < EnemyList.Count; i++)
         { 
             //EnemyList(사거리 안)에 있는 몬스터 하나씩 받아오기
@@ -209,14 +243,16 @@ public class FlameTower : Tower
             float Dot = Vector3.Dot(basic, dirToTarget);
 
             float EachAngle = Mathf.Acos(Dot) * Mathf.Rad2Deg;
+
+            Debug.Log("Angle" + EachAngle);
                 
-            if (EachAngle < RealAngle / 2 )
+            if (EachAngle <= RealAngle / 2 )
             {
                 Enemy enemy = target.GetComponent<Enemy>();
-
+                Debug.Log("Attack");
                 enemy.TakeDamage(AttackStat, AttackSpecialization, TowerName);
                 enemy.TakeTowerDebuff(ETowerDebuffType.Slow, SlowAmount);
-
+               
             }
 
         }

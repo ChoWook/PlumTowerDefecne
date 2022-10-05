@@ -57,7 +57,7 @@ public class Tower : IObjectOnTile
     public List<float> SpeedPlusModifier = new List<float>();                              // SpeedStat 반영리스트(덧셈)
     public List<float> SpeedMultiModifier = new List<float>();                             // SpeedStat 반영리스트(곱셈)
 
-    private float FireCountdown = 0f;                                                       // 발사 카운트다운
+    protected float FireCountdown = 0f;                                                       // 발사 카운트다운
 
     // Buff량
     public float AttackBuffAmount;
