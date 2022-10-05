@@ -168,7 +168,6 @@ public class UpdateTowerUI : MonoBehaviour
 
     public void OnUpgradeBtnClick()
     {
-        // TODO 타워 최대 업그레이드 횟수는 GlobalSystem에 쓰여야 함
         if(_tower == null || _tower.UpgradeCount >= Tables.GlobalSystem.Get("Tower_Upgrade_Max")._Value)
         {
             return;
