@@ -78,7 +78,14 @@ public class Option : MonoBehaviour
 
     public void OnEffectSoundToggleValueChanged(bool Checked)
     {
-        
+        var sounds = FindObjectsOfType<SoundPlay>();
+
+        SoundPlay.IsOn = Checked;
+
+        for (int i = 0; i < sounds.Length; i++)
+        {
+            sounds[i].SetVolume((Checked)? 1 : 0);
+        }
     }
 
     public void OnMoveScreenMouseToggleValueChanged(bool Checked)
