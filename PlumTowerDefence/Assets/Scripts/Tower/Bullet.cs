@@ -199,14 +199,17 @@ public class Bullet : MonoBehaviour
             if (Vector3.Distance(transform.position, LaserDestination) <= 0.01f) // 더 좋은 방법?
             {
 
+                if (gameObject.activeSelf)
+                {
+                    Lt.StartCoroutine(nameof(Lt.IE_CoolTime));
+                }
+
+
                 DestroyBullet();
 
                 Lt.Laser.SetActive(false);
 
-                if(gameObject.activeSelf)
-                {
-                    Lt.StartCoroutine(nameof(Lt.IE_CoolTime));
-                }
+                
                 
             }
 
