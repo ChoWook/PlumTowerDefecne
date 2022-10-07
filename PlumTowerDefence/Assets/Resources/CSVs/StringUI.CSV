@@ -26,7 +26,7 @@ int,StringUI,String
 24,Tower_Resource_Passive_Select,"타워, 자원, 패시브 선택"
 25,Upgrade_Title,강화 제목
 26,Upgrade_Contents,강화 설명
-27,Required_Xp,요구되는 Xp 
+27,Required_Xp,Xp : {0}
 28,Tower_UI_Name,타워의 이름
 29,Tower_Level,타워 레벨 : {0}
 30,Tower_Damage,타워 데미지 : {0}
