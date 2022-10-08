@@ -24,6 +24,26 @@ public class MiningUI : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            OnPickaxeSelectBtnClicK(EPickaxeType.Wood);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            OnPickaxeSelectBtnClicK(EPickaxeType.Blue);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            OnPickaxeSelectBtnClicK(EPickaxeType.Red);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            OnPickaxeSelectBtnClicK(EPickaxeType.Black);
+        }
+    }
+
     public void SetResource(Resource Sender)
     {
         _Resource = Sender;

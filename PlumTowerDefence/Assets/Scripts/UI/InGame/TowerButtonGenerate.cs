@@ -33,6 +33,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
     int FlameTowerRotationCnt = 0;
 
+    Dictionary<ETowerName, Button> TowerBtns = new();
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -77,6 +78,8 @@ public class TowerButtonGenerate : MonoBehaviour
 
             // 버튼 클릭 리스너 설정
             Button btn = obj.GetComponent<Button>();
+
+            TowerBtns.TryAdd(TName, btn);
 
             ETowerName tmp = TName;                                         // Ref 값으로 들어가는걸 막기 위한 tmp 변수 생성
 
@@ -220,6 +223,55 @@ public class TowerButtonGenerate : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            TowerBtns[ETowerName.Arrow].onClick?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.H))
+        {
+            TowerBtns[ETowerName.Hourglass].onClick?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            TowerBtns[ETowerName.Poison].onClick?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            TowerBtns[ETowerName.Flame].onClick?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.T))
+        {
+            TowerBtns[ETowerName.AttackBuff].onClick?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            TowerBtns[ETowerName.Laser].onClick?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            TowerBtns[ETowerName.Electric].onClick?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.G))
+        {
+            TowerBtns[ETowerName.Gatling].onClick?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            TowerBtns[ETowerName.Cannon].onClick?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.B))
+        {
+            TowerBtns[ETowerName.Bomb].onClick?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            TowerBtns[ETowerName.SpeedBuff].onClick?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            TowerBtns[ETowerName.Missile].onClick?.Invoke();
+        }
+
         if (hits == null || SelectedTower == null)
         {
             return;
@@ -316,9 +368,7 @@ public class TowerButtonGenerate : MonoBehaviour
 
             SelectedTower = null;
         }
-
-        // 오른쪽 마우스 클릭 시 타워 설치 취소
-        if (Input.GetMouseButtonUp(1))
+        else if (Input.GetMouseButtonUp(1))
         {
             if(SelectedTower == null)
             {

@@ -24,6 +24,17 @@ public class UpdateGroundTowerUI : MonoBehaviour
 
     int sellPrice = 0;
 
+    private void Update()
+    {
+        if (Input.GetKey("U"))
+        {
+            OnUpgradeBtnClick();
+        }
+        else if (Input.GetKey("D"))
+        {
+            OnSellBtnClick();
+        }
+    }
     public void SetTower(Tower tower)
     {
         _tower = tower;

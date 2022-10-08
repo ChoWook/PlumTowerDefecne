@@ -23,6 +23,17 @@ public class UpdateAllTowerUI : MonoBehaviour
 
     int sellPrice = 0;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            OnUpgradeBtnClick();
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            OnSellBtnClick();
+        }
+    }
     public void SetTower(Tower tower)
     {
         _tower = tower;
