@@ -27,6 +27,14 @@ public class InGameButtonManager : MonoBehaviour
         InGameUpgradePanel = GameObject.Find("InGameUpgradePanel");
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            OnFastButtonClick();
+        }
+    }
+
     public void SetValueChangeCallback()
     {
         GameManager.instance.AddStageClearCallBack(StageClear);
