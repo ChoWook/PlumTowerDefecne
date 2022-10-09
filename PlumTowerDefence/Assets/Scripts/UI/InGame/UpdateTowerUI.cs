@@ -37,6 +37,19 @@ public class UpdateTowerUI : MonoBehaviour
             SetTarget();
         }
 
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            OnUpgradeBtnClick();
+        }
+        else if (Input.GetKeyDown(KeyCode.M))
+        {
+            OnMoveBtnClick();
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            OnSellBtnClick();
+        }
+
         if (hits == null || DisabledTower == null)
         {
             return;
@@ -88,9 +101,8 @@ public class UpdateTowerUI : MonoBehaviour
 
             _tower.MoveTower(tile);
         }
-
         // 오른쪽 마우스 클릭 시 타워 설치 취소
-        if (Input.GetMouseButtonUp(1))
+        else if (Input.GetMouseButtonUp(1))
         {
             if (DisabledTower == null)
             {

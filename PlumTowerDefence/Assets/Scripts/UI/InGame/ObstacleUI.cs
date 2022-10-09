@@ -17,6 +17,18 @@ public class ObstacleUI : MonoBehaviour
 
     Obstacle _Obstacle;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            OnAcceptBtnClicK();
+        }
+        else if (Input.GetKeyDown(KeyCode.N))
+        {
+            OnCancelBtnClick();
+        }
+    }
+
     public void SetObstacle(Obstacle Sender)
     {
         _Obstacle = Sender;

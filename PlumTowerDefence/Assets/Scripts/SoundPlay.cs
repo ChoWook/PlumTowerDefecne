@@ -7,6 +7,12 @@ public class SoundPlay : MonoBehaviour
 {
     public static bool IsOn = true;
 
+    public bool IsLoop = false;
+
+    public bool Is3DSound = true;
+
+    public bool IsPlayOnAwake = false;
+
     AudioSource Source;
 
     float BaseVolume;
@@ -15,9 +21,11 @@ public class SoundPlay : MonoBehaviour
     {
         Source = GetComponent<AudioSource>();
 
-        Source.loop = false;
+        Source.loop = IsLoop;
 
-        Source.spatialBlend = 1;
+        Source.spatialBlend = (Is3DSound)? 1 : 0;
+
+        Source.playOnAwake = IsPlayOnAwake;
 
         BaseVolume = Source.volume;
     }

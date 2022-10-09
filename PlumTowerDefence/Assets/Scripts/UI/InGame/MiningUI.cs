@@ -24,6 +24,26 @@ public class MiningUI : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            OnPickaxeSelectBtnClicK(EPickaxeType.Wood);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            OnPickaxeSelectBtnClicK(EPickaxeType.Blue);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            OnPickaxeSelectBtnClicK(EPickaxeType.Red);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            OnPickaxeSelectBtnClicK(EPickaxeType.Black);
+        }
+    }
+
     public void SetResource(Resource Sender)
     {
         _Resource = Sender;
@@ -57,7 +77,7 @@ public class MiningUI : MonoBehaviour
         for(EPickaxeType PickaxeType = EPickaxeType.Wood; PickaxeType <= EPickaxeType.Black; PickaxeType++)
         {
             PickaxeBtns[(int)PickaxeType - 1].transform.GetComponentInChildren<TextMeshProUGUI>().text
-                = $"{Tables.Pickaxe.Get(PickaxeType)._Korean}({Tables.Pickaxe.Get(PickaxeType)._Price})";
+                = $"{Tables.Pickaxe.Get(PickaxeType)._Korean}({Tables.Pickaxe.Get(PickaxeType)._Price})(<color=red>{(int)PickaxeType}</color>)";
         }
         
         ResourceNameText.text = Tables.MapGimmickResource.Get(_Resource.ResourceType)._Korean;
