@@ -25,19 +25,15 @@ public class Loading : MonoBehaviour
         {
             yield return null;
             timer += Time.deltaTime;
+            progressBar.value = 1 - Mathf.Lerp(0, 1f, timer * op.progress);
+
             if (op.progress < 0.9f)
             {
-                progressBar.value = 1 - Mathf.Lerp(progressBar.value, op.progress, timer);
-                if (progressBar.value >= op.progress)
-                {
-                    timer = 0f;
-                }
+                progressBar.value = 1 - Mathf.Lerp(0, 1, timer * op.progress);
             }
             else
             {
-                Debug.Log(timer);
-                progressBar.value = 1 - Mathf.Lerp(progressBar.value, 1f, timer);
-                if (progressBar.value == 1.0f||timer>5) 
+                if (progressBar.value == 1.0f||timer>3) 
                 {
                     op.allowSceneActivation = true;
                     yield break;
