@@ -262,6 +262,15 @@ public class GameManager : MonoBehaviour
         get { return _isPausing; }
         set { _isPausing = value; }
     }
+    
+    private bool _isFast = false;
+
+    public bool IsFast
+    {
+        get { return _isFast; }
+        set { _isFast = value; }
+    }
+    
 
     private int _currentEnemyNumber;
 
