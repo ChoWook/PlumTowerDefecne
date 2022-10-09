@@ -43,8 +43,8 @@ int,StringUI,String
 41,Music,배경음악
 42,Sound,효과음
 43,Obstacle_Remove_Cost,제거비용 : {0}
-44,Obstacle_Cancel,제거취소
-45,Obstacle_Remove,제거하기
+44,Obstacle_Cancel,제거취소(N)
+45,Obstacle_Remove,제거하기(Y)
 46,Treasure_Money,+{0}
 47,Treasure_Low_Cost_Tower,+{0}
 48,Treasure_Second_Low_Cost_Tower,+{0}

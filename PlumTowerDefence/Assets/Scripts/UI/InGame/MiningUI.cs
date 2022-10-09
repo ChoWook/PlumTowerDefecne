@@ -77,7 +77,7 @@ public class MiningUI : MonoBehaviour
         for(EPickaxeType PickaxeType = EPickaxeType.Wood; PickaxeType <= EPickaxeType.Black; PickaxeType++)
         {
             PickaxeBtns[(int)PickaxeType - 1].transform.GetComponentInChildren<TextMeshProUGUI>().text
-                = $"{Tables.Pickaxe.Get(PickaxeType)._Korean}({Tables.Pickaxe.Get(PickaxeType)._Price})";
+                = $"{Tables.Pickaxe.Get(PickaxeType)._Korean}({Tables.Pickaxe.Get(PickaxeType)._Price})(<color=red>{(int)PickaxeType}</color>)";
         }
         
         ResourceNameText.text = Tables.MapGimmickResource.Get(_Resource.ResourceType)._Korean;
