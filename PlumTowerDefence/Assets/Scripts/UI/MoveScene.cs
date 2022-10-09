@@ -11,7 +11,7 @@ public class MoveScene : MonoBehaviour
     
     public static void MoveDefenceScene()
     {
-        SceneManager.LoadScene("DefenceScene");
+        SceneManager.LoadScene("LoadingScene");
     }
 
     public static void MoveTitleScene()
