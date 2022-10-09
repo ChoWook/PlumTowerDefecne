@@ -21,8 +21,6 @@ public class InGameButtonManager : MonoBehaviour
     [SerializeField] private GameObject startButton;
 
     private GameObject InGameUpgradePanel;
-
-    private bool isFast = false;                    //임시용, 나중에 GameManager로 옮길 확률 큼
     
     private void Awake()
     {
@@ -121,15 +119,15 @@ public class InGameButtonManager : MonoBehaviour
 
     public void OnFastButtonClick()
     {
-        if (!isFast)
+        if (!GameManager.instance.IsFast)
         {
             Time.timeScale = 5f;
-            isFast = true;
+            GameManager.instance.IsFast = true;
         }
         else
         {
             Time.timeScale = 1;
-            isFast = false;
+            GameManager.instance.IsFast = false;
         }
     }
 }

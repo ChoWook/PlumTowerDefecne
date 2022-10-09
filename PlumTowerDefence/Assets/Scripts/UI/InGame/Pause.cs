@@ -39,7 +39,14 @@ public class Pause : MonoBehaviour
 
     public void resume()
     {
-        Time.timeScale = 1;
+        if (GameManager.instance.IsFast)
+        {
+            Time.timeScale = 5;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
         GameManager.instance.IsPausing = false;
         pauseUI.SetActive(false);
         pauseBackGround.SetActive(false);
