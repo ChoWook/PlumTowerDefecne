@@ -46,7 +46,7 @@ public class Tables : ScriptableObject
             UpgradePassiveStat.Load();
 
             IsLoaded = true;
-            Debug.Log("Load End");
+            //Debug.Log("Load End");
         }
     }
 
@@ -61,7 +61,7 @@ public class Tables : ScriptableObject
             //_data.Add(Sender);
             if (_map.ContainsKey(_ID))
             {
-                Debug.LogWarning($"Key {_ID} is already contained");
+                //Debug.LogWarning($"Key {_ID} is already contained");
             }
             else
             {
@@ -76,8 +76,8 @@ public class Tables : ScriptableObject
 
             if(ret == null)
             {
-                Debug.Log($"Key {key} is not Contained.");
-                Debug.Log($"Map.Count = {_map.Count}");
+                //Debug.Log($"Key {key} is not Contained.");
+                //Debug.Log($"Map.Count = {_map.Count}");
             }
             return ret;
         }
@@ -101,7 +101,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/StringUI");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("StringUI : " + dataLines.Length);
+            //Debug.Log("StringUI : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -147,7 +147,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/GlobalSystem");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("GlobalSystem : " + dataLines.Length);
+            //Debug.Log("GlobalSystem : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -195,7 +195,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/GroundPattern");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("GroundPattern : " + dataLines.Length);
+            //Debug.Log("GroundPattern : " + dataLines.Length);
 
             // 타입별로 분류하기 위해 딕셔너리에 분배
             for (EGroundType j = EGroundType.TR; j <= EGroundType.URD; j++)
@@ -257,7 +257,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MapPattern");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MapPattern : " + dataLines.Length);
+            //Debug.Log("MapPattern : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -314,7 +314,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MapGimmick");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MapGimmick : " + dataLines.Length);
+            //Debug.Log("MapGimmick : " + dataLines.Length);
 
             _MapWithType = new Dictionary<EMapGimmickType, MapGimmick>();
 
@@ -360,7 +360,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MapGimmickObstacle");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MapGimmickObstacle : " + dataLines.Length);
+            //Debug.Log("MapGimmickObstacle : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -399,7 +399,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MapGimmickResource");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MapGimmickResource : " + dataLines.Length);
+            //Debug.Log("MapGimmickResource : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -448,7 +448,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/Pickaxe");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("Pickaxe : " + dataLines.Length);
+            //Debug.Log("Pickaxe : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -507,7 +507,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/Monster");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("Monster : " + dataLines.Length);
+            //Debug.Log("Monster : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -538,7 +538,7 @@ public class Tables : ScriptableObject
                 Tmp._Speciality_1 = int.Parse(data[idx++]);
                 Tmp._Speciality_2 = int.Parse(data[idx++]);
 
-                //Debug.Log($"End ADD Monster {Tmp._ID}");
+                ////Debug.Log($"End ADD Monster {Tmp._ID}");
 
                 Tmp.Add(Tmp);
             }
@@ -563,7 +563,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterAmount");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MonsterAmount : " + dataLines.Length);
+            //Debug.Log("MonsterAmount : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -618,7 +618,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterClass");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MonsterClass : " + dataLines.Length);
+            //Debug.Log("MonsterClass : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -659,7 +659,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterLevel");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MonsterLevel : " + dataLines.Length);
+            //Debug.Log("MonsterLevel : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -697,7 +697,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterProperty");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MonsterProperty : " + dataLines.Length);
+            //Debug.Log("MonsterProperty : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -733,7 +733,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterPropertyAmount");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MonsterPropertyAmount : " + dataLines.Length);
+            //Debug.Log("MonsterPropertyAmount : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -770,7 +770,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterSpeciality");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MonsterSpeciality : " + dataLines.Length);
+            //Debug.Log("MonsterSpeciality : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -807,7 +807,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterSpecialityAmount");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MonsterSpecialityAmount : " + dataLines.Length);
+            //Debug.Log("MonsterSpecialityAmount : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -854,7 +854,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterLaneBuff");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MonsterLaneBuff : " + dataLines.Length);
+            //Debug.Log("MonsterLaneBuff : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -907,7 +907,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterMoneyAmount");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MonsterMoneyAmount : " + dataLines.Length);
+            //Debug.Log("MonsterMoneyAmount : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -944,7 +944,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/MonsterElementStat");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("MonsterElementStat : " + dataLines.Length);
+            //Debug.Log("MonsterElementStat : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -996,7 +996,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/Tower");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("Tower : " + dataLines.Length);
+            //Debug.Log("Tower : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -1054,7 +1054,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/UpgradeButton");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("UpgradeButton : " + dataLines.Length);
+            //Debug.Log("UpgradeButton : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -1090,7 +1090,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/UpgradeCategory");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("UpgradeCategory : " + dataLines.Length);
+            //Debug.Log("UpgradeCategory : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -1128,7 +1128,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/UpgradeCard");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("UpgradeCard : " + dataLines.Length);
+            //Debug.Log("UpgradeCard : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {
@@ -1170,7 +1170,7 @@ public class Tables : ScriptableObject
             TextAsset dataset = Resources.Load<TextAsset>(@"CSVs/UpgradePassiveStat");
             string[] dataLines = dataset.text.Split("\n");
 
-            Debug.Log("UpgradePassiveStat : " + dataLines.Length);
+            //Debug.Log("UpgradePassiveStat : " + dataLines.Length);
 
             for (int i = 2; i < dataLines.Length; i++)
             {

@@ -26,11 +26,11 @@ public class UpdateGroundTowerUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey("U"))
+        if (Input.GetKeyDown(KeyCode.U))
         {
             OnUpgradeBtnClick();
         }
-        else if (Input.GetKey("D"))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             OnSellBtnClick();
         }
