@@ -49,7 +49,6 @@ public class ParticleExplosion : MonoBehaviour
 
 
         Source.Play();
-        Debug.Log("Sound! ");
         StartCoroutine(IE_psDelay(time));
     }
 
@@ -59,13 +58,13 @@ public class ParticleExplosion : MonoBehaviour
 
         yield return ws;
 
-        if(towername == ETowerName.Missile)
-        {
-            ObjectPools.Instance.ReleaseObjectToPool(gameObject);
-        }
-        else if (towername == ETowerName.Cannon)
+        if (towername == ETowerName.Cannon)
         {
             gameObject.SetActive(false);
+        }
+        else
+        {
+            ObjectPools.Instance.ReleaseObjectToPool(gameObject);
         }
         
     }
