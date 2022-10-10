@@ -92,7 +92,6 @@ public class Upgrade : MonoBehaviour
                 foreach (var child in children)
                 { 
                     child.ChangeSprite(); 
-                    Debug.Log("child : " + child.name);
                 }
             }
         }

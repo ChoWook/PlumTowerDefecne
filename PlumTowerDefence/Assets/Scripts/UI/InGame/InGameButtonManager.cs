@@ -29,7 +29,7 @@ public class InGameButtonManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
             OnFastButtonClick();
         }
@@ -90,11 +90,6 @@ public class InGameButtonManager : MonoBehaviour
             expandButton.SetActive(false);
             startButton.SetActive(true);
 
-        }
-        else
-        {
-            Debug.Log("전투중입니다!");
-            Debug.Log("남은 몬스터수: " + GameManager.instance.CurrentEnemyNumber);
         }
     }
 

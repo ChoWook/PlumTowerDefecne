@@ -70,13 +70,18 @@ public class Category : MonoBehaviour
     
     private void GenerateCategory(int num, ECategoryType type)
     {
+        int position = 1;
         for (int i = 1; i <= num; i++)
         {
+            if(type == ECategoryType.Tower && i == 10)  //벽
+                continue;
+            
             GameObject obj = ObjectPools.Instance.GetPooledObject("UpgradeCategoryButton");
 
             obj.transform.localScale = new Vector3(1f, 1f, 1f);
             obj.transform.SetParent(transform);
-            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 400 - (i - 1) * 67);
+            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 400 - (position - 1) * 67);
+            position++;
 
             switch (type)
             {

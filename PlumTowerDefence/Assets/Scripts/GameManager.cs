@@ -126,7 +126,6 @@ public class GameManager : MonoBehaviour
 
     public void CallBackClear()
     {
-        Debug.Log("CALLBACKCLEAR");
         RemoveStageClearCallBack();
         RemoveLevelChangeCallBack();
         RemoveXpChangeCallBack();
@@ -365,7 +364,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("RemoveCoupon Error");
+            //Debug.LogWarning("RemoveCoupon Error");
         }
     }
 

@@ -34,8 +34,6 @@ public class TowerUI : MonoBehaviour, IPointerClickHandler
 
     private void ShowTowerUI()
     {
-        Debug.Log("ShowTowerUI");
-
         Tower t = GetComponent<Tower>();
 
         if( t == null)
@@ -52,8 +50,6 @@ public class TowerUI : MonoBehaviour, IPointerClickHandler
 
     private void ShowGroundTowerUI()
     {
-        Debug.Log("ShowGroundTowerUI");
-
         Tower t = GetComponent<Tower>();
 
         if (t == null)

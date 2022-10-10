@@ -3659,6 +3659,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AllTowerUI
       objectReference: {fileID: 0}
+    - target: {fileID: 2483467480358167458, guid: 6822247f70fb9284c990c4e012acfcb4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3982894654612110902, guid: 6822247f70fb9284c990c4e012acfcb4,
         type: 3}
       propertyPath: m_Pivot.x
@@ -3764,6 +3769,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4060812156217703255, guid: 6822247f70fb9284c990c4e012acfcb4,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060812156217703255, guid: 6822247f70fb9284c990c4e012acfcb4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 16c5f85899ca3c74c85352d5d0b85346,
+        type: 3}
+    - target: {fileID: 4060812156217703255, guid: 6822247f70fb9284c990c4e012acfcb4,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060812156217703255, guid: 6822247f70fb9284c990c4e012acfcb4,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060812156217703255, guid: 6822247f70fb9284c990c4e012acfcb4,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060812156217703255, guid: 6822247f70fb9284c990c4e012acfcb4,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8577402315652713533, guid: 6822247f70fb9284c990c4e012acfcb4,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -3817,11 +3853,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TowerUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000135244142728161, guid: 097427cfd674c3d48ae8c8a69c61dee1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000135244142728162, guid: 097427cfd674c3d48ae8c8a69c61dee1,
         type: 3}
@@ -4012,6 +4043,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1709268313}
     m_Modifications:
+    - target: {fileID: 1563365726052657738, guid: 10b92a9f4e899c545ac7613d59ccd3af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2496529178853216636, guid: 10b92a9f4e899c545ac7613d59ccd3af,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4117,10 +4153,51 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3604269762145714682, guid: 10b92a9f4e899c545ac7613d59ccd3af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4041835949935700940, guid: 10b92a9f4e899c545ac7613d59ccd3af,
         type: 3}
       propertyPath: m_Name
       value: GroundTowerUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041835949935700940, guid: 10b92a9f4e899c545ac7613d59ccd3af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851299120678786495, guid: 10b92a9f4e899c545ac7613d59ccd3af,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851299120678786495, guid: 10b92a9f4e899c545ac7613d59ccd3af,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 16c5f85899ca3c74c85352d5d0b85346,
+        type: 3}
+    - target: {fileID: 4851299120678786495, guid: 10b92a9f4e899c545ac7613d59ccd3af,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851299120678786495, guid: 10b92a9f4e899c545ac7613d59ccd3af,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851299120678786495, guid: 10b92a9f4e899c545ac7613d59ccd3af,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851299120678786495, guid: 10b92a9f4e899c545ac7613d59ccd3af,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b92a9f4e899c545ac7613d59ccd3af, type: 3}
