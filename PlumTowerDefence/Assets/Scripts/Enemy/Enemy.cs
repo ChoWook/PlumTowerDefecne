@@ -39,10 +39,14 @@ public class Enemy : MonoBehaviour
     float _Armor;
     public float Armor
     {
-        get { return _Armor; }
-        set { _Armor = value;}
+        get {
+            return _Armor; 
+        
+        }
+        set {
+            _Armor = value * ArmorBuff;
+        }
     }
-
     protected float BaseArmor;            
     public float BaseSpeed;               
     public float Speed;
@@ -68,6 +72,9 @@ public class Enemy : MonoBehaviour
     public bool hasGenerated;
     public bool IsSlowed = false;
     public bool IsPoisoned = false;
+    public bool isLeaded;
+   
+
    // private int dividedEnemyNum = 0;
     public int specialityType;
     private float PoisonTime;
@@ -77,6 +84,7 @@ public class Enemy : MonoBehaviour
     private float BurnRunTime;
     private float BurnDamage;
     private float SlowAmount;
+    float ArmorBuff = 1.0f;
 
 
     private int[] currentLevel = new int[8];
@@ -91,9 +99,10 @@ public class Enemy : MonoBehaviour
 
     MonsterUI monsterUI;
     EnemyName enemyName;
-    EnemySound enemySound;
     Animator animator;
     float SlowedAbilty;
+
+    public List<GameObject> EnemyList = new List<GameObject>();
 
     private void Awake()
     {
@@ -104,7 +113,6 @@ public class Enemy : MonoBehaviour
         
         monsterUI = transform.Find("Canvas").GetComponent<MonsterUI>();
         enemyName = transform.Find("Canvas").Find("HP bar").Find("Name").GetComponent<EnemyName>();
-        enemySound = GameObject.Find("EnemySound").GetComponent<EnemySound>();
     }
     private void OnEnable()
     {
@@ -124,6 +132,7 @@ public class Enemy : MonoBehaviour
         IsSlowed = false;
         IsPoisoned = false;
         hasGenerated = false;
+        isLeaded = false;
 
         PoisonTime = 0f;
         PoisonRunTime = 0f;
@@ -132,6 +141,7 @@ public class Enemy : MonoBehaviour
         BurnRunTime = 0f;
         BurnDamage = 0f;
         SlowAmount = 0f;
+        ArmorBuff = 1f;
 
         propertyType = EPropertyType.None;
         SpecialityType = ESpecialityType.None;
@@ -350,7 +360,10 @@ public class Enemy : MonoBehaviour
         if (CurrentHP <= 0)
         {
             monsterUI.gameObject.SetActive(false);
-
+            if(propertyType == EPropertyType.Leading)
+            {
+                leadDead();
+            }
             if (propertyType == EPropertyType.Resurrect)
             {
                 Resurrect(); 
@@ -412,7 +425,6 @@ public class Enemy : MonoBehaviour
         enemyName.HideName();
         //GetComponent<EnemyMovement>().MoveSpeed = 0;
         //Debug.Log("Killed Enemy" + "Current Enemy Num: " + GameManager.instance.currentEnemyNumber);
-        enemySound.DeadEnemySound();
         StartCoroutine(IE_PlayDeadAnimation());
     }
 
@@ -444,7 +456,6 @@ public class Enemy : MonoBehaviour
         if(propertyType == EPropertyType.Divided){
             getComponent.propertyType = EPropertyType.Divided;
             getComponent.enemyName.ShowName();
-            Debug.Log("Divided");
         }
         getComponent.MaxHP = MaxHP;
         getComponent.MaxShield = MaxShield;
@@ -502,7 +513,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeBuff(ELaneBuffType laneBufftype)
     {
-        Debug.Log(laneBufftype);
+        //Debug.Log(laneBufftype);
 
         currentBuffType = laneBufftype;
         float statChange =Tables.MonsterLaneBuff.Get(currentBuffType)._Amount;
@@ -927,7 +938,7 @@ public class Enemy : MonoBehaviour
         int rand;
         if (IsBoss == true)
         {
-            rand = Random.Range(0, 3);
+            rand = Random.Range(0, 5);
             if(rand == 0)
             {
                 propertyType = Tables.MonsterProperty.Get(2)._PropertyType;
@@ -936,10 +947,20 @@ public class Enemy : MonoBehaviour
             {
                 propertyType = Tables.MonsterProperty.Get(6)._PropertyType;
             }
-            else
+            else if(rand == 2)
             {
                 propertyType = Tables.MonsterProperty.Get(8)._PropertyType;
             }
+            else if (rand == 3)
+            {
+                propertyType = Tables.MonsterProperty.Get(9)._PropertyType;
+            }
+            else if (rand == 4)
+            {
+                propertyType = Tables.MonsterProperty.Get(10)._PropertyType;
+            }
+
+
         }
         else if (IsSubBoss == true)
         {
@@ -971,9 +992,68 @@ public class Enemy : MonoBehaviour
         }
         if(propertyType == EPropertyType.Leading)
         {
-           // StartCoroutine()
+            StartCoroutine(IE_LeadEnemy());
         }
     }
+
+    IEnumerator IE_LeadEnemy()
+    {        
+        WaitForSeconds ws = new WaitForSeconds(3f);
+        while (true)
+        {
+            EnemyList.Clear();
+
+            GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject enemy in Enemies)
+            {
+                if (enemy != gameObject)
+                {
+                    EnemyList.Add(enemy);
+                }
+            }
+            AddLead();
+            yield return ws;
+        }
+    }
+   void AddLead()
+    {
+        float RealRange = 5.0f;
+
+        foreach(GameObject enemy in EnemyList)
+        {
+            Enemy curEnemy = enemy.GetComponent<Enemy>();
+
+            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+            if ((distanceToEnemy <= RealRange) && (curEnemy.isLeaded == false))
+            {
+                curEnemy.isLeaded = true;
+                curEnemy.ArmorBuff = 1.2f;
+                curEnemy.Armor *= 1.0f;
+            }
+
+            if ((distanceToEnemy > RealRange) && (curEnemy.isLeaded == true))
+            {
+                curEnemy.ArmorBuff = 1 / 1.2f;
+                curEnemy.Armor *= 1.0f;
+                curEnemy.isLeaded = false;
+            }
+        }
+        
+    }
+   void leadDead()
+    {
+        foreach(GameObject enemy in EnemyList)
+        {
+            Enemy curEnemy = enemy.GetComponent<Enemy>();
+            if (curEnemy.isLeaded == true)
+            {
+                curEnemy.ArmorBuff = 1 / 1.2f;
+                curEnemy.Armor *= 1.0f;
+                curEnemy.isLeaded = false;
+            }
+        }
+    }
+
     IEnumerator IE_GenerateEnemy()
     {
         WaitForSeconds ws = new WaitForSeconds(3f);

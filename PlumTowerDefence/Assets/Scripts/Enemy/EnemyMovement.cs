@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour
     private static bool CameraLoad = false;
 
     Enemy enemy;
-    EnemySound enemySound;
+    EnemySound deadSound;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
         UICamera = GameObject.Find("UICam").GetComponent<Camera>();
         enemy = GetComponent<Enemy>();
         CameraLoad = true;
-        enemySound = GameObject.Find("EnemySound").GetComponent<EnemySound>();
+        deadSound = GameObject.Find("EnemySound").GetComponent<EnemySound>();
     }
 
     public void InitSpeed(EMonsterType monsterType)
@@ -69,8 +69,10 @@ public class EnemyMovement : MonoBehaviour
         if(WaypointIndex <= 0)
         {
             SendDamagedText();
-            enemySound.AttackEnemySound();
+            //GetComponent<SoundPlay>().Play();
+            deadSound.AttackEnemySound();
             GameManager.instance.CurrentEnemyNumber--;
+
             if(enemy.propertyType == EPropertyType.Cursing)
             {
                 Curse();
