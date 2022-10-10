@@ -5,11 +5,22 @@ using System.Linq;
 
 public class ArrowTower : Tower
 {
+
+    SoundPlay Source;
+
+    public GameObject PT_Fire;
+
+    ParticleSystem particle;
+
     private void Awake()
     {
         Setstat(ETowerName.Arrow);
 
         controller = AnimatorObject.GetComponent<Animator>();
+
+        Source = GetComponent<SoundPlay>();
+
+        particle = PT_Fire.GetComponent<ParticleSystem>();
     }
 
     protected override void OnEnable()
@@ -80,8 +91,12 @@ public class ArrowTower : Tower
     public override void Shoot()
     {
         AnimatorExists(controller, true);
-        base.Shoot();
+        Source.Play();
+        particle.Play();
 
+        base.Shoot();
+        
+        
     }
 
     protected override void Update()

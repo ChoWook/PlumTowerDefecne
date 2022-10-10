@@ -209,6 +209,7 @@ public class Bullet : MonoBehaviour
 
                 Lt.Laser.SetActive(false);
 
+                Lt.PS_Fire.SetActive(false);
                 
                 
             }

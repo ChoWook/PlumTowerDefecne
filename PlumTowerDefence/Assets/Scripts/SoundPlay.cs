@@ -21,7 +21,9 @@ public class SoundPlay : MonoBehaviour
     {
         Source = GetComponent<AudioSource>();
 
-        Source.loop = IsLoop;
+        //Source.loop = IsLoop;
+        SetLoop(IsLoop);
+
 
         Source.spatialBlend = (Is3DSound)? 1 : 0;
 
@@ -46,6 +48,11 @@ public class SoundPlay : MonoBehaviour
     public void Stop()
     {
         Source.Stop();
+    }
+
+    public void SetLoop(bool _loop)
+    {
+        Source.loop = _loop;
     }
 
     public void SetVolume(float Sender)

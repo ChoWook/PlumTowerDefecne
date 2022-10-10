@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class PoisonTower : Tower
 {
+    SoundPlay Source;
+
+    bool SoundIsLoop= false;
+
+    public GameObject PS_Fire;
 
     private void Awake()
     {
         Setstat(ETowerName.Poison);
+
+        Source = GetComponent<SoundPlay>();
+
+        PS_Fire.SetActive(false);
     }
 
     
@@ -110,18 +119,28 @@ public class PoisonTower : Tower
     protected override void Update()
     {
         if (EnemyList.Count == 0)
+        {
+            SoundIsLoop = false;
+            Source.SetLoop(false);
+            PS_Fire.SetActive(false);
             return;
-
-        Shoot();
+        }
 
         
+
+        Shoot();
     }
-
-
-
 
     public override void Shoot()
     {
+        if (!SoundIsLoop)
+        {
+            Source.SetLoop(true);
+            Source.Play();
+            SoundIsLoop = true;
+            PS_Fire.SetActive(true);
+        }
+
         for (int i = 0; i < EnemyList.Count; i++)
         {
             Enemy enemy = EnemyList[i].GetComponent<Enemy>();

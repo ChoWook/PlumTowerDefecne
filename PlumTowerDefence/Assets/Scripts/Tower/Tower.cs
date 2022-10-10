@@ -98,9 +98,7 @@ public class Tower : IObjectOnTile
 
     public GameObject BulletPrefab;
     public Transform FirePoint;
-    public float ProjectileSpeed;                                                       // 투사체 속도
-
-
+    public float ProjectileSpeed;            
 
 
     // 적 스텟 (타겟 지정)

@@ -13,9 +13,17 @@ public class LaserTower : Tower
 
     public GameObject LaserStart;
 
+    public GameObject PS_Fire;
+
+    SoundPlay Source;
+
     private void Awake()
     {
         Setstat(ETowerName.Laser); // onenable에서 변수 값 정리하기
+
+        Source = GetComponent<SoundPlay>();
+
+        PS_Fire.SetActive(false);
     }
 
     protected override void OnEnable()
@@ -100,10 +108,16 @@ public class LaserTower : Tower
        
         if (BulletPrefab != null && Target != null)
         {
+            Source.Play();
+
+            PS_Fire.SetActive(true);
+
             GameObject bulletGO = ObjectPools.Instance.GetPooledObject(BulletPrefab.name);
             bulletGO.transform.position = Target.transform.position;
 
             Bullet b = bulletGO.GetComponent<Bullet>();
+
+            
 
             LightningBoltScript l = Laser.GetComponent<LightningBoltScript>();
 
@@ -111,11 +125,15 @@ public class LaserTower : Tower
             l.EndObject = bulletGO;
 
             Laser.SetActive(true);
+
             
+
             b?.SetTower(this);
             b?.Seek(Target, ProjectileSpeed, AttackStat, AttackSpecialization);
-      
-            if(gameObject.activeSelf)
+
+            
+
+            if (gameObject.activeSelf)
             {
                 StopCoroutine(nameof(IE_GetTargets));
             }
