@@ -894,6 +894,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Swirl_Green
       objectReference: {fileID: 0}
+    - target: {fileID: 167969979598662676, guid: c5a2cedb06d0fe04ca7af833f4187ddc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 167969979598662679, guid: c5a2cedb06d0fe04ca7af833f4187ddc,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -993,6 +998,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Swirl_Green
+      objectReference: {fileID: 0}
+    - target: {fileID: 167969979598662676, guid: c5a2cedb06d0fe04ca7af833f4187ddc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 167969979598662679, guid: c5a2cedb06d0fe04ca7af833f4187ddc,
         type: 3}
