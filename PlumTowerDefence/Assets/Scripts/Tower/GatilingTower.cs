@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class GatilingTower : Tower
 {
@@ -120,6 +121,11 @@ public class GatilingTower : Tower
 
     protected override void Update()
     {
+        if (Target == null)
+        {
+            isShooting = false;
+            Source.SetLoop(false);
+        }
         AnimatorExists(controller, false);
         base.Update();
     }
