@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class AttackBuffTower : Tower
 {
     public const string TowerTag = "Tower";
 
     public List<GameObject> TowerList = new List<GameObject>();
+
+    public GameObject particle;
 
     private void Awake()
     {
@@ -105,6 +109,15 @@ public class AttackBuffTower : Tower
 
     protected override void Update()
     {
+        if (GameManager.instance.IsPlayingGame)
+        { 
+            particle.SetActive(true);
+        }
+        else
+        {
+            particle.SetActive(false);
+        }
+
         if (TowerList.Count == 0)
         {
             return;

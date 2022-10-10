@@ -149,6 +149,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b64730730f37e8849a58f102d90bef3d, type: 3}
+--- !u!1 &5929790605243947742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1278701201046142379, guid: b64730730f37e8849a58f102d90bef3d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4896541808512460661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7103002038528038362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -291,14 +297,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerID: 0
+  AnimatorObject: {fileID: 0}
+  controller: {fileID: 0}
   Range: 0
-  RealRange: 0
   TowerName: 0
   Size: 0
   RealSize: 0
   BaseAttackStat: 0
+  AttackPlusModifier: []
+  AttackMultiModifier: []
   BaseAbilityStat: 0
+  AbilityPlusModifier: []
+  AbilityMultiModifier: []
   BaseSpeedStat: 0
+  SpeedPlusModifier: []
+  SpeedMultiModifier: []
   AttackBuffAmount: 0
   SpeedBuffAmount: 0
   PartToRotate: {fileID: 0}
@@ -307,20 +320,20 @@ MonoBehaviour:
   Selected: 0
   Fixed: 0
   AttackPriorityID: 0
+  MaxUpgrade: 0
   UpgradeStat: 0
   UpgradePrice: 0
   UpgradeCount: 0
   UpgradeAmount: 0
   SellPrice: 0
   MovePrice: 0
-  CheckAttackBuff: 0
-  CheckSpeedBuff: 0
   BulletPrefab: {fileID: 0}
   FirePoint: {fileID: 0}
   ProjectileSpeed: 0
   EnemyList: []
   Target: {fileID: 0}
   TowerList: []
+  particle: {fileID: 5929790605243947742}
 --- !u!4 &6369646033547029404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4248981224369765958, guid: 9ccf42fb3d70fd34f9152a6cc7a27d90,
