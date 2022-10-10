@@ -52,7 +52,7 @@ public class UpdateAllTowerUI : MonoBehaviour
                 if (tile.GetObjectOnTile() != null)
                 {
                     var tower = tile.GetObjectOnTile().GetComponent<Tower>();
-                    if (tower != null)
+                    if (tower != null && tower.Selected == false)
                     {
                         if(tower.TowerName.CompareTo(_tower.TowerName)==0)
                         {
