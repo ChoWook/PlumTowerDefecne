@@ -11,6 +11,8 @@ public class ParticleExplosion : MonoBehaviour
     public AudioClip[] Sounds;
     // Start is called before the first frame update
 
+    ETowerName towername;
+
     private void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
@@ -30,15 +32,17 @@ public class ParticleExplosion : MonoBehaviour
 
     public void Fire(float time, ETowerName name)
     {
-        if (name == ETowerName.Missile)
+        towername = name;
+
+        if (towername == ETowerName.Missile)
         {
             AudioSource.clip = Sounds[0];
         }
-        else if (name == ETowerName.Cannon)
+        else if (towername == ETowerName.Cannon)
         {
             AudioSource.clip = Sounds[1];
         }
-        else if (name == ETowerName.Bomb)
+        else if (towername == ETowerName.Bomb)
         {
             AudioSource.clip = Sounds[2];
         }
@@ -55,6 +59,14 @@ public class ParticleExplosion : MonoBehaviour
 
         yield return ws;
 
-        ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+        if(towername == ETowerName.Missile)
+        {
+            ObjectPools.Instance.ReleaseObjectToPool(gameObject);
+        }
+        else if (towername == ETowerName.Cannon)
+        {
+            gameObject.SetActive(false);
+        }
+        
     }
 }
