@@ -19,7 +19,6 @@ public class GameOver : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         GameManager.instance.AddGameOverCallBack(ShowGameOverUI);
-        Debug.Log("ADDCALLBACK GAMEOVER");
     }
 
     public void ShowGameOverUI()

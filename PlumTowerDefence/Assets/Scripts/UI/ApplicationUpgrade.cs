@@ -20,7 +20,6 @@ public class ApplicationUpgrade : MonoBehaviour
         if (id / 100 == 301)    //HP증가
         {
             GameManager.instance.MaxHp += (int)Tables.UpgradePassiveStat.Get(30101)._Increase_Passive_Value;
-            Debug.Log("hp증가");
         }
 
         if (id / 100 == 302)    //증강체 갯수 증가

@@ -65,7 +65,6 @@ public class UpdateAllTowerUI : MonoBehaviour
         }
 
         UpdateTowerInfo();
-        Debug.Log("SelectedTower count : " + selectedTower.Count);
     }
 
     public void SetTarget()
@@ -121,7 +120,7 @@ public class UpdateAllTowerUI : MonoBehaviour
         //TowerPriority.text =
         //    string.Format(Tables.StringUI.Get(TowerPriority.gameObject.name)._Korean, _tower.AttackPriorityID);
 
-        // TODO ÃÖ´ë ¾÷±ÛÇßÀ» ¶§ String Ãß°¡ ÇÊ¿ä
+        // TODO ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ String ï¿½ß°ï¿½ ï¿½Ê¿ï¿½
         if (upgradePrice == 0)
         {
             TowerUpgrade.text =

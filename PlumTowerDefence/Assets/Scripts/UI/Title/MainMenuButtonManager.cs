@@ -31,13 +31,11 @@ public class MainMenuButtonManager : MonoBehaviour
         //SelectApplicationUpgrade();
         
         MoveScene.MoveDefenceScene();
-        Debug.Log("게임시작");
     }
 
     public void OnClickUpgrade()   //강화 버튼을 눌렀을 때 호출 할 함수
     {
         _panel.transform.DOLocalMoveX(-1920, 1).SetEase(Ease);
-        Debug.Log("강화");
     }
 
     public void OnClickGameEnd()   //게임종료 버튼을 눌렀을 때 호출 할 함수
@@ -59,15 +57,12 @@ public class MainMenuButtonManager : MonoBehaviour
 
     public static void SelectApplicationUpgrade()
     {
-        Debug.Log(JsonManager.instance.usingList.Count);
-
         foreach (var card in JsonManager.instance.SaveData.upgradedCard)
         {
             if (card / 10000 == 3)      //패시브
             {
                 //적용
                 ApplicationUpgrade.instance.ApplicationPassiveUpgrade(card);
-                Debug.Log("적용" + card);
                 //제거
                 JsonManager.instance.usingList.Remove(card);
             }
@@ -84,7 +79,5 @@ public class MainMenuButtonManager : MonoBehaviour
                 JsonManager.instance.usingList.Remove(card);
             }
         }
-
-        Debug.Log(JsonManager.instance.usingList.Count);
     }
 }

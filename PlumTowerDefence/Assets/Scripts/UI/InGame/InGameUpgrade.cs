@@ -43,10 +43,8 @@ public class InGameUpgrade : MonoBehaviour
 
     public void SelectInGameUpgrade(int childIdx)
     {
-        Debug.Log("childIdx = " + childIdx);
         int UpgradeId = transform.GetChild(childIdx).GetComponent<InGameUpgradeSetting>().id;
         ApplicationUpgrade.instance.ApplicationInGameUpgrade(UpgradeId);
-        Debug.Log("증강체"+UpgradeId+"적용");
         JsonManager.instance.usingList.Remove(UpgradeId);
         
         InGameButtonManager.GetComponent<InGameButtonManager>().ShowExpandButton();

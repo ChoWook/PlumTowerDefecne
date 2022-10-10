@@ -50,7 +50,6 @@ public class TowerButtonGenerate : MonoBehaviour
             // enum에는 있고 csv에 없는 타워는 버튼 생성 X
             if (Tables.Tower.Get(TName) == null)
             {
-                Debug.Log("CSV is not contain key : " + TName.ToString());
                 continue;
             }
 
@@ -58,7 +57,6 @@ public class TowerButtonGenerate : MonoBehaviour
             var _t = ObjectPools.Instance.GetPooledObject($"Disabled_{TName}Tower");
             if (_t == null)
             {
-                Debug.Log("Prefabs is not contain key : " + TName.ToString());
                 continue;
             }
             ObjectPools.Instance.ReleaseObjectToPool(_t);

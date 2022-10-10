@@ -76,7 +76,6 @@ public class JsonManager : MonoBehaviour
                     if (Tables.UpgradeCard.Get(i * 10000 + j * 100 + k)._XpCost == 0)
                     {
                         SaveData.upgradedCard.Add(i * 10000 + j * 100 + k);
-                        Debug.Log("Add " + (i * 10000 + j * 100 + k));
                     }
                 }
             }
