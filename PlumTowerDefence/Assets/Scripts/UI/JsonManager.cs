@@ -71,6 +71,8 @@ public class JsonManager : MonoBehaviour
         {
             for (int j = 1; j <= Tables.UpgradeButton.Get(i)._CategoryNum; j++)
             {
+                if(i==1 && j == 10) //벽
+                    continue;
                 for (int k = 1; k <= Tables.UpgradeCategory.Get(i * 10000 + j * 100)._CardNum; k++)
                 {
                     if (Tables.UpgradeCard.Get(i * 10000 + j * 100 + k)._XpCost == 0)
