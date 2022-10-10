@@ -9,6 +9,7 @@ public class UpdateAllTowerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TowerLevel;
     [SerializeField] private TextMeshProUGUI TowerDamage;
     [SerializeField] private TextMeshProUGUI TowerFireRate;
+    [SerializeField] private TextMeshProUGUI TowerAbility;
     //[SerializeField] private TextMeshProUGUI TowerPriority;
     [SerializeField] private TextMeshProUGUI TowerUpgrade;
     [SerializeField] private TextMeshProUGUI TowerMove;
@@ -135,6 +136,96 @@ public class UpdateAllTowerUI : MonoBehaviour
         TowerDemolish.text =
             string.Format(Tables.StringUI.Get(TowerDemolish.gameObject.name)._Korean, sellPrice);
 
+        EnableInfoText();
+    }
+
+    void EnableInfoText()
+    {
+        if (_tower == null)
+        {
+            return;
+        }
+
+        switch (_tower.TowerName)
+        {
+            case ETowerName.Arrow:
+                TowerDamage.gameObject.SetActive(true);
+                TowerFireRate.gameObject.SetActive(true);
+                TowerAbility.gameObject.SetActive(false);
+                break;
+
+            case ETowerName.Hourglass:
+                TowerDamage.gameObject.SetActive(false);
+                TowerFireRate.gameObject.SetActive(false);
+                TowerAbility.gameObject.SetActive(true);
+                TowerAbility.text = string.Format(Tables.StringUI.Get("Hourglass_Tower_Reduced_Speed_UI")._Korean, "*");
+                break;
+
+            case ETowerName.Poison:
+                TowerDamage.gameObject.SetActive(false);
+                TowerFireRate.gameObject.SetActive(false);
+                TowerAbility.gameObject.SetActive(true);
+                TowerAbility.text = string.Format(Tables.StringUI.Get("Poison_Tower_Damage_UI")._Korean, "*");
+                break;
+
+            case ETowerName.Flame:
+                TowerDamage.gameObject.SetActive(true);
+                TowerFireRate.gameObject.SetActive(true);
+                TowerAbility.gameObject.SetActive(false);
+                break;
+
+            case ETowerName.AttackBuff:
+                TowerDamage.gameObject.SetActive(false);
+                TowerFireRate.gameObject.SetActive(false);
+                TowerAbility.gameObject.SetActive(true);
+                TowerAbility.text = string.Format(Tables.StringUI.Get("Attack_Buff_Tower_Ability_UI")._Korean, "*");
+                break;
+
+            case ETowerName.SpeedBuff:
+                TowerDamage.gameObject.SetActive(false);
+                TowerFireRate.gameObject.SetActive(false);
+                TowerAbility.gameObject.SetActive(true);
+                TowerAbility.text = string.Format(Tables.StringUI.Get("Speed_Buff_Tower_Ability_UI")._Korean, "*");
+                break;
+
+            case ETowerName.Laser:
+                TowerDamage.gameObject.SetActive(true);
+                TowerFireRate.gameObject.SetActive(true);
+                TowerAbility.gameObject.SetActive(true);
+                TowerAbility.text = string.Format(Tables.StringUI.Get("Laser_Tower_Rate_UI")._Korean, "*");
+                break;
+
+            case ETowerName.Missile:
+                TowerDamage.gameObject.SetActive(true);
+                TowerFireRate.gameObject.SetActive(true);
+                TowerAbility.gameObject.SetActive(false);
+                break;
+
+            case ETowerName.Electric:
+                TowerDamage.gameObject.SetActive(true);
+                TowerFireRate.gameObject.SetActive(true);
+                TowerAbility.gameObject.SetActive(true);
+                TowerAbility.text = string.Format(Tables.StringUI.Get("Electric_Tower_Enemy_Attack_UI")._Korean, "*");
+                break;
+
+            case ETowerName.Gatling:
+                TowerDamage.gameObject.SetActive(true);
+                TowerFireRate.gameObject.SetActive(true);
+                TowerAbility.gameObject.SetActive(false);
+                break;
+
+            case ETowerName.Cannon:
+                TowerDamage.gameObject.SetActive(true);
+                TowerFireRate.gameObject.SetActive(true);
+                TowerAbility.gameObject.SetActive(false);
+                break;
+
+            case ETowerName.Bomb:
+                TowerDamage.gameObject.SetActive(true);
+                TowerFireRate.gameObject.SetActive(false);
+                TowerAbility.gameObject.SetActive(false);
+                break;
+        }
     }
 
     public void OnUpgradeBtnClick()

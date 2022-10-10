@@ -3854,11 +3854,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerUI
       objectReference: {fileID: 0}
-    - target: {fileID: 4000135244142728161, guid: 097427cfd674c3d48ae8c8a69c61dee1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4000135244142728162, guid: 097427cfd674c3d48ae8c8a69c61dee1,
         type: 3}
       propertyPath: m_Pivot.x
@@ -3962,16 +3957,6 @@ PrefabInstance:
     - target: {fileID: 4000135244142728162, guid: 097427cfd674c3d48ae8c8a69c61dee1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000135245729883590, guid: 097427cfd674c3d48ae8c8a69c61dee1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000135245729883591, guid: 097427cfd674c3d48ae8c8a69c61dee1,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
