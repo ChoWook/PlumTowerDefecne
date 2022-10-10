@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class HourglassTower : Tower
 {
+    public GameObject PS_Fire;
+
+    bool isShooting= false;
+
     private void Awake()
     {
         Setstat(ETowerName.Hourglass);
+
+        PS_Fire.SetActive(false);
     }
 
     
@@ -62,6 +69,8 @@ public class HourglassTower : Tower
     {
         if (EnemyList.Count == 0)
         {
+            PS_Fire.SetActive(false);
+            isShooting = false;
             return;
         }
             
@@ -76,6 +85,12 @@ public class HourglassTower : Tower
 
     public override void Shoot()
     {
+        if(!isShooting)
+        {
+            isShooting = true;
+            PS_Fire.SetActive(true);
+        }
+
         for (int i = 0; i < EnemyList.Count; i++)
         {
             EnemyList[i].GetComponent<Enemy>().SlowEnemy(AbilityStat);

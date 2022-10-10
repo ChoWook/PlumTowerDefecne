@@ -8,6 +8,11 @@ public class ElectricTower : Tower
 {
     public GameObject LightningStart;
 
+    public GameObject PT_Hovering;
+
+    SoundPlay Source;
+
+
     public float ElectricRange;
 
     public float ElecRangeStat = 2f;
@@ -16,6 +21,10 @@ public class ElectricTower : Tower
     private void Awake()
     {
         Setstat(ETowerName.Electric);
+
+        PT_Hovering.SetActive(false); 
+
+        Source = GetComponent<SoundPlay>();
     }
 
     protected override void OnEnable()
@@ -90,6 +99,10 @@ public class ElectricTower : Tower
 
     public override void Shoot()
     {
+        Source.Play();
+        PT_Hovering.SetActive(false);
+        PT_Hovering.SetActive(true);
+
         GameObject L = ObjectPools.Instance.GetPooledObject(BulletPrefab.name);
 
         LightningBoltScript l = L.GetComponent<LightningBoltScript>();
@@ -189,6 +202,7 @@ public class ElectricTower : Tower
         {
             StartCoroutine(nameof(IE_ShowLightning), L);
         }
+
         
     }
 

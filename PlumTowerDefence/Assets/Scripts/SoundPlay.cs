@@ -24,7 +24,6 @@ public class SoundPlay : MonoBehaviour
         //Source.loop = IsLoop;
         SetLoop(IsLoop);
 
-
         Source.spatialBlend = (Is3DSound)? 1 : 0;
 
         Source.playOnAwake = IsPlayOnAwake;

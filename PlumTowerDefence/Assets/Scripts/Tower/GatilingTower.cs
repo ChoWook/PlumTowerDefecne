@@ -8,12 +8,17 @@ public class GatilingTower : Tower
     public GameObject PS_FireBullet;
     public GameObject PS_Particlepoint;
 
+    SoundPlay Source;
+    bool isShooting;
+
 
     private void Awake()
     {
         Setstat(ETowerName.Gatling);
 
         controller = AnimatorObject.GetComponent<Animator>();
+
+        Source = GetComponent<SoundPlay>();
     }
 
     protected override void OnEnable()
@@ -79,6 +84,13 @@ public class GatilingTower : Tower
 
     public override void Shoot()
     {
+        if(!isShooting)
+        {
+            isShooting = true;
+            Source.SetLoop(true);
+            Source.Play();
+        }
+
         AnimatorExists(controller, true);
         base.Shoot();
 

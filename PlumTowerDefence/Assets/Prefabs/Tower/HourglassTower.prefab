@@ -308,6 +308,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e384db88cb5cb7c4da608002d0eae417, type: 3}
+--- !u!1 &5529029382549430395 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 167969979598662676, guid: e384db88cb5cb7c4da608002d0eae417,
+    type: 3}
+  m_PrefabInstance: {fileID: 5687959620914908271}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5529029382549430398 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 167969979598662673, guid: e384db88cb5cb7c4da608002d0eae417,
@@ -428,14 +434,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerID: 0
+  AnimatorObject: {fileID: 0}
+  controller: {fileID: 0}
   Range: 0
-  RealRange: 0
   TowerName: 0
   Size: 0
   RealSize: 0
   BaseAttackStat: 0
+  AttackPlusModifier: []
+  AttackMultiModifier: []
   BaseAbilityStat: 0
+  AbilityPlusModifier: []
+  AbilityMultiModifier: []
   BaseSpeedStat: 0
+  SpeedPlusModifier: []
+  SpeedMultiModifier: []
   AttackBuffAmount: 0
   SpeedBuffAmount: 0
   PartToRotate: {fileID: 0}
@@ -444,19 +457,19 @@ MonoBehaviour:
   Selected: 0
   Fixed: 0
   AttackPriorityID: 0
+  MaxUpgrade: 0
   UpgradeStat: 0
   UpgradePrice: 0
   UpgradeCount: 0
   UpgradeAmount: 0
   SellPrice: 0
   MovePrice: 0
-  CheckAttackBuff: 0
-  CheckSpeedBuff: 0
   BulletPrefab: {fileID: 0}
   FirePoint: {fileID: 0}
   ProjectileSpeed: 0
   EnemyList: []
   Target: {fileID: 0}
+  PS_Fire: {fileID: 5529029382549430395}
 --- !u!114 &1206894532
 MonoBehaviour:
   m_ObjectHideFlags: 0
