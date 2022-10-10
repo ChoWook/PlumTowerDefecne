@@ -5274,6 +5274,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hover_Green
       objectReference: {fileID: 0}
+    - target: {fileID: 9116767202767265202, guid: 93ba170d2b3e3784a8e44061287c67c6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9116767202767265203, guid: 93ba170d2b3e3784a8e44061287c67c6,
         type: 3}
       propertyPath: m_RootOrder
@@ -5353,6 +5358,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hover_Green
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116767202767265202, guid: 93ba170d2b3e3784a8e44061287c67c6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9116767202767265203, guid: 93ba170d2b3e3784a8e44061287c67c6,
         type: 3}
