@@ -178,7 +178,7 @@ public class FlameTower : Tower
             var shape = Pt_Flame.shape;
             var emission = Pt_Flame.emission;
             shape.angle = RealAngle / 2;
-            emission.rateOverTime = RealAngle;
+            emission.rateOverTime = RealAngle * 2;
             PS_Fire.SetActive(true);
             if(!SoundIsLoop)
             {
