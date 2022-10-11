@@ -33,7 +33,7 @@ public class SoundPlay : MonoBehaviour
 
     private void OnEnable()
     {
-        SetVolume((IsOn) ? 1 : 0);
+        SetVolume((IsOn) ? 0.7f : 0);
     }
 
     public void Play()
