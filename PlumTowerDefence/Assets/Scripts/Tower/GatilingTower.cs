@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class GatilingTower : Tower
 {
     public GameObject PS_FireBullet;
     public GameObject PS_Particlepoint;
+
+    SoundPlay Source;
+    bool isShooting;
 
 
     private void Awake()
@@ -14,6 +18,8 @@ public class GatilingTower : Tower
         Setstat(ETowerName.Gatling);
 
         controller = AnimatorObject.GetComponent<Animator>();
+
+        Source = GetComponent<SoundPlay>();
     }
 
     protected override void OnEnable()
@@ -79,6 +85,13 @@ public class GatilingTower : Tower
 
     public override void Shoot()
     {
+        if(!isShooting)
+        {
+            isShooting = true;
+            Source.SetLoop(true);
+            Source.Play();
+        }
+
         AnimatorExists(controller, true);
         base.Shoot();
 
@@ -108,6 +121,11 @@ public class GatilingTower : Tower
 
     protected override void Update()
     {
+        if (Target == null)
+        {
+            isShooting = false;
+            Source.SetLoop(false);
+        }
         AnimatorExists(controller, false);
         base.Update();
     }

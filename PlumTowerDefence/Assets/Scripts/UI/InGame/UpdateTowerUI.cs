@@ -174,7 +174,10 @@ public class UpdateTowerUI : MonoBehaviour
                 TowerDamage.gameObject.SetActive(false);
                 TowerFireRate.gameObject.SetActive(false);
                 TowerAbility.gameObject.SetActive(true);
-                TowerAbility.text = string.Format(Tables.StringUI.Get("Hourglass_Tower_Reduced_Speed_UI")._Korean, _tower.AbilityStat);
+
+                float reduce = (1 - _tower.AbilityStat) * 100;
+
+                TowerAbility.text = string.Format(Tables.StringUI.Get("Hourglass_Tower_Reduced_Speed_UI")._Korean, reduce);
                 break;
 
             case ETowerName.Poison:

@@ -58,8 +58,6 @@ public class BombTower : Tower
         }
     }
 
-
-
     protected override void OnEnable()
     {
         AttackBuffAmount = 0f;
@@ -125,11 +123,12 @@ public class BombTower : Tower
         ex.transform.position = transform.position;
         ex.transform.localScale = new Vector3(RealRange, RealRange, RealRange) / 4;
         ParticleSystem parts = ex.GetComponent<ParticleSystem>();
+        ParticleExplosion pt_ex = ex.GetComponent<ParticleExplosion>();
         float totalDuration = parts.main.duration;
 
         if(gameObject.activeSelf)
         {
-            StartCoroutine(IE_psDelay(totalDuration, ex));
+            pt_ex.Fire(totalDuration, TowerName);
         }
         
 

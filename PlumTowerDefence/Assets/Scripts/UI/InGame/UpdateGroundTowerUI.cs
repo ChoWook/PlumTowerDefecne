@@ -16,7 +16,7 @@ public class UpdateGroundTowerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TowerDemolish;
 
 
-    private List<Tower> selectedTower = new List<Tower>();
+    public List<Tower> selectedTower = new List<Tower>();
     private Tower _tower;
     
     [SerializeField] private Texture2D targetCursor;
@@ -51,7 +51,7 @@ public class UpdateGroundTowerUI : MonoBehaviour
             if (tile.GetObjectOnTile() != null)
             {
                 var tower = tile.GetObjectOnTile().GetComponent<Tower>();
-                if (tower != null)
+                if (tower != null && tower.Selected == false)
                 {
                     if(tower.TowerName.CompareTo(_tower.TowerName)==0)
                     {

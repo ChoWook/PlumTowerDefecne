@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class SpeedBuffTower : Tower
 {
@@ -8,6 +9,7 @@ public class SpeedBuffTower : Tower
 
     public List<GameObject> TowerList = new List<GameObject>();
 
+    public GameObject particle;
 
     private void Awake()
     {
@@ -101,6 +103,15 @@ public class SpeedBuffTower : Tower
 
     protected override void Update()
     {
+        if (GameManager.instance.IsPlayingGame)
+        {
+            particle.SetActive(true);
+        }
+        else
+        {
+            particle.SetActive(false);
+        }
+
         if (TowerList.Count == 0)
         {
             return;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class FlameTower : Tower
 {
@@ -13,9 +14,15 @@ public class FlameTower : Tower
 
     public ParticleSystem Pt_Flame;
 
+    SoundPlay Source;
+
+    bool SoundIsLoop = false;
+
     private void Awake()
     {
         Setstat(ETowerName.Flame);
+
+        Source = GetComponent<SoundPlay>();
     }
 
     protected override void OnEnable()
@@ -168,10 +175,21 @@ public class FlameTower : Tower
     {
         if(GameManager.instance.IsPlayingGame)
         {
+            var shape = Pt_Flame.shape;
+            var emission = Pt_Flame.emission;
+            shape.angle = RealAngle / 2;
+            emission.rateOverTime = RealAngle * 2;
             PS_Fire.SetActive(true);
+            if(!SoundIsLoop)
+            {
+                SoundIsLoop = true;
+                Source.Play();
+            }
         }
         else
         {
+            Source.Stop();
+            SoundIsLoop = false;
             PS_Fire.SetActive(false);
         }
 
@@ -227,11 +245,9 @@ public class FlameTower : Tower
     public override void Shoot()
     {
         // 타깃과의 각도 받아서 그 공간 안에 있는 적들 공격하기.
-        Debug.Log("Shoot");
+
         Vector3 basic = forVector.transform.position - transform.position;
         basic = basic.normalized;
-
-        Debug.Log("count : " + EnemyList.Count);
 
         for (int i = 0; i < EnemyList.Count; i++)
         { 
@@ -244,12 +260,9 @@ public class FlameTower : Tower
 
             float EachAngle = Mathf.Acos(Dot) * Mathf.Rad2Deg;
 
-            Debug.Log("Angle" + EachAngle);
-                
             if (EachAngle <= RealAngle / 2 )
             {
                 Enemy enemy = target.GetComponent<Enemy>();
-                Debug.Log("Attack");
                 enemy.TakeDamage(AttackStat, AttackSpecialization, TowerName);
                 enemy.TakeTowerDebuff(ETowerDebuffType.Slow, SlowAmount);
                

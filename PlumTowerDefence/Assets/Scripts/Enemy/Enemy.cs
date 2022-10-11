@@ -45,6 +45,10 @@ public class Enemy : MonoBehaviour
         }
         set {
             _Armor = value * ArmorBuff;
+            if(_Armor >= 99)
+            {
+                _Armor = 99;
+            }
         }
     }
     protected float BaseArmor;            

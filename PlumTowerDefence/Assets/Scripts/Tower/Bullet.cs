@@ -31,6 +31,10 @@ public class Bullet : MonoBehaviour
 
     public GameObject Explosion;
 
+    SoundPlay Source;
+
+    bool isSoundPlay = false;
+
     public float PoisonAttackStat
     {
         get
@@ -123,6 +127,16 @@ public class Bullet : MonoBehaviour
 
             Lt = tower.GetComponent<LaserTower>();
 
+        }
+
+        if (tower.TowerName == ETowerName.Missile)
+        {
+            isSoundPlay = true;
+        }
+
+        if (isSoundPlay)
+        {
+            Source = GetComponent<SoundPlay>();
         }
     }
 
@@ -274,6 +288,8 @@ public class Bullet : MonoBehaviour
         {
             if (tower.TowerName == ETowerName.Missile)
             {
+                Source.Play();
+                Debug.Log("Sound : " + Source);
 
                 GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -288,14 +304,17 @@ public class Bullet : MonoBehaviour
                     }
                 }
 
+                
+
                 GameObject ex = ObjectPools.Instance.GetPooledObject(Explosion.name);
                 ex.transform.position = transform.position;
                 ex.transform.localScale = new Vector3(MissileRange, MissileRange, MissileRange) / 4;
                 ParticleSystem parts = ex.GetComponent<ParticleSystem>();
+                ParticleExplosion pt_ex = ex.GetComponent<ParticleExplosion>();
 
                 if (gameObject.activeSelf)
                 {
-                    StartCoroutine(IE_psDelay(1.4f, ex));
+                    pt_ex.Fire(1.4f, tower.TowerName);
                 }
 
             }
