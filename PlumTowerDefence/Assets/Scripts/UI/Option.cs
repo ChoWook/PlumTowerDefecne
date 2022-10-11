@@ -23,29 +23,23 @@ public class Option : MonoBehaviour
 
     RTS_Camera Cam;
 
-    public static bool EnvironmentChecked = true;
-
-    public static bool MoveScreenMouseChecked = true;
-
-    public static bool MoveScreenKeyboardChecked = false;
-
-    private void AWake()
+    private void Awake()
     {
         InitToggle();
     }
 
     void InitToggle()
     {
-        EnvironmentToggle.isOn = EnvironmentChecked;
+        EnvironmentToggle.isOn = GameManager.instance.EnvironmentChecked;
 
-        MoveScreenMouseToggle.isOn = MoveScreenMouseChecked;
+        MoveScreenMouseToggle.isOn = GameManager.instance.MoveScreenMouseChecked;
 
-        MoveScreenKeyboardToggle.isOn = MoveScreenKeyboardChecked;
+        MoveScreenKeyboardToggle.isOn = GameManager.instance.MoveScreenKeyboardChecked;
     }
 
     public void OnShowEnvironmentToggleValueChanged(bool Checked)
     {
-        EnvironmentChecked = Checked;
+        GameManager.instance.EnvironmentChecked = Checked;
 
         if (Checked)
         {
@@ -55,11 +49,6 @@ public class Option : MonoBehaviour
         {
             Map.Instance?.HideTreeEnvironmnet();
         }
-    }
-
-    public void OnShowMonterUIToggleValueChanged(bool Checked)
-    {
-
     }
 
     public void OnMusicSoundToggleValueChanged(bool Checked)
@@ -90,7 +79,7 @@ public class Option : MonoBehaviour
 
     public void OnMoveScreenMouseToggleValueChanged(bool Checked)
     {
-        MoveScreenMouseChecked = Checked;
+        GameManager.instance.MoveScreenMouseChecked = Checked;
 
         Cam = Camera.main.GetComponent<RTS_Camera>();
 
@@ -102,7 +91,7 @@ public class Option : MonoBehaviour
 
     public void OnMoveScreenKeyboardToggleValueChanged(bool Checked)
     {
-        MoveScreenKeyboardChecked = Checked;
+        GameManager.instance.MoveScreenKeyboardChecked = Checked;
 
         Cam = Camera.main.GetComponent<RTS_Camera>();
 
@@ -121,6 +110,13 @@ public class Option : MonoBehaviour
     public void CloseOption()
     {
         gameObject.SetActive(false);
-        Time.timeScale = 1f;
+        if (GameManager.instance.IsFast)
+        {
+            Time.timeScale = 5;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 }

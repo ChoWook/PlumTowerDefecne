@@ -25,6 +25,12 @@ public class GameManager : MonoBehaviour
     }
 
     public bool isCursed = false;
+    
+    public bool EnvironmentChecked = true;
+
+    public bool MoveScreenMouseChecked = true;
+
+    public bool MoveScreenKeyboardChecked = false;
 
     public delegate void CallBack();
 

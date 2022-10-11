@@ -32,7 +32,9 @@ public class GameOver : MonoBehaviour
     {
         transform.GetChild(0).gameObject.SetActive(false);
         
-        Time.timeScale = 1;
+        Time.timeScale = 1f;
+        GameManager.instance.IsFast = false;
+        
         MoveScene.MoveTitleScene();
     }
 }

@@ -616,7 +616,7 @@ public class Map : MonoBehaviour
 
                 TreesWithPos.TryAdd(TreesPos, Trees);
 
-                if (!Option.EnvironmentChecked)
+                if (!GameManager.instance.EnvironmentChecked)
                 {
                     Trees.SetActive(false);
                 }
