@@ -1119,6 +1119,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1211514188}
     m_Modifications:
+    - target: {fileID: 685337519777821674, guid: 51068ae0cde67ba4e9f5850c573fed52,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2454492914786793874, guid: 51068ae0cde67ba4e9f5850c573fed52,
         type: 3}
       propertyPath: m_IsActive
@@ -7499,6 +7504,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5484228662249816335, guid: 88ddde7ac87c57242b4ef6508e78da88,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8310986880079108519, guid: 88ddde7ac87c57242b4ef6508e78da88,
         type: 3}
